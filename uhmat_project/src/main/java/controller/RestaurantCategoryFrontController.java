@@ -32,32 +32,72 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 
-
-		} else if (command.equals("/ReviewWriteForm.re")) {
-			
-			// 세션 값에 따라 처리 
+		}
+		/*
+		 * 여기서부터는 식당 요청!! 글쓰기 수정 삭제 등은 관리자로 로그인 되어있어야함!
+		 */
+		else if(command.equals("/restaurantList.re")) {
+			System.out.println("식당 글 목록 요청!!");
+			try {
+				action = new RestaurantListAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/restaurantWriteForm.re")) {
+			System.out.println("식당 글 입력 폼 요청!");
 			forward = new ActionForward();
-			forward.setPath("RestaurantCategory/reviewWriteForm.jsp");
+			forward.setPath("food/restaurant/res_write.jsp");
 			forward.setRedirect(false);
-		} else if(command.equals("/ReviewWritePro.re")) {
-			 try {
-				action = new ReviewWriteProAction();
-				 forward = action.execute(request, response);
+		}else if(command.equals("/restaurantWritePro.re")) {
+			System.out.println("식당 글 입력 요청!");
+			try {
+				action = new RestaurantWriteProAction();
+				forward = action.execute(request, response);
 			} catch (Exception e) {
-				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-		} else if(command.equals("/ReviewDetail.re")) {
-			 try {
-				action = new ReviewDetailAction();
-				 forward = action.execute(request, response);
+		}else if(command.equals("/restaurantDetail.re")) {
+			System.out.println("식당 상세보기 요청!");
+			try {
+				action = new RestaurantDetailAction();
+				forward = action.execute(request, response);
 			} catch (Exception e) {
-				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(command.equals("/restaurantModifyForm.re")) {
+			System.out.println("식당 수정 폼 요청!");
+			try {
+				action = new RestaurantModifyFormAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/restaurantModifyPro.re")) {
+			System.out.println("식당 수정 업데이트 요청!");
+			try {
+				action = new RestaurantModifyProAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/restaurantDelete.re")) {
+			System.out.println("식당 삭제 요청!");
+			try {
+				action = new RestaurantDeleteAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//추가로 태그와 카테고리 관련된 작업 요청이 더 필요함!!
 
-		} 
 	
 		if (forward != null) {
 			if (forward.isRedirect()) {

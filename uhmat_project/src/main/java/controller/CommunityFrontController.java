@@ -12,12 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+
 import action.MateDetailAction;
 import action.MateListAction;
+
 import action.MateWriteProAction;
 import action.TmiDetailAction;
 import action.TmiListAction;
 import action.TmiModifyFormAction;
+
+
 import action.TmiModifyProAction; 
 import action.TmiWirteProAction;
 import vo.ActionForward;
@@ -35,6 +39,7 @@ import vo.ActionForward;
  */
 
 @WebServlet("*.co")
+
 
 public class CommunityFrontController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,7 +76,6 @@ public class CommunityFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("community/tmiWrite.jsp");
 			forward.setRedirect(false);
-			
 
 		} else if(command.equals("/TmiWritePro.co")) {
 			// tmi 게시판의 글 쓰기 작업을 요청
@@ -80,6 +84,7 @@ public class CommunityFrontController extends HttpServlet {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				System.out.println("TmiWriteProAction 오류 - " + e.getMessage());
+
 				e.printStackTrace();
 
 						}
@@ -100,6 +105,7 @@ public class CommunityFrontController extends HttpServlet {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				System.out.println("MateDetailAction 오류 - " + e.getMessage());
+
 				e.printStackTrace();
 
 			}
@@ -133,6 +139,7 @@ public class CommunityFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+
 
 		// ---------------------------------------------------------------------------
 		if(forward != null) { // ActionForward 객체가 null 이 아닐 경우에만 포워딩 작업 수행

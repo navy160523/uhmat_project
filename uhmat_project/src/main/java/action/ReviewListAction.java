@@ -1,8 +1,9 @@
 package action;
 
+import javax.servlet.http.*;
+
 import java.util.*;
 
-import javax.servlet.http.*;
 
 import svc.*;
 import vo.*;
@@ -11,6 +12,7 @@ public class ReviewListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
 		System.out.println("ReviewListAction");
 		
 		ActionForward forward = null;

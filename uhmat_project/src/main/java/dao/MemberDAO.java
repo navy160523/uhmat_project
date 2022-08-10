@@ -1,16 +1,10 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import static db.JdbcUtil.close;
 
-import db.JdbcUtil;
-import vo.MemberDTO;
+import java.sql.*;
 
-import static db.JdbcUtil.*;
+import vo.*;
 
 
 public class MemberDAO {
