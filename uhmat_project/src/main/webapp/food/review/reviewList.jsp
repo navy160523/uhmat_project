@@ -28,8 +28,7 @@
 								<td>tag</td>
 								<td>${board.rating}</td>
 								<td>${board.likes}</td>
-								<td>${board.content}</td>
-								<!-- 이부분에서 나중에 댓글 항목 추가, 더보기 란 할 수 있도록 해야함 -->
+								<td width="70%">${board.content}</td> <!-- 이부분에서 나중에 댓글 항목 추가, 더보기 란 할 수 있도록 해야함 -->
 							</tr>
 						</c:forEach>
 					</c:when>
@@ -41,7 +40,7 @@
 				</c:choose>
 		</table>
 	</section>
-
+<!-- 페이징 처리 방식은 무한 스크롤 방식적용할 예정 -->
 
 </body>
 </html>

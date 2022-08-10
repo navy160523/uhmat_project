@@ -23,7 +23,9 @@ public class ReviewDetailAction implements Action {
 		request.setAttribute("dto", dto);
 		
 		forward = new ActionForward();
-		forward.setPath("RestaurantCategory/reviewDetailView.jsp");
+
+		forward.setPath("food/review/reviewDetailView.jsp");
+
 		forward.setRedirect(false);
 		return forward;
 

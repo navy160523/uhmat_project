@@ -170,7 +170,6 @@ public class MemberDAO {
 			String sql = "SELECT nickName FROM member WHERE nickName=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, nickName);
-
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) { // 아이디가 이미 존재할 경우

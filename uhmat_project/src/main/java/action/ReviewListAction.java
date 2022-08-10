@@ -58,7 +58,7 @@ public class ReviewListAction implements Action {
 		request.setAttribute("reviewList", reviewList);
 		
 		forward = new ActionForward();
-		forward.setPath("RestaurantCategory/reviewList.jsp");
+		forward.setPath("food/review/reviewList.jsp");
 		forward.setRedirect(false);
 	
 		return forward;

@@ -10,7 +10,7 @@
 	<h1>reviewWriteForm</h1>
 	<section>
 		<form  action="ReviewWritePro.re" method="post" enctype="multipart/form-data">
-			<table border>
+			<table border="1">
 			<!-- 
 					1.제목
 					2. Tag(db수정해야함?)

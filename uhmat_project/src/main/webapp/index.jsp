@@ -11,7 +11,6 @@
 </head>
 <body>
 
-
  <div id="naver_id_login"></div>
  
   <!-- //네이버아이디로로그인 버튼 노출 영역 -->
@@ -23,8 +22,6 @@
   	naver_id_login.setState(state);
   	naver_id_login.setPopup();
   	naver_id_login.init_naver_id_login();
-  	
- 
   </script>
 
 <c:choose>
@@ -38,8 +35,7 @@
 				<c:if test="${sessionScope.sEmail eq 'admin'}"> | <a href="AdminMain.me">관리자페이지</a></c:if>
 			</c:otherwise>
 </c:choose>
-
-
+<hr>
  <nav>
  	<details> <!-- 음식카테고리 리스트 -->
  		<summary>음식카테고리</summary>

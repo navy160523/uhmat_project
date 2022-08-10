@@ -133,7 +133,9 @@ public class ReviewCategoryDAO {
 				dto.setRes_name(rs.getString("res_name"));
 				dto.setSubject(rs.getString("subject"));
 				
-				System.out.println(dto);
+
+//				System.out.println(dto); DTO값을 잘 전달 받았는지 체크!
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -186,6 +188,11 @@ public class ReviewCategoryDAO {
 		}
 		
 		return insertCount;
+	}
+	public int updateReview(ReviewBoardDTO dto) {
+		int updateCount = 0;
+		
+		return updateCount;
 	}
 
 
