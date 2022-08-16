@@ -27,16 +27,10 @@ public class MemberLoginProAction implements Action {
 		member.setPasswd(request.getParameter("passwd"));
 	
 		MemberLoginProService service = new MemberLoginProService();
-		boolean isAuthenticatedUser =service.isAuthenticatedUser(member); 
-		if(!isAuthenticatedUser) {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('인증코드를 확인 하세요')");
-			out.println("history.back()");
-			out.println("</script>");
-		} else {
-			boolean isLoginSuccess = service.loginMember(member);
+		
+		boolean isLoginSuccess = service.loginMember(member);
+		
+			
 			
 			if(!isLoginSuccess) {
 				response.setContentType("text/html; charset=UTF-8");
@@ -46,6 +40,15 @@ public class MemberLoginProAction implements Action {
 				out.println("history.back()");
 				out.println("</script>");
 			} else {
+				boolean isAuthenticatedUser =service.isAuthenticatedUser(member);
+				if(!isAuthenticatedUser) {
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('인증코드를 확인 하세요')");
+					out.println("history.back()");
+					out.println("</script>");
+				} else {
 				HttpSession session = request.getSession();
 				session.setAttribute("sEmail", member.getEmail());
 				

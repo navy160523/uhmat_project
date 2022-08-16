@@ -3,17 +3,17 @@ package vo;
 import java.sql.Date;
 /*
 CREATE TABLE member (
-  
-    email VARCHAR(50) PRIMARY KEY,
-    name VARCHAR(15) NOT NULL,
-    passwd VARCHAR(16) NOT NULL,
-    nick_name VARCHAR(15) unique NOT NULL,
-    birth_date VARCHAR(15) NOT NULL,
-    hire_date DATE NOT NULL,
-    post_code VARCHAR(5),
-    address1 varchar(50),
-    address2 varchar(50),
-    icon VARCHAR(10) df .png,
+nickname VARCHAR(50) UNIQUE NOT NULL,
+name VARCHAR(5),
+email VARCHAR(25) PRIMARY KEY,
+passwd VARCHAR(16),
+birthdate DATE,
+postcode VARCHAR(5),
+address1 varchar(50),
+address2 varchar(50),
+icon VARCHAR(20) DEFAULT 'default.png',
+auth_status VARCHAR(1) DEFAULT 'N',
+api_id VARCHAR(60)
 );
 */
 //멤버 관리 하는 클래스
@@ -22,12 +22,14 @@ public class MemberDTO {
 	private String name;
 	private String passwd;
 	private String nickName;
-	private String birthdate;
+	private Date birthdate;
 	private Date hiredate;
 	private String postCode;
 	private String address1;
 	private String address2;
 	private String icon;
+	private String auth_status;
+	private String api_id;
 	
 	
 
@@ -49,10 +51,10 @@ public class MemberDTO {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public String getBirthdate() {
+	public Date getBirthdate() {
 		return birthdate;
 	}
-	public void setBirthdate(String birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 	public Date getHiredate() {
@@ -96,6 +98,18 @@ public class MemberDTO {
 	}
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+	public String getAuth_status() {
+		return auth_status;
+	}
+	public void setAuth_status(String auth_status) {
+		this.auth_status = auth_status;
+	}
+	public String getApi_id() {
+		return api_id;
+	}
+	public void setApi_id(String api_id) {
+		this.api_id = api_id;
 	}
 
 	

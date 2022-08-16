@@ -8,21 +8,21 @@
 <title>Insert title here</title> 
  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
+  <style type="text/css">
+  iframe {
+  border: 1px solid;
+  width: 150px; 
+  height:70px;
+  }
+  </style>
 </head>
 <body>
 
- <div id="naver_id_login"></div>
- 
-  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
-  <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("LQgI_KqqDNAMZNve6EbO", "http://localhost:8080/uhmat_project/member/naver_callback.jsp");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("white", 2,40);
-  	naver_id_login.setDomain(".service.com");
-  	naver_id_login.setState(state);
-  	naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
-  </script>
+<div>
+<iframe name="iframe1" id="iframe1" src="MemberNaverForm.me"  frameborder="0" cellspacing="0"></iframe>
+<iframe name="iframe1" id="iframe1" src="MemberKakaoForm.me"  frameborder="0" cellspacing="0"></iframe>
+<iframe name="iframe1" id="iframe1" src="MemberGoogleForm.me"  frameborder="0" cellspacing="0"></iframe>
+</div>
 
 <c:choose>
 			<c:when test="${empty sessionScope.sEmail}">
@@ -30,7 +30,7 @@
 			</c:when>
 			<c:otherwise>
 				<%-- 하이퍼링크에 자바스크립트 함수 연결 시 href 속성에 아무 경로도 지정하지 않는 방법 --%>
-				${sessionScope.sEmail } 님 | <a href="MemberLogout.me" >로그아웃</a>
+				<a href="MemberDetailForm.me?email=${sessionScope.sEmail }">${sessionScope.sEmail } 님 </a>  | <a href="MemberLogout.me" >로그아웃</a>
 				<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
 				<c:if test="${sessionScope.sEmail eq 'admin'}"> | <a href="AdminMain.me">관리자페이지</a></c:if>
 			</c:otherwise>
