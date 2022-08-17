@@ -88,7 +88,7 @@ public class CommunityFrontController extends HttpServlet {
 				e.printStackTrace();
 
 						}
-		} else if(command.equals("/MateWritePro.mate")) {
+		} else if(command.equals("/MateWritePro.co")) {
 			action = new MateWriteProAction();
 			try {
 
@@ -99,7 +99,7 @@ public class CommunityFrontController extends HttpServlet {
 
 						}
 		// ------------------------------------------------------------------
-		} else if(command.equals("/MateDetail.mate")) {
+		} else if(command.equals("/MateDetail.co")) {
 			action = new MateDetailAction();
 			try {
 				forward = action.execute(request, response);
