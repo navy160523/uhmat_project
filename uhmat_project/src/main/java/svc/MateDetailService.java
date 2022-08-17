@@ -1,12 +1,15 @@
 package svc;
 
+import static db.JdbcUtil.*;
+
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import dao.CommunityDAO;
 import vo.MateDTO;
 
+import vo.MateReplyDTO;
 
-import static db.JdbcUtil.*;
 
 
 public class MateDetailService {
@@ -50,6 +53,23 @@ public class MateDetailService {
 		close(con);
 		
 		return mate;
+	}
+
+	public ArrayList<MateReplyDTO> getMateReply(int idx) {
+		System.out.println("getMateReply");
+		
+		Connection con = getConnection();
+		
+		CommunityDAO dao = CommunityDAO.getInstance();
+		
+		dao.setConnection(con);
+		
+		ArrayList<MateReplyDTO> mateReplyList = dao.selectMateReply(idx);
+		
+		close(con);
+		
+		
+		return mateReplyList;
 	}
 
 }

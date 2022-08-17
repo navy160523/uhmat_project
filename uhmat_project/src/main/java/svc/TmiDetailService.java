@@ -4,8 +4,13 @@ import static db.JdbcUtil.getConnection;
 
 import java.sql.Connection;
 
+import java.util.ArrayList;
+
 import dao.CommunityDAO;
 import vo.CommunityTmiDTO;
+import vo.TmiReplyDTO;
+
+
 import static db.JdbcUtil.*;
 
 public class TmiDetailService {
@@ -35,6 +40,9 @@ public class TmiDetailService {
 		return tmiBoard;
 	}
 
+
+	// tmi 게시글 조회수 증가
+
 	public void tmiIncreaseReadcount(int idx) {
 		System.out.println("TmiDetailService - tmiIncreaseReadcount");
 		
@@ -60,5 +68,68 @@ public class TmiDetailService {
 		close(con);
 				
 	}
+
+
+	// 댓글 리스트
+	public ArrayList<TmiReplyDTO> getTmiReplyList(int idx) {
+		System.out.println("TmiDetailService - getTmiReplyList");
+		
+		// 1. Connection 객체 가져오기 - 공통
+		Connection con = getConnection();
+		
+		// 2. CommunityDAO 객체 가져오기 - 공통
+		CommunityDAO dao = CommunityDAO.getInstance();
+		
+		// 3. CommunityDAO 객체에 Connection 객체 전달
+		dao.setConnection(con);
+		
+		ArrayList<TmiReplyDTO> tmiReplyList = dao.selectTmiReplyList(idx);
+		
+		close(con);
+		
+		
+		return tmiReplyList;
+	}
+	
+	// 1개의 댓글 정보 조회 작업을 요청하는 getTmiReply() 메서드
+	public TmiReplyDTO getTmiReply(int idx) {
+		System.out.println("TmiDetailService - getTmiReply");
+		TmiReplyDTO tmiReply = null;
+		
+		// 1. Connection 객체 가져오기 - 공통
+		Connection con = getConnection();
+		
+		// 2. CommunityDAO 객체 가져오기 - 공통
+		CommunityDAO dao = CommunityDAO.getInstance();
+		
+		// 3. CommunityDAO 객체에 Connection 객체 전달
+		dao.setConnection(con);
+		
+		tmiReply = dao.selectTmiReply(idx);
+		
+		return tmiReply;
+	}
+
+	// 답글 리스트
+	public ArrayList<TmiReplyDTO> getTmiRereplyList(int idx) {
+		System.out.println("TmiDetailService - getTmiRereplyList");
+		
+		// 1. Connection 객체 가져오기 - 공통
+		Connection con = getConnection();
+		
+		// 2. CommunityDAO 객체 가져오기 - 공통
+		CommunityDAO dao = CommunityDAO.getInstance();
+		
+		// 3. CommunityDAO 객체에 Connection 객체 전달
+		dao.setConnection(con);
+		
+		ArrayList<TmiReplyDTO> tmiRereplyList = dao.selectTmiReplyList(idx);
+		
+		close(con);
+		
+		
+		return tmiRereplyList;
+	}
+
 	
 }
