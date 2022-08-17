@@ -18,11 +18,13 @@
 </head>
 <body>
 
+
 <div>
 <iframe name="iframe1" id="iframe1" src="MemberNaverForm.me"  frameborder="0" cellspacing="0"></iframe>
 <iframe name="iframe1" id="iframe1" src="MemberKakaoForm.me"  frameborder="0" cellspacing="0"></iframe>
 <iframe name="iframe1" id="iframe1" src="MemberGoogleForm.me"  frameborder="0" cellspacing="0"></iframe>
 </div>
+
 
 <c:choose>
 			<c:when test="${empty sessionScope.sEmail}">

@@ -125,6 +125,7 @@
 
 							var regex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#$%()]{4,10}$/;
 
+
 							if (!regex.exec($("#nickName").val())
 									|| $("#nickName").val() == null) { // 부적합한 아이디일 경우
 
@@ -263,7 +264,9 @@
 		<div>닉네임</div>
 
 		<div>
+
 			<input type="text" name="nickName" id="nickName" maxlength="10" required="required">
+
 			<div id="checkNickNameResult"></div>
 
 
@@ -273,7 +276,9 @@
 		<div>비밀번호</div>
 		<div>
 			<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
+
 			<input type="password" name="passwd" id="passwd" maxlength="16"
+
 				placeholder="영문자,숫자,특수문자 8~16글자" required="required"> 
 				<span id="checkPasswdResult">
 				<!-- 패스워드 검증 결과 표시할 위치 -->
@@ -283,7 +288,9 @@
 
 		<div>비밀번호확인</div>
 		<div>
+
 			<input type="password" name="passwd2" id="passwd2" maxlength="16"
+
 				required="required"> <span id="confirmPasswdResult"></span>
 		</div>
 		<br>
