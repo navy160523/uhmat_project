@@ -92,7 +92,7 @@ public class ReviewCategoryDAO {
 				dto.setLikes(rs.getInt("likes"));
 				dto.setRating(rs.getFloat("rating"));
 				
-				System.out.println(dto);
+//				System.out.println(dto);
 				
 				reviewList.add(dto);
 			}
@@ -190,10 +190,83 @@ public class ReviewCategoryDAO {
 		return insertCount;
 	}
 	public int updateReview(ReviewBoardDTO dto) {
+
+		
 		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE reviewboard SET res_name=?, subject=?, rating=?, content=?, photo=? "
+				+ "WHERE idx=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getRes_name());
+			pstmt.setString(2, dto.getSubject());
+			pstmt.setFloat(3, dto.getRating());
+			pstmt.setString(4, dto.getContent());
+			pstmt.setString(5, dto.getPhoto());
+			pstmt.setInt(6, dto.getIdx());
+			
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			System.out.println("SQL 구문 작성 및 실행오류 - " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
 		return updateCount;
 	}
+	public boolean checkPassword(String pass) {
+		// 비밀번호를 확인해야함 member에서
+		boolean isWriter = false;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT FROM member WHERE pass=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pass);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isWriter = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 실행 및 구문 작성오류 - " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return isWriter;
+	}
+	public int deleteReview(int idx) {
+		int deleteCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = "DELETE FROM reviewBoard WHERE idx=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL구문 작성 및 실행 오류 - " + e.getMessage());
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+
 
 
 	

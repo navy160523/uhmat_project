@@ -3,16 +3,26 @@ package svc;
 import vo.ReviewBoardDTO;
 import static db.JdbcUtil.*;
 
-import java.io.File;
+
+import java.io.*;
+import java.nio.file.*;
 import java.sql.Connection;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
 
 import dao.ReviewCategoryDAO;
 
 public class ReviewModifyProService {
 
-	public boolean modifyReview(ReviewBoardDTO dto, String originPath) {
+
+	public boolean modifyReview(ReviewBoardDTO dto, String originPath, String realPath) {
 		
 		System.out.println("ReviewModifyProService - modifyReview()");
+		System.out.println("절대경로 : " + realPath + " 파일이름 : " + originPath);
+		
+
 		boolean isModifySuccess = false;
 		
 		// 1. Connection pool
@@ -25,27 +35,36 @@ public class ReviewModifyProService {
 		dao.setConnection(con);
 		
 		/*
-		 * 4. 파일 삭제 . dto.getPhoto를 통해서 Update전 Origin 이름을 변수에 저장 
-		 * 5. update 진행
-		 * 6. updataeCount가 0 보다 클 경우 
-		 * 	-> 기존에 저장한 이름을 경로에서 삭제, 
-		 *  -> 커밋
-		 *  -> isModifySuccess= true;
+
+		 * 4. dao의 updateReview를 통해 update 진행
+		 * 5. updateCount에 따라 update
+		 * -> 성공 시 파일삭제, 커밋, isModifySuccess = true 로 변환
+		 * -> 실패 시 rollback 진행
 		 */
-		File f = new File(originPath);		
-		System.out.println(f.getAbsolutePath());
-		
-//		int updateCount = dao.updateReview(dto);
 		
 		
+		int updateCount = dao.updateReview(dto);
 
-//		if(updateCount > 0) {
-
+		if(updateCount > 0) {
+			Path path = Paths.get(realPath + "/"+ originPath);
+			try {
+				Files.deleteIfExists(path);
+				System.out.println("Delete is success");
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Delete is failed");
+				e.printStackTrace();
+			}
 			
-//		} else {
-//			rollback(con);
-//		}		
-//		close(con);
+			commit(con);
+			isModifySuccess = true;
+		
+		} else {
+			rollback(con);
+		}		
+		close(con);
+
 		return isModifySuccess;
 	}
 
