@@ -27,8 +27,23 @@ public class NoticeListService {
 		return listCount;
 	}
 
-	public ArrayList<NoticeDTO> getNoticeList(int pageNum, int listLimit) {
-//		System.out.println("NoticeListService - getNoticeList ");
+	public int getListSelectCount(String ment) {
+		int listCount = 0;
+		
+		Connection con = JdbcUtil.getConnection();
+		
+		NoticeDAO dao = NoticeDAO.getInstance();
+		
+		dao.setConnection(con);
+		
+		listCount = dao.selectAnythingListcount(ment);
+//		System.out.println(listCount);
+		JdbcUtil.close(con);
+		
+		return listCount;
+	}
+	
+	public ArrayList<NoticeDTO> getNoticeList(int pageNum, int listLimit, String ment) {
 		ArrayList<NoticeDTO> list = null;
 		
 		Connection con = JdbcUtil.getConnection();
@@ -37,8 +52,7 @@ public class NoticeListService {
 		
 		dao.setConnection(con);
 		
-		list = dao.selectNoticeList(pageNum, listLimit);
-//		System.out.println(list);
+		list = dao.selectAnythingList(pageNum, listLimit, ment);
 		
 		JdbcUtil.close(con);
 		

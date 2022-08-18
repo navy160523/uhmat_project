@@ -50,47 +50,6 @@ public class NoticeDAO {
 		return listCount;
 	}
 
-	public ArrayList<NoticeDTO> selectNoticeList(int pageNum, int listLimit) {
-//		System.out.println("NoticeDAO - selectNoticeList");
-		ArrayList<NoticeDTO> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		int startRow = (pageNum- 1) * listLimit;
-		
-		try {
-			String sql = "SELECT * FROM NoticeBoard ORDER BY idx DESC LIMIT ?,?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, listLimit);
-			rs = pstmt.executeQuery();
-			
-			list = new ArrayList<NoticeDTO>();
-			
-			while(rs.next()) {
-				NoticeDTO notice = new NoticeDTO();
-				notice.setContent(rs.getString("content"));
-				notice.setDate(rs.getDate("date"));
-				notice.setIdx(rs.getInt("idx"));
-				notice.setNickname(rs.getString("nickname"));
-				notice.setOriginal_File(rs.getString("original_File"));
-				notice.setReal_File(rs.getString("real_File"));
-				notice.setSubject(rs.getString("subject"));
-				notice.setCategory(rs.getString("category"));
-				
-				
-				list.add(notice);
-			}
-//			System.out.println("list : " + list);
-		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
-		return list;
-	}
 	public int insertNotice(NoticeDTO notice) {
 //		System.out.println("NoticeDAO - insertNotice");
 		int insertCount = 0;

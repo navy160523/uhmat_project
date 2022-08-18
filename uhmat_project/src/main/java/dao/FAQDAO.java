@@ -50,48 +50,6 @@ public class FAQDAO {
 		return listCount;
 	}
 
-	public ArrayList<FAQDTO> selectFAQList(int pageNum, int listLimit) {
-//		System.out.println("FAQDAO - selectNoticeList");
-		ArrayList<FAQDTO> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		int startRow = (pageNum- 1) * listLimit;
-		
-		try {
-			String sql = "SELECT * FROM FAQBoard ORDER BY idx DESC LIMIT ?,?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, listLimit);
-			rs = pstmt.executeQuery();
-			
-			list = new ArrayList<FAQDTO>();
-			
-			while(rs.next()) {
-				FAQDTO faq = new FAQDTO();
-				faq.setContent(rs.getString("content"));
-				faq.setDate(rs.getDate("date"));
-				faq.setIdx(rs.getInt("idx"));
-				faq.setNickname(rs.getString("nickname"));
-				faq.setOriginal_File(rs.getString("original_File"));
-				faq.setReal_File(rs.getString("real_File"));
-				faq.setSubject(rs.getString("subject"));
-				faq.setCategory(rs.getString("category"));
-				faq.setReadcount(rs.getInt("readcount"));
-				faq.setCategory(rs.getString("category"));
-				
-				list.add(faq);
-			}
-//			System.out.println("list : " + list);
-		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
-		return list;
-	}
 	public int insertFAQ(FAQDTO faq) {
 		int insertCount = 0;
 		PreparedStatement pstmt = null;

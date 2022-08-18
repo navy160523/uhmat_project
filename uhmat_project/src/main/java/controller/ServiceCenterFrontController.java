@@ -77,17 +77,8 @@ public class ServiceCenterFrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 		
-		}	
+			
 				
-		// --------------------Notice 검색기능---------		
-		 else if(command.equals("/NoticeSelectAnthing.sc")) {
-			try {
-				action = new NoticeSelectAnythingAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		//------------------Notice 카테고리 -----------------------
 			
 		 } else if(command.equals("/NoticelistCategory.sc")) {

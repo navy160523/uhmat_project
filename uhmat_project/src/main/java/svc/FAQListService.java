@@ -26,24 +26,7 @@ public class FAQListService {
 		return listCount;
 	}
 
-	public ArrayList<FAQDTO> getFAQList(int pageNum, int listLimit) {
-//		System.out.println("FAQListService - getFAQList ");
-		ArrayList<FAQDTO> list = null;
-		
-		Connection con = JdbcUtil.getConnection();
-		
-		FAQDAO dao = FAQDAO.getInstance();
-		
-		dao.setConnection(con);
-		
-		list = dao.selectFAQList(pageNum, listLimit);
-//		System.out.println(list);
-		
-		JdbcUtil.close(con);
-		
-		return list;
-	}
-	public int getListCount(String ment) {
+	public int getListSelectCount(String ment) {
 		int listCount = 0;
 		
 		Connection con = JdbcUtil.getConnection();
@@ -59,7 +42,7 @@ public class FAQListService {
 		return listCount;
 	}
 	
-	public ArrayList<FAQDTO> selectFAQAnthinglist(int pageNum, int listLimit, String ment) {
+	public ArrayList<FAQDTO> getFAQList(int pageNum, int listLimit, String ment) {
 		ArrayList<FAQDTO> list = null;
 		
 		Connection con = JdbcUtil.getConnection();
