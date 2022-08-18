@@ -43,7 +43,8 @@
       display: inline-block;
       background: white;
       color: #444;
-      width: 130px;
+      width: 300px;
+      text-align: center;
       border-radius: 5px;
       border: thin solid #888;
       box-shadow: 1px 1px 1px grey;
@@ -66,9 +67,8 @@
     span.buttonText {
       display: inline-block;
       vertical-align: middle;
-     
       padding-right: 42px;
-      font-size: 14px;
+      font-size: 20px;
       font-weight: bold;
       /* Use the Roboto font that is loaded in the <head> */
       font-family: 'Roboto', sans-serif;
@@ -81,7 +81,7 @@
   <div id="gSignInWrapper">
     <div id="customBtn" class="customGPlusSignIn">
       <span class="icon"></span>
-      <span class="buttonText">Google</span>
+      <span class="buttonText">Google계정으로 로그인</span>
     </div>
   </div>
   <div id="name1"></div>

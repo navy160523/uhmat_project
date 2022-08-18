@@ -75,7 +75,7 @@ public class MemberGoogleJoinProAction implements Action {
 					session.setAttribute("sEmail", member.getEmail());
 					
 					forward = new ActionForward();
-					forward.setPath("index.jsp");
+					forward.setPath("member/google.jsp");
 					forward.setRedirect(true);
 				}
 		}
