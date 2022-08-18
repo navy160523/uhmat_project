@@ -7,14 +7,14 @@ import javax.servlet.http.*;
 import svc.*;
 import vo.*;
 
-public class FAQSelectAnthingAction implements Action {
+public class NoticeSelectAnythingAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("FAQSelectAnthingAction");
-		ActionForward forward = null;
+ActionForward forward = null;
 		
 		String ment = request.getParameter("ment");
+//		System.out.println("ment : " + ment);
 		int pageNum = 1; // 현재페이지 번호
 		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
 		int pageLimit = 10; // 한 페이지 당 표시할 페이지 목록 수
@@ -24,9 +24,10 @@ public class FAQSelectAnthingAction implements Action {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}
 		
-		FAQSelectAnthingService service = new FAQSelectAnthingService();
+		NoticeSelectAnthingService service = new NoticeSelectAnthingService();
 
 		int listCount = service.getListCount(ment);
+//		System.out.println("listCount : " + listCount);
 		
 		// 1. 현재 페이지에서 표시할 전체 페이지 수 계산
 		int maxPage = (int)Math.ceil((double)listCount / listLimit);
@@ -44,13 +45,15 @@ public class FAQSelectAnthingAction implements Action {
 		
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
-		ArrayList<FAQDTO> selectAntyhing = service.selectFAQAnthinglist(pageNum, listLimit, ment);
+		ArrayList<NoticeDTO> selectAntyhing = service.selectFAQAnthinglist(pageNum, listLimit, ment);
+//		System.out.println("selectAntyhing : " + selectAntyhing);
+		
 		
 		request.setAttribute("SelectAnthingpageInfo", pageInfo);
 		request.setAttribute("list", selectAntyhing);
 		
 		forward = new ActionForward();
-		forward.setPath("serviceCenter/faq/faqlist.jsp?ment="+ ment);
+		forward.setPath("serviceCenter/notice/noticelist.jsp?ment="+ ment);
 		forward.setRedirect(false);
 		
 		return forward;

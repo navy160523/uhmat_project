@@ -71,7 +71,7 @@
 			<input type="button" value="지도 오류" name="지도 오류" onclick="location.href='FAQlistCategory.sc?name='+name">
 			
 			<!-- 검색하기 기능 -->
-			<form action="FAQSelectAnthing.sc" method="get">
+			<form action="FAQList.sc" method="get">
 				<input type="text" placeholder="검색어를 입력하세요" name="ment" value=${param.ment }>
 				<input type="submit" value="검색">
 			</form>
@@ -97,7 +97,7 @@
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
 	 		<c:choose>
-	 			<c:when test="${not empty list and pageInfo.listCount gt 0 and empty SelectAnthingpageInfo.listCount}">
+	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
 					<c:forEach var="FAQ" items="${list}"> 
 						<tr>
@@ -112,23 +112,6 @@
 							<td>${FAQ.date }</td>
 							<td>${FAQ.readcount }</td>
 						</tr>
-						</c:forEach>
-	 			</c:when>
-	 			<c:when test="${not empty SelectAnthingpageInfo.listCount }">
-	 					<c:forEach var="FAQ" items="${list}"> 
-							<tr>
-								<td>${FAQ.category }</td>
-								<td>${FAQ.idx }</td>
-								<td id="subject">
-									${SelectAnthingpageInfo.pageNum}
-									<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${SelectAnthingpageInfo.pageNum}&ment=${param.ment }">
-										${FAQ.subject }
-									</a>
-								</td>
-								<td>${FAQ.nickname }</td>
-								<td>${FAQ.date }</td>
-								<td>${FAQ.readcount }</td>
-							</tr>
 						</c:forEach>
 	 			</c:when>
 	 			<c:otherwise>
@@ -149,12 +132,12 @@
 		   현재 페이지 번호(pageNum) - 1 값을 page 파라미터로 전달
 		-->
 			<c:choose>
-				<c:when test="${pageInfo.pageNum > 1 and empty SelectAnthingpageInfo.pageNum }">
+				<c:when test="${pageInfo.pageNum > 1 and empty param.ment }">
 	
 					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}'">
 				</c:when>
 				<c:when test="${SelectAnthingpageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='FAQSelectAnthing.sc?pageNum=${SelectAnthingpageInfo.pageNum - 1}&ment=${param.ment }'">
+					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" disabled="disabled">
@@ -164,7 +147,7 @@
 				
 			<!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
 			<c:choose>
-				<c:when test="${empty SelectAnthingpageInfo }">
+				<c:when test="${empty param.ment }">
 					<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" >
 						<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
 						<c:choose>
@@ -179,14 +162,14 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="i" begin="${SelectAnthingpageInfo.startPage }" end="${SelectAnthingpageInfo.endPage }" >
+					<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" >
 						<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
 						<c:choose>
-							<c:when test="${SelectAnthingpageInfo.pageNum eq i}">
+							<c:when test="${pageInfo.pageNum eq i}">
 								${i}
 							</c:when>
 							<c:otherwise>
-								<a href="FAQSelectAnthing.sc?pageNum=${i}&ment=${param.ment }">${i} &nbsp;</a>
+								<a href="FAQList.sc?pageNum=${i}&ment=${param.ment }">${i} &nbsp;</a>
 			
 							</c:otherwise>
 						</c:choose>
@@ -196,12 +179,12 @@
 			</c:choose>
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
-				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage and empty SelectAnthingpageInfo.pageNum }">
+				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage and empty param.ment }">
 	
 					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}'">
 				</c:when>
-				<c:when test="${SelectAnthingpageInfo.pageNum lt SelectAnthingpageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='FAQSelectAnthing.sc?pageNum=${SelectAnthingpageInfo.pageNum + 1}&ment=${param.ment }'">
+				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
+					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="다음" disabled="disabled">
