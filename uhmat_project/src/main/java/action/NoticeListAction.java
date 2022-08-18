@@ -11,7 +11,7 @@ public class NoticeListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("NoticeListAction-execute");
+//		System.out.println("NoticeListAction-execute");
 		ActionForward forward = null;
 		
 		
@@ -55,10 +55,10 @@ public class NoticeListAction implements Action {
 		// => 리턴타입 : ArrayList<BoardDTO>(boardList)
 		
 		ArrayList<NoticeDTO> notice = service.getNoticeList(pageNum, listLimit);
-//		System.out.println("list : " + list);
+		System.out.println("list : " + notice);
 		
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("notice", notice);
+		request.setAttribute("list", notice);
 		
 		forward = new ActionForward();
 		forward.setPath("serviceCenter/notice/noticelist.jsp?pageNum=" +pageNum);
