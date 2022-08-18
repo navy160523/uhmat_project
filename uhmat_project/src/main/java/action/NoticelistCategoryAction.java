@@ -7,13 +7,15 @@ import javax.servlet.http.*;
 import svc.*;
 import vo.*;
 
-public class FAQListAction implements Action {
+public class NoticelistCategoryAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("NoticeListAction-execute");
 		ActionForward forward = null;
-
+		
+		String category = request.getParameter("name");
+//		System.out.println("category : " + category);
+		
 		// 페이징 처리를 위한 변수 선언
 		int pageNum = 1; // 현재페이지 번호
 		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
@@ -24,11 +26,9 @@ public class FAQListAction implements Action {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}
 		
-		//페이징 처리에 필요한 전체 게시물 갯수 조회 작업 요청
-		FAQListService service = new FAQListService();
-		int listCount = service.getListCount();
-
-//		System.out.println("전체 게시물 수 " + listCount);
+		NoticelistCategoryService service = new NoticelistCategoryService();
+		
+		int listCount = service.getListCount(category);
 		
 		// 1. 현재 페이지에서 표시할 전체 페이지 수 계산
 		int maxPage = (int)Math.ceil((double)listCount / listLimit);
@@ -50,19 +50,15 @@ public class FAQListAction implements Action {
 		// BoardListService 객체의 getBoardList() 메서드를 호출하여 게시물 목록 가져오기
 		// => 파라미터 : 현재 페이지번호(pageNum), 페이지 당 게시물 수(listLimit) 
 		// => 리턴타입 : ArrayList<BoardDTO>(boardList)
-
-		ArrayList<FAQDTO> list = service.getFAQList(pageNum, listLimit);
-//		System.out.println("list : " + list);
+		ArrayList<NoticeDTO> categoryList = service.selectNoticeCategorylist(pageNum, listLimit, category);
+//		System.out.println("Action의 list : "+ categoryList);
 		request.setAttribute("pageInfo", pageInfo);
-		
-
-		request.setAttribute("list", list);
+		request.setAttribute("list", categoryList);
 		
 		forward = new ActionForward();
-		forward.setPath("serviceCenter/faq/faqlist.jsp");
+		forward.setPath("serviceCenter/notice/noticelist.jsp");
 		forward.setRedirect(false);
 		
 		return forward;
 	}
-
 }
