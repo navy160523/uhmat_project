@@ -60,6 +60,9 @@
 
 </head>
 <body>
+		<header>
+			<jsp:include page="../../inc/header.jsp"></jsp:include>
+		</header>
 		<!-- 게시판 리스트 -->
 		<section id="listForm">
 		<h2>FAQ</h2>
@@ -104,7 +107,7 @@
 							<td>${FAQ.category }</td>
 							<td>${FAQ.idx }</td>
 							<td id="subject">
-								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}">
+								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&ment=${param.ment}">
 									${FAQ.subject }
 								</a>
 							</td>
@@ -163,6 +166,9 @@
 				</c:otherwise>
 			</c:choose>
 		</section>
+		<footer>
+			<jsp:include page="../../inc/footer.jsp"></jsp:include>
+		</footer>
 </body>
 </html>
 

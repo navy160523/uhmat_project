@@ -68,7 +68,7 @@ public class FAQListAction implements Action {
 		request.setAttribute("list", list);
 		
 		forward = new ActionForward();
-		forward.setPath("serviceCenter/faq/faqlist.jsp");
+		forward.setPath("serviceCenter/faq/faqlist.jsp?ment="+ment);
 		forward.setRedirect(false);
 		
 		return forward;
