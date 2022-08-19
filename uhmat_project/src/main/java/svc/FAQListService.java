@@ -9,23 +9,6 @@ import vo.*;
 
 public class FAQListService {
 
-	public int getListCount() {
-//		System.out.println("FAQListService - getListCount");
-		int listCount = 0;
-		
-		Connection con = JdbcUtil.getConnection();
-		
-		FAQDAO dao = FAQDAO.getInstance();
-		
-		dao.setConnection(con);
-		
-		listCount = dao.selectListcount();
-//		System.out.println(listCount);
-		JdbcUtil.close(con);
-		
-		return listCount;
-	}
-
 	public int getListSelectCount(String ment) {
 		int listCount = 0;
 		
@@ -36,7 +19,7 @@ public class FAQListService {
 		dao.setConnection(con);
 		
 		listCount = dao.selectAnythingListcount(ment);
-//		System.out.println(listCount);
+		System.out.println("getList listCount " + listCount);
 		JdbcUtil.close(con);
 		
 		return listCount;

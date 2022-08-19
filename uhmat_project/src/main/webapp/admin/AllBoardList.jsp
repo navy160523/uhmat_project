@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ 게시판</title>
+<title>AllBoardList.jsp</title>
 <style type="text/css">
 	#listForm {
 		width: 1024px;
@@ -54,7 +54,51 @@
 		width: 1024px;
 		text-align: right;
 	}
+		#articleForm {
+		width: 500px;
+		height: 550px;
+		border: 1px solid red;
+		margin: auto;
+	}
 	
+	h2 {
+		text-align: center;
+	}
+	
+	table {
+		border: 1px solid black;
+		border-collapse: collapse; 
+	 	width: 500px;
+	}
+	
+	th {
+		text-align: center;
+	}
+	
+	td {
+		width: 150px;
+		text-align: center;
+	}
+	
+	#basicInfoArea {
+		height: 70px;
+		text-align: center;
+	}
+	
+	#articleContentArea {
+		background: orange;
+		margin-top: 20px;
+		height: 350px;
+		text-align: center;
+		overflow: auto;
+		white-space: pre-line;
+	}
+	
+	#commandList {
+		margin: auto;
+		width: 500px;
+		text-align: center;
+	}
 </style>
 
 
@@ -63,12 +107,13 @@
 		<!-- 게시판 리스트 -->
 		<section id="listForm">
 		<h2>FAQ</h2>
-		<input type="button" value="홈" onclick="location.href='index.jsp'">
-
+		<select>
+			<option>FAQ</option>
+			<option>Notice</option>
+			<option>Mate</option>
+			<option>Tmi</option>
+		</select>
 		
-			<input type="button" value="오류신고" name="오류신고" onclick="location.href='FAQlistCategory.sc?name='+name">
-			<input type="button" value="음식점등록" name="음식점등록" onclick="location.href='FAQlistCategory.sc?name='+name">
-			<input type="button" value="지도 오류" name="지도 오류" onclick="location.href='FAQlistCategory.sc?name='+name">
 			
 			<!-- 검색하기 기능 -->
 			<form action="FAQList.sc" method="get">
@@ -97,7 +142,7 @@
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
 	 		<c:choose>
-	 			<c:when test="${not empty list  }">
+	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
 					<c:forEach var="FAQ" items="${list}"> 
 						<tr>
@@ -118,13 +163,9 @@
 					<tr><td colspan="5"> 게시물이 존재하지 않습니다</td></tr> 			
 	 			</c:otherwise>
 	 		</c:choose>
-			
 		</table>
 		</section>
 		
-		<section id="buttonArea">
-			<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" />
-		</section>
 		<section id="pageList">
 		<!-- 
 		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
@@ -139,6 +180,7 @@
 					<input type="button" value="이전" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
+				
 			<!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
 					<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" >
 						<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
@@ -163,6 +205,44 @@
 				</c:otherwise>
 			</c:choose>
 		</section>
+		
+		<!-- 검색시 detail 부분 -->
+		
+		<!-- 게시판 상세내용 보기 -->
+	<section id="articleForm">
+		<h2>글 상세내용 보기</h2>
+		<section id="basicInfoArea">
+				<table border="1">
+					<tr><th width="70">제 목</th><td colspan="3" >${faq.subject }</td></tr>
+					<tr>
+						<th width="70">작성자</th><td>${faq.nickname }</td>
+						<th width="70">작성일</th><td>${faq.date }</td>
+					</tr>
+					<tr>
+						<th>조회수</th><th>${faq.readcount }</th>
+					<tr>
+						<th width="70">첨부파일</th>
+						<td>
+						<!-- 
+						파일명은 원본 파일명을 표시하고, 다운로드 파일 대상은 실제 업로드 파일명,
+						실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드
+						-->
+							<a href="upload/${faq.real_File }" download="${faq.original_File }">
+							${faq.real_File }
+							</a>
+						</td>
+					</tr>
+				</table>
+		</section>
+		<br><br>
+		<section id="articleContentArea">
+			${faq.content }
+		</section>
+	</section>
+	<section id="commandList" >
+		<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
+		<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
+	</section>
 </body>
 </html>
 

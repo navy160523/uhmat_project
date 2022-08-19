@@ -46,6 +46,13 @@ public class PageInfo {
 	public void setListCount(int listCount) {
 		this.listCount = listCount;
 	}
+	@Override
+	public String toString() {
+		return "PageInfo [pageNum=" + pageNum + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", listCount=" + listCount + "]";
+	}
+	
+	
 	
 	
 }

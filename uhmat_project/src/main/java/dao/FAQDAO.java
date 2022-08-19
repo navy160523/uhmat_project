@@ -21,34 +21,6 @@ public class FAQDAO {
 		this.con = con;
 	}
 	
-	
-	public int selectListcount() {
-//		System.out.println("FAQDAO - selectListCount");
-		int listCount = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			String sql = "SELECT COUNT(*) FROM FAQBoard";
-			pstmt = con.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				listCount = rs.getInt(1);
-			}
-//			System.out.println("listCount : " + listCount);
-		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
-		
-		return listCount;
-	}
 
 	public int insertFAQ(FAQDTO faq) {
 		int insertCount = 0;
@@ -283,7 +255,7 @@ public class FAQDAO {
 			if(rs.next()) {
 				listCount = rs.getInt(1);
 			}
-	//		System.out.println("listCount : " + listCount);
+			System.out.println("listCount : " + listCount);
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
 			e.printStackTrace();
