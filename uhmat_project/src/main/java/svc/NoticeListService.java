@@ -9,24 +9,6 @@ import vo.*;
 
 public class NoticeListService {
 
-	public int getListCount() {
-//		System.out.println("NoticeListService - getListCount");
-		int listCount = 0;
-		
-		Connection con = JdbcUtil.getConnection();
-		
-		NoticeDAO dao = NoticeDAO.getInstance();
-		
-		dao.setConnection(con);
-		
-		listCount = dao.selectListcount();
-//		System.out.println(listCount);
-		
-		JdbcUtil.close(con);
-		
-		return listCount;
-	}
-
 	public int getListSelectCount(String ment) {
 		int listCount = 0;
 		

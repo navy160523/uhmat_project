@@ -22,33 +22,6 @@ public class NoticeDAO {
 	}
 	
 	
-	public int selectListcount() {
-//		System.out.println("NoticeDAO - selectListCount");
-		int listCount = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			String sql = "SELECT COUNT(*) FROM NoticeBoard";
-			pstmt = con.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				listCount = rs.getInt(1);
-			}
-//			System.out.println("listCount : " + listCount);
-		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
-		
-		return listCount;
-	}
 
 	public int insertNotice(NoticeDTO notice) {
 //		System.out.println("NoticeDAO - insertNotice");
@@ -174,6 +147,7 @@ public class NoticeDAO {
 		
 		return deleteSuccess;
 	}
+	
 	public int selectAnythingListcount(String ment) {
 		int listCount = 0;
 		
@@ -190,7 +164,7 @@ public class NoticeDAO {
 			if(rs.next()) {
 				listCount = rs.getInt(1);
 			}
-	//		System.out.println("listCount : " + listCount);
+			System.out.println("listCount : " + listCount);
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
 			e.printStackTrace();
@@ -201,6 +175,7 @@ public class NoticeDAO {
 		
 		return listCount;
 	}
+	
 	public ArrayList<NoticeDTO> selectAnythingList(int pageNum, int listLimit, String ment) {
 		ArrayList<NoticeDTO> list = null;
 		PreparedStatement pstmt = null;

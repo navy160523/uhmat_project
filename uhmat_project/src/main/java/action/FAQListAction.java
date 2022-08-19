@@ -62,8 +62,8 @@ public class FAQListAction implements Action {
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
 		ArrayList<FAQDTO> list = service.getFAQList(pageNum, listLimit, ment);
-		System.out.println("list : " + list);
-		System.out.println(pageInfo);
+//		System.out.println("list : " + list);
+//		System.out.println(pageInfo);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		

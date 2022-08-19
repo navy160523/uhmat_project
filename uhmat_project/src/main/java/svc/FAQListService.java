@@ -20,6 +20,7 @@ public class FAQListService {
 		
 		listCount = dao.selectAnythingListcount(ment);
 		System.out.println("getList listCount " + listCount);
+		
 		JdbcUtil.close(con);
 		
 		return listCount;
