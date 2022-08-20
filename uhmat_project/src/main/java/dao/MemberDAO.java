@@ -80,14 +80,22 @@ public class MemberDAO {
 	}
 
 	public int insertMember(MemberDTO dto) {
-		PreparedStatement pstmt = null;
-
 		System.out.println("insertMember");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		int insertCount = 0;
 		String sql = "";
-
+		int num = 1;
+		
 		try {
-			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?)";
+			sql = "SELECT MAX(num) FROM member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1) + 1; // 조회된 가장 큰 번호 + 1 값을 새 글 번호로 저장
+			}
+			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getNickname());
 			pstmt.setString(2, dto.getName());
@@ -99,7 +107,8 @@ public class MemberDAO {
 			pstmt.setString(8, dto.getAddress2());
 			pstmt.setString(9, dto.getAuth_status());
 			pstmt.setString(10, dto.getApi_id());
-
+			pstmt.setInt(11, num);
+			
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -390,12 +399,11 @@ public class MemberDAO {
 		ArrayList<MemberDTO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int idx = 1;
 		int startRow = (pageNum- 1) * listLimit;
 		
 		try {
 			
-			String sql = "SELECT * FROM member ORDER BY birthdate LIMIT ?,?";
+			String sql = "SELECT * FROM member WHERE name LIKE ? ORDER BY num DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			pstmt.setString(1, "%" + ment + "%");
@@ -413,6 +421,7 @@ public class MemberDAO {
 				member.setPostCode(rs.getString("postcode"));
 				member.setAddress1(rs.getString("address1"));
 				member.setAddress2(rs.getString("address2"));
+				member.setNum(rs.getInt("num"));
 				
 				list.add(member);
 			}

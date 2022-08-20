@@ -13,7 +13,8 @@ address1 varchar(50),
 address2 varchar(50),
 icon VARCHAR(20) DEFAULT 'default.png',
 auth_status VARCHAR(1) DEFAULT 'N',
-api_id VARCHAR(60)
+api_id VARCHAR(60),
+num int
 );
 */
 //멤버 관리 하는 클래스
@@ -30,6 +31,7 @@ public class MemberDTO {
 	private String icon;
 	private String auth_status;
 	private String api_id;
+	private int num;
 	
 	public final String getEmail() {
 		return email;
@@ -102,6 +104,12 @@ public class MemberDTO {
 	}
 	public final void setApi_id(String api_id) {
 		this.api_id = api_id;
+	}
+	public final int getNum() {
+		return num;
+	}
+	public final void setNum(int num) {
+		this.num = num;
 	}
 	
 	
