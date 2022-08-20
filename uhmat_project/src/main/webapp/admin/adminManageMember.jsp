@@ -26,7 +26,7 @@
 	<!--멤버 테이블  -->
 	<table border="1">
 			<tr>
-            <th><input type="checkbox" id="allCheck"></th>
+<!--             <th><input type="checkbox" id="allCheck"></th> -->
             <th>번호</th>
             <th>이름</th>
             <th>닉네임</th>
@@ -43,7 +43,7 @@
 			
 		<c:forEach var="member" items="${list }">
 			<tr>
-	            <td><input type="checkbox" id="check1" name="check" value="1"></td>
+<!-- 	            <td><input type="checkbox" id="check1" name="check" value="1"></td> -->
 	            <td>${member.num }</td>
 	            <td>${member.name}</td>
 	            <td>${member.nickname}</td>
@@ -120,7 +120,7 @@
 	</table>
 	</div>
 	
-	<input type="button" value="회원삭제" onclick="location.href='회원삭제페이지'">
+	<input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${memberDetail.email }'">
 
 
 </body>
