@@ -10,12 +10,11 @@
 <body>
 	<jsp:include page="adminTop.jsp"></jsp:include>
 	
-   <form action="" method="get">
+   <form action="AdminManageMemberList.ad" method="get">
 	    <table border="1">
 	        <tr>
-	        
 	        	<th>고객명</th>
-	            <td><input type="text" name="name"></td>
+	            <td><input type="text" name="keyword"></td>
 	            <th><input type="submit" value="검색"></th>    
 	        </tr>
 	     </table>
@@ -45,44 +44,22 @@
 		<c:forEach var="member" items="${list }">
 			<tr>
 	            <td><input type="checkbox" id="check1" name="check" value="1"></td>
-	            <td>1</td>
+	            <td>${member.num }</td>
 	            <td>${member.name}</td>
 	            <td>${member.nickname}</td>
 	            <td>${member.email }</td>
 	            <td>10개</td>
-	            <td><a href="memberManagementDetailForm.ad">보기</a></td>
-	            <td><input type="button" value="회원삭제" onclick="location.href='회원삭제페이지'"></td>
+	            <td><a href="AdminManageMemberList.ad?email=${member.email }">보기</a></td>
+	            <td><input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${member.email }'"></td>
 	        </tr>
         </c:forEach>
-<%-- 	 		<c:choose> --%>
-<%-- 	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }"> --%>
-<!-- 					c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 				 -->
-<%-- 					<c:forEach var="FAQ" items="${list}">  --%>
-<!-- 						<tr> -->
-<%-- 							<td>${FAQ.category }</td> --%>
-<%-- 							<td>${FAQ.idx }</td> --%>
-<!-- 							<td id="subject"> -->
-<%-- 								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}"> --%>
-<%-- 									${FAQ.subject } --%>
-<!-- 								</a> -->
-<!-- 							</td> -->
-<%-- 							<td>${FAQ.nickname }</td> --%>
-<%-- 							<td>${FAQ.date }</td> --%>
-<%-- 							<td>${FAQ.readcount }</td> --%>
-<!-- 						</tr> -->
-<%-- 						</c:forEach> --%>
-<%-- 	 			</c:when> --%>
-<%-- 	 			<c:otherwise> --%>
-<!-- 					<tr><td colspan="5"> 게시물이 존재하지 않습니다</td></tr> 			 -->
-<%-- 	 			</c:otherwise> --%>
-<%-- 	 		</c:choose> --%>
 			
 		</table>
 	<!-- 리스트 페이징 처리 -->
 	
 	<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
+					<input type="button" value="이전" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" disabled="disabled">
@@ -97,7 +74,7 @@
 								${i}
 							</c:when>
 							<c:otherwise>
-								<a href="AdminManageMemberList.ad?pageNum=${i}&ment=${param.ment }">${i} &nbsp;</a>
+								<a href="AdminManageMemberList.ad?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
 			
 							</c:otherwise>
 						</c:choose>
@@ -106,13 +83,12 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
+					<input type="button" value="다음" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="다음" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
-		</section>
 	
 	
 	
@@ -120,25 +96,25 @@
 	<div>
 	<table border="1">
 	<tr>
-		<td>닉네임</td><td><input type="text" name="nickname"></td>
+		<td>닉네임</td><td><input type="text" name="nickname" value="${memberDetail.nickname }"></td>
 	</tr>
 	<tr>
-		<td>이름</td><td><input type="text" name="name"></td>
+		<td>이름</td><td><input type="text" name="name" value="${memberDetail.name }"></td>
 	</tr>
 	<tr>
-		<td>이메일</td><td  colspan="3"><input type="text" name="email1"></td>
+		<td>이메일</td><td  colspan="3"><input type="text" name="email1" value="${memberDetail.email }"></td>
 	</tr>
 	<tr>
 		<td>이메일 수신</td><td  colspan="3"><input type="radio" name="emailaccept">예 <input type="radio" name="emaildeny">아니오</td>
 	</tr>
 	<tr>
-		<td rowspan="3">주소</td><td><input type="text" placeholder="우편번호" name="postcode"><input type="button" value="우편번호검색" onclick="우편번호 검색 링크"></td>
+		<td rowspan="3">주소</td><td><input type="text" placeholder="우편번호" name="postcode" value="${memberDetail.postCode }"></td>
 	</tr>
 	<tr>
-		<td  colspan="3"><input type="text" placeholder="상세주소1" name="address1"></td>
+		<td  colspan="3"><input type="text" placeholder="상세주소1" name="address1" value="${memberDetail.address1 }"></td>
 	</tr>
 	<tr>
-		<td  colspan="3"><input type="text" placeholder="상세주소2" name="address2"></td>
+		<td  colspan="3"><input type="text" placeholder="상세주소2" name="address2" value="${memberDetail.address2 }"></td>
 	</tr>
 	
 	</table>

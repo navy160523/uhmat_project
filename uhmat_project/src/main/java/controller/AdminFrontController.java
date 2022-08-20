@@ -40,8 +40,17 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+		} else if(command.equals("/AdminDeleteMember.ad")) {
+			try {
+				action = new AdminDeleteMemberAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
+		//-------------------------------------------------------------------
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

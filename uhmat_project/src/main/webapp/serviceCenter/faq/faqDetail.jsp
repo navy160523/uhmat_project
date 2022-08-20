@@ -123,12 +123,12 @@
 		</section>
 	</section>
 	<section id="commandList" >
-		<input type="button" value="이전글" onclick="location.href='FAQDetail.sc?idx=${faq.idx-1}&pageNum=${param.pageNum}&ment=${param.ment }'">
-		<input type="button" value="다음글" onclick="location.href='FAQDetail.sc?idx=${faq.idx+1}&pageNum=${param.pageNum}&ment=${param.ment }'">
+		<input type="button" value="이전글" onclick="location.href='FAQDetail.sc?idx=${faq.idx-1}&pageNum=${param.pageNum}&keyword=${param.keyword }'">
+		<input type="button" value="다음글" onclick="location.href='FAQDetail.sc?idx=${faq.idx+1}&pageNum=${param.pageNum}&keyword=${param.keyword }'">
 		<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
 		<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
 		
-		<input type="button" value="목록" onclick="location.href='FAQList.sc?pageNum=${param.pageNum}&ment=${param.ment }'">
+		<input type="button" value="목록" onclick="location.href='FAQList.sc?pageNum=${param.pageNum}&keyword=${param.keyword }'">
 	</section>
 </body>
 </html>

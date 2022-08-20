@@ -395,20 +395,22 @@ public class MemberDAO {
 		return updateCount;
 	}
 
-	public ArrayList<MemberDTO> AdminSelectMemberList(int pageNum, int listLimit, String ment) {
+	public ArrayList<MemberDTO> AdminSelectMemberList(int pageNum, int listLimit, String keyword) {
+		System.out.println("AdminSelectMemberList");
 		ArrayList<MemberDTO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int startRow = (pageNum- 1) * listLimit;
 		
+		int startRow = (pageNum- 1) * listLimit;
+		System.out.println(startRow);
 		try {
 			
 			String sql = "SELECT * FROM member WHERE name LIKE ? ORDER BY num DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			pstmt.setString(1, "%" + ment + "%"); 
+			pstmt.setString(1, "%" + keyword + "%"); 
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, listLimit);
+			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<MemberDTO>();
 			
@@ -437,14 +439,16 @@ public class MemberDAO {
 		return list;
 	}
 
-	public int SelectMemberListCount() {
+	public int SelectMemberListCount(String keyword) {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT COUNT(*) FROM member";
+			String sql = "SELECT COUNT(*) FROM member WHERE name LIKE=?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%" );
+			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -460,6 +464,27 @@ public class MemberDAO {
 			JdbcUtil.close(pstmt);
 		}
 		return listCount;
+	}
+
+	public int deleteMember(String email) {
+		int deleteCount = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "DELETE FROM member WHERE email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		
+		return deleteCount;
 	}
 
 }

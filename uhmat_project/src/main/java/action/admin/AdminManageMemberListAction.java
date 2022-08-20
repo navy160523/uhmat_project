@@ -22,9 +22,15 @@ public class AdminManageMemberListAction implements Action {
 		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
 		int pageLimit = 10; // 한 페이지 당 표시할 페이지 목록 수
 		
-		String ment = "";
-		if(request.getParameter("ment") != null) {
-			ment = request.getParameter("ment");
+		String email = "";
+		if(request.getParameter("email") != null) {
+			email = request.getParameter("email");
+		}
+		System.out.println("email : " + email);
+		
+		String keyword = "";
+		if(request.getParameter("keyword") != null) {
+			keyword = request.getParameter("keyword");
 		}
 		// 단, URL 파라미터로 현재 페이지번호(pageNum) 가 전달됐을 경우 가져와서 변수에 저장
 		if(request.getParameter("pageNum") != null){
@@ -35,7 +41,7 @@ public class AdminManageMemberListAction implements Action {
 		
 		int listCount = 0;
 		
-		listCount = service.getMemberListSelectCount();
+		listCount = service.getMemberListSelectCount(keyword);
 
 //		System.out.println("전체 게시물 수 " + listCount);
 		
@@ -52,17 +58,15 @@ public class AdminManageMemberListAction implements Action {
 		if(endPage > maxPage){
 			endPage = maxPage;
 		}
-		System.out.println("pageNum : " + pageNum);
-		System.out.println("maxPage : " + maxPage);
-		System.out.println("startPage : " + startPage);
-		System.out.println("endPage : " + endPage);
-		System.out.println("listCount : " + listCount);
 		// 페이징 처리 정보를 PageInfo 객체에 저장
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
-		ArrayList<MemberDTO> list = service.getMember(pageNum, listLimit, ment);
-		System.out.println("AdminManageMemberListAction의 list : " + list);
+		ArrayList<MemberDTO> list = service.getMemberList(pageNum, listLimit, keyword);
+//		System.out.println("AdminManageMemberListAction의 list : " + list);
 		
+		MemberDTO memberDetail = service.getMember(email);
+//		System.out.println("memberDetail: " + memberDetail);
+		request.setAttribute("memberDetail", memberDetail);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		

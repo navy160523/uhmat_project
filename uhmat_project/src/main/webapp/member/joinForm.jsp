@@ -184,9 +184,9 @@
 								$
 										.ajax({
 											type : "post",
-											url : "http://localhost:8080/uhmat_project/CheckDuplicateNickName.me",
+											url : "http://localhost:8080/uhmat_project/CheckDuplicateEmail.me",
 											data : {
-												nickName : $("#email").val(),
+												email : $("#email").val(),
 											},
 											dataType : "text",
 											success : function(data) {

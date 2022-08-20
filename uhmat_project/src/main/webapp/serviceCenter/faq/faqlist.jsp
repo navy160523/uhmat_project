@@ -75,7 +75,7 @@
 			
 			<!-- 검색하기 기능 -->
 			<form action="FAQList.sc" method="get">
-				<input type="text" placeholder="검색어를 입력하세요" name="ment" value=${param.ment }>
+				<input type="text" placeholder="검색어를 입력하세요" name="keyword" value=${param.keyword }>
 				<input type="submit" value="검색">
 			</form>
 <!-- 		<select id="selectBox"> -->
@@ -107,7 +107,7 @@
 							<td>${FAQ.category }</td>
 							<td>${FAQ.idx }</td>
 							<td id="subject">
-								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&ment=${param.ment}">
+								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&keyword=${param.keyword}">
 									${FAQ.subject }
 								</a>
 							</td>
@@ -136,7 +136,7 @@
 		-->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
+					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" disabled="disabled">
@@ -150,7 +150,7 @@
 								${i}
 							</c:when>
 							<c:otherwise>
-								<a href="FAQList.sc?pageNum=${i}&ment=${param.ment }">${i} &nbsp;</a>
+								<a href="FAQList.sc?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
 			
 							</c:otherwise>
 						</c:choose>
@@ -159,7 +159,7 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
+					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="다음" disabled="disabled">

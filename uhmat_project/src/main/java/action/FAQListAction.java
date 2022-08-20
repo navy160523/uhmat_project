@@ -19,9 +19,9 @@ public class FAQListAction implements Action {
 		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
 		int pageLimit = 10; // 한 페이지 당 표시할 페이지 목록 수
 		
-		String ment = "";
-		if(request.getParameter("ment") != null) {
-			ment = request.getParameter("ment");
+		String keyword = "";
+		if(request.getParameter("keyword") != null) {
+			keyword = request.getParameter("keyword");
 		}
 		
 		// 단, URL 파라미터로 현재 페이지번호(pageNum) 가 전달됐을 경우 가져와서 변수에 저장
@@ -34,7 +34,7 @@ public class FAQListAction implements Action {
 		
 		int listCount = 0;
 		
-		listCount = service.getListSelectCount(ment);
+		listCount = service.getListSelectCount(keyword);
 
 //		System.out.println("전체 게시물 수 " + listCount);
 		
@@ -61,14 +61,14 @@ public class FAQListAction implements Action {
 		// 페이징 처리 정보를 PageInfo 객체에 저장
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
-		ArrayList<FAQDTO> list = service.getFAQList(pageNum, listLimit, ment);
+		ArrayList<FAQDTO> list = service.getFAQList(pageNum, listLimit, keyword);
 //		System.out.println("list : " + list);
 //		System.out.println(pageInfo);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		
 		forward = new ActionForward();
-		forward.setPath("serviceCenter/faq/faqlist.jsp?ment="+ment);
+		forward.setPath("serviceCenter/faq/faqlist.jsp?keyword="+keyword);
 		forward.setRedirect(false);
 		
 		return forward;

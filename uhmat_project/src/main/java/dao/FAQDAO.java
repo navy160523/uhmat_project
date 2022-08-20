@@ -239,7 +239,7 @@ public class FAQDAO {
 		return list;
 
 	}
-	public int selectAnythingListcount(String ment) {
+	public int selectAnythingListcount(String keyword) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -248,7 +248,7 @@ public class FAQDAO {
 		try {
 			String sql = "SELECT COUNT(*) FROM FAQBoard WHERE subject LIKE ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + ment + "%" );
+			pstmt.setString(1, "%" + keyword + "%" );
 			
 			rs = pstmt.executeQuery();
 			
@@ -267,7 +267,7 @@ public class FAQDAO {
 		return listCount;
 	}
 	
-	public ArrayList<FAQDTO> selectAnythingList(int pageNum, int listLimit, String ment) {
+	public ArrayList<FAQDTO> selectAnythingList(int pageNum, int listLimit, String keyword) {
 //		System.out.println("FAQDAO - selectAnythingList");
 		ArrayList<FAQDTO> list = null;
 		PreparedStatement pstmt = null;
@@ -278,7 +278,7 @@ public class FAQDAO {
 		try {
 			String sql = "SELECT * FROM FAQBoard WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + ment + "%");
+			pstmt.setString(1, "%" + keyword + "%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, listLimit);
 			rs = pstmt.executeQuery();

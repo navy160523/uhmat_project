@@ -148,7 +148,7 @@ public class NoticeDAO {
 		return deleteSuccess;
 	}
 	
-	public int selectAnythingListcount(String ment) {
+	public int selectAnythingListcount(String keyword) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -157,7 +157,7 @@ public class NoticeDAO {
 		try {
 			String sql = "SELECT COUNT(*) FROM NoticeBoard WHERE subject LIKE ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + ment + "%" );
+			pstmt.setString(1, "%" + keyword + "%" );
 			
 			rs = pstmt.executeQuery();
 			
@@ -176,7 +176,7 @@ public class NoticeDAO {
 		return listCount;
 	}
 	
-	public ArrayList<NoticeDTO> selectAnythingList(int pageNum, int listLimit, String ment) {
+	public ArrayList<NoticeDTO> selectAnythingList(int pageNum, int listLimit, String keyword) {
 		ArrayList<NoticeDTO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -186,7 +186,7 @@ public class NoticeDAO {
 		try {
 			String sql = "SELECT * FROM NoticeBoard WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + ment + "%");
+			pstmt.setString(1, "%" + keyword + "%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, listLimit);
 			rs = pstmt.executeQuery();

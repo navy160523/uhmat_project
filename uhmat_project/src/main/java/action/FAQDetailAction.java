@@ -30,7 +30,7 @@ public class FAQDetailAction implements Action {
 		request.setAttribute("reply", reply);
 		
 		forward = new ActionForward();
-		forward.setPath("serviceCenter/faq/faqDetail.jsp?ment="+ request.getParameter("ment"));
+		forward.setPath("serviceCenter/faq/faqDetail.jsp?keyword="+ request.getParameter("keyword"));
 		forward.setRedirect(false);
 		
 		return forward;

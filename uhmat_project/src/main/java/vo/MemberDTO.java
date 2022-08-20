@@ -14,7 +14,7 @@ address2 varchar(50),
 icon VARCHAR(20) DEFAULT 'default.png',
 auth_status VARCHAR(1) DEFAULT 'N',
 api_id VARCHAR(60),
-num int
+num int 하고 있었어요
 );
 */
 //멤버 관리 하는 클래스
