@@ -104,9 +104,9 @@
 	<tr>
 		<td>이메일</td><td  colspan="3"><input type="text" name="email1" value="${memberDetail.email }"></td>
 	</tr>
-	<tr>
-		<td>이메일 수신</td><td  colspan="3"><input type="radio" name="emailaccept">예 <input type="radio" name="emaildeny">아니오</td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>이메일 수신</td><td  colspan="3"><input type="radio" name="emailaccept">예 <input type="radio" name="emaildeny">아니오</td> -->
+<!-- 	</tr> -->
 	<tr>
 		<td rowspan="3">주소</td><td><input type="text" placeholder="우편번호" name="postcode" value="${memberDetail.postCode }"></td>
 	</tr>
