@@ -406,7 +406,7 @@ public class MemberDAO {
 			String sql = "SELECT * FROM member WHERE name LIKE ? ORDER BY num DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			pstmt.setString(1, "%" + ment + "%");
+			pstmt.setString(1, "%" + ment + "%"); 
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, listLimit);
 			
