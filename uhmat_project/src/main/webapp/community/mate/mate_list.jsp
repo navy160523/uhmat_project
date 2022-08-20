@@ -24,11 +24,32 @@
 					
 				</c:forEach>
 			</c:when>
+			
+			<c:when test="${not empty pageInfo.listCount }">
+				<c:forEach var="mate" items="${mateList }"> 
+				<tr>
+					<td>${mate.idx }</td>
+					<td id="subject">
+						<a href="MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}&keyword=${param.keyword }">
+							${mate.subject }
+						</a>
+					</td>
+					<td>${mate.nickname }</td>
+					<td>${mate.datetime }</td>
+				</tr>
+			</c:forEach>
+		</c:when>
 			<c:otherwise>
 				<tr><td colspan="5">게시물이 존재하지 않습니다.</td></tr>
 			</c:otherwise>
 		</c:choose>
 	</table>
+	
+	<!-- 검색 -->
+	<form action="MateList.co" method="get">
+		<input type="text" name="keyword" value="${param.keyword }" placeholder="검색어를 입력하세요">
+		<input type="submit" value="검색">
+	</form>
 	
 	<!-- 글쓰기 버튼 클릭 시 글쓰기 페이지로 이동 -->
 	<section>
@@ -44,10 +65,10 @@
 		
 		<c:choose>
 			<c:when test="${pageInfo.pageNum > 1}">
-				<input type="button" value="이전" onclick="location.href='mateList.co?pageNum=${pageInfo.pageNum - 1}'">
+				<input type="button" value="이전" onclick="location.href='MateList.co?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
 			</c:when>
 			<c:otherwise>
-				<input type="button" value="이전">
+				<input type="button" value="이전" disabled="disabled">
 			</c:otherwise>
 		</c:choose>
 		
@@ -59,18 +80,18 @@
 					${i }
 				</c:when>
 				<c:otherwise>
-					<a href="MateList.co?pageNum=${i }">${i }</a>
+					<a href="MateList.co?pageNum=${i }&keyword=${param.keyword }">${i } &nbsp;</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		
 		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 		<c:choose>
-			<c:when test="${pageInfo.pageNum < pageInfo.maxPage}">
-				<input type="button" value="다음" onclick="location.href='MateList.co?pageNum=${pageInfo.pageNum + 1}'">
+			<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
+				<input type="button" value="다음" onclick="location.href='MateList.co?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
 			</c:when>
 			<c:otherwise>
-				<input type="button" value="다음">
+				<input type="button" value="다음" disabled="disabled">
 			</c:otherwise>
 		</c:choose>
 		

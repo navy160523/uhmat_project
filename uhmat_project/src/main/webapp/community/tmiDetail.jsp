@@ -52,6 +52,27 @@
 		text-align: center;
 	}
 </style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="js/jquery-3.6.0.js"></script>
+<script>
+// 	$(function(){
+// 		$("#Rereply").on("click",function(){
+// 			$.ajax({
+// 				type: "get",
+// 				url: "TmiRereplyWriteForm.co?idx=${tmiReply.idx }&board_idx=${tmiReply.board_idx }&pageNum=${param.pageNum}",
+// 				url: "http://localhost:8080/MVC_Board/MemberLoginPro.me", // 서블릿 주소 요청 가능
+// 				data: {
+// 				},
+// 				dataType: "text",
+// 				success: function(response) {
+// 					$("#resultArea").html(response);
+// 				}
+// 			});
+// 		});
+		
+// 	});
+	
+</script>
 <title>TMI 글 상세내용</title>
 </head>
 <body>
@@ -82,50 +103,10 @@
 		<input type="button" value="목록" onclick="location.href='TmiList.co?pageNum=${param.pageNum}'">
 	</section>
 	<hr>
-	<!-- 댓글 리스트 -->
-		<table border="1">
-      		<c:forEach var="tmiReply" items="${tmiReplyList }">
-        	 <tr>
-				<td>닉네임 : ${tmiReply.nickname } | ${tmiReply.content } 
-					<br>
-				${tmiReply.date }
-				</td> 
-			</tr>
-			<tr>
-				<td><input type="button" value="수정" onclick="location.href='TmiReplyModifyForm.co?idx=${tmiReply.idx}&pageNum=${param.pageNum }'"></td>
-				<td><input type="button" value="삭제" onclick="location.href='TmiReplyDeleteForm.co?idx=${tmiReply.idx}&board_idx=${tmiReply.board_idx }&nickname=${tmiReply.nickname }&pageNum=${param.pageNum }'"></td>
-				<td>
-				<input type="button" value="답글" onclick="location.href='TmiRereplyWriteForm.co?idx=${tmiReply.idx }&board_idx=${tmiReply.board_idx }&nickname=${tmiReply.nickname }&pageNum=${param.pageNum}'">
-				</td>
-			</tr>
-     		</c:forEach>
-     		
-     		<!-- 답글 리스트 -->
-     		<c:choose>
-     			<c:when test="${not empty tmiRereplyList }">
-     				<c:forEach var="tmiRereply" items="${tmiRereplyList }">
-     					<tr>
-     						<td>
-     							<c:forEach var="tmiRereply" begin="1" end="${tmiRereply.re_lev }">
-     								&nbsp;&nbsp;
-     							</c:forEach>
-     							${tmiRereply.content }
-     						 </td>
-     					</tr>
-     				</c:forEach>
-     			</c:when>
-     			<c:otherwise>
-				<tr><td colspan="5">게시물이 존재하지 않습니다.</td></tr>
-			</c:otherwise>
-     		</c:choose>
-
-      </table>
-	<br>
-	
 	<!-- 댓글 작성 -->
-	<section id="replyArea">
+	<section>
 		<!-- insertForm 섹션(댓글 작성 영역)은 세션 아이디가 존재할 경우에만 출력 -->
-		<section id="insertForm">
+		<section>
 			<form action="TmiReplyWrite.co" style="position: relative; left: 40%; top:50%;">
 				<!-- 댓글 전송 시 현재 게시물 글번호(idx)도 함께 전송 -->
 				<input type="hidden" name="idx" value="${param.idx }">
@@ -138,5 +119,30 @@
 			</form>
 		</section>
 	</section>
+	<!-- 댓글 리스트 -->
+	<section>
+		<table border="1">
+      		<c:forEach var="tmiReply" items="${tmiReplyList }">
+        	 <tr>
+				<td>
+					<c:forEach begin="1" end="${tmiReply.re_lev }">
+	     				<i class="material-icons" style="font-size:20px;color:red">subdirectory_arrow_right</i>
+	     			</c:forEach>
+	     			닉네임 : ${tmiReply.nickname } 
+	     		</td>
+				<td width="500"> ${tmiReply.content } </td> 
+				<td> ${tmiReply.date } </td>
+				<td>
+				<input type="button" value="답글" onclick="location.href='TmiRereplyWriteForm.co?idx=${tmiReply.idx }&board_idx=${tmiReply.board_idx }&pageNum=${param.pageNum}'">
+				</td>
+				<td><input type="button" value="댓글수정" onclick="location.href='TmiReplyModifyForm.co?idx=${tmiReply.idx }&pageNum=${param.pageNum }'"></td>
+				<td><input type="button" value="댓글삭제" onclick="location.href='TmiReplyDeleteForm.co?idx=${tmiReply.idx }&board_idx=${tmiReply.board_idx }&nickname=${tmiReply.nickname }&pageNum=${param.pageNum }'"></td>
+			</tr>
+     		</c:forEach>
+      </table>
+	</section>
+	<br>
+	
+	
 </body>
 </html>

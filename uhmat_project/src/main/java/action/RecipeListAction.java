@@ -5,22 +5,19 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import svc.MateListProService;
+import svc.RecipeListProService;
 import vo.ActionForward;
-import vo.MateDTO;
 import vo.PageInfo;
+import vo.RecipeDTO;
 
-public class MateListAction implements Action {
+public class RecipeListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("MateListAction");
+
+		System.out.println("RecipeListAction");
 		
 		ActionForward forward = null;
-		
-		// 검색기능도 함께 수행할 keyword 저장!
-		String keyword = "";
-		System.out.println("검색액션 키워드 - " + keyword);
 		
 		// 페이징 처리를 위한 변수 선언
 		int pageNum = 1; // 현재 페이지 번호(기본값 1 페이지로 설정)
@@ -30,18 +27,13 @@ public class MateListAction implements Action {
 		// 단, URL 파라미터로 현재 페이지번호(pageNum) 가 전달됐을 경우 가져와서 변수에 저장
 		if(request.getParameter("pageNum") != null) {
 			pageNum = Integer.parseInt(request.getParameter("pageNum")); // String -> int 변환
-		}
-		
-		// 키워드가 ""이 아닐때 키워드를 가져와 변수에 저장!
-		if(request.getParameter("keyword") != null) {
-			keyword  = request.getParameter("keyword");
-		}
+				}
 		
 		// 페이징 처리에 필요한 전체 게시물 갯수 조회 작업 요청
-		// MateListProService 클래스 인스턴스 생성 후 mateCount() 메서드 호출하여 총 게시물 수 조회
+		// RecipeListProService 클래스 인스턴스 생성 후 recipeCount() 메서드 호출하여 총 게시물 수 조회
 		// => 파라미터 : 없음     리턴타입 : int(listCount)
-		MateListProService service = new MateListProService();
-		int listCount = service.mateCount(keyword);
+		RecipeListProService service = new RecipeListProService();
+		int listCount = service.recipeCount();
 		System.out.println("전체 게시물 수 : " + listCount);
 		
 		// -------------------------------------------------------------------------------------
@@ -59,27 +51,27 @@ public class MateListAction implements Action {
 		// 끝 페이지 번호를 총 페이지 수로 대체
 		if(endPage > maxPage) {
 			endPage = maxPage;
-				}
-				
+						}
+						
 		// 페이징 처리 정보를 PageInfo 객체에 저장
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
-				
+						
 		// -------------------------------------------------------------------------------------
-		// MateListProService 객체의 getMateList() 메서드를 호출하여 게시물 목록 가져오기
+		// RecipeListProService 객체의 getRecipeList() 메서드를 호출하여 게시물 목록 가져오기
 		// => 파라미터 : 현재 페이지번호(pageNum), 페이지 당 게시물 수(listLimit)
-		// => 리턴타입 : ArrayList<MateDTO>(mateList)
-		ArrayList<MateDTO> mateList = service.getMateList(keyword, pageNum, listLimit);
+		// => 리턴타입 : ArrayList<RecipeDTO>(recipeList)
+		ArrayList<RecipeDTO> recipeList = service.getRecipeList(pageNum, listLimit);
 		
 		// 뷰페이지(jsp)에서 사용할 데이터가 저장된 객체들을 전달하기 위해
 		// request 객체의 setAttribute() 메서드를 호출하여 객체 저장
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("mateList", mateList);
-		
+		request.setAttribute("recipeList", recipeList);
+				
 		// ActionForward 객체 생성하여 포워딩 정보 저장
 		// => board 디렉토리 내의 qna_board_list.jsp 페이지 지정
 		// => URL 및 request 객체 유지한 채 포워딩을 위해 Dispatcher 방식 지정
 		forward = new ActionForward();
-		forward.setPath("community/mate/mate_list.jsp");
+		forward.setPath("community/recipe/recipe_list.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

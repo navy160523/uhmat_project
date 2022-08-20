@@ -50,7 +50,7 @@ public class MateWriteProAction implements Action {
 		} else { // 글쓰기 성공 시
 			// 글목록 조회 비즈니스 로직을 수행하기 위한 MateList.mate 서블릿 주소 요청
 			forward = new ActionForward();
-			forward.setPath("MateList.mate");
+			forward.setPath("MateList.co");
 			forward.setRedirect(true);
 		}
 		

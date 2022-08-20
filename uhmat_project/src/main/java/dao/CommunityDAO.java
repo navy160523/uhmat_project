@@ -22,12 +22,6 @@ import java.util.ArrayList;
 
 import com.mysql.cj.protocol.Resultset;
 
-import vo.CommentDTO;
-import vo.CommunityTmiDTO;
-import vo.MateDTO;
-import vo.MateReplyDTO;
-import vo.TmiReplyDTO;
-
 /*
 
  * 
@@ -103,7 +97,7 @@ public class CommunityDAO {
 	// 글 갯수 조회
 	// 전체 게시물 수를 조회할 mateCount() 메서드 정의
 	// => 파라미터 : 없음 리턴타입 : int(listCount)
-	public int selectMateCount() {
+	public int selectMateCount(String keyword) {
 
 		int listCount = 0;
 
@@ -112,8 +106,9 @@ public class CommunityDAO {
 
 		try {
 			// 3단계
-			String sql = "SELECT COUNT(*) FROM community_mate";
+			String sql = "SELECT COUNT(*) FROM community_mate WHERE subject LIKE ?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%");
 
 			// 4단계
 			rs = pstmt.executeQuery();
@@ -132,7 +127,7 @@ public class CommunityDAO {
 		return listCount;
 	}
 
-	public ArrayList<MateDTO> selectMateList(int pageNum, int listLimit) {
+	public ArrayList<MateDTO> selectMateList(String keyword, int pageNum, int listLimit) {
 
 		ArrayList<MateDTO> mateList = null;
 
@@ -144,11 +139,12 @@ public class CommunityDAO {
 
 		try {
 			// 답글에 대한 처리 과정 추가
-			String sql = "SELECT * FROM community_mate ORDER BY idx desc LIMIT ?,?";
+			String sql = "SELECT * FROM community_mate WHERE subject LIKE ? ORDER BY idx desc LIMIT ?,?";
 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, listLimit);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, listLimit);
 
 			rs = pstmt.executeQuery();
 
@@ -165,7 +161,7 @@ public class CommunityDAO {
 				mate.setSubject(rs.getString("subject"));
 				mate.setContent(rs.getString("content"));
 				mate.setReadcount(rs.getInt("readcount"));
-				mate.setDatetime(rs.getTimestamp("datetime"));
+				mate.setDate(rs.getTimestamp("datetime"));
 				System.out.println(mate);
 
 				// 전체 게시물 정보를 저장하는 ArrayList 객체에 1개 게시물 정보 MateDTO 객체 추가
@@ -210,12 +206,13 @@ public class CommunityDAO {
 			close(pstmt);
 
 			// 전달받은 데이터를 board 테이블에 INSERT
-			sql = "INSERT INTO community_mate VALUES(?,?,?,?,0,CURRENT_TIMESTAMP)";
+			sql = "INSERT INTO community_mate VALUES(?,?,?,?,0,CURRENT_TIMESTAMP,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, mate.getNickname());
 			pstmt.setString(3, mate.getSubject());
 			pstmt.setString(4, mate.getContent());
+			pstmt.setString(5, "N");
 
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -273,7 +270,7 @@ public class CommunityDAO {
 				mate.setSubject(rs.getString("subject"));
 				mate.setContent(rs.getString("content"));
 				mate.setReadcount(rs.getInt("readcount"));
-				mate.setDatetime(rs.getTimestamp("datetime"));
+				mate.setDate(rs.getTimestamp("datetime"));
 				System.out.println(mate);
 
 			}
@@ -558,26 +555,31 @@ public class CommunityDAO {
 	
 
 
-	// tmi게시판 전체 게시물 수를 조회할 selcetTmiListCount() 메서드 정의
+	// tmi게시판 전체 게시물 수를 조회하고 검색 기능을 수행할 selcetTmiListCount() 메서드 정의
+	// 전체 tmi 게시물 수 조회를 수행 메서드 정의
+	// 단, 메서드 오버로딩을 통해 동일한 이름으로 검색어를 포함하는 메서드 호출
 	// => 파라미터 : 없음, 리턴타입 : int(tmilistCount)
-	public int selectTmiListCount() {
+	public int selectTmiListCount(String keyword) {
 		System.out.println("CommunityDAO - selectTmiListCount() 호출!");
-		int tmiListCount = 0;
+		int listCount = 0;
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
+		// 리스트와 검색창을 동시에 수행하는 메서드
+		// sql 구문 중요!
 		try {
-			String sql = "SELECT COUNT(*) FROM community_tmi";
+			String sql = "SELECT COUNT(*) FROM community_tmi WHERE subject LIKE ?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				tmiListCount = rs.getInt(1);
+				listCount = rs.getInt(1);
 
 			}
+			System.out.println("selectTmiListCount() - " + listCount);
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 			System.out.println("SQL 구문 오류 발생! - selectTmiListCount() " + e.getMessage());
 
@@ -586,13 +588,16 @@ public class CommunityDAO {
 			close(pstmt);
 		}
 
-		return tmiListCount;
+		return listCount;
 	}
 
-	// tmi게시판 목록을 조회하는 selectTmiBoardList() 메서드 정의
-	// => 파라미터 : 현재페이지번호(pageNum), 페이지 당 게시물 수 (listLimit)
+	// tmi게시판 목록을 조회와 검색기능을 수행하는 selectTmiBoardList() 메서드 정의
+	// 전체 tmi 게시물 수 조회를 수행 메서드 정의
+	// 단, 메서드 오버로딩을 통해 동일한 이름으로 검색어를 포함하는 메서드 호출
+	// => 파라미터 : 검색어(keyword), 현재페이지번호(pageNum), 페이지 당 게시물 수 (listLimit)
 	// 리턴타입 : ArrayList<CommunityDTO> tmiBoardList
-	public ArrayList<CommunityTmiDTO> selectTmiBoardList(int pageNum, int listLimit) {
+	public ArrayList<CommunityTmiDTO> selectTmiBoardList(String keyword, int pageNum, int listLimit) {
+		System.out.println("----------------------------------------------");
 		System.out.println("CommunityDAO - selectTmiBoardList() 호출!");
 		ArrayList<CommunityTmiDTO> tmiBoardList = null;
 
@@ -602,11 +607,13 @@ public class CommunityDAO {
 		// 현재 페이지 번호를 활용하여 조회 시 시작행 번호를 계산
 		int startRow = (pageNum - 1) * listLimit;
 
+		// tmi게시판 전체리스트와 검색 기능을 함께 사용하는 SQL 구문!
 		try {
-			String sql = "SELECT * FROM community_tmi ORDER BY idx DESC LIMIT ?,?";
+			String sql = "SELECT * FROM community_tmi WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, listLimit);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, listLimit);
 
 			rs = pstmt.executeQuery();
 
@@ -620,12 +627,12 @@ public class CommunityDAO {
 				tmiBoard.setNickname(rs.getString("nickname"));
 				tmiBoard.setSubject(rs.getString("subject"));
 				tmiBoard.setContent(rs.getString("content"));
-				tmiBoard.setDatetime(rs.getTimestamp("datetime"));
+				tmiBoard.setDate(rs.getTimestamp("datetime"));
 				tmiBoard.setReadcount(rs.getInt("readcount"));
 
 				tmiBoardList.add(tmiBoard);
 			}
-
+			System.out.println("selectSearchTmiList - " + tmiBoardList);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -662,15 +669,15 @@ public class CommunityDAO {
 
 			close(pstmt);
 
-			sql = "INSERT INTO community_tmi VALUES(?,?,?,?,?,?)";
+			sql = "INSERT INTO community_tmi VALUES(?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, tmiBoard.getNickname());
 			pstmt.setString(3, tmiBoard.getSubject());
 			pstmt.setString(4, tmiBoard.getContent());
 			pstmt.setInt(5, tmiBoard.getReadcount());
-			pstmt.setTimestamp(6, tmiBoard.getDatetime());
-
+			pstmt.setTimestamp(6, tmiBoard.getDate());
+			pstmt.setString(7, "N");
 			tmiInsertCount = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -707,7 +714,7 @@ public class CommunityDAO {
 				tmiBoard.setNickname(rs.getString("nickname"));
 				tmiBoard.setSubject(rs.getString("subject"));
 				tmiBoard.setContent(rs.getString("content"));
-				tmiBoard.setDatetime(rs.getTimestamp("datetime"));
+				tmiBoard.setDate(rs.getTimestamp("datetime"));
 				tmiBoard.setReadcount(rs.getInt("readcount"));
 				System.out.println(tmiBoard);
 			}
@@ -834,6 +841,7 @@ public class CommunityDAO {
 
 		return deleteTmiCount;
 	}
+	
 	// -----------------------------------------------------------------------------------------
 	// TMI 댓글 메서드 시작
 
@@ -883,7 +891,7 @@ public class CommunityDAO {
 		return tmiReplyInsertCount;
 	}
 
-	// 댓글 리스트 조회 작업
+	// 댓글 리스트 조회 작업과 답글(대댓글) 리스트 조회 작업
 	public ArrayList<TmiReplyDTO> selectTmiReplyList(int idx) {
 		System.out.println("CommunityDAO - selectTmiReplyList() 호출!");
 		
@@ -1025,6 +1033,32 @@ public class CommunityDAO {
 		return tmiReplyUpdateCount;
 	}
 
+	
+	// 댓글 삭제 작업
+	public int deleteTmiReply(int idx, String nickname) {
+		System.out.println("Tmi 댓글 삭제 - deleteTmiReply()");
+		
+		int deleteTmiReplyCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "DELETE FROM tmi_reply WHERE idx=? AND nickname=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.setString(2, nickname);
+			
+			deleteTmiReplyCount = pstmt.executeUpdate();
+			
+			System.out.println("deleteTmiReply - " + deleteTmiReplyCount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 구문 오류 - deleteTmiReply() " + e.getMessage());
+		}
+		
+		return deleteTmiReplyCount;
+	}
+	
 	// 답글(대댓글) 입력 작업 메서드
 	public int insertTmiRereply(TmiReplyDTO tmiRereply) {
 		System.out.println("CommunityDAO - insertTmiRereply() 호출!");
@@ -1055,7 +1089,8 @@ public class CommunityDAO {
 			pstmt3.setInt(2, tmiRereply.getBoard_idx());
 			pstmt3.setString(3, tmiRereply.getNickname());
 			pstmt3.setString(4, tmiRereply.getContent());
-			pstmt3.setInt(5, tmiRereply.getIdx());
+//			pstmt3.setInt(5, tmiRereply.getIdx());
+			pstmt3.setInt(5, tmiRereply.getRe_ref());
 			pstmt3.setInt(6, tmiRereply.getRe_lev() + 1);
 			pstmt3.setInt(7, tmiRereply.getRe_seq() + 1);
 			
@@ -1076,33 +1111,247 @@ public class CommunityDAO {
 		return tmiRereplyInsertCount;
 	}
 	
-	// 댓글 삭제 작업
-	public int deleteTmiReply(int idx, String nickname) {
-		System.out.println("Tmi 댓글 삭제 - deleteTmiReply()");
+
+	// ============================================================================= recipe
+	public int insertRecipe(RecipeDTO recipe) {
 		
-		int deleteTmiReplyCount = 0;
+		int insertCount = 0;
 		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int num = 1;
+		
+		try {
+			// 새 글 번호로 사용될 번호를 생성하기 위해 기존 게시물의 가장 큰 번호 조회
+			// => 조회 결과가 있을 경우 해당 번호 + 1 값을 새 글 번호로 저장
+			String sql = "SELECT MAX(idx) FROM community_recipe";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1) + 1;
+			}
+			
+			close(pstmt);
+			
+			// 전달받은 데이터를 community_recipe 테이블에 INSERT
+			sql = "INSERT INTO community_recipe VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2, recipe.getNickname());
+			pstmt.setString(3, recipe.getSubject());
+			pstmt.setString(4, recipe.getContent());
+			pstmt.setInt(5, 0);
+			pstmt.setString(6, recipe.getOriginal_File1());
+			pstmt.setString(7, recipe.getReal_File1());
+			pstmt.setString(8, recipe.getOriginal_File2());
+			pstmt.setString(9, recipe.getReal_File2());
+			pstmt.setString(10, recipe.getOriginal_File3());
+			pstmt.setString(11, recipe.getReal_File3());
+			pstmt.setString(12, recipe.getOriginal_File4());
+			pstmt.setString(13, recipe.getReal_File4());
+			pstmt.setString(14, recipe.getOriginal_File5());
+			pstmt.setString(15, recipe.getReal_File5());
+			pstmt.setString(16, "N");
+			
+			insertCount = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return insertCount;
+	}
+	// ------------------------------------------------------------
+	// 레시피 글 갯수 조회
+	public int selectRecipeCount() {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// 3단계
+			String sql = "SELECT COUNT(*) FROM community_recipe";
+			pstmt = con.prepareStatement(sql);
+			
+			// 4단계
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 구문 오류 발생! selectRecipeCount - " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<RecipeDTO> selectRecipeList(int pageNum, int listLimit) {
+		
+		ArrayList<RecipeDTO> recipeList = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		// 현재 페이지 번호를 활용하여 조회 시 시작행 번호 계산
+		int startRow = (pageNum - 1) * listLimit;
+		
+		try {
+			// 답글에 대한 처리 과정 추가
+			String sql = "SELECT * FROM community_recipe ORDER BY idx DESC LIMIT ?,?";
+					
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, listLimit);
+			
+			rs = pstmt.executeQuery();
+			
+			// 전체 게시물을 저장할 ArrayList<MateDTO> 객체 생성
+			recipeList = new ArrayList<RecipeDTO>();
+			
+			// while 문을 사용하여 조회 결과에 대한 반복 작업 수행
+			while(rs.next()) {
+				// 1개 게시물 정보를 저장할 MateDTO 객체 생성
+				RecipeDTO recipe = new RecipeDTO();
+				// 게시물 정보 저장
+				recipe.setContent(rs.getString("content"));
+				recipe.setDate(rs.getTimestamp("datetime"));
+				recipe.setIdx(rs.getInt("idx"));
+				recipe.setNickname(rs.getString("nickname"));
+				recipe.setOriginal_File1(rs.getString("original_File1"));
+				recipe.setOriginal_File2(rs.getString("original_File2"));
+				recipe.setOriginal_File3(rs.getString("original_File3"));
+				recipe.setOriginal_File4(rs.getString("original_File4"));
+				recipe.setOriginal_File5(rs.getString("original_File5"));
+				recipe.setReadcount(rs.getInt("readcount"));
+				recipe.setReal_File1(rs.getString("real_File1"));
+				recipe.setReal_File2(rs.getString("real_File2"));
+				recipe.setReal_File3(rs.getString("real_File3"));
+				recipe.setReal_File4(rs.getString("real_File4"));
+				recipe.setReal_File5(rs.getString("real_File5"));
+				recipe.setSubject(rs.getString("subject"));
+				System.out.println(recipe);
+				
+				// 전체 게시물 정보를 저장하는 ArrayList 객체에 1개 게시물 정보 MateDTO 객체 추가
+				recipeList.add(recipe);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 구문 오류 발생! - selectRecipeList()");
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return recipeList;
+	}
+	
+	// ------------------------------------------------------------
+	// 레시피 글 조회수
+	public void increaseRecipeReadcount(int idx) {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "DELETE FROM tmi_reply WHERE idx=? AND nickname=?";
+			String sql = "UPDATE community_recipe SET readcount=readcount+1 WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
-			pstmt.setString(2, nickname);
 			
-			deleteTmiReplyCount = pstmt.executeUpdate();
-			
-			System.out.println("deleteTmiReply - " + deleteTmiReplyCount);
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 - increaseRecipeReadcount() : " + e.getMessage());
 			e.printStackTrace();
-			System.out.println("SQL 구문 오류 - deleteTmiReply() " + e.getMessage());
+		} finally {
+			close(pstmt);
 		}
 		
-		return deleteTmiReplyCount;
 	}
 	
+	// 1개 게시물의 상세 정보 조회 작업 수행하는 getRecipe() 메서드
+	public RecipeDTO getRecipe(int idx) {
 
-	// -----------------------------------------------------------------------------------------
+		RecipeDTO recipe = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM community_recipe WHERE idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				recipe = new RecipeDTO();
+				recipe.setContent(rs.getString("content"));
+				recipe.setDate(rs.getTimestamp("datetime"));
+				recipe.setIdx(rs.getInt("idx"));
+				recipe.setNickname(rs.getString("nickname"));
+				recipe.setOriginal_File1(rs.getString("original_File1"));
+				recipe.setOriginal_File2(rs.getString("original_File2"));
+				recipe.setOriginal_File3(rs.getString("original_File3"));
+				recipe.setOriginal_File4(rs.getString("original_File4"));
+				recipe.setOriginal_File5(rs.getString("original_File5"));
+				recipe.setReadcount(rs.getInt("readcount"));
+				recipe.setReal_File1(rs.getString("real_File1"));
+				recipe.setReal_File2(rs.getString("real_File2"));
+				recipe.setReal_File3(rs.getString("real_File3"));
+				recipe.setReal_File4(rs.getString("real_File4"));
+				recipe.setReal_File5(rs.getString("real_File5"));
+				recipe.setSubject(rs.getString("subject"));
+				System.out.println(recipe);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 - getRecipe() : " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return recipe;
+	}
+
+	// 레시피 글 수정
+	public int updateRecipe(RecipeDTO recipe) {
+		System.out.println("CommunityDAO - updateRecipe");
+		
+		int updateCount = 0;
+
+		PreparedStatement pstmt = null;
+
+		try {
+			String sql = "UPDATE community_recipe SET subject=?,content=? WHERE idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, recipe.getSubject());
+			pstmt.setString(2, recipe.getContent());
+			pstmt.setInt(3, recipe.getIdx());
+
+			updateCount = pstmt.executeUpdate();
+			System.out.println(updateCount);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 구문 오류 - updateRecipe() : " + e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+
+		return updateCount;
+	}
+
 
 
 }

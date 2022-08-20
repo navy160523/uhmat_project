@@ -18,7 +18,9 @@ public class CommunityTmiDTO {
 	private String subject;
 	private String content;
 	private int readcount;
-	private Timestamp datetime;
+	private Timestamp date;
+	private String category;
+	
 	
 	public int getIdx() {
 		return idx;
@@ -50,17 +52,24 @@ public class CommunityTmiDTO {
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
-	public Timestamp getDatetime() {
-		return datetime;
-	}
-	public void setDatetime(Timestamp datetime) {
-		this.datetime = datetime;
-	}
+
 	
+	public Timestamp getDate() {
+		return date;
+	}
+	public void setDate(Timestamp date) {
+		this.date = date;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	@Override
 	public String toString() {
 		return "CommunityTmiDTO [idx=" + idx + ", nickname=" + nickname + ", subject=" + subject + ", content="
-				+ content + ", readcount=" + readcount + ", datetime=" + datetime + "]";
+				+ content + ", readcount=" + readcount + ", datetime=" + date + "]";
 	}
 	
 	

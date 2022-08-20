@@ -38,7 +38,7 @@ public class TmiReplyDeleteAction implements Action{
 			out.println("</script>");
 		} else {
 			forward = new ActionForward();
-			forward.setPath("tmiDetail.co?idx=" + idx + "&pageNum=" + request.getParameter("pageNum"));
+			forward.setPath("TmiDetail.co?idx=" + request.getParameter("board_idx") + "&pageNum=" + request.getParameter("pageNum"));
 			forward.setRedirect(true);
 		}
 		

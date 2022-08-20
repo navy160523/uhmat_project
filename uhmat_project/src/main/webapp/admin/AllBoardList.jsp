@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>AllBoardList.jsp</title>
+ <script src="./js/jquery-3.6.0.js"></script>
 <style type="text/css">
 	#listForm {
 		width: 1024px;
@@ -101,24 +102,62 @@
 	}
 </style>
 
+<script type="text/javascript">
 
+$(function(){
+	
+	$("#selectBox").val("${param.title}").attr("selected", "selected");
+// 	$("#selectBox").change(function(){
+// 		$.ajax({
+// 			url : "http://localhost:8080/uhmat_project/AllBoardList.ad",  // ./ 현재경로표시
+// 			type : "get",
+// 			data :  {
+// 				title:	$("#selectBox").val(),
+// 				ment: $("#ment").val()
+// 					}, // 이 값을 가지고 servlet으로 간다.
+// 			dataType: "json",
+// 			success : function(data) {
+// 				count++;
+// 				   $.each(data, function(key, val){
+// 			             <!-- 로그 찍어주는 부분 -->
+// 			             alert('key:' + key + ' / ' + 'value:' + val['nickName']);
+// 			             $('#div').append(val['nickName']+count+'<br>');
+// 			         });
+				
+			
+
+// 			},
+// 			errer : function() {
+// 				alert('errer');
+// 			}
+// 		});
+		
+// 	});
+	
+	
+});
+
+
+</script>
 </head>
 <body>
 		<!-- 게시판 리스트 -->
 		<section id="listForm">
 		<h2>FAQ</h2>
-		<select>
-			<option>FAQ</option>
-			<option>Notice</option>
-			<option>Mate</option>
-			<option>Tmi</option>
-		</select>
+		<form action="AllBoardList.ad"  method="get" >
+				<select id="selectBox" name="title" onchange="this.form.submit()">
+					<option value="Notice">Notice</option>
+					<option value="FAQ" >FAQ</option>
+					<option value="Mate">Mate</option>
+					<option value="Tmi">Tmi</option>
+					<option value="Recipe">Recipe</option>
+				</select>
 		
 			
-			<!-- 검색하기 기능 -->
-			<form action="FAQList.sc" method="get">
-				<input type="text" placeholder="검색어를 입력하세요" name="ment" value=${param.ment }>
-				<input type="submit" value="검색">
+				<!-- 검색하기 기능 -->
+			
+				<input type="text" placeholder="검색어를 입력하세요" id="ment" name="ment" value=${param.ment }>
+				<input type="submit" id="submit1" value="검색">
 			</form>
 <!-- 		<select id="selectBox"> -->
 <!-- <!-- 			<option value="전체">전체</option> -->
@@ -127,7 +166,7 @@
 <!-- 			<option value="지도 오류">지도 오류</option> -->
 <!-- 		</select> -->
 
-		<table>
+		<table id="list">
 			<tr id="tr_top">
 				<td width="150px">카테고리</td>
 				<td width="100px">번호</td>
@@ -144,18 +183,14 @@
 	 		<c:choose>
 	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
-					<c:forEach var="FAQ" items="${list}"> 
+					<c:forEach var="AllList"  items="${list}" > 
 						<tr>
-							<td>${FAQ.category }</td>
-							<td>${FAQ.idx }</td>
-							<td id="subject">
-								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}">
-									${FAQ.subject }
-								</a>
-							</td>
-							<td>${FAQ.nickname }</td>
-							<td>${FAQ.date }</td>
-							<td>${FAQ.readcount }</td>
+							<td id="category">${(empty AllList.category && AllList.category==null)?param.title:AllList.category}</td>
+							<td>${AllList.idx }</td>
+							<td>${AllList.subject }</td>
+							<td>${AllList.nickname }</td>
+							<td>${AllList.date }</td>
+<%-- 						<td>${AllList.readcount }</td> --%>
 						</tr>
 						</c:forEach>
 	 			</c:when>
@@ -174,7 +209,7 @@
 		-->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
+					<input type="button" value="이전" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" disabled="disabled">
@@ -198,51 +233,51 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
+					<input type="button" value="다음" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="다음" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
 		</section>
-		
+		<div id="div"></div>
 		<!-- 검색시 detail 부분 -->
 		
 		<!-- 게시판 상세내용 보기 -->
-	<section id="articleForm">
-		<h2>글 상세내용 보기</h2>
-		<section id="basicInfoArea">
-				<table border="1">
-					<tr><th width="70">제 목</th><td colspan="3" >${faq.subject }</td></tr>
-					<tr>
-						<th width="70">작성자</th><td>${faq.nickname }</td>
-						<th width="70">작성일</th><td>${faq.date }</td>
-					</tr>
-					<tr>
-						<th>조회수</th><th>${faq.readcount }</th>
-					<tr>
-						<th width="70">첨부파일</th>
-						<td>
-						<!-- 
-						파일명은 원본 파일명을 표시하고, 다운로드 파일 대상은 실제 업로드 파일명,
-						실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드
-						-->
-							<a href="upload/${faq.real_File }" download="${faq.original_File }">
-							${faq.real_File }
-							</a>
-						</td>
-					</tr>
-				</table>
-		</section>
-		<br><br>
-		<section id="articleContentArea">
-			${faq.content }
-		</section>
-	</section>
-	<section id="commandList" >
-		<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
-		<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
-	</section>
+<!-- 	<section id="articleForm"> -->
+<!-- 		<h2>글 상세내용 보기</h2> -->
+<!-- 		<section id="basicInfoArea"> -->
+<!-- 				<table border="1"> -->
+<%-- 					<tr><th width="70">제 목</th><td colspan="3" >${faq.subject }</td></tr> --%>
+<!-- 					<tr> -->
+<%-- 						<th width="70">작성자</th><td>${faq.nickname }</td> --%>
+<%-- 						<th width="70">작성일</th><td>${faq.date }</td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<%-- 						<th>조회수</th><th>${faq.readcount }</th> --%>
+<!-- 					<tr> -->
+<!-- 						<th width="70">첨부파일</th> -->
+<!-- 						<td> -->
+<!-- 						
+<!-- 						파일명은 원본 파일명을 표시하고, 다운로드 파일 대상은 실제 업로드 파일명, -->
+<!-- 						실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드 -->
+<!-- 						--> -->
+<%-- 							<a href="upload/${faq.real_File }" download="${faq.original_File }"> --%>
+<%-- 							${faq.real_File } --%>
+<!-- 							</a> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
+<!-- 		</section> -->
+<!-- 		<br><br> -->
+<!-- 		<section id="articleContentArea"> -->
+<%-- 			${faq.content } --%>
+<!-- 		</section> -->
+<!-- 	</section> -->
+<!-- 	<section id="commandList" > -->
+<%-- 		<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"> --%>
+<%-- 		<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"> --%>
+<!-- 	</section> -->
 </body>
 </html>
 

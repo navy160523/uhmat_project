@@ -21,10 +21,14 @@ public class TmiRereplyFormAction implements Action {
 		// 댓글 상세 정보를 리턴받아 qna_board_reply.jsp 페이지로 포워딩
 		// => 단, 조회수 증가 작업은 수행하지 않음
 		TmiDetailService service = new TmiDetailService();
+		
+		// 답글(대댓글) 구분을 위해 tmiRereply로 변수명 설정!
 		TmiReplyDTO tmiRereply = service.getTmiReply(idx);
-		System.out.println("답글폼액션 - " + tmiRereply);
+//		TmiReplyDTO tmiReply = service.getTmiReply(idx);
+//		System.out.println("답글폼액션 - " + tmiRereply);
 		
 		request.setAttribute("tmiRereply", tmiRereply);
+//		request.setAttribute("tmiReply", tmiReply);
 		// "tmiRereply"라는 이름으로 tmiReply에 저장한 값을 넘겨줍니다.
 		
 		forward = new ActionForward();

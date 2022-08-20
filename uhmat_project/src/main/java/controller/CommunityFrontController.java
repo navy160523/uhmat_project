@@ -19,6 +19,11 @@ import action.MateModifyFromAction;
 import action.MateModifyProAction;
 import action.MateReplyWriteAction;
 import action.MateWriteProAction;
+import action.RecipeDetailAction;
+import action.RecipeListAction;
+import action.RecipeModifyFormAction;
+import action.RecipeModifyProAction;
+import action.RecipeWriteProAction;
 import action.TmiDeleteProAction;
 import action.TmiDetailAction;
 import action.TmiListAction;
@@ -71,7 +76,7 @@ public class CommunityFrontController extends HttpServlet {
 			action = new MateListAction();
 
 			try {
-				action = new TmiListAction();
+				action = new MateListAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				System.out.println("TmiListAction 오류 - " + e.getMessage());
@@ -94,12 +99,12 @@ public class CommunityFrontController extends HttpServlet {
 
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				System.out.println("TmiWriteProAction 오류 - " + e.getMessage());
+				System.out.println("MateWriteProAction 오류 - " + e.getMessage());
 
 				e.printStackTrace();
 
 						}
-		} else if(command.equals("/MateWritePro.mate")) {
+		} else if(command.equals("/MateWritePro.co")) {
 			action = new MateWriteProAction();
 			try {
 
@@ -122,15 +127,6 @@ public class CommunityFrontController extends HttpServlet {
 
 			}
 			
-		} else if(command.equals("/TmiDetail.co")) {
-			// tmi 게시글 상세내용 보기
-			try {
-				action = new TmiDetailAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				System.out.println("TmiDetailAction 오류 - " + e.getMessage());
-				e.printStackTrace();
-			}
 		// -----------------------------------------------------------------------
 		// 글 수정에 필요한 게시물 조회 요청하는 서블릿(/MateModifyForm.co) 요청
 		} else if(command.equals("/MateModifyForm.co")) {
@@ -200,7 +196,8 @@ public class CommunityFrontController extends HttpServlet {
 		//-------------------------------------------------
 		// Tmi 서블릿 요청 시작
 		 else if (command.equals("/TmiList.co")) {
-			System.out.println("게시물 전체목록 조회");
+			System.out.println("---------------------------------------------");
+			System.out.println("게시물 전체목록과 검색기능 조회");
 			try {
 				action = new TmiListAction();
 				forward = action.execute(request, response);
@@ -210,12 +207,14 @@ public class CommunityFrontController extends HttpServlet {
 			}
 			
 		} else if(command.equals("/TmiWriteForm.co")) {
+			System.out.println("---------------------------------------------");
 			System.out.println("게시물 작성 작업");
 			forward = new ActionForward();
 			forward.setPath("community/tmiWrite.jsp");
 			forward.setRedirect(false);
 			
 		} else if(command.equals("/TmiWritePro.co")) {
+			System.out.println("---------------------------------------------");
 			System.out.println("게시물 작성 요청");
 			try {
 				action = new TmiWriteProAction();
@@ -226,6 +225,7 @@ public class CommunityFrontController extends HttpServlet {
 			}
 			
 		} else if(command.equals("/TmiDetail.co")) {
+			System.out.println("---------------------------------------------");
 			System.out.println("게시물 상세 내용 조회");
 			try {
 				action = new TmiDetailAction();
@@ -257,7 +257,6 @@ public class CommunityFrontController extends HttpServlet {
 				System.out.println("TmiModifyProAction 오류 - " + e.getMessage());
 				e.printStackTrace();
 			}
-
 			
 		} else if(command.equals("/TmiDeleteForm.co")) {
 			System.out.println("게시물 삭제 조회");
@@ -265,7 +264,7 @@ public class CommunityFrontController extends HttpServlet {
 			forward.setPath("community/tmiDelete.jsp");
 			forward.setRedirect(false);
 			
-		} else if(command.equals("/TmiDeletePro.co")) {
+		}  else if(command.equals("/TmiDeletePro.co")) {
 			System.out.println("댓글 삭제 요청");
 			try {
 				action = new TmiDeleteProAction();
@@ -357,7 +356,65 @@ public class CommunityFrontController extends HttpServlet {
 				System.out.println("TmiDetailAction(답글리스트) 오류 - " + e.getMessage());
 				e.printStackTrace();
 			}
+		// ==============================================================================================
+			
+		// 레시피 시작
+		// 레시피 글쓰기
+		} else if(command.equals("/RecipeWriteForm.co")) {
+			forward = new ActionForward();
+			forward.setPath("community/recipe/recipe_write.jsp");
+			forward.setRedirect(false); // Dispatcher 방식(생략 가능)
+			
+		} else if(command.equals("/RecipeWritePro.co")) {
+			action = new RecipeWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println("RecipeWriteProAction 오류 - " + e.getMessage());
+				e.printStackTrace();
+			}
+		// ----------------------------------------------------------------------------
+		// 레시피 리스트
+		} else if(command.equals("/RecipeList.co")) {
+			action = new RecipeListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeListAction 오류 - " + e.getMessage());
+			}
+		// -----------------------------------------------------------------------------
+		// 레시피 상세페이지
+		} else if(command.equals("/RecipeDetail.co")) {
+			action = new RecipeDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeDetailAction 오류 - " + e.getMessage());
+			}
+		} else if(command.equals("/RecipeModifyForm.co")) {
+			System.out.println("레시피글 수정 작업");
+			try {
+				action = new RecipeModifyFormAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeModifyFormAction 오류 - " + e.getMessage());
+			}
+		} else if(command.equals("/RecipeModifyPro.co")) {
+			System.out.println("레시피글 수정 작업 요청");
+			try {
+				action = new RecipeModifyProAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeModifyProAction 오류 - " + e.getMessage());
+			}
+			
 		}
+		
+		
 		// ------------------------------------------------------------------
 		// ActionFoward 객체에 저장된 포워딩 정보에 따른 포워딩 작업을 수행하기 위한 공통코드 작성
 		if(forward != null) {

@@ -31,7 +31,7 @@ public class TmiWriteProAction implements Action {
 		tmiBoard.setNickname(request.getParameter("nickname"));
 		tmiBoard.setSubject(request.getParameter("subject"));
 		tmiBoard.setContent(request.getParameter("content"));
-		tmiBoard.setDatetime(timestamp);
+		tmiBoard.setDate(timestamp);
 		
 		// 실제 비즈니스 작업 요청을 수행할 TmiWriteProService 클래스의 인스턴스를 생성 후
 		// registTmiBoard() 메서드를 호출하여 글 쓰기 작업을 요청합니다.

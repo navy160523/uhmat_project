@@ -159,25 +159,18 @@ $(function(){
 			<a href="#">지도로 보기</a>
 		</details>
 	</nav>
+<hr>
 
 
 
-
-	<h3>
-		<a href="NoticeList.sc">Notice</a>
-	</h3>
-	<h3>
-		<a href="FAQList.sc">FAQ</a>
-	</h3>
-	<h3>
-		<a href="MateWriteForm.co">글쓰기</a>
-	</h3>
-	<h3>
-		<a href="MateList.co">글목록</a>
-	</h3>
-	<h3>
-		<a href="test.jsp">글목록</a>
-	</h3>
+<h3> <a href="AllBoardListForm.ad">admin</a></h3>
+<h3> <a href="NoticeList.sc">Notice</a></h3>
+<h3> <a href="FAQList.sc">FAQ</a></h3>
+<h3><a href="MateWriteForm.co">어맛메이트 글쓰기</a></h3>
+<h3><a href="MateList.co">어맛메이트 글목록</a></h3>
+<h3><a href="RecipeWriteForm.co">어맛레시피 쓰기</a></h3>
+<br>
+<h3><a href="TmiList.co">어맛Tmi 글목록</a></h3>
 
 
 
