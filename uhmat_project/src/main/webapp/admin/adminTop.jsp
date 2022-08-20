@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="adminTop.jsp"></jsp:include>
+	<input type="button" value="홈" onclick="location.href='index.jsp'">
+	<a href="">관리자뷰</a>
+	<a href="AllBoardList.ad">모든게시물</a>
+	<a href="AdminManageMemberList.ad">회원관리</a>
 </body>
 </html>

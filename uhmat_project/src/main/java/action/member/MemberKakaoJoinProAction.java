@@ -24,7 +24,7 @@ public class MemberKakaoJoinProAction implements Action {
 		 member.setEmail(email);
 		 member.setName(null);
 		 member.setPasswd(null);
-		 member.setNickName("카카오"+nickname);
+		 member.setNickname("카카오"+nickname);
 		 member.setAuth_status("Y");
 		 member.setApi_id(api_id);
 		 System.out.println(email);
@@ -72,19 +72,13 @@ public class MemberKakaoJoinProAction implements Action {
 					out.println("</script>");
 				} else {
 					HttpSession session = request.getSession();
-					session.setAttribute("sNickName", member.getNickName());
+					session.setAttribute("sNickName", member.getNickname());
 					
 					forward = new ActionForward();
 					forward.setPath("index.jsp");
 					forward.setRedirect(true);
 				}
 		}
-	
-		 
-		 
-		 
-		 
-		 
 		
 		return forward;
 	}

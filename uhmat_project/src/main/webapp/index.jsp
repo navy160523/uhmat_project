@@ -116,7 +116,9 @@ height: 75px;
 	</h3>
 
 
-
+	<h3>
+		<a href="Admin.ad">관리자페이지</a>
+	</h3>
 
 </body>
 </html>

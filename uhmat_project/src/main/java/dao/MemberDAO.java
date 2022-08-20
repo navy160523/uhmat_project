@@ -3,7 +3,9 @@ package dao;
 import static db.JdbcUtil.close;
 
 import java.sql.*;
+import java.util.*;
 
+import db.*;
 import vo.*;
 
 public class MemberDAO {
@@ -87,7 +89,7 @@ public class MemberDAO {
 		try {
 			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dto.getNickName());
+			pstmt.setString(1, dto.getNickname());
 			pstmt.setString(2, dto.getName());
 			pstmt.setString(3, dto.getEmail());
 			pstmt.setString(4, dto.getPasswd());
@@ -336,7 +338,7 @@ public class MemberDAO {
 			if (rs.next()) {
 				member = new MemberDTO();
 				member.setName(rs.getString("name"));
-				member.setNickName(rs.getString("nickname"));
+				member.setNickname(rs.getString("nickname"));
 				member.setEmail(rs.getString("email"));
 				member.setBirthdate(rs.getDate("birthdate"));
 				member.setPostCode(rs.getString("postcode"));
@@ -365,7 +367,7 @@ public class MemberDAO {
 		try {
 			String sql = "UPDATE member SET nickname=?,name=?,birthdate=?, postcode=?,address1=?,address2=? WHERE email=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getNickName());
+			pstmt.setString(1, member.getNickname());
 			pstmt.setString(2, member.getName());
 			pstmt.setDate(3, member.getBirthdate());
 			pstmt.setString(4, member.getPostCode());
@@ -382,6 +384,73 @@ public class MemberDAO {
 		}
 
 		return updateCount;
+	}
+
+	public ArrayList<MemberDTO> AdminSelectMemberList(int pageNum, int listLimit, String ment) {
+		ArrayList<MemberDTO> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int idx = 1;
+		int startRow = (pageNum- 1) * listLimit;
+		
+		try {
+			
+			String sql = "SELECT * FROM member ORDER BY birthdate LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			pstmt.setString(1, "%" + ment + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, listLimit);
+			
+			list = new ArrayList<MemberDTO>();
+			
+			while(rs.next()) {
+				MemberDTO member = new MemberDTO();
+				member.setName(rs.getString("name"));
+				member.setNickname(rs.getString("nickname"));
+				member.setEmail(rs.getString("email"));
+				member.setBirthdate(rs.getDate("birthdate"));
+				member.setPostCode(rs.getString("postcode"));
+				member.setAddress1(rs.getString("address1"));
+				member.setAddress2(rs.getString("address2"));
+				
+				list.add(member);
+			}
+			System.out.println("AdminSelectMemberList의 list :"  + list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 오류 - selectMember() : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int SelectMemberListCount() {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM member";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			System.out.println("listCount : " + listCount);
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return listCount;
 	}
 
 }

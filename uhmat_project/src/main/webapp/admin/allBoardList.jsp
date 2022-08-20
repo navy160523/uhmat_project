@@ -104,6 +104,7 @@
 
 </head>
 <body>
+		<jsp:include page="adminTop.jsp"></jsp:include>
 		<!-- 게시판 리스트 -->
 		<section id="listForm">
 		<h2>FAQ</h2>

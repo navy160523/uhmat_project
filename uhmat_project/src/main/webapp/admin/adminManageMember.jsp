@@ -8,6 +8,8 @@
 <title>회원목록</title>
 </head>
 <body>
+	<jsp:include page="adminTop.jsp"></jsp:include>
+	
    <form action="" method="get">
 	    <table border="1">
 	        <tr>
@@ -39,16 +41,19 @@
 			<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -> JSTL과 EL 활용-->
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
+			
+		<c:forEach var="member" items="${list }">
 			<tr>
-            <td><input type="checkbox" id="check1" name="check" value="1"></td>
-            <td>1</td>
-            <td>홍길동</td>
-            <td>hh</td>
-            <td>hong@naver.com</td>
-            <td>10개</td>
-            <td>보기</td>
-            <td><input type="button" value="회원삭제" onclick="location.href='회원삭제페이지'"></td>
-        </tr>
+	            <td><input type="checkbox" id="check1" name="check" value="1"></td>
+	            <td>1</td>
+	            <td>${member.name}</td>
+	            <td>${member.nickname}</td>
+	            <td>${member.email }</td>
+	            <td>10개</td>
+	            <td><a href="memberManagementDetailForm.ad">보기</a></td>
+	            <td><input type="button" value="회원삭제" onclick="location.href='회원삭제페이지'"></td>
+	        </tr>
+        </c:forEach>
 <%-- 	 		<c:choose> --%>
 <%-- 	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }"> --%>
 <!-- 					c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 				 -->
@@ -77,7 +82,7 @@
 	
 	<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
+					<input type="button" value="이전" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" disabled="disabled">
@@ -92,7 +97,7 @@
 								${i}
 							</c:when>
 							<c:otherwise>
-								<a href="FAQList.sc?pageNum=${i}&ment=${param.ment }">${i} &nbsp;</a>
+								<a href="AdminManageMemberList.ad?pageNum=${i}&ment=${param.ment }">${i} &nbsp;</a>
 			
 							</c:otherwise>
 						</c:choose>
@@ -101,7 +106,7 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
+					<input type="button" value="다음" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="다음" disabled="disabled">

@@ -18,7 +18,7 @@ public class MemberDetailModifyProAction implements Action {
 		ActionForward forward =null;
 		 String email= request.getParameter("email");
 		 String name=request.getParameter("name");
-		 String nickName= request.getParameter("nickName");
+		 String nickname= request.getParameter("nickName");
 		 Date birthdate= Date.valueOf(request.getParameter("birth"));
 		 String postCode= request.getParameter("postCode");
 		 String address1=request.getParameter("address1");
@@ -27,7 +27,7 @@ public class MemberDetailModifyProAction implements Action {
 		 MemberDTO member = new MemberDTO();
 		 member.setEmail(email);
 		 member.setName(name);
-		 member.setNickName(nickName);
+		 member.setNickname(nickname);
 		 member.setBirthdate(birthdate);
 		 member.setPostCode(postCode);
 		 member.setAddress1(address1); 
