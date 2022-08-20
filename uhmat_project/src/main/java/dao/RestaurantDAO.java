@@ -1,11 +1,18 @@
 package dao;
 
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.close;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import vo.*;
+import vo.MapDTO;
+import vo.RestaurantInfoDTO;
+
+
 public class RestaurantDAO {
 	// 싱글톤 DAO 생성
 	private RestaurantDAO() {}
@@ -60,18 +67,24 @@ public class RestaurantDAO {
 			pstmt.setInt(2, listLimit);
 			rs = pstmt.executeQuery();
 			
+
+			list = new ArrayList<RestaurantInfoDTO>();
+
 			while(rs.next()) {
 				RestaurantInfoDTO dto = new RestaurantInfoDTO();
 				dto.setResName(rs.getString("res_name"));
 				dto.setrPostcode(rs.getString("r_postcode"));
-				dto.setResName(rs.getString("address"));
-				dto.setResName(rs.getString("phone_number"));
-				dto.setResName(rs.getString("opentime"));
-				dto.setResName(rs.getString("res_link"));
-				dto.setResName(rs.getString("photo"));
+
+				dto.setAddress(rs.getString("address"));
+				dto.setPhoneNumber(rs.getString("phone_number"));
+				dto.setOpentime(rs.getString("opentime"));
+				dto.setResLink(rs.getString("res_link"));
+				dto.setPhoto(rs.getString("photo"));
 				dto.setReviewCount(rs.getInt("reviewCount"));
 				dto.setRating(rs.getFloat("rating"));
-									
+				
+				System.out.println(dto);
+
 				list.add(dto);				
 			}
 		} catch (SQLException e) {
@@ -84,6 +97,9 @@ public class RestaurantDAO {
 		
 		return list;
 	}
+
+
+	//식당 정보 입력
 
 	public int insertResInfo(RestaurantInfoDTO dto) {
 		int insertCount = 0 ;
@@ -101,6 +117,9 @@ public class RestaurantDAO {
 			pstmt.setString(7, dto.getPhoto());
 			pstmt.setString(8, dto.getResInfo());
 			
+
+			System.out.println(dto);
+
 			insertCount=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,4 +130,64 @@ public class RestaurantDAO {
 		
 		return insertCount;
 	}
+
+
+	//식당 상세정보 가져오기
+	public RestaurantInfoDTO getRestaurantInfo(String resName) {
+		System.out.println("RestaurantInfoDTO-getRestaurantInfo");
+		RestaurantInfoDTO dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT*FROM restaurant_info WHERE res_name=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, resName);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				dto = new RestaurantInfoDTO();
+				dto.setResName(rs.getString("res_name"));
+				dto.setrPostcode(rs.getString("r_postcode"));
+				dto.setAddress(rs.getString("address"));
+				dto.setPhoneNumber(rs.getString("phone_number"));
+				dto.setOpentime(rs.getString("opentime"));
+				dto.setResLink(rs.getString("res_link"));
+				dto.setPhoto(rs.getString("photo"));
+				dto.setReviewCount(rs.getInt("reviewCount"));
+				dto.setRating(rs.getFloat("rating"));
+				dto.setResInfo(rs.getString("res_info"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("getRestaurantInfo() - SQL 구문 오류!");
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return dto;
+	}
+
+	//식당 위치 정보 입력
+	public int insertMapInfo(MapDTO map) {
+		System.out.println("RestaurantDAO - insertMapInfo()");
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		try {
+			String sql = "INSERT INTO map VALUES(?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setDouble(1, map.getLongitude());
+			pstmt.setDouble(2, map.getLatitude());
+			pstmt.setString(3, map.getResName());
+			insertCount=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("RestaurantDAO - insertMapInfo() - SQL 구문 오류!");
+		}finally {
+			close(pstmt);
+		}
+		return insertCount;
+	}
+
 }

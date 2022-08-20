@@ -215,6 +215,143 @@ public class NoticeDAO {
 		
 		return deleteSuccess;
 	}
+	public int selectAnythingListcount(String ment) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM NoticeBoard WHERE subject LIKE ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + ment + "%" );
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+	//		System.out.println("listCount : " + listCount);
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return listCount;
+	}
+	public ArrayList<NoticeDTO> selectAnythingList(int pageNum, int listLimit, String ment) {
+		ArrayList<NoticeDTO> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (pageNum- 1) * listLimit;
+		
+		try {
+			String sql = "SELECT * FROM NoticeBoard WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + ment + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, listLimit);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<NoticeDTO>();
+			
+			while(rs.next()) {
+				NoticeDTO notice = new NoticeDTO();
+				notice.setContent(rs.getString("content"));
+				notice.setDate(rs.getDate("date"));
+				notice.setIdx(rs.getInt("idx"));
+				notice.setNickname(rs.getString("nickname"));
+				notice.setOriginal_File(rs.getString("original_File"));
+				notice.setReal_File(rs.getString("real_File"));
+				notice.setSubject(rs.getString("subject"));
+				notice.setCategory(rs.getString("category"));
+				
+				list.add(notice);
+				
+			}
+//			System.out.println("list : " + list);
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return list;
+	}
+	public int selectNoticeCategoryListcount(String category) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM NoticeBoard WHERE category=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, category);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+	//		System.out.println("listCount : " + listCount);
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return listCount;
+	}
+	public ArrayList<NoticeDTO> selectNoticeCategory(int pageNum, int listLimit, String category) {
+		ArrayList<NoticeDTO> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (pageNum- 1) * listLimit;
+		
+		try {
+			String sql = "SELECT * FROM NoticeBoard WHERE category=? ORDER BY idx DESC LIMIT ?,? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, category);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, listLimit);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<NoticeDTO>();
+			
+			while(rs.next()) {
+				NoticeDTO notice = new NoticeDTO();
+				notice.setContent(rs.getString("content"));
+				notice.setDate(rs.getDate("date"));
+				notice.setIdx(rs.getInt("idx"));
+				notice.setNickname(rs.getString("nickname"));
+				notice.setOriginal_File(rs.getString("original_File"));
+				notice.setReal_File(rs.getString("real_File"));
+				notice.setSubject(rs.getString("subject"));
+				notice.setCategory(rs.getString("category"));
+				
+				list.add(notice);
+			}
+//			System.out.println("list : " + list);
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return list;
+	}
 	
 	
 	

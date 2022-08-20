@@ -17,7 +17,7 @@
 			<c:when test="${not empty mateList and pageInfo.listCount gt 0 }">
 				<c:forEach var="mate" items="${mateList }">
 					<tr>
-						<td width="800" height="50"><a href="MateDetail.mate?idx=${mate.idx }&pageNum=${pageInfo.pageNum}">${mate.subject }</a> <br> 
+						<td width="800" height="50"><a href="MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}">${mate.subject }</a> <br> 
 <%-- 							${mate.content } <br> --%>
 							${mate.nickname } | ${mate.readcount } | <img src="img/시계.jpg" width="20"> ${mate.datetime }</td>
 					</tr>
@@ -32,7 +32,7 @@
 	
 	<!-- 글쓰기 버튼 클릭 시 글쓰기 페이지로 이동 -->
 	<section>
-	<input type="button" value="글쓰기" onclick="location.href='MateWriteForm.mate'"/>
+	<input type="button" value="글쓰기" onclick="location.href='MateWriteForm.co'"/>
 	</section>
 	
 	<!-- 
@@ -44,7 +44,7 @@
 		
 		<c:choose>
 			<c:when test="${pageInfo.pageNum > 1}">
-				<input type="button" value="이전" onclick="location.href='mateList.mate?pageNum=${pageInfo.pageNum - 1}'">
+				<input type="button" value="이전" onclick="location.href='mateList.co?pageNum=${pageInfo.pageNum - 1}'">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="이전">
@@ -59,7 +59,7 @@
 					${i }
 				</c:when>
 				<c:otherwise>
-					<a href="MateList.mate?pageNum=${i }">${i }</a>
+					<a href="MateList.co?pageNum=${i }">${i }</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -67,7 +67,7 @@
 		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 		<c:choose>
 			<c:when test="${pageInfo.pageNum < pageInfo.maxPage}">
-				<input type="button" value="다음" onclick="location.href='MateList.mate?pageNum=${pageInfo.pageNum + 1}'">
+				<input type="button" value="다음" onclick="location.href='MateList.co?pageNum=${pageInfo.pageNum + 1}'">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="다음">

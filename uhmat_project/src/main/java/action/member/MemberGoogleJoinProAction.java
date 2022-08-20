@@ -72,10 +72,10 @@ public class MemberGoogleJoinProAction implements Action {
 					out.println("</script>");
 				} else {
 					HttpSession session = request.getSession();
-					session.setAttribute("sEmail", member.getEmail());
+					session.setAttribute("sNickName", member.getNickName());
 					
 					forward = new ActionForward();
-					forward.setPath("index.jsp");
+					forward.setPath("member/google.jsp");
 					forward.setRedirect(true);
 				}
 		}

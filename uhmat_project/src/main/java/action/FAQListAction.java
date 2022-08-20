@@ -50,11 +50,12 @@ public class FAQListAction implements Action {
 		// BoardListService 객체의 getBoardList() 메서드를 호출하여 게시물 목록 가져오기
 		// => 파라미터 : 현재 페이지번호(pageNum), 페이지 당 게시물 수(listLimit) 
 		// => 리턴타입 : ArrayList<BoardDTO>(boardList)
-		
+
 		ArrayList<FAQDTO> list = service.getFAQList(pageNum, listLimit);
 //		System.out.println("list : " + list);
-		
 		request.setAttribute("pageInfo", pageInfo);
+		
+
 		request.setAttribute("list", list);
 		
 		forward = new ActionForward();

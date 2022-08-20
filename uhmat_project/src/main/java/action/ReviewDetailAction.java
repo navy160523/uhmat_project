@@ -16,11 +16,13 @@ public class ReviewDetailAction implements Action {
 		ActionForward forward = null;
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		
 		ReviewDetailService service = new ReviewDetailService();
 		ReviewBoardDTO dto = service.getReviewBoard(idx);
 		
 		request.setAttribute("dto", dto);
+		request.setAttribute("pageNum", pageNum);
 		
 		forward = new ActionForward();
 

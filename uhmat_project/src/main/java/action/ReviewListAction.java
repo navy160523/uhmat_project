@@ -19,7 +19,7 @@ public class ReviewListAction implements Action {
 		
 		//페이징 처리를 위한 변수 선언
 		int pageNum = 1;
-		int listLimit = 10;
+		int listLimit = 6;
 		int pageLimit = 10;
 		
 		
@@ -50,7 +50,7 @@ public class ReviewListAction implements Action {
 			}
 		
 		// 페이징 처리 정보를 pageInfo 객체에 저장
-		PageInfo pageInfo = new PageInfo(pageNum, maxPage, endPage, startPage, listCount);
+		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
 		ArrayList<ReviewBoardDTO> reviewList = ReviewListService.getBoardList(pageNum, listLimit);
 		

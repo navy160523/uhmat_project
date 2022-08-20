@@ -47,7 +47,7 @@ public class ReviewWriteProAction implements Action {
 //				System.out.println(realPath);
 				// D:\Shared\JSP\workspace_jsp2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MVC_Board\ upload
 				// => 실제 업로드 될 폴더 위치(주의! 워크스페이스 내의 프로젝트 폴더에 있는 upload 폴더는 가상의 폴더)
-				
+
 				// 5. MultipartRequest 객체 생성
 				// => 생성자 파라미터로 파일 업로드에 필요한 각종 파라미터를 전달
 				MultipartRequest multi = new MultipartRequest(

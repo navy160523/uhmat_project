@@ -31,7 +31,7 @@ public class ReviewModifyProAction implements Action {
 		 * 4. 비밀번호가 일치하지 않을 경우 -> alert("비밀번호가 일치하지 않습니다.")
 		 * 5. 
 		 */
-	
+
 		// 1. 업로드 파일 위치(이클립스 프로젝트 상의 경로) 저장
 		String uploadPath = "upload"; // 가상의 폴더명
 				
@@ -53,6 +53,12 @@ public class ReviewModifyProAction implements Action {
 					new DefaultFileRenamePolicy() // 5) 중복 파일명에 대한 처리를 담당하는 객체(파일명 뒤에 숫자 1 부터 차례대로 부여)
 				);
 		
+
+		String originPath = multi.getParameter("path");
+//		System.out.println(originPath);  값 전달이 잘 되었는지 체크
+//		System.out.println(multi.getParameter("idx"));
+		
+
 		ReviewBoardDTO dto = new ReviewBoardDTO();
 		dto.setIdx(Integer.parseInt(multi.getParameter("idx")));
 		dto.setNickname(multi.getParameter("nickname"));
@@ -60,15 +66,13 @@ public class ReviewModifyProAction implements Action {
 		dto.setRes_name(multi.getParameter("res_name"));
 		dto.setRating(Float.parseFloat(multi.getParameter("rating")));
 		dto.setContent(multi.getParameter("content"));
-		dto.setPhoto(multi.getParameter("photo"));
-		
-		
+
+		dto.setPhoto(multi.getOriginalFileName("photo"));
+		dto.setPhoto(multi.getFilesystemName("photo"));
 	
-		String originPath = multi.getParameter("originPath");
-		System.out.println(originPath);
-		
 		ReviewModifyProService service = new ReviewModifyProService();
-		boolean isModifySuccess = service.modifyReview(dto, originPath);
+		boolean isModifySuccess = service.modifyReview(dto, originPath, realPath);
+
 		
 		// 글 수정 작업 결과 판별
 		// 실패 시 자바스크립트를 사용하여 "글 수정 실패!" 출력 후 이전페이지로 돌아가기
@@ -83,8 +87,10 @@ public class ReviewModifyProAction implements Action {
 			out.println("</script>");
 		} else {
 			forward = new ActionForward();
-			forward.setPath("ReviewDetail.re?idx=" + dto.getIdx());
-//			forward.setPath("ReviewDetail.re?idx=" + dto.getIdx() + "&pageNum=" + request.getParameter("pageNum"));
+
+//			forward.setPath("ReviewDetail.re?idx=" + dto.getIdx());
+			forward.setPath("ReviewDetail.re?idx=" + dto.getIdx() + "&pageNum=" + multi.getParameter("pageNum"));
+
 			forward.setRedirect(true);
 		}
 		return forward;

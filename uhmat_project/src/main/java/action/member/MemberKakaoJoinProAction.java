@@ -72,7 +72,7 @@ public class MemberKakaoJoinProAction implements Action {
 					out.println("</script>");
 				} else {
 					HttpSession session = request.getSession();
-					session.setAttribute("sEmail", member.getEmail());
+					session.setAttribute("sNickName", member.getNickName());
 					
 					forward = new ActionForward();
 					forward.setPath("index.jsp");

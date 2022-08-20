@@ -1,7 +1,6 @@
 package action;
 
 
-
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,7 @@ public class MateWriteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("MateWriteProAction");
+
 
 		// 포워딩 정보를 저장하는 ActionForward 타입 변수 선언
 

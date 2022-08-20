@@ -15,6 +15,7 @@
 	<hr>		
 			
 	<!-- 본문들어가는 곳 -->
+	<div id="container">
 		<div class="row">
 					<div class="col col_6">
 						<div class="row">
@@ -91,7 +92,7 @@
 </div>
 </div>
 </div>	
-
+</div>
 <hr>
 		
 	<!-- 푸터 들어가는곳 -->

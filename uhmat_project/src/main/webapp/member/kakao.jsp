@@ -57,7 +57,7 @@
 <body>
 	<a id="custom-login-btn" href="javascript:loginWithKakao()"> <img
 		src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-		width="130" height="50"/>
+		width="300" height="50"/>
 	</a>
 	 <form action="MemberKakaoJoinPro.me">
                 <input type="hidden" id="api_id" name="api_id">
