@@ -13,6 +13,7 @@ import vo.*;
 public class AdminManageMemberListService {
 
 	public int getMemberListSelectCount(String keyword) {
+		System.out.println("getMemberListSelectCount");
 		int listCount = 0;
 		
 		Connection con = JdbcUtil.getConnection();
@@ -29,6 +30,7 @@ public class AdminManageMemberListService {
 	}
 	
 	public ArrayList<MemberDTO> getMemberList(int pageNum, int listLimit, String keyword) {
+		System.out.println("getMemberList");
 		ArrayList<MemberDTO> list= null;
 		
 		Connection con = getConnection();

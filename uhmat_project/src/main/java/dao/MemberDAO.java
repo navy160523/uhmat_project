@@ -445,7 +445,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT COUNT(*) FROM member WHERE name LIKE=?";
+			String sql = "SELECT COUNT(*) FROM member WHERE name LIKE ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%" );
 			
