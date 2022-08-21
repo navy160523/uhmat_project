@@ -8,6 +8,9 @@
 <title>회원목록</title>
 </head>
 <body>
+	
+
+	
 	<jsp:include page="adminTop.jsp"></jsp:include>
 	
    <form action="AdminManageMemberList.ad" method="get">
@@ -41,6 +44,9 @@
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
 			
+		<c:forEach var="member" items="${list2 }">
+		<td>${member }</td>
+		</c:forEach>
 		<c:forEach var="member" items="${list }">
 			<tr>
 <!-- 	            <td><input type="checkbox" id="check1" name="check" value="1"></td> -->

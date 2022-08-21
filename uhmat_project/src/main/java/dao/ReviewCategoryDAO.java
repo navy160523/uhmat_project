@@ -3,6 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
+import db.*;
 import vo.*;
 
 import static db.JdbcUtil.*;
@@ -266,6 +267,7 @@ public class ReviewCategoryDAO {
 		
 		return deleteCount;
 	}
+	
 
 
 

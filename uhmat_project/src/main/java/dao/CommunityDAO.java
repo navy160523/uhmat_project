@@ -22,11 +22,7 @@ import java.util.ArrayList;
 
 import com.mysql.cj.protocol.Resultset;
 
-import vo.CommentDTO;
-import vo.CommunityTmiDTO;
-import vo.MateDTO;
-import vo.MateReplyDTO;
-import vo.TmiReplyDTO;
+import db.*;
 
 /*
 
@@ -1100,6 +1096,7 @@ public class CommunityDAO {
 		
 		return deleteTmiReplyCount;
 	}
+
 	
 
 	// -----------------------------------------------------------------------------------------

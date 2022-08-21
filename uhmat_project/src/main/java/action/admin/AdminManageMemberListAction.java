@@ -26,13 +26,14 @@ public class AdminManageMemberListAction implements Action {
 		if(request.getParameter("email") != null) {
 			email = request.getParameter("email");
 		}
-		System.out.println("email : " + email);
+//		System.out.println("email : " + email);
 		
 		String keyword = "";
 		if(request.getParameter("keyword") != null) {
 			keyword = request.getParameter("keyword");
 		}
-		System.out.println("keyword : " + keyword);
+//		System.out.println("keyword : " + keyword);
+		
 		// 단, URL 파라미터로 현재 페이지번호(pageNum) 가 전달됐을 경우 가져와서 변수에 저장
 		if(request.getParameter("pageNum") != null){
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
@@ -43,7 +44,7 @@ public class AdminManageMemberListAction implements Action {
 		int listCount = 0;
 		
 		listCount = service.getMemberListSelectCount(keyword);
-
+		
 //		System.out.println("전체 게시물 수 " + listCount);
 		
 		// 1. 현재 페이지에서 표시할 전체 페이지 수 계산
@@ -63,13 +64,18 @@ public class AdminManageMemberListAction implements Action {
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
 		ArrayList<MemberDTO> list = service.getMemberList(pageNum, listLimit, keyword);
-		System.out.println("AdminManageMemberListAction의 list : " + list);
+//		System.out.println("AdminManageMemberListAction의 list : " + list);
+		
+		ArrayList<Integer> list2 = service.getAllBoardCountList(keyword); 
+		System.out.println("list2 : " + list2);
 		
 		MemberDTO memberDetail = service.getMember(email);
-		System.out.println("memberDetail: " + memberDetail);
+//		System.out.println("memberDetail: " + memberDetail);
+		
 		request.setAttribute("memberDetail", memberDetail);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
+		request.setAttribute("list2", list2);
 		
 		forward = new ActionForward();
 		forward.setPath("admin/adminManageMember.jsp");

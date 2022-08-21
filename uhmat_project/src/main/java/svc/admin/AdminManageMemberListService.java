@@ -13,7 +13,7 @@ import vo.*;
 public class AdminManageMemberListService {
 
 	public int getMemberListSelectCount(String keyword) {
-		System.out.println("getMemberListSelectCount");
+//		System.out.println("getMemberListSelectCount");
 		int listCount = 0;
 		
 		Connection con = JdbcUtil.getConnection();
@@ -30,7 +30,7 @@ public class AdminManageMemberListService {
 	}
 	
 	public ArrayList<MemberDTO> getMemberList(int pageNum, int listLimit, String keyword) {
-		System.out.println("getMemberList");
+//		System.out.println("getMemberList");
 		ArrayList<MemberDTO> list= null;
 		
 		Connection con = getConnection();
@@ -40,7 +40,7 @@ public class AdminManageMemberListService {
 		dao.setConnection(con);
 		
 		list = dao.AdminSelectMemberList(pageNum, listLimit, keyword);
-		System.out.println("AdminManageMemberListService의 list :" + list);
+//		System.out.println("AdminManageMemberListService의 list :" + list);
 		close(con);
 		
 		return list;
@@ -60,6 +60,23 @@ public class AdminManageMemberListService {
 		close(con);
 		
 		return member;
+	}
+
+	public ArrayList<Integer> getAllBoardCountList(String keyword) {
+		System.out.println("AdminManageMemberListService -getAllBoardCountList");
+		ArrayList<Integer> list2 = null;
+		
+		Connection con = getConnection();
+		
+		// 리뷰 dao
+		MemberDAO dao = MemberDAO.getInstance();
+		
+		// dao 객체에 Connection 객체 전달
+		dao.setConnection(con);	
+		
+		list2 = dao.getAllBoardCountList(keyword); 
+		
+		return list2;
 	}
 
 
