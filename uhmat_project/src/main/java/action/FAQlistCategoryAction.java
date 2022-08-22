@@ -14,7 +14,11 @@ public class FAQlistCategoryAction implements Action {
 		System.out.println("FAQlistCategoryAction - execute");
 		ActionForward forward = null;
 		
-		String category = request.getParameter("name");
+		String category ="";
+		if(request.getParameter("name")!= null) {
+			category = request.getParameter("name");
+		}
+		
 		System.out.println("category : " + category);
 		
 		

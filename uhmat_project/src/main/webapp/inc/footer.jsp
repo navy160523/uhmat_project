@@ -13,7 +13,7 @@
 	<footer>
 		<!-- 로고 들어가는 곳 -->
 		<div class="incLogo">
-			<img src="img/incLogo.jpg">
+			<img src="./img/incLogo.jpg">
 		</div>
 		<div class="incText">
 			<p>여가그가(주)</p>

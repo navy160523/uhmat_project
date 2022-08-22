@@ -66,8 +66,8 @@ public class AdminManageMemberListAction implements Action {
 		ArrayList<MemberDTO> list = service.getMemberList(pageNum, listLimit, keyword);
 //		System.out.println("AdminManageMemberListAction의 list : " + list);
 		
-		ArrayList<Integer> list2 = service.getAllBoardCountList(keyword); 
-		System.out.println("list2 : " + list2);
+//		ArrayList<Integer> list2 = service.getAllBoardCountList(keyword); 
+//		System.out.println("list2 : " + list2);
 		
 		MemberDTO memberDetail = service.getMember(email);
 //		System.out.println("memberDetail: " + memberDetail);
@@ -75,7 +75,7 @@ public class AdminManageMemberListAction implements Action {
 		request.setAttribute("memberDetail", memberDetail);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-		request.setAttribute("list2", list2);
+//		request.setAttribute("list2", list2);
 		
 		forward = new ActionForward();
 		forward.setPath("admin/adminManageMember.jsp");

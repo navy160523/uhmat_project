@@ -172,16 +172,16 @@ public class FAQDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT COUNT(*) FROM FAQBoard WHERE category=?";
+			String sql = "SELECT COUNT(*) FROM FAQBoard WHERE category LIKE ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, category);
+			pstmt.setString(1, "%"+ category +"%");
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				listCount = rs.getInt(1);
 			}
-	//		System.out.println("listCount : " + listCount);
+			System.out.println("listCount : " + listCount);
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
 			e.printStackTrace();
@@ -202,9 +202,9 @@ public class FAQDAO {
 		int startRow = (pageNum- 1) * listLimit;
 		
 		try {
-			String sql = "SELECT * FROM FAQBoard WHERE category=? ORDER BY idx DESC LIMIT ?,? ";
+			String sql = "SELECT * FROM FAQBoard WHERE category LIKE ? ORDER BY idx DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, category);
+			pstmt.setString(1, "%"+ category +"%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, listLimit);
 			rs = pstmt.executeQuery();

@@ -24,7 +24,8 @@
 	}
 	
 	#tr_top {
-		background: orange;
+		background: black;
+		color: white;
 		text-align: center;
 	}
 	
@@ -55,23 +56,64 @@
 		text-align: right;
 	}
 	
+	table tr td {height: 35px;}
+	
+	.topButton{
+	position: relative;
+	float: left;
+/*     displays: flex; */
+    align-items: center;
+    justify-content: center;
+    margin: -1px 0 0 -1px;
+    padding: 0 10px;
+    height: 30px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 1.1;
+    text-decoration: none;
+    border: 1px solid #FFF;
+	background-color: black;
+	color:white;
+	}
+	
+	#keyword{
+		text-align: right;
+		
+	}
+	#bt {
+		background-color: black;
+		color:white;
+	}
+}
 </style>
 </head>
 <body>
-		<!-- 게시판 리스트 -->
+		<header>
+			<jsp:include page="../../inc/header.jsp"></jsp:include>
+		</header>
+		
 		<section id="listForm">
 		<h2>Notice</h2>
 		<input type="button" value="홈" onclick="location.href='index.jsp'">
-		<input type="button" value="알림" name="알림" onclick="location.href='NoticelistCategory.sc?name='+name">
-		<input type="button" value="보도기사" name="보도기사" onclick="location.href='NoticelistCategory.sc?name='+name">
+		
+		<div id="topButton">
+			<br>
+				<input type="button" class="topButton c1" value="전체" name="" onclick="location.href='NoticelistCategory.sc?name='+name">
+				<input type="button" class="topButton c2" value="알림" name="알림" onclick="location.href='NoticelistCategory.sc?name='+name">
+				<input type="button" class="topButton c3" value="보도기사" name="보도기사" onclick="location.href='NoticelistCategory.sc?name='+name">
+<!-- 				<section style="clear: both;"></section> -->
+			<br>
 		
 		<!-- 검색하기 기능 -->
-		<form action="NoticeList.sc" method="get">
+		<form action="NoticeList.sc" method="get" id="keyword">
 			<input type="text" placeholder="검색어를 입력하세요" name="keyword" value=${param.keyword }>
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" id="bt">
 		</form>
 		
-		<table>
+		</div>
+		
+		<table border="1">
 			<tr id="tr_top">
 				<td width="150px">카테고리</td>
 				<td width="100px">번호</td>
@@ -108,9 +150,7 @@
 		</table>
 		</section>
 		
-		<section id="buttonArea">
-			<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.sc'" />
-		</section>
+		
 		
 		<section id="pageList">
 		<!-- 
@@ -121,10 +161,10 @@
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
 	
-					<input type="button" value="이전" onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
+					<input type="button" value="이전" onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'" id="bt">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전" disabled="disabled">
+					<input type="button" value="이전" disabled="disabled" id="bt">
 				</c:otherwise>
 			</c:choose>
 				
@@ -144,12 +184,15 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage }">
-					<input type="button" value="다음" onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
+					<input type="button" value="다음" onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" id="bt">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음" disabled="disabled">
+					<input type="button" value="다음" disabled="disabled" id="bt">
 				</c:otherwise>
 			</c:choose>
+		</section>
+		<section id="buttonArea">
+			<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.sc'" id="bt" />
 		</section>
 </body>
 </html>

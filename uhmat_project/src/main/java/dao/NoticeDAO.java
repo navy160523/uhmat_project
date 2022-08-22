@@ -225,9 +225,9 @@ public class NoticeDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT COUNT(*) FROM NoticeBoard WHERE category=?";
+			String sql = "SELECT COUNT(*) FROM NoticeBoard WHERE category LIKE ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, category);
+			pstmt.setString(1, "%"+ category +"%");
 			
 			rs = pstmt.executeQuery();
 			
@@ -253,9 +253,9 @@ public class NoticeDAO {
 		int startRow = (pageNum- 1) * listLimit;
 		
 		try {
-			String sql = "SELECT * FROM NoticeBoard WHERE category=? ORDER BY idx DESC LIMIT ?,? ";
+			String sql = "SELECT * FROM NoticeBoard WHERE category LIKE ? ORDER BY idx DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, category);
+			pstmt.setString(1, "%"+ category +"%");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, listLimit);
 			rs = pstmt.executeQuery();

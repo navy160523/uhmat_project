@@ -23,7 +23,7 @@
 	<header>
 		<!-- 로고 들어가는 곳 -->
     	<div class="mainLogo">
-    		<a href="main.jsp"><img src="img/uhmatMainLogo.jpg"></a>
+    		<a href="main.jsp"><img src="./img/uhmatMainLogo.jpg"></a>
     	</div>
 		<!-- 로고 들어가는 곳 -->
 		

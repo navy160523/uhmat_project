@@ -24,7 +24,8 @@
 	}
 	
 	#tr_top {
-		background: orange;
+		background: black;
+		color: white;
 		text-align: center;
 	}
 	
@@ -55,6 +56,37 @@
 		text-align: right;
 	}
 	
+	table tr td {height: 35px;}
+	
+	.topButton{
+	position: relative;
+	float: left;
+/*     displays: flex; */
+    align-items: center;
+    justify-content: center;
+    margin: -1px 0 0 -1px;
+    padding: 0 10px;
+    height: 30px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 1.1;
+    text-decoration: none;
+    border: 1px solid #FFF;
+	background-color: black;
+	color:white;
+	}
+	
+	#keyword{
+		text-align: right;
+	}
+	
+	#bt {
+		background-color: black;
+		color:white;
+	}
+}
+	
 </style>
 
 
@@ -63,29 +95,26 @@
 		<header>
 			<jsp:include page="../../inc/header.jsp"></jsp:include>
 		</header>
-		<!-- 게시판 리스트 -->
+		
 		<section id="listForm">
 		<h2>FAQ</h2>
 		<input type="button" value="홈" onclick="location.href='index.jsp'">
 
-		
-			<input type="button" value="오류신고" name="오류신고" onclick="location.href='FAQlistCategory.sc?name='+name">
-			<input type="button" value="음식점등록" name="음식점등록" onclick="location.href='FAQlistCategory.sc?name='+name">
-			<input type="button" value="지도 오류" name="지도 오류" onclick="location.href='FAQlistCategory.sc?name='+name">
-			
-			<!-- 검색하기 기능 -->
-			<form action="FAQList.sc" method="get">
+		<div id="topButton">
+			<br>
+				<input type="button" class="topButton c1" value="전체" name="" onclick="location.href='FAQlistCategory.sc?name='+name">
+				<input type="button" class="topButton c2" value="오류신고" name="오류신고" onclick="location.href='FAQlistCategory.sc?name='+name">
+				<input type="button" class="topButton c3" value="음식점등록" name="음식점등록" onclick="location.href='FAQlistCategory.sc?name='+name">
+				<input type="button" class="topButton c4" value="지도 오류" name="지도 오류" onclick="location.href='FAQlistCategory.sc?name='+name">
+<!-- 				<section style="clear: both;"></section> -->
+			<br>
+		<!-- 검색하기 기능 -->
+			<form action="FAQList.sc" method="get" id="keyword">
 				<input type="text" placeholder="검색어를 입력하세요" name="keyword" value=${param.keyword }>
-				<input type="submit" value="검색">
+				<input type="submit" value="검색" id="bt">
 			</form>
-<!-- 		<select id="selectBox"> -->
-<!-- <!-- 			<option value="전체">전체</option> -->
-<!-- 			<option value="오류신고">오류신고</option> -->
-<!-- 			<option value="음식점등록">음식점등록</option> -->
-<!-- 			<option value="지도 오류">지도 오류</option> -->
-<!-- 		</select> -->
-
-		<table>
+		</div>	
+		<table border="1">
 			<tr id="tr_top">
 				<td width="150px">카테고리</td>
 				<td width="100px">번호</td>
@@ -125,47 +154,44 @@
 		</table>
 		</section>
 		
-		<section id="buttonArea">
-			<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" />
-		</section>
 		<section id="pageList">
-		<!-- 
-		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
-		=> 클릭 시 BoardList.bo 서블릿 주소 요청하면서 
-		   현재 페이지 번호(pageNum) - 1 값을 page 파라미터로 전달
-		-->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
+					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'" id="bt">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전" disabled="disabled">
+					<input type="button" value="이전" disabled="disabled" id="bt">
 				</c:otherwise>
 			</c:choose>
-			<!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
-					<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" >
-						<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
-						<c:choose>
-							<c:when test="${pageInfo.pageNum eq i}">
-								${i}
-							</c:when>
-							<c:otherwise>
-								<a href="FAQList.sc?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
-			
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
+				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" >
+					<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
+					<c:choose>
+						<c:when test="${pageInfo.pageNum eq i}">
+							${i}
+						</c:when>
+						<c:otherwise>
+							<a href="FAQList.sc?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
+		
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 				
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
+					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" id="bt">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음" disabled="disabled">
+					<input type="button" value="다음" disabled="disabled" id="bt">
 				</c:otherwise>
 			</c:choose>
 		</section>
+		
+		<section id="buttonArea">
+			<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" id="bt"/>
+		</section>
+		
+		<!-- Footer 부분 -->
 		<footer>
 			<jsp:include page="../../inc/footer.jsp"></jsp:include>
 		</footer>
