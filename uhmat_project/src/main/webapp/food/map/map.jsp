@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>3팀 지도</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <style>
 
 /*거리 계산을 위한 선 그리기*/
@@ -98,12 +100,8 @@ html, body {width:100%;height:100%;margin:0;padding:0;}
 .placeinfo .jibun {color:#999;font-size:11px;margin-top:0;}
 
 </style>
-<script src="../../js/jquery-3.6.0.js"></script>
-<script>
-$(function(){
-	alert("helloWorld");
-});
-</script>
+
+
 </head>
 <body>
 
@@ -1256,4 +1254,5 @@ function makeOutListener(infowindow) {
 </script>
 
 </body>
+
 </html>
