@@ -18,7 +18,7 @@
 				<td>${mate.nickname }</td> 
 			</tr>
 			<tr>
-				<td>${mate.datetime } | ${mate.readcount }</td> 
+				<td>${mate.date } | ${mate.readcount }</td> 
 			</tr>
 	
 		</table>

@@ -30,8 +30,8 @@ public class AllBoardListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		String ment = "";
-		System.out.println("검색액션 키워드 - " + ment);
+		String keyword = "";
+		System.out.println("검색액션 키워드 - " + keyword);
 		String title = request.getParameter("title");
 		MateListProService mateService=null;
 		NoticeListService noticeService=null;
@@ -50,29 +50,29 @@ public class AllBoardListAction implements Action {
 		}
 
 		// 키워드가 ""이 아닐때 키워드를 가져와 변수에 저장!
-		if (request.getParameter("ment") != null) {
-			ment = request.getParameter("ment");
+		if (request.getParameter("keyword") != null) {
+			keyword = request.getParameter("keyword");
 		}
 
 		System.out.println(title);
 		if (title.equals("Notice")) {
 			noticeService = new NoticeListService();
-			listCount = noticeService.getListCount();
+			listCount = noticeService.getListSelectCount(keyword);
 			System.out.println("전체 게시물 수 : " + listCount);
 		}
 		if (title.equals("FAQ")) {
 			 faqService = new FAQListService();
-			 listCount = faqService.getListCount();
+			 listCount = faqService.getListSelectCount(keyword);
 		}
 		if (title.equals("Mate")) {
 			mateService = new MateListProService();
-			listCount = mateService.mateCount(ment);
+			listCount = mateService.mateCount(keyword);
 			System.out.println("전체 게시물 수 : " + listCount);
 
 		}
 		if (title.equals("Tmi")) {
 			tmiService = new TmiListService();
-			 listCount = tmiService.getTmiListCount(ment);
+			 listCount = tmiService.getTmiListCount(keyword);
 		}
 		if (title.equals("Recipe")) {
 			recipeService = new RecipeListProService();
@@ -106,19 +106,19 @@ public class AllBoardListAction implements Action {
 		
 		
 		if (title.equals("Notice")) {
-			list = noticeService.getNoticeList(pageNum, listLimit);
+			list = noticeService.getNoticeList(pageNum, listLimit,keyword);
 			System.out.println("list : " + list);
 		}
 		if (title.equals("FAQ")) {
-			 list = faqService.getFAQList(pageNum, listLimit);
+			 list = faqService.getFAQList(pageNum, listLimit,keyword);
 		}
 		if (title.equals("Mate")) {
-			list = mateService.getMateList(ment, pageNum, listLimit);
+			list = mateService.getMateList(keyword, pageNum, listLimit);
 
 		}
 		if (title.equals("Tmi")) {
 		
-			 list = tmiService.getTmiBoardList(ment, pageNum, listLimit);
+			 list = tmiService.getTmiBoardList(keyword, pageNum, listLimit);
 		}
 		if (title.equals("Recipe")) {
 			
@@ -141,7 +141,7 @@ public class AllBoardListAction implements Action {
 //		// => board 디렉토리 내의 qna_board_list.jsp 페이지 지정
 //		// => URL 및 request 객체 유지한 채 포워딩을 위해 Dispatcher 방식 지정
 		forward = new ActionForward();
-		forward.setPath("admin/AllBoardList.jsp?ment="+ment+"&title="+title);
+		forward.setPath("admin/AllBoardList.jsp?keyword="+keyword+"&title="+title);
 		forward.setRedirect(false);
 
 		return forward;

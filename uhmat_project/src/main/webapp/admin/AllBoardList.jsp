@@ -105,34 +105,55 @@
 <script type="text/javascript">
 
 $(function(){
-	
+
 	$("#selectBox").val("${param.title}").attr("selected", "selected");
-// 	$("#selectBox").change(function(){
-// 		$.ajax({
-// 			url : "http://localhost:8080/uhmat_project/AllBoardList.ad",  // ./ 현재경로표시
-// 			type : "get",
-// 			data :  {
-// 				title:	$("#selectBox").val(),
-// 				ment: $("#ment").val()
-// 					}, // 이 값을 가지고 servlet으로 간다.
-// 			dataType: "json",
-// 			success : function(data) {
-// 				count++;
-// 				   $.each(data, function(key, val){
-// 			             <!-- 로그 찍어주는 부분 -->
-// 			             alert('key:' + key + ' / ' + 'value:' + val['nickName']);
-// 			             $('#div').append(val['nickName']+count+'<br>');
-// 			         });
+	$("input[name^=detail]").on("click",function(){
+		var title = "";
+		if($("#selectBox").val()=='Notice'){
+			title="NoticeDetail.sc";
+			alert(title);
+		}
+		if($("#selectBox").val()=='FAQ'){
+			title="FAQDetail.sc";
+			alert(title);
+		}
+		if($("#selectBox").val()=='Mate'){
+			title="MateDetail.co";
+			alert(title);
+		}
+		if($("#selectBox").val()=='Tmi'){
+			title="TmiDetail.co";
+			alert(title);
+		}
+		if($("#selectBox").val()=='Recipe'){
+			title="RecipeDetail.co";
+			alert(title);
+		}
+		
+		
+			 
+		$.ajax({
+			url : "http://localhost:8080/uhmat_project/"+title,  // ./ 현재경로표시
+			type : "get",
+			data :  {
+				idx: 
+					$(this).val()
+					},
+					
+			dataType: "text",
+			success : function(data) {
+			            $('#div').html(data);
 				
 			
 
-// 			},
-// 			errer : function() {
-// 				alert('errer');
-// 			}
-// 		});
+			},
+			errer : function() {
+				alert('errer');
+			}
+	
+		 });
 		
-// 	});
+	});
 	
 	
 });
@@ -156,7 +177,7 @@ $(function(){
 			
 				<!-- 검색하기 기능 -->
 			
-				<input type="text" placeholder="검색어를 입력하세요" id="ment" name="ment" value=${param.ment }>
+				<input type="text" placeholder="검색어를 입력하세요" id="keyword" name="keyword" value=${param.keyword }>
 				<input type="submit" id="submit1" value="검색">
 			</form>
 <!-- 		<select id="selectBox"> -->
@@ -183,10 +204,10 @@ $(function(){
 	 		<c:choose>
 	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
-					<c:forEach var="AllList"  items="${list}" > 
+					<c:forEach var="AllList"  items="${list}" varStatus="status"> 
 						<tr>
 							<td id="category">${(empty AllList.category && AllList.category==null)?param.title:AllList.category}</td>
-							<td>${AllList.idx }</td>
+							<td ><input type="text" id="detail" name="detail${status.count}" value="${AllList.idx }"></td>
 							<td>${AllList.subject }</td>
 							<td>${AllList.nickname }</td>
 							<td>${AllList.date }</td>
@@ -209,7 +230,7 @@ $(function(){
 		-->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
+					<input type="button" value="이전" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" disabled="disabled">
@@ -224,7 +245,7 @@ $(function(){
 								${i}
 							</c:when>
 							<c:otherwise>
-								<a href="FAQList.sc?pageNum=${i}&ment=${param.ment }">${i} &nbsp;</a>
+								<a href="AllBoardList.ad?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
 			
 							</c:otherwise>
 						</c:choose>
@@ -233,7 +254,7 @@ $(function(){
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
+					<input type="button" value="다음" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="다음" disabled="disabled">
@@ -243,41 +264,8 @@ $(function(){
 		<div id="div"></div>
 		<!-- 검색시 detail 부분 -->
 		
-		<!-- 게시판 상세내용 보기 -->
-<!-- 	<section id="articleForm"> -->
-<!-- 		<h2>글 상세내용 보기</h2> -->
-<!-- 		<section id="basicInfoArea"> -->
-<!-- 				<table border="1"> -->
-<%-- 					<tr><th width="70">제 목</th><td colspan="3" >${faq.subject }</td></tr> --%>
-<!-- 					<tr> -->
-<%-- 						<th width="70">작성자</th><td>${faq.nickname }</td> --%>
-<%-- 						<th width="70">작성일</th><td>${faq.date }</td> --%>
-<!-- 					</tr> -->
-<!-- 					<tr> -->
-<%-- 						<th>조회수</th><th>${faq.readcount }</th> --%>
-<!-- 					<tr> -->
-<!-- 						<th width="70">첨부파일</th> -->
-<!-- 						<td> -->
-<!-- 						
-<!-- 						파일명은 원본 파일명을 표시하고, 다운로드 파일 대상은 실제 업로드 파일명, -->
-<!-- 						실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드 -->
-<!-- 						--> -->
-<%-- 							<a href="upload/${faq.real_File }" download="${faq.original_File }"> --%>
-<%-- 							${faq.real_File } --%>
-<!-- 							</a> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
-<!-- 				</table> -->
-<!-- 		</section> -->
-<!-- 		<br><br> -->
-<!-- 		<section id="articleContentArea"> -->
-<%-- 			${faq.content } --%>
-<!-- 		</section> -->
-<!-- 	</section> -->
-<!-- 	<section id="commandList" > -->
-<%-- 		<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"> --%>
-<%-- 		<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"> --%>
-<!-- 	</section> -->
+		
+	
 </body>
 </html>
 

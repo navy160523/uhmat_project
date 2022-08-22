@@ -15,7 +15,7 @@
 				<td>${recipe.nickname }</td> 
 			</tr>
 			<tr>
-				<td>${recipe.datetime } | ${recipe.readcount }</td> 
+				<td>${recipe.date } | ${recipe.readcount }</td> 
 			</tr>
 	
 		</table>

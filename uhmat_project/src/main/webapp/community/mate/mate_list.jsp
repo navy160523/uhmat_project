@@ -19,7 +19,7 @@
 					<tr>
 						<td width="800" height="50"><a href="MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}">${mate.subject }</a> <br> 
 <%-- 							${mate.content } <br> --%>
-							${mate.nickname } | ${mate.readcount } | <img src="img/시계.jpg" width="20"> ${mate.datetime }</td>
+							${mate.nickname } | ${mate.readcount } | <img src="img/시계.jpg" width="20"> ${mate.date }</td>
 					</tr>
 					
 				</c:forEach>
@@ -35,7 +35,7 @@
 						</a>
 					</td>
 					<td>${mate.nickname }</td>
-					<td>${mate.datetime }</td>
+					<td>${mate.date }</td>
 				</tr>
 			</c:forEach>
 		</c:when>

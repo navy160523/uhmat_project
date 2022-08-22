@@ -19,7 +19,7 @@
 				<c:forEach var="tmi" items="${tmiBoardList }">
 					<tr>
 						<td width="800" height="50"><a href="TmiDetail.co?idx=${tmi.idx }&pageNum=${pageInfo.pageNum}">${tmi.subject }</a> <br> 
-							${tmi.nickname } | ${tmi.readcount } | ${tmi.datetime }</td>
+							${tmi.nickname } | ${tmi.readcount } | ${tmi.date }</td>
 					</tr>
 					
 				</c:forEach>
