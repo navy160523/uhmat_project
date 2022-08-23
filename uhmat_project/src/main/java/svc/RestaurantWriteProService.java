@@ -12,9 +12,13 @@ public class RestaurantWriteProService {
 	public boolean insertResInfo(RestaurantInfoDTO dto) {
 		System.out.println("RestaurantWriteProService-insertResInfo");
 		boolean isInsertSuccess = false;
+		
 		Connection con = getConnection();
+		
 		RestaurantDAO dao = RestaurantDAO.getInstance();
+		
 		dao.setConnection(con);
+		
 		int insertCount = dao.insertResInfo(dto);
 		
 		if(insertCount>0) {

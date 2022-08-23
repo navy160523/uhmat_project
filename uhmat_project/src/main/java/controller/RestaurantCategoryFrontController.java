@@ -1,25 +1,19 @@
 package controller;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
 
-import action.Action;
-import action.RestaurantDeleteAction;
-import action.RestaurantDetailAction;
-import action.RestaurantListAction;
-import action.RestaurantModifyFormAction;
-import action.RestaurantModifyProAction;
-import action.RestaurantWriteProAction;
-import action.ReviewDetailAction;
-import action.ReviewListAction;
-import action.ReviewModifyFormAction;
-import action.ReviewModifyProAction;
-import vo.ActionForward;
+import org.json.simple.*;
+
+import com.google.gson.*;
+import com.mysql.cj.x.protobuf.MysqlxPrepare.*;
+
+import action.*;
+import vo.*;
 
 /**
  * Servlet implementation class RestaurantReviewFrontController
@@ -61,7 +55,7 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			System.out.println("식당 글 입력 폼 요청!");
 			forward = new ActionForward();
 
-			forward.setPath("food/review/reviewWriteForm.jsp");
+			forward.setPath("food/restaurant/res_write.jsp");
 
 			forward.setRedirect(false);
 		} else if (command.equals("/restaurantWritePro.re")) {
@@ -180,7 +174,28 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			}
 		}
 		// 추가로 태그와 카테고리 관련된 작업 요청이 더 필요함!!
-
+		
+		
+		
+		//지도로 보기
+		
+		else if (command.equals("/map.re")) {
+		
+				MapAction mapGet = new MapAction();
+				
+				JSONObject jobj = new JSONObject();
+				ArrayList<RestaurantInfoDTO> list = mapGet.execute(request, response);
+				ArrayList<MapDTO> list2 = mapGet.execute2(request, response);
+				
+				String gson = new Gson().toJson(list);
+				String gson2 = new Gson().toJson(list2);
+				System.out.println(list);
+				response.setContentType("application/json; charset=utf-8");
+				response.getWriter().write(gson);
+			
+			
+		}
+		
 		if (forward != null)
 
 		{
