@@ -24,13 +24,16 @@ public class RestaurantInfoDTO {
 	private String photo; //식당 사진
 	private float rating;	//별점
 	private int reviewCount; //식당 리뷰 개수
+	private double longitude;
+	private double latitude;
 	
-	
+
 	@Override
 	public String toString() {
 		return "RestaurantInfoDTO [resName=" + resName + ", rPostcode=" + rPostcode + ", address=" + address
 				+ ", resInfo=" + resInfo + ", phoneNumber=" + phoneNumber + ", opentime=" + opentime + ", resLink="
-				+ resLink + ", photo=" + photo + ", rating=" + rating + ", reviewCount=" + reviewCount + "]";
+				+ resLink + ", photo=" + photo + ", rating=" + rating + ", reviewCount=" + reviewCount + ", longitude="
+				+ longitude + ", latitude=" + latitude + "]";
 	}
 	public String getResInfo() {
 		return resInfo;
@@ -91,5 +94,17 @@ public class RestaurantInfoDTO {
 	}
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
+	}
+	public final double getLongitude() {
+		return longitude;
+	}
+	public final void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	public final double getLatitude() {
+		return latitude;
+	}
+	public final void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 }

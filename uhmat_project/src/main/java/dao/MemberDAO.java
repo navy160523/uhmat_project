@@ -490,10 +490,12 @@ public class MemberDAO {
 	public ArrayList<Integer> getAllBoardCountList(String keyword) {
 		System.out.println("ReviewCategoryDAO - getAllBoardCountList");
 		ArrayList<Integer> list2 = null;
-		int count =0;
+		int listCount =0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
+		ResultSet rs3 = null;
+		ResultSet rs4 = null;
 		
 		try {
 			String sql = "SELECT * FROM member WHERE nickname LIKE ? ";
@@ -503,17 +505,34 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				sql = "SELECT COUNT(*) FROM community_mate m JOIN community_tmi t JOIN reviewboard r WHERE t.nickname=? ";
+				sql = "SELECT COUNT(*) FROM community_mate WHERE t.nickname=? ";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, rs.getString("nickname"));
-				
 				rs2 = pstmt.executeQuery();
 				
 				list2 = new ArrayList<Integer>();
 				
 				while(rs2.next()) {
-					count +=1;
-					list2.add(count);
+					listCount += rs.getInt(1);
+					
+					sql = "SELECT COUNT(*) FROM community_tmi WHERE t.nickname=? ";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, rs.getString("nickname"));
+					rs3 = pstmt.executeQuery();
+				
+					while(rs3.next()) {
+						listCount += rs.getInt(1);
+						
+						sql = "SELECT COUNT(*) FROM reviewboard r WHERE t.nickname=? ";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, rs.getString("nickname"));
+						rs4 = pstmt.executeQuery();
+						
+						while(rs4.next()) {
+							listCount += rs.getInt(1);
+							list2.add(listCount);
+						}
+					}
 				}
 				
 			}

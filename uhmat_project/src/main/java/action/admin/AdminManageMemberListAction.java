@@ -66,7 +66,7 @@ public class AdminManageMemberListAction implements Action {
 		ArrayList<MemberDTO> list = service.getMemberList(pageNum, listLimit, keyword);
 //		System.out.println("AdminManageMemberListAction의 list : " + list);
 		
-//		ArrayList<Integer> list2 = service.getAllBoardCountList(keyword); 
+		ArrayList<Integer> list2 = service.getAllBoardCountList(keyword); 
 //		System.out.println("list2 : " + list2);
 		
 		MemberDTO memberDetail = service.getMember(email);

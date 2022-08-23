@@ -9,10 +9,10 @@
 .wrap {
 	position: absolute;
 	left: 0;
-	bottom: -40px;
+	bottom: 40px;
 	width: 288px;
 	height: 132px;
-	margin-left: -70px;
+	margin-left: -144px;
 	text-align: left;
 	overflow: hidden;
 	font-size: 12px;
@@ -120,28 +120,30 @@
 </script>
 </head>
 <body>
-	<div id="map" style="width: 100%; height: 500px;"></div>
+	<div id="map" style="width: 100%; height: 350px;"></div>
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc765c4cdf63c6a5bcc8181887cebf33"></script>
 	<script>
 
 $(function(){
-	var mapContainer = document.getElementById('map'), // 지도의 중심좌표
-    mapOption = { 
-        center: new kakao.maps.LatLng(35.1584642,129.0620414), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    }; 
-
-		 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow();
-		 var content = '';
+	
 	$.ajax({ 
 		type: "get",
 		url: "http://localhost:8080/uhmat_project/map.re",
 		dataType: "json",
 		success : function(data) {
-			
+				alert("success");
+				alert(data);
+				var mapContainer = document.getElementById('map'), // 지도의 중심좌표
+                mapOption = { 
+                    center: new kakao.maps.LatLng(33.451475, 126.570528), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                }; 
+
+           		 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+           		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+		         var bounds = new kakao.maps.LatLngBounds();
 		         
 				$.each(data, function(key, val){
 			             <!-- 로그 찍어주는 부분 -->
@@ -154,14 +156,17 @@ $(function(){
 			             // 커스텀 오버레이에 표시할 컨텐츠 입니다
 			             // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 			             // 별도의 이벤트 메소드를 제공하지 않습니다 
-			            
+			             var content = '';
 
 			             // 마커 위에 커스텀오버레이를 표시합니다
 			             // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+			             console.log('key:' + key + ' / ' + 'value:' + val['resName']);
+			            alert(val['resName']);
 			            content=  '<div class="wrap">' + 
 			            '    <div class="info">' + 
 			            '        <div class="title">' + 
 			           					val['resName']+ 
+			            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 			            '        </div>' + 
 			            '        <div class="body">' + 
 			            '            <div class="img">' +
@@ -181,28 +186,46 @@ $(function(){
 
 			        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 			        // LatLngBounds 객체에 좌표를 추가합니다
+			        bounds.extend(placePosition);
 
 			        // 마커와 검색결과 항목에 mouseover 했을때
 			        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 			        // mouseout 했을 때는 인포윈도우를 닫습니다
 			       
-			            kakao.maps.event.addListener(marker, 'click', function() {
-			            	   infowindow.setContent(content);
-					             infowindow.open(map, marker);
+			            kakao.maps.event.addListener(marker, 'mouseover', function() {
+			                displayInfowindow(marker, content);
 			            });
 
-			            kakao.maps.event.addListener(marker, 'mouseover', function() {
+			            kakao.maps.event.addListener(marker, 'mouseout', function() {
 			                infowindow.close();
 			            });
-			         
-			         });	          
+
+		
+			       
+
+			        map.setBounds(bounds);
+
+			       
+			        
+			         });	
+				 function displayInfowindow(marker, content) {
+    			     
+		             infowindow.setContent(content);
+		             infowindow.open(map, marker);
+		         }
+
+		          // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+		         function removeAllChildNods(el) {   
+		             while (el.hasChildNodes()) {
+		                 el.removeChild (el.lastChild);
+		             }
+		          }
 	},
 	errer : function() {
 		alert('errer');
 	}
-	
+		
 	});
-	   
 });
 
 

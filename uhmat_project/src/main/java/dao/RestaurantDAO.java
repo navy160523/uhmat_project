@@ -286,7 +286,7 @@ public class RestaurantDAO {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT * FROM restaurant_info";
+				String sql = "SELECT * FROM restaurant_info r INNER JOIN map m on r.res_name=m.res_name";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				list = new ArrayList<RestaurantInfoDTO>();
@@ -303,6 +303,8 @@ public class RestaurantDAO {
 					dto.setReviewCount(rs.getInt("reviewCount"));
 					dto.setRating(rs.getFloat("rating"));
 					dto.setResInfo(rs.getString("res_info"));
+					dto.setLatitude(rs.getDouble("latitude"));
+					dto.setLongitude(rs.getDouble("longitude"));
 					list.add(dto);
 				}
 			} catch (SQLException e) {

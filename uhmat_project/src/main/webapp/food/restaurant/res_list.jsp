@@ -32,7 +32,7 @@
 						<td>${resInfo.resName }</td>
 						<td>${resInfo.rating }</td>
 						<td>${resInfo.reviewCount }</td>
-						<td><img src="upload/${resInfo.photo }"></td>
+						<td><img src="upload/${resInfo.photo }" width="100px" height="100px"></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>

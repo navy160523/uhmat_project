@@ -34,9 +34,9 @@
             <th>이름</th>
             <th>닉네임</th>
             <th>이메일</th>
-            <th>게시물수</th>
             <th>상세보기</th>
             <th>탈퇴</th>
+            <th>게시물수</th>
             
             
         </tr>
@@ -54,12 +54,14 @@
 	            <td>${member.name}</td>
 	            <td>${member.nickname}</td>
 	            <td>${member.email }</td>
-	            <td>10개</td>
 	            <td><a href="AdminManageMemberList.ad?email=${member.email }">보기</a></td>
 	            <td><input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${member.email }'"></td>
-	        </tr>
-        </c:forEach>
-			
+	        
+		</c:forEach>
+	    <c:forEach var="list2" items="${list2 }">        
+	            <td>${list2}</td>
+	       </tr>     
+	    </c:forEach>
 		</table>
 	<!-- 리스트 페이징 처리 -->
 	

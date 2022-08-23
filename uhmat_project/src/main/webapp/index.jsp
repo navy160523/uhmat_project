@@ -92,7 +92,7 @@ height: 75px;
 				<summary>음식카테고리</summary>
 		 		<a href="RestaurantInfo.re">음식으로 보기</a>
 		 		<a href="ReviewList.re">리뷰로 보기</a>
-		 		<a href="map.re">지도로 보기</a>
+		 		<a href="mapForm.re">지도로 보기</a>
 		 		<a href="restaurantList.re">음식점목록</a>
 		</details>
 	</nav>
