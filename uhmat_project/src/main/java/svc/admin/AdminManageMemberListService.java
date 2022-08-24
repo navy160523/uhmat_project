@@ -62,22 +62,6 @@ public class AdminManageMemberListService {
 		return member;
 	}
 
-	public ArrayList<Integer> getAllBoardCountList(String keyword) {
-		System.out.println("AdminManageMemberListService -getAllBoardCountList");
-		ArrayList<Integer> list2 = null;
-		
-		Connection con = getConnection();
-		
-		// 리뷰 dao
-		MemberDAO dao = MemberDAO.getInstance();
-		
-		// dao 객체에 Connection 객체 전달
-		dao.setConnection(con);	
-		
-		list2 = dao.getAllBoardCountList(keyword); 
-		
-		return list2;
-	}
 
 
 

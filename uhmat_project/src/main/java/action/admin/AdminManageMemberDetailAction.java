@@ -10,7 +10,7 @@ import svc.admin.*;
 import svc.member.*;
 import vo.*;
 
-public class AdminManageMemberListAction implements Action {
+public class AdminManageMemberDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -64,11 +64,13 @@ public class AdminManageMemberListAction implements Action {
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
 		ArrayList<MemberDTO> list = service.getMemberList(pageNum, listLimit, keyword);
-//		System.out.println("ArrayList<MemberDTO> list : " + list);
 		
+		MemberDTO memberDetail = service.getMember(email);
+//		System.out.println("memberDetail: " + memberDetail);
+		
+		request.setAttribute("memberDetail", memberDetail);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-		
 		forward = new ActionForward();
 		forward.setPath("admin/adminManageMember.jsp");
 		forward.setRedirect(false);

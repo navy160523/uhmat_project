@@ -161,7 +161,8 @@ $(function(){
 			            content=  '<div class="wrap">' + 
 			            '    <div class="info">' + 
 			            '        <div class="title">' + 
-			           					val['resName']+ 
+			        
+			            val['resName']+ 
 			            '        </div>' + 
 			            '        <div class="body">' + 
 			            '            <div class="img">' +

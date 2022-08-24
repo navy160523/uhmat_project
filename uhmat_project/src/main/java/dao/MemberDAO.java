@@ -85,17 +85,9 @@ public class MemberDAO {
 		ResultSet rs = null;
 		int insertCount = 0;
 		String sql = "";
-		int num = 1;
 		
 		try {
-			sql = "SELECT MAX(num) FROM member";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				num = rs.getInt(1) + 1; // 조회된 가장 큰 번호 + 1 값을 새 글 번호로 저장
-			}
-			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?,?)";
+			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?,0)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getNickname());
 			pstmt.setString(2, dto.getName());
@@ -107,7 +99,6 @@ public class MemberDAO {
 			pstmt.setString(8, dto.getAddress2());
 			pstmt.setString(9, dto.getAuth_status());
 			pstmt.setString(10, dto.getApi_id());
-			pstmt.setInt(11, num);
 			
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -398,39 +389,57 @@ public class MemberDAO {
 	public ArrayList<MemberDTO> AdminSelectMemberList(int pageNum, int listLimit, String keyword) {
 //		System.out.println("AdminSelectMemberList");
 		ArrayList<MemberDTO> list = null;
+		int listCount =0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		ResultSet rs2 = null;
+		ResultSet rs3 = null;
 		
 		int startRow = (pageNum- 1) * listLimit;
-		System.out.println(startRow);
+		
 		try {
-			
-			String sql = "SELECT * FROM member WHERE name LIKE ? ORDER BY num DESC LIMIT ?,? ";
+			String sql = "SELECT * FROM member WHERE name LIKE ? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%"); 
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, listLimit);
+				
 			rs = pstmt.executeQuery();
 			
-			list = new ArrayList<MemberDTO>();
-			
 			while(rs.next()) {
-				MemberDTO member = new MemberDTO();
-				member.setName(rs.getString("name"));
-				member.setNickname(rs.getString("nickname"));
-				member.setEmail(rs.getString("email"));
-				member.setBirthdate(rs.getDate("birthdate"));
-				member.setPostCode(rs.getString("postcode"));
-				member.setAddress1(rs.getString("address1"));
-				member.setAddress2(rs.getString("address2"));
-				member.setNum(rs.getInt("num"));
+				sql = "SELECT (COUNT(m.subject) + COUNT(t.subject) + COUNT(r.subject)) AS NUM FROM member me INNER JOIN community_mate m ON me.nickname = m.nickname  INNER JOIN community_tmi t ON m.nickname = t.nickname  INNER JOIN reviewboard r ON t.nickname = r.nickname WHERE r.nickname = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, rs.getString("nickname"));
+				rs2 = pstmt.executeQuery();
 				
-				list.add(member);
+				while(rs2.next()) {
+					listCount = rs2.getInt(1);
+					sql = "SELECT * FROM member WHERE name LIKE ? LIMIT ?,? ";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + keyword + "%"); 
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, listLimit);
+					rs3 = pstmt.executeQuery();
+					
+					list = new ArrayList<MemberDTO>();
+					
+					while(rs3.next()) {
+						MemberDTO member = new MemberDTO();
+						member.setName(rs.getString("name"));
+						member.setNickname(rs.getString("nickname"));
+						member.setEmail(rs.getString("email"));
+						member.setBirthdate(rs.getDate("birthdate"));
+						member.setPostCode(rs.getString("postcode"));
+						member.setAddress1(rs.getString("address1"));
+						member.setAddress2(rs.getString("address2"));
+						member.setBoardCount(listCount);
+						
+						list.add(member);
+					}
+				}	
 			}
 //			System.out.println("AdminSelectMemberList의 list :"  + list);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("SQL 오류 - selectMember() : " + e.getMessage());
+			System.out.println("SQL 오류 AdminSelectMemberList() :" + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -460,6 +469,7 @@ public class MemberDAO {
 			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
 			e.printStackTrace();
 		} finally {
+			
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
@@ -487,65 +497,5 @@ public class MemberDAO {
 		return deleteCount;
 	}
 
-	public ArrayList<Integer> getAllBoardCountList(String keyword) {
-		System.out.println("ReviewCategoryDAO - getAllBoardCountList");
-		ArrayList<Integer> list2 = null;
-		int listCount =0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ResultSet rs2 = null;
-		ResultSet rs3 = null;
-		ResultSet rs4 = null;
-		
-		try {
-			String sql = "SELECT * FROM member WHERE nickname LIKE ? ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + keyword + "%"); 
-				
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				sql = "SELECT COUNT(*) FROM community_mate WHERE t.nickname=? ";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, rs.getString("nickname"));
-				rs2 = pstmt.executeQuery();
-				
-				list2 = new ArrayList<Integer>();
-				
-				while(rs2.next()) {
-					listCount += rs.getInt(1);
-					
-					sql = "SELECT COUNT(*) FROM community_tmi WHERE t.nickname=? ";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, rs.getString("nickname"));
-					rs3 = pstmt.executeQuery();
-				
-					while(rs3.next()) {
-						listCount += rs.getInt(1);
-						
-						sql = "SELECT COUNT(*) FROM reviewboard r WHERE t.nickname=? ";
-						pstmt = con.prepareStatement(sql);
-						pstmt.setString(1, rs.getString("nickname"));
-						rs4 = pstmt.executeQuery();
-						
-						while(rs4.next()) {
-							listCount += rs.getInt(1);
-							list2.add(listCount);
-						}
-					}
-				}
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(pstmt);
-			JdbcUtil.close(rs);
-			JdbcUtil.close(rs2);
-			
-		}
-		return list2;
-	}
 
 }

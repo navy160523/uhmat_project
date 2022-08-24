@@ -14,7 +14,7 @@ address2 varchar(50),
 icon VARCHAR(20) DEFAULT 'default.png',
 auth_status VARCHAR(1) DEFAULT 'N',
 api_id VARCHAR(60),
-num int 하고 있었어요
+boardCount int 
 );
 */
 //멤버 관리 하는 클래스
@@ -31,8 +31,14 @@ public class MemberDTO {
 	private String icon;
 	private String auth_status;
 	private String api_id;
-	private int num;
+	private int boardCount;
 	
+	public final int getBoardCount() {
+		return boardCount;
+	}
+	public final void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
+	}
 	public final String getEmail() {
 		return email;
 	}
@@ -104,12 +110,6 @@ public class MemberDTO {
 	}
 	public final void setApi_id(String api_id) {
 		this.api_id = api_id;
-	}
-	public final int getNum() {
-		return num;
-	}
-	public final void setNum(int num) {
-		this.num = num;
 	}
 	
 	

@@ -17,51 +17,37 @@
 	    <table border="1">
 	        <tr>
 	        	<th>고객명</th>
-	            <td><input type="text" name="keyword"></td>
+	            <td><input type="text" name="keyword" value="${param.keyword }"></td>
 	            <th><input type="submit" value="검색"></th>    
 	        </tr>
 	     </table>
     </form>
-        <!-- for문으로 여러개 출력하면 됩니다.(미구현) -->
-   
-     
-	
 	<!--멤버 테이블  -->
 	<table border="1">
 			<tr>
 <!--             <th><input type="checkbox" id="allCheck"></th> -->
-            <th>번호</th>
-            <th>이름</th>
-            <th>닉네임</th>
-            <th>이메일</th>
-            <th>상세보기</th>
-            <th>탈퇴</th>
-            <th>게시물수</th>
-            
-            
-        </tr>
+	            <th>번호</th>
+	            <th>이름</th>
+	            <th>닉네임</th>
+	            <th>이메일</th>
+	            <th>게시물수</th>
+	            <th>상세보기</th>
+	            <th>탈퇴</th>
+       		 </tr>
 			<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -> JSTL과 EL 활용-->
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
-			
-		<c:forEach var="member" items="${list2 }">
-		<td>${member }</td>
-		</c:forEach>
-		<c:forEach var="member" items="${list }">
-			<tr>
-<!-- 	            <td><input type="checkbox" id="check1" name="check" value="1"></td> -->
-	            <td>${member.num }</td>
-	            <td>${member.name}</td>
-	            <td>${member.nickname}</td>
-	            <td>${member.email }</td>
-	            <td><a href="AdminManageMemberList.ad?email=${member.email }">보기</a></td>
-	            <td><input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${member.email }'"></td>
-	        
-		</c:forEach>
-	    <c:forEach var="list2" items="${list2 }">        
-	            <td>${list2}</td>
-	       </tr>     
-	    </c:forEach>
+			<c:forEach var="member" items="${list}" varStatus="status" >
+				<tr>
+		            <td>${status.count }</td>
+		            <td>${member.name}</td>
+		            <td>${member.nickname}</td>
+		            <td>${member.email }</td>
+					<td>${member.boardCount}</td>
+		            <td><a href="AdminManageMemberDetail.ad?email=${member.email }&keyword=${param.keyword}">보기</a></td>
+		            <td><input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${member.email }'"></td>
+		        </tr>
+			</c:forEach>
 		</table>
 	<!-- 리스트 페이징 처리 -->
 	

@@ -41,6 +41,14 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		} else if(command.equals("/AdminManageMemberDetail.ad")) {
+			try {
+				action = new AdminManageMemberDetailAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
 		} else if(command.equals("/AdminDeleteMember.ad")) {
 			try {
 				action = new AdminDeleteMemberAction();
@@ -49,7 +57,6 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
 		//-------------------------------------------------------------------
 		if (forward != null) {
 			if (forward.isRedirect()) {
