@@ -111,6 +111,13 @@ public class MemberDTO {
 	public final void setApi_id(String api_id) {
 		this.api_id = api_id;
 	}
+	@Override
+	public String toString() {
+		return "MemberDTO [email=" + email + ", name=" + name + ", passwd=" + passwd + ", nickname=" + nickname
+				+ ", birthdate=" + birthdate + ", hiredate=" + hiredate + ", postCode=" + postCode + ", address1="
+				+ address1 + ", address2=" + address2 + ", icon=" + icon + ", auth_status=" + auth_status + ", api_id="
+				+ api_id + ", boardCount=" + boardCount + "]";
+	}
 	
 	
 

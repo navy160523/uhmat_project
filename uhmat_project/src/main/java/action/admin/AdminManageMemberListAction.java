@@ -64,11 +64,11 @@ public class AdminManageMemberListAction implements Action {
 		PageInfo pageInfo = new PageInfo(pageNum, maxPage, startPage, endPage, listCount);
 		
 		ArrayList<MemberDTO> list = service.getMemberList(pageNum, listLimit, keyword);
-//		System.out.println("ArrayList<MemberDTO> list : " + list);
+		System.out.println("ArrayList<MemberDTO> list : " + list);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-		
+//		System.out.println(list);
 		forward = new ActionForward();
 		forward.setPath("admin/adminManageMember.jsp");
 		forward.setRedirect(false);

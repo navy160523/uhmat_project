@@ -404,13 +404,17 @@ public class MemberDAO {
 				
 			rs = pstmt.executeQuery();
 			
+			list = new ArrayList<MemberDTO>();
+			
 			while(rs.next()) {
+				System.out.println("rs.next()");
 				sql = "SELECT (COUNT(m.subject) + COUNT(t.subject) + COUNT(r.subject)) AS NUM FROM member me INNER JOIN community_mate m ON me.nickname = m.nickname  INNER JOIN community_tmi t ON m.nickname = t.nickname  INNER JOIN reviewboard r ON t.nickname = r.nickname WHERE r.nickname = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, rs.getString("nickname"));
 				rs2 = pstmt.executeQuery();
 				
-				while(rs2.next()) {
+				if(rs2.next()) {
+					System.out.println("rs2.next()");
 					listCount = rs2.getInt(1);
 					sql = "SELECT * FROM member WHERE name LIKE ? LIMIT ?,? ";
 					pstmt = con.prepareStatement(sql);
@@ -419,9 +423,9 @@ public class MemberDAO {
 					pstmt.setInt(3, listLimit);
 					rs3 = pstmt.executeQuery();
 					
-					list = new ArrayList<MemberDTO>();
 					
-					while(rs3.next()) {
+					if(rs3.next()) {
+						System.out.println("rs3.next()");
 						MemberDTO member = new MemberDTO();
 						member.setName(rs.getString("name"));
 						member.setNickname(rs.getString("nickname"));
@@ -431,6 +435,8 @@ public class MemberDAO {
 						member.setAddress1(rs.getString("address1"));
 						member.setAddress2(rs.getString("address2"));
 						member.setBoardCount(listCount);
+						
+						System.out.println("member : " + member);
 						
 						list.add(member);
 					}

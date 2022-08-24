@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>닫기가 가능한 커스텀 오버레이</title>
+<title>3팀 지도</title>
 <style>
 .wrap {
 	position: absolute;
