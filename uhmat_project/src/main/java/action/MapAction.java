@@ -20,6 +20,7 @@ public class MapAction  {
 		if(request.getParameter("keyword")!=null) {
 			keyword = request.getParameter("keyword");
 		}
+		System.out.println("keyword : " + keyword);
 		
 		MapService service = new MapService();
 		

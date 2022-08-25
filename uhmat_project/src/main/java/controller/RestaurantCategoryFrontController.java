@@ -177,12 +177,19 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 
 		// 지도로 보기-------------------------------------------------------------------------
 			
-			// json 이용하여 다 보여주기 & 검색
+			// json 이용하여 지도에 음식점 보여주기 & 검색
 			
 		}else if (command.equals("/map.re")) {
 
 			MapAction mapGet = new MapAction();
-
+			
+			String keyword= "";
+			
+			if(request.getParameter("keyword")!=null) {
+				keyword = request.getParameter("keyword");
+			}
+			System.out.println("keyword : " + keyword);
+			
 			JSONObject jobj = new JSONObject();
 			ArrayList<RestaurantInfoDTO> list = mapGet.execute(request, response);
 
