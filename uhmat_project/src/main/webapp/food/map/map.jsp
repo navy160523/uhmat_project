@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>3팀 지도</title>
+<title>닫기가 가능한 커스텀 오버레이</title>
 <style>
 .wrap {
 	position: absolute;
@@ -134,8 +134,7 @@ $(function(){
     }; 
 
 		 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow();
-		 var content = '';
+		 
 	$.ajax({ 
 		type: "get",
 		url: "http://localhost:8080/uhmat_project/map.re",
