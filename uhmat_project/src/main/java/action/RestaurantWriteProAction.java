@@ -44,6 +44,8 @@ public class RestaurantWriteProAction implements Action {
 		dto.setPhoto(multi.getFilesystemName("photo"));
 
 		dto.setResLink(multi.getParameter("res_link"));
+		dto.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
+		dto.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
 		
 		//영업시간을 계산 및 합체
 		//일단 한 컬럼에서 다 겹친 후 나중에 스플릿으로 "," 기준으로 나눔
@@ -56,18 +58,11 @@ public class RestaurantWriteProAction implements Action {
 		dto.setOpentime(workTime);
 		
 		//식당의 위치정보를 입력하는 MAPDTO에 값을 저장 후 따로 입력
-		MapDTO map = new MapDTO();
-		map.setResName(multi.getParameter("res_name"));
-		map.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
-		map.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
-		
 		//Service 클래스를 호출하여 식당정보 입력!
 		RestaurantWriteProService service = new RestaurantWriteProService();
 		boolean isInsertSuccess = service.insertResInfo(dto);
 		
 		//SERVICE 클래스를 호출하여 식당 위치 정보 입력!
-		MapWriteProService service2 = new MapWriteProService();
-		service2.insertMapInfo(map);
 		
 		System.out.println(dto.getResName());
 		if(isInsertSuccess) {

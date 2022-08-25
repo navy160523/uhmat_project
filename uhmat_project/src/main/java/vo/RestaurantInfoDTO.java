@@ -1,17 +1,20 @@
 package vo;
-
-//create table restaurantInfo(
-//res_name VARCHAR(50) PRIMARY KEY,
-//r_postcode VARCHAR(5) NOT NULL,
-//address VARCHAR(50) NOT NULL,
-//rating FLOAT DEFAULT 0,
-//phone_number  VARCHAR(15) NOT NULL,
-//opentime VARCHAR(200) NOT NULL,
-//res_link VARCHAR(100),
-//photo VARCHAR(100),
-//res_info VARCHAR(5000) NOT NULL,
-//reviewCount INT default 0
-//);
+/*
+	create table restaurantInfo(
+		res_name VARCHAR(50) PRIMARY KEY,
+		r_postcode VARCHAR(5) NOT NULL,
+		address VARCHAR(50) NOT NULL,
+		rating FLOAT DEFAULT 0,
+		phone_number  VARCHAR(15) NOT NULL,
+		opentime VARCHAR(200) NOT NULL,
+		res_link VARCHAR(100),
+		photo VARCHAR(100),
+		res_info VARCHAR(5000) NOT NULL,
+		reviewCount INT default 0
+		longitude DOUBLE,
+		latitude DOUBLE,
+	);
+*/
 
 public class RestaurantInfoDTO {
 	private String resName;	//식당 이름

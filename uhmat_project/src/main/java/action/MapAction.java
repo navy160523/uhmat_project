@@ -12,30 +12,24 @@ public class MapAction  {
 
 
 	public ArrayList<RestaurantInfoDTO> execute(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("MapAction - execute ");
 		ActionForward forward = null;
 		
+		String keyword= "";
+		
+		if(request.getParameter("keyword")!=null) {
+			keyword = request.getParameter("keyword");
+		}
+		
 		MapService service = new MapService();
-		ArrayList<RestaurantInfoDTO> list = service.selectMapList();
+		
+		ArrayList<RestaurantInfoDTO> list = service.selectMapList(keyword);
 		
 		request.setAttribute("list", list);
 		
 		System.out.println("list : " + list);
 		
 		return list;
-	}
-	public ArrayList<MapDTO> execute2(HttpServletRequest request, HttpServletResponse response) {
-		ActionForward forward = null;
-		
-		MapService service = new MapService();
-		
-		ArrayList<MapDTO> list2 = service.selectMapList2();
-		
-		request.setAttribute("list2", list2);
-		
-		System.out.println("list : " + list2);
-		
-		
-		return list2;
 	}
 
 }

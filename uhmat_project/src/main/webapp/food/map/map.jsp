@@ -114,25 +114,106 @@
 	color: #5085BB;
 }
 </style>
-<script type="text/javascript" src="./js/jquery-3.6.0.js"></script>
-<script type="text/javascript">
 
-</script>
 </head>
 <body>
+
+	
+	  <form id="form" name="form" method="post">
+      <input type="text" value="" id="keyword" size="15">
+      <input type="submit" value="검색" onclick="test1(); return false;">
+      </form>
 	<div id="map" style="width: 100%; height: 500px;"></div>
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc765c4cdf63c6a5bcc8181887cebf33"></script>
+	<script type="text/javascript" src="./js/jquery-3.6.0.js"></script>
 	<script>
-
+	
 $(function(){
+	
+		var formData = $("#form").serialize();
+		
+		$.ajax({
+			type: "get",
+			url: "http://localhost:8080/uhmat_project/map_research.re",
+			data : formData, 
+			dataType: "json",
+			success : function(data){
+				
+				$.each(data, function(key, val){
+		             <!-- 로그 찍어주는 부분 -->
+		             // 지도에 마커를 표시합니다 
+		             var marker = new kakao.maps.Marker({
+		                 map: map, 
+		                 position: new kakao.maps.LatLng(val['latitude'], val['longitude'])
+		             });
+
+		             // 커스텀 오버레이에 표시할 컨텐츠 입니다
+		             // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+		             // 별도의 이벤트 메소드를 제공하지 않습니다 
+		            
+
+		             // 마커 위에 커스텀오버레이를 표시합니다
+		             // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+		            content=  '<div class="wrap">' + 
+		            '    <div class="info">' + 
+		            '        <div class="title">' + 
+		        
+		            val['resName']+ 
+		            '        </div>' + 
+		            '        <div class="body">' + 
+		            '            <div class="img">' +
+		            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+		            '           </div>' + 
+		            '            <div class="desc">' + 
+		            '                <div class="ellipsis">'+val['address']+'</div>' + 
+		            '                <div class="jibun ellipsis">(우)'+ val['rPostcode'] +'(지번) 영평동 2181</div>' + 
+		            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+		            '            </div>' + 
+		            '        </div>' + 
+		            '    </div>' +    
+		            '</div>';
+		        var placePosition = new kakao.maps.LatLng(val['latitude'], val['longitude']);
+		         
+		            
+
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+		        // LatLngBounds 객체에 좌표를 추가합니다
+
+		        // 마커와 검색결과 항목에 mouseover 했을때
+		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
+		        // mouseout 했을 때는 인포윈도우를 닫습니다
+		       
+		            kakao.maps.event.addListener(marker, 'click', function() {
+		            	   infowindow.setContent(content);
+				             infowindow.open(map, marker);
+		            });
+
+		            kakao.maps.event.addListener(marker, 'mouseover', function() {
+		                infowindow.close();
+		            });
+		         
+		         });	          
+},
+	error : function() {
+		alert('error');
+	}
+			
+			
+		});
+	});   
+
+	
+	
+$(function(){
+	
 	var mapContainer = document.getElementById('map'), // 지도의 중심좌표
     mapOption = { 
         center: new kakao.maps.LatLng(35.1584642,129.0620414), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     }; 
-
+	
 		 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		 
 	$.ajax({ 
@@ -198,7 +279,7 @@ $(function(){
 			         });	          
 	},
 	errer : function() {
-		alert('errer');
+		alert('error');
 	}
 	
 	});

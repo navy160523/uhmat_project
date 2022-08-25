@@ -134,8 +134,7 @@ $(function(){
     }; 
 
 		 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow();
-		 var content = '';
+		 
 	$.ajax({ 
 		type: "get",
 		url: "http://localhost:8080/uhmat_project/map.re",

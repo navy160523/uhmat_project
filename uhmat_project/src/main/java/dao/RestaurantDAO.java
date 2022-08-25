@@ -2,15 +2,10 @@ package dao;
 
 import static db.JdbcUtil.close;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
-import vo.MapDTO;
-import vo.RestaurantInfoDTO;
+import vo.*;
 
 
 public class RestaurantDAO {
@@ -116,6 +111,8 @@ public class RestaurantDAO {
 			pstmt.setString(6, dto.getResLink());
 			pstmt.setString(7, dto.getPhoto());
 			pstmt.setString(8, dto.getResInfo());
+			pstmt.setDouble(9, dto.getLatitude());
+			pstmt.setDouble(10, dto.getLongitude());
 			
 
 			System.out.println(dto);
@@ -157,6 +154,8 @@ public class RestaurantDAO {
 				dto.setReviewCount(rs.getInt("reviewCount"));
 				dto.setRating(rs.getFloat("rating"));
 				dto.setResInfo(rs.getString("res_info"));
+				dto.setLatitude(rs.getDouble("latitude"));
+				dto.setLongitude(rs.getDouble("longitude"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -167,27 +166,6 @@ public class RestaurantDAO {
 		}
 		
 		return dto;
-	}
-
-	//식당 위치 정보 입력
-	public int insertMapInfo(MapDTO map) {
-		System.out.println("RestaurantDAO - insertMapInfo()");
-		PreparedStatement pstmt = null;
-		int insertCount = 0;
-		try {
-			String sql = "INSERT INTO map VALUES(?,?,?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setDouble(1, map.getLongitude());
-			pstmt.setDouble(2, map.getLatitude());
-			pstmt.setString(3, map.getResName());
-			insertCount=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("RestaurantDAO - insertMapInfo() - SQL 구문 오류!");
-		}finally {
-			close(pstmt);
-		}
-		return insertCount;
 	}
 
 	//식당 정보 삭제
@@ -234,32 +212,6 @@ public class RestaurantDAO {
 			return photo;
 		}
 	//식당 위치의 지도 정보 1개 들고 오기
-		public MapDTO getMapInfo(String resName) {
-			MapDTO dto = null;
-			System.out.println("restaurantDAO - getMapInfo()");
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			try {
-				String sql = "SELECT * FROM map WHERE res_name=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, resName);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					dto = new MapDTO();
-					dto.setLongitude(rs.getDouble("longitude"));
-					dto.setLatitude(rs.getDouble("latitude"));
-					dto.setResName(rs.getString("res_name"));
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				System.out.println("getMapInfo() - SQL 구문 오류!");
-			}finally {
-				close(rs);
-				close(pstmt);
-			}
-
-			return dto;
-		}
 
 		//식당이 삭제 될 시 위치 정보도 같이 삭제
 		public void deleteMapInfo(String resName) {
@@ -279,15 +231,16 @@ public class RestaurantDAO {
 
 		}
 
-		public ArrayList<RestaurantInfoDTO> selectMapList() {
+		public ArrayList<RestaurantInfoDTO> selectMapList(String keyword) {
 			ArrayList<RestaurantInfoDTO> list =null;
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT * FROM restaurant_info r INNER JOIN map m on r.res_name=m.res_name";
+				String sql = "SELECT * FROM restaurant_info r INNER JOIN map m on r.res_name=m.res_name WHERE res_name=?";
 				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%"+keyword+"%");
 				rs = pstmt.executeQuery();
 				list = new ArrayList<RestaurantInfoDTO>();
 				
@@ -318,35 +271,5 @@ public class RestaurantDAO {
 			return list;
 		}
 
-		public ArrayList<MapDTO> selectMapList2() {
-			ArrayList<MapDTO> list2 = null;
-			
-
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			
-			try {
-				String sql = "SELECT * FROM map";
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				list2 = new ArrayList<MapDTO>();
-				
-				while(rs.next()) {
-					MapDTO dto = new MapDTO();
-					dto.setResName(rs.getString("res_name"));
-					dto.setLatitude(rs.getDouble("latitude"));
-					dto.setLongitude(rs.getDouble("longitude"));
-					list2.add(dto);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				System.out.println("selectMapList2() - SQL 구문 오류!");
-			}finally {
-				close(pstmt);
-				close(rs);
-			}
-			
-			return list2;
-		}
 
 }

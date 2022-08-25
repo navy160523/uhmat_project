@@ -172,26 +172,26 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		
 		// 추가로 태그와 카테고리 관련된 작업 요청이 더 필요함!!
 
-		// 지도로 보기
-
-		else if (command.equals("/map.re")) {
+		// 지도로 보기-------------------------------------------------------------------------
+			
+			// json 이용하여 다 보여주기 & 검색
+			
+		}else if (command.equals("/map.re")) {
 
 			MapAction mapGet = new MapAction();
 
 			JSONObject jobj = new JSONObject();
 			ArrayList<RestaurantInfoDTO> list = mapGet.execute(request, response);
-			ArrayList<MapDTO> list2 = mapGet.execute2(request, response);
 
 			String gson = new Gson().toJson(list);
-			String gson2 = new Gson().toJson(list2);
 			System.out.println(list);
 			response.setContentType("application/json; charset=utf-8");
 			response.getWriter().write(gson);
-//			response.getWriter().write(gson2);
-
+		
+		// 지도 보여주기
 		} else if (command.equals("/mapForm.re")) {
 
 			forward = new ActionForward();
@@ -199,7 +199,7 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			forward.setRedirect(false);
 
 		}
-
+		//----------------------------------------------------------
 		if (forward != null)
 
 		{
