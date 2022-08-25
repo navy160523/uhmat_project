@@ -117,11 +117,12 @@
 
 </head>
 <body>
-
+	<input type="button" value="홈" onclick="location.href='index.jsp'">
+	<input type="button" value="음식점목록" onclick="location.href='restaurantList.re'">
 	
 	  <form id="form" name="form" method="post">
-      <input type="text" value="" id="keyword" size="15">
-      <input type="submit" value="검색" onclick="test1(); return false;">
+      <input type="text" placeholder="음식적을 검색하세요" name="keyword" id="keyword" size="15">
+      <input type="submit" value="검색" value="keywordSelect" onclick="test1(); return false;">
       </form>
 	<div id="map" style="width: 100%; height: 500px;"></div>
 
@@ -129,14 +130,17 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc765c4cdf63c6a5bcc8181887cebf33"></script>
 	<script type="text/javascript" src="./js/jquery-3.6.0.js"></script>
 	<script>
-	
 $(function(){
-	
-		var formData = $("#form").serialize();
+	$("#keywordSelect").on("click", function() {
 		
+	
+		var formData = $("#keyword").val();
+		var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+		
+		alert(formData);
 		$.ajax({
 			type: "get",
-			url: "http://localhost:8080/uhmat_project/map_research.re",
+			url: "http://localhost:8080/uhmat_project/map.re",
 			data : formData, 
 			dataType: "json",
 			success : function(data){
@@ -197,12 +201,12 @@ $(function(){
 		         });	          
 },
 	error : function() {
-		alert('error');
+// 		alert('error');
 	}
 			
-			
-		});
-	});   
+		});			
+	});
+});   
 
 	
 	
@@ -215,7 +219,7 @@ $(function(){
     }; 
 	
 		 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		 
+		 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 	$.ajax({ 
 		type: "get",
 		url: "http://localhost:8080/uhmat_project/map.re",
@@ -278,7 +282,7 @@ $(function(){
 			         
 			         });	          
 	},
-	errer : function() {
+	error : function() {
 		alert('error');
 	}
 	

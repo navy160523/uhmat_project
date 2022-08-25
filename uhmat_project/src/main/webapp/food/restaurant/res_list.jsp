@@ -38,6 +38,9 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
+	
 	<input type="button" value="음식점등록" onclick="location.href='restaurantWriteForm.re'">
+	
+	<input type="button" value="홈" onclick="location.href='index.jsp'">
 </body>
 </html>

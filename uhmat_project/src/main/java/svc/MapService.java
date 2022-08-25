@@ -20,7 +20,7 @@ public class MapService {
 		dao.setConnection(con);
 		
 		list = dao.selectMapList(keyword);
-		
+		System.out.println("list : " + list);
 		JdbcUtil.close(con);
 		
 		return list;

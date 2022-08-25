@@ -57,5 +57,8 @@
                 <td colspan="4"></td>
             </tr>
         </table>
+        <hr>
+        
+        <a href="restaurantList.re">음식점목록</a>
 </body>
 </html>

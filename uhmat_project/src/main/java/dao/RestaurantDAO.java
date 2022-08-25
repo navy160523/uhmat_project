@@ -101,7 +101,7 @@ public class RestaurantDAO {
 		System.out.println("RestaurantDAO - insertResInfo()");
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "INSERT INTO restaurant_info VALUES(?,?,?,0,?,?,?,?,?,0)";
+			String sql = "INSERT INTO restaurant_info VALUES(?,?,?,0,?,?,?,?,?,0,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getResName());
 			pstmt.setString(2, dto.getrPostcode());
@@ -232,16 +232,19 @@ public class RestaurantDAO {
 		}
 
 		public ArrayList<RestaurantInfoDTO> selectMapList(String keyword) {
+			System.out.println("RestaurantDAO - selectMapList");
 			ArrayList<RestaurantInfoDTO> list =null;
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT * FROM restaurant_info r INNER JOIN map m on r.res_name=m.res_name WHERE res_name=?";
+				String sql = "SELECT * FROM restaurant_info WHERE res_name LIKE ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%"+keyword+"%");
+				
 				rs = pstmt.executeQuery();
+				
 				list = new ArrayList<RestaurantInfoDTO>();
 				
 				while(rs.next()) {
@@ -249,17 +252,18 @@ public class RestaurantDAO {
 					dto.setResName(rs.getString("res_name"));
 					dto.setrPostcode(rs.getString("r_postcode"));
 					dto.setAddress(rs.getString("address"));
+					dto.setRating(rs.getFloat("rating"));
 					dto.setPhoneNumber(rs.getString("phone_number"));
 					dto.setOpentime(rs.getString("opentime"));
 					dto.setResLink(rs.getString("res_link"));
 					dto.setPhoto(rs.getString("photo"));
-					dto.setReviewCount(rs.getInt("reviewCount"));
-					dto.setRating(rs.getFloat("rating"));
 					dto.setResInfo(rs.getString("res_info"));
+					dto.setReviewCount(rs.getInt("reviewCount"));
 					dto.setLatitude(rs.getDouble("latitude"));
 					dto.setLongitude(rs.getDouble("longitude"));
 					list.add(dto);
 				}
+				System.out.println("selectMapList - list : " + list);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println("selectMapList() - SQL 구문 오류!");
