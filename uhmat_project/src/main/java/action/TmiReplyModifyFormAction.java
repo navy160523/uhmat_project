@@ -24,7 +24,7 @@ public class TmiReplyModifyFormAction implements Action {
 		request.setAttribute("tmiReply", tmiReply);
 		
 		forward = new ActionForward();
-		forward.setPath("community/tmiReplyModify.jsp?idx=" + idx + "&pageNum=" + request.getParameter("pageNum"));
+		forward.setPath("community/tmi/tmiReplyModify.jsp?idx=" + idx + "&pageNum=" + request.getParameter("pageNum"));
 		forward.setRedirect(false);
 		
 		return forward;

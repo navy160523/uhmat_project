@@ -7,13 +7,14 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 
-
-
-
-
 </script>
 </head>
 <body>
+
+	<!-- 헤더 들어가는 곳 -->
+		<jsp:include page="../../inc/header.jsp"/>
+	<!-- 헤더 들어가는 곳 -->
+	
 	<section id="writeForm">
 		<h1>레시피 글 등록</h1>
 		<!-- 
@@ -36,7 +37,7 @@
 				</tr>
 				<tr>
 <!-- 					파일 첨부 형식은 input 태그의 type="file" 속성 사용 -->
-					<td><input type="file" name="file1" multiple="multiple" required="required" /></td>
+					<td><input type="file" name="file1" multiple="multiple" ></td>
 				</tr>
 				<tr>
 <!-- 					파일 첨부 형식은 input 태그의 type="file" 속성 사용 -->
@@ -63,5 +64,9 @@
 			</section>
 		</form>
 	</section>
+	
+	<!-- 푸터 들어가는 곳 -->
+	<jsp:include page="../../inc/footer.jsp"/>
+	<!-- 푸터 들어가는 곳 -->
 </body>
 </html>

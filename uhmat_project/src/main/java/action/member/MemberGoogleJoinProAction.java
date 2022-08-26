@@ -24,7 +24,7 @@ public class MemberGoogleJoinProAction implements Action {
 		 member.setEmail(email);
 		 member.setName(name);
 		 member.setPasswd("NULL");
-		 member.setNickName("구글로그인"+email);
+		 member.setNickname("구글로그인"+email);
 		 member.setAuth_status("Y");
 		 member.setApi_id(api_id);
 		 System.out.println(email);
@@ -72,7 +72,7 @@ public class MemberGoogleJoinProAction implements Action {
 					out.println("</script>");
 				} else {
 					HttpSession session = request.getSession();
-					session.setAttribute("sNickName", member.getNickName());
+					session.setAttribute("sNickName", member.getNickname());
 					
 					forward = new ActionForward();
 					forward.setPath("member/google.jsp");

@@ -19,7 +19,6 @@ public class CommunityTmiDTO {
 	private String content;
 	private int readcount;
 	private Timestamp date;
-	private String category;
 	
 	
 	public int getIdx() {
@@ -52,19 +51,11 @@ public class CommunityTmiDTO {
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
-
-	
 	public Timestamp getDate() {
 		return date;
 	}
 	public void setDate(Timestamp date) {
 		this.date = date;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
 	}
 	@Override
 	public String toString() {

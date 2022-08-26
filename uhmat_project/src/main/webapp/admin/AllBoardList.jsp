@@ -104,9 +104,14 @@
 
 <script type="text/javascript">
 
-$(function(){
+	
 
+
+$(function(){
 	$("#selectBox").val("${param.title}").attr("selected", "selected");
+	
+
+	
 	$("input[name^=detail]").on("click",function(){
 		var title = "";
 		if($("#selectBox").val()=='Notice'){
@@ -166,8 +171,8 @@ $(function(){
 		<section id="listForm">
 		<h2>FAQ</h2>
 		<form action="AllBoardList.ad"  method="get" >
-				<select id="selectBox" name="title" onchange="this.form.submit()">
-					<option value="Notice">Notice</option>
+				<select id="selectBox" name="title" onchange="this.form.submit()" >
+					<option value="Notice" selected="selected">Notice</option>
 					<option value="FAQ" >FAQ</option>
 					<option value="Mate">Mate</option>
 					<option value="Tmi">Tmi</option>

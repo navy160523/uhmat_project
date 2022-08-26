@@ -27,9 +27,6 @@ public class TmiWriteProService {
 		
 		// 4. CommunityDAO 인스턴스의 XXX 메서드 호출하여 요청받은 XXX 작업을 수행하고 결과를 리턴받습니다.
 		// CommunityDAO 객체(인스턴스)의 insertTmiBoard() 메서드를 호출하여 글쓰기 작업을 수행 한 후 결과를 리턴받습니다.
-
-		
-
 		int tmiInsertCount = dao.insertTmiBoard(tmiBoard);
 		
 		// 5. 리턴받은 작업 수행 결과를 통해 판별 후 트랜잭션 처리 작업을 수행합니다.

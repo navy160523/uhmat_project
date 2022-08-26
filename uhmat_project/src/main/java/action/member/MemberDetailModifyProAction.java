@@ -27,7 +27,7 @@ public class MemberDetailModifyProAction implements Action {
 		 MemberDTO member = new MemberDTO();
 		 member.setEmail(email);
 		 member.setName(name);
-		 member.setNickName(nickName);
+		 member.setNickname(nickName);
 		 member.setBirthdate(birthdate);
 		 member.setPostCode(postCode);
 		 member.setAddress1(address1); 
