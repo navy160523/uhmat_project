@@ -11,24 +11,14 @@ import vo.*;
 public class MapAction  {
 
 
-	public ArrayList<RestaurantInfoDTO> execute(HttpServletRequest request, HttpServletResponse response) {
+	public ArrayList<RestaurantInfoDTO> execute(String keyword) {
 		System.out.println("MapAction - execute ");
 		ActionForward forward = null;
-		
-		String keyword= "";
-		
-		if(request.getParameter("keyword")!=null) {
-			keyword = request.getParameter("keyword");
-		}
-		System.out.println("keyword : " + keyword);
 		
 		MapService service = new MapService();
 		
 		ArrayList<RestaurantInfoDTO> list = service.selectMapList(keyword);
 		
-		request.setAttribute("list", list);
-		
-		System.out.println("list : " + list);
 		
 		return list;
 	}
