@@ -23,7 +23,7 @@ public class ReviewDetailAction implements Action {
 		
 		request.setAttribute("dto", dto);
 		request.setAttribute("pageNum", pageNum);
-		
+		System.out.println(dto);
 		forward = new ActionForward();
 
 		forward.setPath("food/review/reviewDetailView.jsp");

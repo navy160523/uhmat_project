@@ -5,8 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import svc.RestaurantDetailService;
-import vo.ActionForward;
-import vo.RestaurantInfoDTO;
+import vo.*;
 
 public class RestaurantDetailAction implements Action {
 
@@ -34,7 +33,11 @@ public class RestaurantDetailAction implements Action {
 		request.setAttribute("sat", opentime[5] );
 		request.setAttribute("sun", opentime[6] );
 		request.setAttribute("resInfo", dto);
-			
+		
+		//지도 정보도 같이 request 객체에 저장
+		MapDTO map = service.getMapInfo(request.getParameter("resName"));
+		request.setAttribute("map", map);
+		
 		forward = new ActionForward();
 		forward.setPath("food/restaurant/res_detail.jsp");
 		forward.setRedirect(false);

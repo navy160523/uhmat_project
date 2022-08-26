@@ -1,24 +1,25 @@
 package svc;
 
-import static db.JdbcUtil.close;
-import static db.JdbcUtil.getConnection;
-
 import java.sql.Connection;
 
 import dao.RestaurantDAO;
-import vo.*;
 
-public class RestaurantDetailService {
+import static db.JdbcUtil.*;
 
-	public RestaurantInfoDTO selectDetail(String resName) {
+import vo.MapDTO;
+import vo.RestaurantInfoDTO;
+
+public class RestaurantModifyFormService {
+
+	public RestaurantInfoDTO getRestaurantInfo(String resName) {	//식당 정보를 들고옴
+		System.out.println("RestaurantModifyFormService - getRestaurantInfo()");
 		RestaurantInfoDTO dto = null;
-		System.out.println("RestaurantDetailService-selectDetail");
 		Connection con = getConnection();
-		RestaurantDAO dao = RestaurantDAO.getInstance(); 
+		RestaurantDAO dao = RestaurantDAO.getInstance();
 		dao.setConnection(con);
 		dto = dao.getRestaurantInfo(resName);
 		
-		close(con); 
+		close(con);
 		return dto;
 	}
 
@@ -33,4 +34,5 @@ public class RestaurantDetailService {
 		close(con);
 		return dto;
 	}
+
 }
