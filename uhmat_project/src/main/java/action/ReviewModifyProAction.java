@@ -23,6 +23,7 @@ public class ReviewModifyProAction implements Action {
 		System.out.println("ReviewModifyProAction");
 		ActionForward forward = null;
 		
+		
 		/* 
 		 * 글 수정 방법
 		 * 1. 로그인 세션 값을 받는다.

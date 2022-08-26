@@ -54,6 +54,7 @@ public class ReviewListAction implements Action {
 		
 		ArrayList<ReviewBoardDTO> reviewList = ReviewListService.getBoardList(pageNum, listLimit);
 		
+		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("reviewList", reviewList);
 		

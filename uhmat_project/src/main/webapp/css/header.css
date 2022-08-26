@@ -2,14 +2,17 @@
 
 #container {
 /* 	border: 1px solid #ccc; */
-	width: 995px;
-	margin: 0 auto;
+/* 	width: 995px; */
+/* 	margin: 0 auto; */
+
 }
 
 header {
 	background-color: white;
-	height: 184px;
-/* 	width: 400px; */
+	height: 700px;
+	width: 995px;
+/* 	border: solid 1px; */
+	position: relative;
 }
 
 .mainLogo > a > img {
@@ -117,48 +120,47 @@ header {
 	z-index: 999;
 }
 
-.searchContainer {
-	position: absolute;
-	margin-top: 8.4em;
-	margin-left: 6.0em;
+.dropdownContent ul li:hover {
+	background-color: rgb(49,132,77);
+	cursor: pointer;
 }
 
-.searchContainer > i {
-	height: 100%;
-    left: 12px;
-    position: absolute;
-    top: 0;
+
+.search {
+	height: 250px;
+	background-image: url("/uhmat_project/image/mainSample3.jpg");
+	position:relative;
+/* 	border: solid 1px; */
+	background-size: cover;
+	top: 115px;
+	background-repeat: no-repeat;
+	background-position: center center ;
 }
+
 
 #searchControl {
-	height: 30px;
-	width: 710px;
+	position: relative;
+	top: 100px;
+	width: 540px;
+	height: 40px; 
 	border-radius: 2em;
-/* 	box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28); */
-	font-size: 16px;
+	position: relative;
+	
 }
 
-/* #searchBtn .submitBtn { */
-/* 	position: absolute; */
-/* 	top: 0; */
-/* 	right: 0; */
-/* 	bottom: 0; */
-/* 	width: 56px; */
-/* 	background-color: green; */
-/* 	cursor: pointer; */
-/* 	border-radius: 0 2px 2px 0; */
-/* } */
+::placeholder {
+	position:relative;
+	left: 30px;
+}
 
-
-/* #searchBtn .searchIconSubmit { */
-/* 	display: inline-block; */
-/* 	width: 22px; */
-/* 	height: 22px; */
-/* 	background-position: -420px 0; */
-/* 	background-repeat: no-repeat; */
-/* 	vertical-align: top; */
-/* 	border-radius: 2em; */
-/* } */
+i {
+	position: relative;
+	top: 100px;
+	border: solid 1px;
+	left: 40px;
+	z-index: 999;
+	
+}
 
 #searchBtn {
 	border-radius: 2em;
@@ -167,8 +169,13 @@ header {
 	border-color: rgb(49,132,77);
 	font-size: 16px;
 	width: 65px;
-	height: 28px;
+	height: 38px;
+	position: relative;
+	top: 100px;
+	right: 70px;
+	
 }
+
 
 
 
