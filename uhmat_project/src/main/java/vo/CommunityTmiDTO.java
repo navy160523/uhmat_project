@@ -19,6 +19,7 @@ public class CommunityTmiDTO {
 	private String content;
 	private int readcount;
 	private Timestamp date;
+	private String report;
 	
 	
 	public int getIdx() {
@@ -56,6 +57,12 @@ public class CommunityTmiDTO {
 	}
 	public void setDate(Timestamp date) {
 		this.date = date;
+	}
+	public String getReport() {
+		return report;
+	}
+	public void setReport(String report) {
+		this.report = report;
 	}
 	@Override
 	public String toString() {

@@ -167,12 +167,13 @@ public class CommunityDAO {
 			close(pstmt);
 
 			// 전달받은 데이터를 board 테이블에 INSERT
-			sql = "INSERT INTO community_mate VALUES(?,?,?,?,0,CURRENT_TIMESTAMP)";
+			sql = "INSERT INTO community_mate VALUES(?,?,?,?,0,CURRENT_TIMESTAMP,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, mate.getNickname());
 			pstmt.setString(3, mate.getSubject());
 			pstmt.setString(4, mate.getContent());
+			pstmt.setString(5, mate.getReport());
 
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -687,7 +688,7 @@ public class CommunityDAO {
 
 			close(pstmt);
 
-			sql = "INSERT INTO community_tmi VALUES(?,?,?,?,?,?)";
+			sql = "INSERT INTO community_tmi VALUES(?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, tmiBoard.getNickname());
@@ -695,6 +696,7 @@ public class CommunityDAO {
 			pstmt.setString(4, tmiBoard.getContent());
 			pstmt.setInt(5, tmiBoard.getReadcount());
 			pstmt.setTimestamp(6, tmiBoard.getDate());
+			pstmt.setString(7, tmiBoard.getReport());
 			tmiInsertCount = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -1173,7 +1175,7 @@ public class CommunityDAO {
 			close(pstmt);
 			
 			// 전달받은 데이터를 community_recipe 테이블에 INSERT
-			sql = "INSERT INTO community_recipe VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now())";
+			sql = "INSERT INTO community_recipe VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, recipe.getNickname());
@@ -1190,6 +1192,7 @@ public class CommunityDAO {
 			pstmt.setString(13, recipe.getReal_File4());
 			pstmt.setString(14, recipe.getOriginal_File5());
 			pstmt.setString(15, recipe.getReal_File5());
+			pstmt.setString(16, recipe.getReport());
 			
 			insertCount = pstmt.executeUpdate();
 					

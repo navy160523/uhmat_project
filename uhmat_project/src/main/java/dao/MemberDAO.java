@@ -87,7 +87,7 @@ public class MemberDAO {
 		String sql = "";
 		
 		try {
-			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?,0)";
+			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getNickname());
 			pstmt.setString(2, dto.getName());

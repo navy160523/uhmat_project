@@ -11,6 +11,7 @@ public class MateDTO {
 	private int readcount;
 	private Timestamp date;
 	private String category;
+	private String report;
 	
 	public int getIdx() {
 		return idx;
@@ -54,6 +55,12 @@ public class MateDTO {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getReport() {
+		return report;
+	}
+	public void setReport(String report) {
+		this.report = report;
 	}
 	@Override
 	public String toString() {
