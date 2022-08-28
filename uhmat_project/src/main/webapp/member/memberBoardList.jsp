@@ -101,110 +101,21 @@
 		text-align: center;
 	}
 </style>
-<script type="text/javascript">
 
-	
-		
-
-
-</script>
-<script type="text/javascript">
-
-	
-
-
-$(function(){
-	$("#selectBox").val("${param.title}").attr("selected", "selected");
-	
-	
-	$("input[name^=detail]").on("click",function(){
-		var title = "";
-		if($("#selectBox").val()=='Notice'){
-			title="NoticeDetail.ad";
-			alert(title);
-		}
-		if($("#selectBox").val()=='FAQ'){
-			title="FAQDetail.ad";
-			alert(title);
-		}
-		if($("#selectBox").val()=='Mate'){
-			title="MateDetail.ad";
-			alert(title);
-		}
-		if($("#selectBox").val()=='Tmi'){
-			title="TmiDetail.ad";
-			alert(title);
-		}
-		if($("#selectBox").val()=='Recipe'){
-			title="RecipeDetail.ad";
-			alert(title);
-		}
-		
-		
-			 
-		$.ajax({
-			url : "http://localhost:8080/uhmat_project/"+title,  // ./ 현재경로표시
-			type : "get",
-			data :  {
-				idx: 
-					$(this).val()
-					},
-					
-			dataType: "text",
-			success : function(data) {
-			            $('#div').html(data);
-				
-			
-
-			},
-			errer : function() {
-				alert('errer');
-			}
-	
-		 });
-		
-	});
-	
-	
-});
-
-
-</script>
 </head>
 <body>
 		<!-- 게시판 리스트 -->
 		<section id="listForm">
-		<h2>FAQ</h2>
-		<form action="AllBoardList.ad"  id="fr" method="get"  >
-				<select id="selectBox" name="title" onchange="this.form.submit()" >
-					<option value="Notice" selected="selected">Notice</option>
-					<option value="FAQ" >FAQ</option>
-					<option value="Mate">Mate</option>
-					<option value="Tmi">Tmi</option>
-					<option value="Recipe">Recipe</option>
-				</select>
+		<h2>${param.title} 게시물</h2>
 		
-			
-				<!-- 검색하기 기능 -->
-			
-				<input type="text" placeholder="검색어를 입력하세요" id="keyword" name="keyword" value=${param.keyword }>
-				<input type="submit" id="submit1" value="검색">
-			</form>
-<!-- 		<select id="selectBox"> -->
-<!-- <!-- 			<option value="전체">전체</option> -->
-<!-- 			<option value="오류신고">오류신고</option> -->
-<!-- 			<option value="음식점등록">음식점등록</option> -->
-<!-- 			<option value="지도 오류">지도 오류</option> -->
-<!-- 		</select> -->
 
 		<table id="list">
 			<tr id="tr_top">
-				<td width="150px">카테고리</td>
-				<td width="100px">번호</td>
+			
+				<td>번호</td>
 				<td>제목</td>
 				<td width="150px">작성자</td>
 				<td width="150px">날짜</td>
-				<td width="100px">조회수</td>
 
 
 			</tr>
@@ -216,12 +127,22 @@ $(function(){
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
 					<c:forEach var="AllList"  items="${list}" varStatus="status"> 
 						<tr>
-							<td id="category">${(empty AllList.category && AllList.category==null)?param.title:AllList.category}</td>
-							<td ><input type="text" id="detail" name="detail${status.count}" value="${AllList.idx }"></td>
+						<c:if test="${param.title =='Tmi'}">
+						<td ><a href="TmiDetail.co?idx=${AllList.idx }&pageNum=1"> ${AllList.idx }</a></td>
+						</c:if>
+						<c:if test="${param.title =='FAQ'}">
+						<td ><a href="FAQDetail.sc?idx=${AllList.idx }&pageNum=1&keyword="> ${AllList.idx }</a></td>
+						</c:if>
+						<c:if test="${param.title =='Mate'}">
+						<td ><a href="MateDetail.co?idx=${AllList.idx }&pageNum=1"> ${AllList.idx }</a></td>
+						</c:if>
+						<c:if test="${param.title =='Recipe'}">
+						<td ><a href="RecipeDetail.co?idx=${AllList.idx }&pageNum=1"> ${AllList.idx }</a></td>
+						</c:if>
+							<td >${AllList.idx }</td>
 							<td>${AllList.subject }</td>
 							<td>${AllList.nickname }</td>
 							<td>${AllList.date }</td>
-<%-- 						<td>${AllList.readcount }</td> --%>
 						</tr>
 						</c:forEach>
 	 			</c:when>
@@ -240,7 +161,7 @@ $(function(){
 		-->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
+					<input type="button" value="이전" onclick="location.href='MemberBoardList.me?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="이전" disabled="disabled">
@@ -255,7 +176,7 @@ $(function(){
 								${i}
 							</c:when>
 							<c:otherwise>
-								<a href="AllBoardList.ad?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
+								<a href="MemberBoardList.me?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
 			
 							</c:otherwise>
 						</c:choose>
@@ -264,15 +185,14 @@ $(function(){
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
+					<input type="button" value="다음" onclick="location.href='MemberBoardList.mepageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="다음" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
 		</section>
-		<div id="div"></div>
-		<!-- 검색시 detail 부분 -->
+	
 		
 		
 	

@@ -30,7 +30,7 @@ public class MemberLoginProAction implements Action {
 		
 		boolean isLoginSuccess = service.loginMember(member);
 		
-			
+		
 			
 			if(!isLoginSuccess) {
 				response.setContentType("text/html; charset=UTF-8");
@@ -49,9 +49,10 @@ public class MemberLoginProAction implements Action {
 					out.println("history.back()");
 					out.println("</script>");
 				} else {
+					member = service.getMember(request.getParameter("email"));
 				HttpSession session = request.getSession();
 				session.setAttribute("sNickName", member.getNickname());
-				
+				System.out.println(member.getNickname());
 				forward = new ActionForward();
 				forward.setPath("index.jsp");
 				forward.setRedirect(true);

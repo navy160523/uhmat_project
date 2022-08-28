@@ -136,15 +136,15 @@ $(function(){
 	</div>
 
 	<c:choose>
-		<c:when test="${empty sessionScope.sEmail}">
+		<c:when test="${empty sessionScope.sNickName}">
 			<a href="MemberLoginForm.me">로그인</a> | <a href="MemberJoinForm.me">회원가입</a>
 		</c:when>
 		<c:otherwise>
 			<%-- 하이퍼링크에 자바스크립트 함수 연결 시 href 속성에 아무 경로도 지정하지 않는 방법 --%>
-			<a href="MemberDetailForm.me?email=${sessionScope.sEmail }">${sessionScope.sEmail }
+			<a href="MemberDetailForm.me?nickName=${sessionScope.sNickName }">${sessionScope.sNickName }
 				님 </a>  | <a href="MemberLogout.me">로그아웃</a>
 			<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
-			<c:if test="${sessionScope.sEmail eq 'admin'}"> | <a
+			<c:if test="${sessionScope.sNickName eq 'admin'}"> | <a
 					href="AdminMain.me">관리자페이지</a>
 			</c:if>
 		</c:otherwise>
@@ -156,13 +156,16 @@ $(function(){
 			<summary>음식카테고리</summary>
 			<a href="restaurantList.re">음식으로 보기</a>
 			<a href="ReviewList.re">리뷰로 보기</a>
-			<a href="#">지도로 보기</a>
+			<a href="mapForm.re">지도로 보기</a>
+			<a href="RestaurantInfo.re">음식으로 보기</a>
 		</details>
 	</nav>
 <hr>
 
 
-
+<c:if test="${sessionScope.sNickName eq 'admin' }">
+	<h3> <a href="AllBoardListForm.ad">admin</a></h3>
+</c:if>
 <h3> <a href="AllBoardListForm.ad">admin</a></h3>
 <h3> <a href="NoticeList.sc">Notice</a></h3>
 <h3> <a href="FAQList.sc">FAQ</a></h3>

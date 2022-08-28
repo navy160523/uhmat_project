@@ -1,44 +1,35 @@
-package action.admin;
+package action.member;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONObject;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
 import action.Action;
-import svc.FAQListService;
-import svc.MateListProService;
-import svc.NoticeListService;
-import svc.RecipeListProService;
-import svc.TmiListService;
+import svc.member.MemberAllBoardService;
+import svc.member.MemberFAQListService;
+import svc.member.MemberMateListService;
+import svc.member.MemberRecipeListService;
+import svc.member.MemberTmiListService;
 import vo.ActionForward;
-import vo.CommunityTmiDTO;
-import vo.FAQDTO;
-import vo.MateDTO;
-import vo.MemberDTO;
-import vo.NoticeDTO;
 import vo.PageInfo;
-import vo.RecipeDTO;
 
-public class AllBoardListAction implements Action {
+public class MemberBoardListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		String keyword = "";
 		System.out.println("검색액션 키워드 - " + keyword);
-		String title = "Notice";
-		MateListProService mateService=null;
-		NoticeListService noticeService=null;
-		FAQListService faqService=null; 
-		TmiListService tmiService=null;
-		RecipeListProService recipeService=null;
+		String title = "Mate";
+		MemberAllBoardService service=new MemberAllBoardService();
 		ArrayList list =null;
+		HttpSession session=request.getSession();
+		String nickName=(String)session.getAttribute("sNickName");
+		System.out.println(nickName);
 		// 페이징 처리를 위한 변수 선언
 		int pageNum = 1; // 현재 페이지 번호(기본값 1 페이지로 설정)
 		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
@@ -56,31 +47,11 @@ public class AllBoardListAction implements Action {
 		if (request.getParameter("title") != null) {
 			title = request.getParameter("title");
 		}
-
+ 
 		System.out.println(title);
-		if (title.equals("Notice")) {
-			noticeService = new NoticeListService();
-			listCount = noticeService.getListSelectCount(keyword);
-			System.out.println("전체 게시물 수 : " + listCount);
-		}
-		if (title.equals("FAQ")) {
-			 faqService = new FAQListService();
-			 listCount = faqService.getListSelectCount(keyword);
-		}
-		if (title.equals("Mate")) {
-			mateService = new MateListProService();
-			listCount = mateService.mateCount(keyword);
-			System.out.println("전체 게시물 수 : " + listCount);
-
-		}
-		if (title.equals("Tmi")) {
-			tmiService = new TmiListService();
-			 listCount = tmiService.getTmiListCount(keyword);
-		}
-		if (title.equals("Recipe")) {
-			recipeService = new RecipeListProService();
-			 listCount = recipeService.recipeCount();
-		}
+	
+		listCount = service.getMemberListSelectCount(title,keyword,nickName);
+	
 
 		// -------------------------------------------------------------------------------------
 		// 페이징 처리를 위한 계산 작업
@@ -108,26 +79,10 @@ public class AllBoardListAction implements Action {
 //		// => 리턴타입 : ArrayList<MateDTO>(mateList)
 		
 		
-		if (title.equals("Notice")) {
-			list = noticeService.getNoticeList(pageNum, listLimit,keyword);
-			System.out.println("list : " + list);
-		}
-		if (title.equals("FAQ")) {
-			 list = faqService.getFAQList(pageNum, listLimit,keyword);
-		}
-		if (title.equals("Mate")) {
-			list = mateService.getMateList(keyword, pageNum, listLimit);
-
-		}
-		if (title.equals("Tmi")) {
 		
-			 list = tmiService.getTmiBoardList(keyword, pageNum, listLimit);
-		}
-		if (title.equals("Recipe")) {
-			
-			list = recipeService.getRecipeList(pageNum, listLimit);
-
-		}
+	
+		list = service.getMemberBoardList(pageNum, listLimit,title,keyword,nickName);
+	
 //		
 //		// 뷰페이지(jsp)에서 사용할 데이터가 저장된 객체들을 전달하기 위해
 //		// request 객체의 setAttribute() 메서드를 호출하여 객체 저장
@@ -135,13 +90,15 @@ public class AllBoardListAction implements Action {
 		request.setAttribute("list", list);
 		
 	
+		String gson = new Gson().toJson(list);
+		System.out.println(list);
 	
 //		
 //		// ActionForward 객체 생성하여 포워딩 정보 저장
 //		// => board 디렉토리 내의 qna_board_list.jsp 페이지 지정
 //		// => URL 및 request 객체 유지한 채 포워딩을 위해 Dispatcher 방식 지정
 		forward = new ActionForward();
-		forward.setPath("admin/AllBoardList.jsp?keyword="+keyword+"&title="+title);
+		forward.setPath("member/memberBoardList.jsp?keyword="+keyword+"&title="+title);
 		forward.setRedirect(false);
 
 		return forward;

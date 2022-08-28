@@ -16,11 +16,11 @@ public class MemberDetailFormAction implements Action {
 
 		ActionForward forward = null;
 
-		String email = request.getParameter("email");
+		String nickName = request.getParameter("nickName");
 
 		MemberDetailService service = new MemberDetailService();
 
-		MemberDTO member = service.getMember(email);
+		MemberDTO member = service.getMember(nickName);
 
 		request.setAttribute("member", member);
 

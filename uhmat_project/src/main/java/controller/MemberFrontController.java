@@ -17,7 +17,9 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 
 import action.Action;
+import action.admin.AllBoardListAction;
 import action.member.MemberAuthAction;
+import action.member.MemberBoardListAction;
 import action.member.MemberChechDuplicateEmailAction;
 import action.member.MemberChechDuplicateNickNameAction;
 import action.member.MemberDetailFormAction;
@@ -254,7 +256,15 @@ public class MemberFrontController extends HttpServlet {
 			System.out.println(list);
 			response.setContentType("application/json; charset=utf-8");
 			response.getWriter().write(gson);
-	} 
+	} else if (command.equals("/MemberBoardList.me")) {
+		try {
+			action = new MemberBoardListAction();
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 		if (forward != null) {
 			if (forward.isRedirect()) {

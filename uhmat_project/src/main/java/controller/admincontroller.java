@@ -11,10 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import action.Action;
+import action.FAQDetailAction;
+import action.MateDetailAction;
+import action.NoticeDetailAction;
+import action.RecipeDetailAction;
+import action.TmiDetailAction;
 import action.admin.AdminDeleteMemberAction;
 import action.admin.AdminManageMemberDetailAction;
 import action.admin.AdminManageMemberListAction;
 import action.admin.AllBoardListAction;
+import action.admin.adminFAQDetailAction;
+import action.admin.adminMateDetailAction;
+import action.admin.adminNoticeDetailAction;
+import action.admin.adminRecipeDetailAction;
+import action.admin.adminTmiDetailAction;
 import vo.ActionForward;
 
 /**
@@ -64,9 +74,13 @@ public class admincontroller extends HttpServlet {
 		//-------------------------------------------------------------------
 		// 회원가입 폼
 		else if (command.equals("/AllBoardListForm.ad")) {
-			forward = new ActionForward();
-			forward.setPath("/admin/AllBoardList.jsp");
-			forward.setRedirect(false);
+			try {
+				action = new AllBoardListAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// 회원가입 폼 (DB)처리
 		else if (command.equals("/AllBoardList.ad")) {
@@ -82,7 +96,68 @@ public class admincontroller extends HttpServlet {
 			System.out.println(request.getAttribute("list"));
 			response.setContentType("application/json; charset=utf-8");
 			response.getWriter().write(gson);
+		}else if(command.equals("/MateDetail.ad")) {
+			action = new adminMateDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println("MateDetailAction 오류 - " + e.getMessage());
+
+				e.printStackTrace();
+
+			}
+		}else if(command.equals("/TmiDetail.ad")) {
+			System.out.println("---------------------------------------------");
+			System.out.println("게시물 상세 내용 조회");
+			try {
+				action = new adminTmiDetailAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println("TmiDetailAction 오류 - " + e.getMessage());
+				e.printStackTrace();
+			}
+			
+		}else if(command.equals("/RecipeDetail.ad")) {
+			action = new adminRecipeDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeDetailAction 오류 - " + e.getMessage());
+			}
+		}else if(command.equals("/NoticeDetail.ad")) {
+			try {
+				action = new adminNoticeDetailAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/FAQDetail.ad")) {
+			try {
+				action = new adminFAQDetailAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {
