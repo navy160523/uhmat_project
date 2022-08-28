@@ -13,7 +13,10 @@ public class NoticelistCategoryAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		String category = request.getParameter("name");
+		String category ="";
+		if(request.getParameter("name")!= null) {
+			category = request.getParameter("name");
+		}
 //		System.out.println("category : " + category);
 		
 		// 페이징 처리를 위한 변수 선언

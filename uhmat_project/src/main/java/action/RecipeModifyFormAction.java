@@ -24,7 +24,6 @@ public class RecipeModifyFormAction implements Action {
 		
 		request.setAttribute("recipe", recipe);
 
-		
 		forward = new ActionForward();
 		forward.setPath("community/recipe/recipe_modify.jsp");
 		forward.setRedirect(false);

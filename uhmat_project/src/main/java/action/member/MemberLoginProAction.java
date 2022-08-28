@@ -50,7 +50,7 @@ public class MemberLoginProAction implements Action {
 					out.println("</script>");
 				} else {
 				HttpSession session = request.getSession();
-				session.setAttribute("sNickName", member.getNickName());
+				session.setAttribute("sNickName", member.getNickname());
 				
 				forward = new ActionForward();
 				forward.setPath("index.jsp");

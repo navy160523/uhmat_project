@@ -28,7 +28,7 @@ public class MemberJoinProAction implements Action {
 		 member.setEmail(email);
 		 member.setName(name);
 		 member.setPasswd(passwd);
-		 member.setNickName(nickName);
+		 member.setNickname(nickName);
 		 member.setBirthdate(birthdate);
 		 member.setPostCode(postCode);
 		 member.setAddress1(address1); 

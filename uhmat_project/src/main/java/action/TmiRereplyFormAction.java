@@ -32,7 +32,7 @@ public class TmiRereplyFormAction implements Action {
 		// "tmiRereply"라는 이름으로 tmiReply에 저장한 값을 넘겨줍니다.
 		
 		forward = new ActionForward();
-		forward.setPath("community/tmiRereply.jsp?idx=" + idx);
+		forward.setPath("community/tmi/tmiRereply.jsp?idx=" + idx);
 		forward.setRedirect(false);
 		
 		

@@ -154,7 +154,7 @@ $(function(){
 		<details>
 			<!-- 음식카테고리 리스트 -->
 			<summary>음식카테고리</summary>
-			<a href="RestaurantInfo.re">음식으로 보기</a>
+			<a href="restaurantList.re">음식으로 보기</a>
 			<a href="ReviewList.re">리뷰로 보기</a>
 			<a href="#">지도로 보기</a>
 		</details>

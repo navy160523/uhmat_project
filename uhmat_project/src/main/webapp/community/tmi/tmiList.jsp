@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 헤더 자리 -->
+	<!-- 헤더 들어가는 곳 -->
+	<jsp:include page="../../inc/header.jsp"/>
+	<!-- 헤더 들어가는 곳 -->
 	
 	<!-- 탭 형식의 커뮤니티페이지 내의 서브 페이지 -->
 	
@@ -18,8 +20,8 @@
 		<c:when test="${not empty tmiBoardList and tmiPageInfo.listCount gt 0 }">
 				<c:forEach var="tmi" items="${tmiBoardList }">
 					<tr>
-						<td width="800" height="50"><a href="TmiDetail.co?idx=${tmi.idx }&pageNum=${pageInfo.pageNum}">${tmi.subject }</a> <br> 
-							${tmi.nickname } | ${tmi.readcount } | ${tmi.datetime }</td>
+						<td width="800" height="50"><a href="TmiDetail.co?idx=${tmi.idx }&pageNum=${tmiPageInfo.pageNum}">${tmi.subject }</a> <br> 
+							${tmi.nickname } | ${tmi.readcount } | ${tmi.date }</td>
 					</tr>
 					
 				</c:forEach>
@@ -94,7 +96,9 @@
 			</c:otherwise>
 		</c:choose>
 	</section>
-	<!-- 푸터 자리 -->
+	<!-- 푸터 들어가는 곳 -->
+	<jsp:include page="../../inc/footer.jsp"/>
+	<!-- 푸터 들어가는 곳 -->
 	
 </body>
 </html>

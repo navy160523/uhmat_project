@@ -1,26 +1,10 @@
 package svc;
 
-
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-
-import static db.JdbcUtil.*;
-
-import java.sql.*;
-
-import dao.*;
-import vo.*;
-import static db.JdbcUtil.close;
-import static db.JdbcUtil.commit;
-import static db.JdbcUtil.getConnection;
-import static db.JdbcUtil.rollback;
-
-
-import java.sql.Connection;
 import dao.CommunityDAO;
-
 import vo.MateDTO;
 
 public class MateWriteProService {
@@ -28,9 +12,7 @@ public class MateWriteProService {
 
 	public boolean registMate(MateDTO mate) {
 		System.out.println("MateWriteProService");
-
 //		System.out.println("깃은 왜 고친것만 커밋 될까?");
-
 		
 		// 1. 글쓰기 작업 요청 처리 결과를 판별하여 리턴하기 위한 boolean 타입 변수 선언
 		boolean isWriteSuccess = false;

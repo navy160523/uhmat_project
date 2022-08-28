@@ -66,6 +66,8 @@ public class RecipeWriteProAction implements Action {
 		recipe.setOriginal_File5(multi.getOriginalFileName("file5"));
 		recipe.setReal_File5(multi.getFilesystemName("file5"));
 		
+//		System.out.println(multi.getOriginalFileName("file2") + " / " + multi.getFilesystemName("file2"));
+		
 		// --------------------------------------------------------------
 		// 실제 비즈니스 작업 요청을 수행할 RecipeWriteProService 클래스의 인스턴스 생성 후
 		// registRecipe() 메서드를 호출하여 글쓰기 작업 요청

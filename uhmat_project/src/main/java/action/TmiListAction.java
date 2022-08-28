@@ -84,7 +84,7 @@ public class TmiListAction implements Action {
 		// => community 디렉토리 내의 Tmilist.co 페이지를 지정합니다.
 		// => URL 및 request 객체 유지한 채 포워딩을 위해 Dispatcher 방식을 지정합니다.
 		forward = new ActionForward();
-		forward.setPath("community/tmiList.jsp?keyword=" + keyword);
+		forward.setPath("community/tmi/tmiList.jsp?keyword=" + keyword);
 		forward.setRedirect(false);
 		
 		return forward;

@@ -7,10 +7,7 @@ import java.util.ArrayList;
 
 import dao.CommunityDAO;
 import vo.MateDTO;
-
 import vo.MateReplyDTO;
-
-
 
 public class MateDetailService {
 	

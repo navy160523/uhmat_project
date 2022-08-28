@@ -76,6 +76,10 @@
 <title>TMI 글 상세내용</title>
 </head>
 <body>
+	<!-- 헤더 들어가는 곳 -->
+	<jsp:include page="../../inc/header.jsp"/>
+	<!-- 헤더 들어가는 곳 -->
+
 	<section id="articleForm">
 		<h2>TMI 끄적임 상세 내용</h2>
 		<section id="basicInfoArea">
@@ -83,7 +87,7 @@
 			<tr><th width="70">제 목</th><td colspan="3" >${tmiBoard.subject }</td></tr>
 			<tr>
 				<th width="70">작성자</th><td>${tmiBoard.nickname }</td>
-				<th width="70">작성일</th><td>${tmiBoard.datetime }</td>
+				<th width="70">작성일</th><td>${tmiBoard.date }</td>
 			<tr>
 				<th width="70">조회수</th>
 				<td>${tmiBoard.readcount }</td>
@@ -143,6 +147,8 @@
 	</section>
 	<br>
 	
-	
+	<!-- 푸터 들어가는 곳 -->
+	<jsp:include page="../../inc/footer.jsp"/>
+	<!-- 푸터 들어가는 곳 -->
 </body>
 </html>

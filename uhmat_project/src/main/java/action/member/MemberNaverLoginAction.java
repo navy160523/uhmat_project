@@ -139,7 +139,7 @@ public class MemberNaverLoginAction implements Action {
 		 member.setEmail(email);
 		 member.setName(name);
 		 member.setPasswd("NULL");
-		 member.setNickName("네이버로그인"+nickName);
+		 member.setNickname("네이버로그인"+nickName);
 		 member.setBirthdate(birthdate);
 		 member.setAuth_status("Y");
 		 member.setApi_id(api_id);
@@ -168,7 +168,7 @@ public class MemberNaverLoginAction implements Action {
 						out.println("</script>");
 					} else {
 						HttpSession session = request.getSession();
-						session.setAttribute("sNickName", member.getNickName());
+						session.setAttribute("sNickName", member.getNickname());
 						
 						forward = new ActionForward();
 						forward.setPath("index.jsp");
