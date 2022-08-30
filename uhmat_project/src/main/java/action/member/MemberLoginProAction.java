@@ -54,7 +54,7 @@ public class MemberLoginProAction implements Action {
 				session.setAttribute("sNickName", member.getNickname());
 				System.out.println(member.getNickname());
 				forward = new ActionForward();
-				forward.setPath("index.jsp");
+				forward.setPath("main.jsp");
 				forward.setRedirect(true);
 			}
 		}

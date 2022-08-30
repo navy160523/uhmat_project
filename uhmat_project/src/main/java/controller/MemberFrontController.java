@@ -264,6 +264,10 @@ public class MemberFrontController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	} else if(command.equals("/MemberLogin.me")) {
+		forward = new ActionForward();
+		forward.setPath("/member/login.jsp");
+		forward.setRedirect(false);
 	}
 
 		if (forward != null) {
