@@ -1,9 +1,80 @@
 @charset "UTF-8";
 
-/* #container { */
-/* 	width: 995px; */
-/* 	margin: 0 auto; */
-/* } */
+
+
+.search {
+	height: 250px;
+	background-image: url("/uhmat_project/image/mainSample3.jpg");
+	position:relative;
+/* 	border: solid 1px; */
+	background-size: cover;
+/* 	top: 115px; */
+	background-repeat: no-repeat;
+	background-position: center center ;
+}
+
+.searchContainer {
+	margin-left: 200px;
+}
+
+#searchControl {
+	position: relative;
+	top: 100px;
+	width: 540px;
+	height: 40px; 
+	border-radius: 2em;
+	position: relative;
+	border-color: white;
+	align-items: center;
+	padding-left: 40px;
+	
+}
+
+::placeholder {
+	position:relative;
+	left: 0px;
+	font-size: 16px;
+}
+
+i{
+	position: relative;
+	top: 102px;
+	left: 33px;
+	z-index: 999;
+	
+}
+
+#searchBtn {
+	border-radius: 2em;
+	background-color: rgb(194,205,47); 
+	color: white;
+	border-color: rgb(194,205,47);
+	font-size: 18px;
+	width: 70px;
+	height: 39px;
+	position: relative;
+	top: 100px;
+	right: 70px;
+	
+}
+
+.searchBox {
+	width: 300px;
+	vertical-align: middle;
+	position: relative;
+}
+
+
+
+.searchContainer .icon {
+	position: albsolute;
+	top: 50%;
+	margin-left: 15px;
+	margin-top: 15px;
+}
+
+
+
 .mainContainer {
 	width: 995px;
 	margin: 0 auto;
@@ -23,17 +94,21 @@
 	margin-top: 20px;
 }
 
-
-
-
+.reviewer {
+	border: solid 1px;
+	height: 250px;
+	width: 300px;
+	margin-top: 20px;
+}
 
 
 .mainView{
-      margin:  auto;
-      margin-bottom: 20px;
-      margin-top: 50px;
-    text-align: center;
+	margin: auto;
+	margin-bottom: 20px;
+	margin-top: 50px;
+	text-align: center;
 }
+
 .mainView{height:250px; width: 250px; overflow:hidden;}
     .mainView ul{width:calc(100% * 5);display:flex;animation:slide 10s infinite;} /* slide를 8초동안 진행하며 무한반복 함 */
     .mainView li{width:calc(100% * 5);height:250px;}

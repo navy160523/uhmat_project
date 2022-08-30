@@ -8,9 +8,46 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="./js/jquery-3.6.0.js"></script>
+ <script src="./js/jquery-3.6.0.js"></script>
+
 <script>
 	$(function() {
-
+		$.ajax({
+			url : "http://localhost:8080/uhmat_project/MemberBoardList.me",  // ./ 현재경로표시
+			type : "get",
+			data :  {
+				title: $("#selectBox").val()
+					},
+					
+			dataType: "text",
+			success : function(data) {
+			            $('#boadlist').html(data);
+			},
+			errer : function() {
+				alert('errer');
+			}
+	
+		 });
+		
+		$("#selectBox").on("change",function(){
+			$.ajax({
+				url : "http://localhost:8080/uhmat_project/MemberBoardList.me",  // ./ 현재경로표시
+				type : "get",
+				data :  {
+					title: $("#selectBox").val()
+						},
+						
+				dataType: "text",
+				success : function(data) {
+				            $('#boadlist').html(data);
+				},
+				errer : function() {
+					alert('errer');
+				}
+		
+			 });
+			
+		});
 		$("input[type=reset]").on("click", function() {
 			$("#EmailResult").html("");
 			$("#checkNickNameResult").html("");
@@ -36,19 +73,14 @@
 
 		});
 
-		$("#nickName")
-				.on(
-						"keyup",
-						function() {
+		$("#nickName").on("keyup",function() {
 
 							var regex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#$%()]{4,10}$/;
 
 							if (!regex.exec($("#nickName").val())
 									|| $("#nickName").val() == null) { // 부적합한 아이디일 경우
 
-								$("#checkNickNameResult")
-										.html(
-												"한글, 영어로  4~16자리 필수! (주의 : 맨앞 특수문자,숫자 불가)");
+								$("#checkNickNameResult").html("한글, 영어로  4~16자리 필수! (주의 : 맨앞 특수문자,숫자 불가)");
 								$("#checkNickNameResult").css("color", "RED");
 
 							} else {
@@ -62,18 +94,11 @@
 											dataType : "text",
 											success : function(data) {
 												if (data === 'usable') {
-													$('#checkNickNameResult')
-															.text(
-																	'사용할 수 있는 닉네임입니다.');
-													$("#checkNickNameResult")
-															.css("color",
-																	"GREEN");
+													$('#checkNickNameResult').text('사용할 수 있는 닉네임입니다.');
+													$("#checkNickNameResult").css("color","GREEN");
 												} else {
-													$('#checkNickNameResult')
-															.text(
-																	'이미 사용 중인 닉네임입니다.');
-													$("#checkNickNameResult")
-															.css("color", "RED");
+													$('#checkNickNameResult').text('이미 사용 중인 닉네임입니다.');
+													$("#checkNickNameResult").css("color", "RED");
 												}
 											},
 											error : function(data, textStatus) {
@@ -83,16 +108,12 @@
 							}
 
 						});
-		$("#email")
-				.on(
-						"keyup",
-						function() {
+		$("#email").on("keyup",function() {
 
 							var regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-							;
+							
 
-							if (!regex.exec($("#email").val())
-									|| $("#email").val() == null) { // 부적합한 아이디일 경우
+							if (!regex.exec($("#email").val())|| $("#email").val() == null) { // 부적합한 아이디일 경우
 
 								$("#EmailResult").html("잘못된 이메일 형식입니다. ");
 								$("#EmailResult").css("color", "RED");
@@ -175,7 +196,7 @@
 <label>이름</label><br>
 <input type="text" id="name" name="name" value="${member.name }" ><br>
 <label>닉네임</label><br>
-<input type="text" id="nickName" name="nickName" value="${member.nickName }"><br>
+<input type="text" id="nickName" name="nickName" value="${member.nickname }"><br>
 <span id="checkNickNameResult"></span><br>
 <label>이메일</label><br>
 <input type="text" id="email" name="email" value="${member.email }" readonly="readonly"><br>
@@ -199,7 +220,18 @@
 		</div>
 <input type="submit" value="수정하기">
 </form>
+<hr>
+<section>
+		<select id="selectBox" id="selectBox" name="title"  >
+					<option value="Mate" selected="selected">Mate</option>
+					<option value="Tmi">Tmi</option>
+					<option value="Recipe">Recipe</option>
+					<option value="FAQ" >FAQ</option>
+				</select>
+				
+		<div id="boadlist"></div>
 
+</section>
 
 </body>
 </html>

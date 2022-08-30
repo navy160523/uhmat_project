@@ -2,23 +2,24 @@
 
 #container {
 /* 	border: 1px solid #ccc; */
-/* 	width: 995px; */
-/* 	margin: 0 auto; */
-
+	width: 995px;
+	margin: 0 auto;
+/* 	display: flex; */
 }
 
 header {
 	background-color: white;
-	height: 700px;
+	height: 115px;
 	width: 995px;
 /* 	border: solid 1px; */
 	position: relative;
+	align-items: center; 
 }
 
 .mainLogo > a > img {
 	float: left;
-	max-width: 300px;
-	max-height:70px;
+	max-width: 400px;
+	max-height:75px;
 	width: auto;
 	height: auto;
 	background-size: cover;
@@ -125,56 +126,6 @@ header {
 	cursor: pointer;
 }
 
-
-.search {
-	height: 250px;
-	background-image: url("/uhmat_project/image/mainSample3.jpg");
-	position:relative;
-/* 	border: solid 1px; */
-	background-size: cover;
-	top: 115px;
-	background-repeat: no-repeat;
-	background-position: center center ;
-}
-
-
-#searchControl {
-	position: relative;
-	top: 100px;
-	width: 540px;
-	height: 40px; 
-	border-radius: 2em;
-	position: relative;
-	
-}
-
-::placeholder {
-	position:relative;
-	left: 30px;
-}
-
-i {
-	position: relative;
-	top: 100px;
-	border: solid 1px;
-	left: 40px;
-	z-index: 999;
-	
-}
-
-#searchBtn {
-	border-radius: 2em;
-	background-color: rgb(49,132,77); 
-	color: white;
-	border-color: rgb(49,132,77);
-	font-size: 16px;
-	width: 65px;
-	height: 38px;
-	position: relative;
-	top: 100px;
-	right: 70px;
-	
-}
 
 
 

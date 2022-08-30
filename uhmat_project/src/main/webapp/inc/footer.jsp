@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="css/footer.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet" type="text/css">
 <script src="https://kit.fontawesome.com/5382a0d7e0.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -23,11 +23,11 @@
 			<div class="footerMenu">
 				<table id="footerTable"> 
 					<tr>
-						<td id="whatUhmat"><a href="CompanyModify.cp">어맛 소개</a></td>
+						<td id="whatUhmat"><a href="CompanyDetail.cp">어맛 소개</a></td>
 						<td id="notice"><a href="NoticeList.sc">공지사항</a></td>
 					</tr>
 					<tr>
-						<td id="whoDeveloper"><a href="DeveloperModify.cp">개발자 소개</a></td>
+						<td id="whoDeveloper"><a href="DeveloperDetail.cp">개발자 소개</a></td>
 						<td id="serviceCenter"><a href="NoticeList.sc">고객센터</a></td>
 					</tr>
 					<tr>

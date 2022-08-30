@@ -9,7 +9,10 @@
 </head>
 <body>
 
-	<h1>mate_list.jsp</h1>
+	<!-- 헤더 들어가는 곳 -->
+	<jsp:include page="../../inc/header.jsp"/>
+	<!-- 헤더 들어가는 곳 -->
+	
 	<table border="1">
 		<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -->
 		<!-- 조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount 가 0보다 클 경우 -->
@@ -19,7 +22,7 @@
 					<tr>
 						<td width="800" height="50"><a href="MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}">${mate.subject }</a> <br> 
 <%-- 							${mate.content } <br> --%>
-							${mate.nickname } | ${mate.readcount } | <img src="img/시계.jpg" width="20"> ${mate.datetime }</td>
+							${mate.nickname } | ${mate.readcount } | <img src="img/시계.jpg" width="20"> ${mate.date }</td>
 					</tr>
 					
 				</c:forEach>
@@ -29,6 +32,12 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
+	
+	<!-- 검색창 -->
+	<form action="MateList.co" method="get">
+		<input type="text" name="keyword" value="${param.keyword }" placeholder="검색어를 입력하세요">
+		<input type="submit" value="검색">
+	</form>
 	
 	<!-- 글쓰기 버튼 클릭 시 글쓰기 페이지로 이동 -->
 	<section>
@@ -76,6 +85,8 @@
 		
 	</section>
 
-
+	<!-- 		푸터 들어가는 곳 -->
+	<jsp:include page="../../inc/footer.jsp"/>
+	<!-- 		푸터 들어가는 곳 -->
 </body>
 </html>

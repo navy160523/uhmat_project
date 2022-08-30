@@ -5,16 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/css/policy.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<!-- 헤더 들어가는곳 -->
-		<jsp:include page="../inc/header.jsp" flush="false" />
+		<jsp:include page="/inc/header.jsp" flush="false" />
 	<!-- 헤더 들어가는곳 -->
 	
-	<h1>이용약관</h1>
+	<!-- 본문 시작 -->
+	<div id="container">
+		<h1>이용 약관</h1>
+	</div>
+	<!-- 본문 끝 -->
 	
 	<!-- 푸터 들어가는곳 -->
-		<jsp:include page="../inc/footer.jsp" flush="false" />
+		<jsp:include page="/inc/footer.jsp" flush="false" />
 	<!-- 푸터 들어가는곳 -->	
 </body>
 </html>
