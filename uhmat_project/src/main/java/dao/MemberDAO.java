@@ -628,6 +628,7 @@ public class MemberDAO {
 				
 				if (title.equals("FAQBoard")) {
 					FAQDTO Board = new FAQDTO();
+					Board.setIdx(rs.getInt("idx"));
 						Board.setNickname(rs.getString("nickname"));
 						Board.setSubject(rs.getString("subject"));
 						Board.setContent(rs.getString("content"));
@@ -638,35 +639,38 @@ public class MemberDAO {
 				if (title.equals("community_Mate")) { 
 				
 					MateDTO Board = new MateDTO();
+					Board.setIdx(rs.getInt("idx"));
 					Board.setNickname(rs.getString("nickname"));
 					Board.setSubject(rs.getString("subject"));
 					Board.setContent(rs.getString("content"));
 					Board.setDate(rs.getTimestamp("datetime"));
-					System.out.println("FAQ - selectAnythingList() 호출!");
+					System.out.println("Mate - selectAnythingList() 호출!");
 				
 
 					BoardList.add(Board);
 				}
 				if (title.equals("community_Tmi")) { 
 					CommunityTmiDTO Board = new CommunityTmiDTO();
+					Board.setIdx(rs.getInt("idx"));
 					Board.setNickname(rs.getString("nickname"));
 					Board.setSubject(rs.getString("subject"));
 					Board.setContent(rs.getString("content"));
 					Board.setDate(rs.getTimestamp("datetime"));
-					System.out.println("FAQ - selectAnythingList() 호출!");
-				
+					System.out.println("Tmi - selectAnythingList() 호출!");
+					BoardList.add(Board);
 
 				
 				}
 				if (title.equals("community_Recipe")) {
 					
 					RecipeDTO Board = new RecipeDTO();
+					Board.setIdx(rs.getInt("idx"));
 					Board.setNickname(rs.getString("nickname"));
 					Board.setSubject(rs.getString("subject"));
 					Board.setContent(rs.getString("content"));
 					Board.setDate(rs.getTimestamp("datetime"));
 					BoardList.add(Board);
-					System.out.println("FAQ - selectAnythingList() 호출!");
+					System.out.println("Recipe - selectAnythingList() 호출!");
 
 				}
 				

@@ -44,7 +44,7 @@ public class admincontroller extends HttpServlet {
 		Action action = null;
 		if (command.equals("/Admin.ad")) {
 			forward = new ActionForward();
-			forward.setPath("admin/adminTop.jsp");
+			forward.setPath("admin/adminManageMember.jsp");
 			forward.setRedirect(false);
 			
 		} else if(command.equals("/AdminManageMemberList.ad")) {
@@ -141,7 +141,17 @@ public class admincontroller extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}if (command.equals("/AdminMain.ad")) {
+			forward = new ActionForward();
+			forward.setPath("admin/adminView.jsp");
+			forward.setRedirect(false);
+			
 		}
+		
+		
+		
+		
+	
 		
 		
 		

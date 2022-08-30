@@ -29,6 +29,7 @@
 .login-container {
 	height: 650px;
 	margin: 0 auto;
+	padding-top:25px;
 	width: 995px;
 	font-size: 30px;
 }
