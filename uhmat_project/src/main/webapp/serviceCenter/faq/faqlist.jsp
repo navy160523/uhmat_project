@@ -144,7 +144,7 @@
 							<td>${FAQ.date }</td>
 							<td>${FAQ.readcount }</td>
 						</tr>
-						</c:forEach>
+					</c:forEach>
 	 			</c:when>
 	 			<c:otherwise>
 					<tr><td colspan="5"> 게시물이 존재하지 않습니다</td></tr> 			

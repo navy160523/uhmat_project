@@ -7,12 +7,16 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import action.*;
-import action.main.*;
+import action.mainsrh.*;
 import vo.*;
 
-@WebServlet("/")
-public class MainController extends HttpServlet {
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
+
+
+@WebServlet("*.sch")
+public class MainSearchController extends HttpServlet {
+
+	
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -21,18 +25,18 @@ public class MainController extends HttpServlet {
 		System.out.println(command);
 		ActionForward forward = null;
 		Action action = null;
-		
-		// 메인 화면 이동
-		if(command.equals("/")) {
+		// 회원가입 폼
+		if (command.equals("/UhmatSearch.sch")) {
 			try {
-				action = new MainAction();
+				action = new UhmatSearchAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
-
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());
@@ -40,20 +44,17 @@ public class MainController extends HttpServlet {
 				request.getRequestDispatcher(forward.getPath()).forward(request, response);
 			}
 		}
-	}
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 	
-		
+	}
+	
+				
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
-
+	
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
 

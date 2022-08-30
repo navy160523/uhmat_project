@@ -29,7 +29,7 @@
 					<div class = "mainView">
 						<ul>
 						<c:forEach var="board" items="${reviewList}" varStatus="state">
-							<li><img src="upload/${board.photo }" width="100%" /></li>
+							<li><img src="upload/${board.photo }" width="100%" height="100%"/>${board.res_name }</li>
 						</c:forEach>
 						</ul>
 					</div>

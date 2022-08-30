@@ -125,6 +125,7 @@
   	</ul>
     </div>
     <!-- 검색 창 부분 시작 -->
+    <section>
 	<nav class="search">
 	<div class="searchContainer">
 		<div class="row">
@@ -135,7 +136,7 @@
 						<td>
 							<i class="fa-solid fa-magnifying-glass" style="font-size: 1.1em"></i>
 							<input type="search" id="searchControl"
-								placeholder="검색할 음식명이나 음식점명" name="searchText" value="" maxlength="100" autocomplete="off">
+								placeholder="검색할 음식명이나 음식점명" name="search" value="" maxlength="100" autocomplete="off">
 						</td>
 						<td>
 							<button id="searchBtn" type="submit" title="검색"
@@ -149,6 +150,7 @@
 			</form>
 		</div>
 	</div>
+	</nav>
 	</section>
 	<!-- 검색 창 부분 끝 -->
     

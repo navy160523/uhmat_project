@@ -488,5 +488,73 @@ public class ReviewCategoryDAO {
 		return list;
 		
 	}
+	public ArrayList<ReviewBoardDTO> selectMainReviewBoardList(String search) {
+
+		ArrayList<ReviewBoardDTO> reviewList = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		PreparedStatement pstmt2 = null;
+		ResultSet rs2 = null;
+		
+		/*************************************
+		 * 댓글 부분 구현될 경우 새로 sql 문 작성 해야 함
+		 ****************************************/
+			
+			try {
+				String sql = "SELECT * FROM reviewboard WHERE subject=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, search);
+				
+				rs = pstmt.executeQuery();
+				
+				reviewList = new ArrayList<ReviewBoardDTO>();
+					
+				while(rs.next()) {
+					
+					ReviewBoardDTO dto = new ReviewBoardDTO();
+					String tagResult = "";
+					// 게시물 정보 저장
+					dto.setIdx(rs.getInt("idx"));
+					dto.setRes_name(rs.getString("res_name"));
+					dto.setNickname(rs.getString("nickname"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setPhoto(rs.getString("photo"));
+					dto.setContent(rs.getString("content"));
+					dto.setLikes(rs.getInt("likes"));
+					dto.setRating(rs.getFloat("rating"));
+					
+					
+					String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
+					pstmt2  = con.prepareStatement(sql2);
+					pstmt2.setInt(1, dto.getIdx());
+					rs2 = pstmt2.executeQuery();
+					
+					tagResult = "#";
+					StringJoiner joiner = new StringJoiner("#");
+					while(rs2.next()) {
+						
+						joiner.add(rs2.getString("tag_name"));;
+					}
+					
+					tagResult = tagResult + joiner;
+					System.out.println(tagResult);
+//				System.out.println(dto);
+					dto.setTag_name(tagResult);
+					reviewList.add(dto);
+					close(rs2);
+					close(pstmt2);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("SQL 구문작성오류 - selectReviewList()");
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+		return reviewList;
+	}
 	
 }
