@@ -46,16 +46,21 @@ text-align: center;
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="./js/jquery-3.6.0.js"></script>
 <script>
-	$(function() {
 
+	$(function() {
+		var emailFlag=false;
+		var nicknameFlag=false;
+		var passwdFlag=false;
 		$("input[type=reset]").on("click", function() {
 			$("#checkPasswdResult").html("");
 			$("#confirmPasswdResult").html("");
 			$("#confirmEmailResult").html("");
+			$("#checkNickNameResult").html("");
+			$("#confirmEmailResult").html("");
 		});
 
 		$("#passwd").on(
-				"change",
+				"keyup",
 				function() {
 					// 패스워드 검사 패턴 설정
 					// 1. 길이 및 사용 가능 문자에 대한 규칙 : 8 ~ 16 자리 영문자, 숫자, 특수문자(!@#$%) 조합
@@ -96,27 +101,32 @@ text-align: center;
 						if (count == 4) {
 							$("#checkPasswdResult").html("사용 가능 : 안전");
 							$("#checkPasswdResult").css("color", "GREEN");
+							passwdFlag=true;
 						} else if (count == 3) {
 							$("#checkPasswdResult").html("사용 가능 : 보통");
 							$("#checkPasswdResult").css("color", "blue");
+							passwdFlag=true;
 						} else if (count == 2) {
 							$("#checkPasswdResult").html("사용 가능 : 위험");
 							$("#checkPasswdResult").css("color", "ORANGE");
+							passwdFlag=true;
 						} else {
 							$("#checkPasswdResult").html(
 									"영문자, 숫자, 특수문자 중 2가지 이상 조합 필수!");
 							$("#checkPasswdResult").css("color", "RED");
+							passwdFlag=false;
 						}
 
 					} else { // 패스워드 길이 또는 사용 가능 문자 체크 부적합 시
 						$("#checkPasswdResult").html(
 								"8~16자리 영문자, 숫자, 특수문자 조합 필수!");
 						$("#checkPasswdResult").css("color", "RED");
+						passwdFlag=false;
 
 					}
 				});
 
-		$("#passwd2").on("change", function() {
+		$("#passwd2").on("keyup", function() {
 			// 비밀번호 & 비밀번호확인란이 같은지 판별
 			let passwd = $("#passwd").val();
 			let passwd2 = $("#passwd2").val();
@@ -125,29 +135,31 @@ text-align: center;
 			if (passwd == passwd2) {
 				$("#confirmPasswdResult").html("일치 합니다");
 				$("#confirmPasswdResult").css("color", "GREEN");
+				passwdFlag=true;
 
 			} else {
 				$("#confirmPasswdResult").html("일치 하지 않습니다");
 				$("#confirmPasswdResult").css("color", "RED");
+				passwdFlag=false;
 
 			}
 
 		});
 
-		$("#emailCheck").on("change", function() {
-			// 비밀번호 & 비밀번호확인란이 같은지 판별
+		$("#emailCheck").on("keyup", function() {
 			let email = $("#email").val();
 			let email2 = $("#emailCheck").val();
 
-			// 두 패스워드 비교
 			if (email == email2) {
 				$("#confirmEmailResult").html("일치 합니다");
 				$("#confirmEmailResult").css("color", "GREEN");
+				emailFlag=true;
 
 			} else {
 				$("#confirmEmailResult").html("일치 하지 않습니다");
 
 				$("#confirmEmailResult").css("color", "RED");
+				emailFlag=false;
 
 			}
 
@@ -168,6 +180,7 @@ text-align: center;
 										.html(
 												"한글, 영어로  4~16자리 필수! (주의 : 맨앞 특수문자,숫자 불가)");
 								$("#checkNickNameResult").css("color", "RED");
+								nicknameFlag=false;
 
 							} else {
 								$
@@ -179,6 +192,7 @@ text-align: center;
 											},
 											dataType : "text",
 											success : function(data) {
+												
 												if (data === 'usable') {
 													$('#checkNickNameResult')
 															.text(
@@ -186,12 +200,14 @@ text-align: center;
 													$("#checkNickNameResult")
 															.css("color",
 																	"GREEN");
+													nicknameFlag=true;
 												} else {
 													$('#checkNickNameResult')
 															.text(
 																	'이미 사용 중인 닉네임입니다.');
 													$("#checkNickNameResult")
 															.css("color", "RED");
+												nicknameFlag=false;
 												}
 											},
 											error : function(data, textStatus) {
@@ -214,6 +230,7 @@ text-align: center;
 
 								$("#EmailResult").html("잘못된 이메일 형식입니다. ");
 								$("#EmailResult").css("color", "RED");
+								emailFlag=false;
 
 							} else {
 								$
@@ -231,12 +248,14 @@ text-align: center;
 																	'사용할 수 있는 email입니다.');
 													$("#EmailResult").css(
 															"color", "GREEN");
+													emailFlag=true;
 												} else {
 													$('#EmailResult')
 															.text(
 																	'이미 사용 중인 email입니다.');
 													$("#EmailResult").css(
 															"color", "RED");
+													emailFlag=false;
 												}
 											},
 											error : function(data, textStatus) {
@@ -246,9 +265,30 @@ text-align: center;
 							}
 
 						});
+		
+		$('form').submit(function(){
+
+			if(!emailFlag){
+				 $('#email').focus();
+				return false
+			}
+			if(!passwdFlag){
+				 $('#passwd').focus();
+				return false
+			}
+			if(!nicknameFlag){
+				 $('#nickName').focus();
+				return false
+			}else{
+				return true
+			}
+
+			})
+		
+		
 	});
 
-
+	
 	// 다음 우편번호 API
 	function execDaumPostcode() {
 		new daum.Postcode(
@@ -352,18 +392,18 @@ text-align: center;
 		</div>
 		<br>
 		<div class="form-floating mb-3">
-             <input class="form-control" type="date" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
+             <input class="form-control" type="text" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
               <label for="postCode">우편번호</label> 
         </div>
 	
 			
 			
 		<div class="form-floating mb-3">
-             <input class="form-control" type="date" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
+             <input class="form-control" type="text" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
               <label for="address1">도로명주소</label> 
         </div>
         	<div class="form-floating mb-3">
-             <input class="form-control" type="date" name="address2" id="sample4_roadAddress"  >
+             <input class="form-control" type="text" name="address2" id="sample4_roadAddress"  >
               <label for="address2">상세주소</label> 
         </div>
 			

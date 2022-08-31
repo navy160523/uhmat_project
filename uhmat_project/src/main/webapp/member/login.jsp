@@ -121,14 +121,17 @@
 			<div id="slmpleLog"></div>
 		</div>
 		<div class="buttonResult" id="slmpl">
-			<iframe name="iframe1" id="iframe01" src="MemberNaverForm.me"
-				frameborder="0" cellspacing="0"></iframe>
+<!-- 			<iframe name="iframe1" id="iframe01" src="MemberNaverForm.me" -->
+<!-- 				frameborder="0" cellspacing="0"></iframe> -->
+		    <jsp:include  page="naverlogin.jsp"></jsp:include>
 			<br>
-			<iframe name="iframe1" id="iframe02" src="MemberKakaoForm.me"
-				frameborder="0" cellspacing="0"></iframe>
+<!-- 			<iframe name="iframe1" id="iframe02" src="MemberKakaoForm.me" -->
+<!-- 				frameborder="0" cellspacing="0"></iframe> -->
+  			<jsp:include  page="kakao.jsp"></jsp:include>
 			<br>
-			<iframe name="iframe1" id="iframe03" src="MemberGoogleForm.me"
-				frameborder="0" cellspacing="0"></iframe>
+<!-- 			<iframe name="iframe1" id="iframe03" src="MemberGoogleForm.me" -->
+<!-- 				frameborder="0" cellspacing="0"></iframe> -->
+  			<jsp:include  page="google.jsp"></jsp:include>
 			<br>
 		</div>
 		<div class="buttonResult2" id="login">

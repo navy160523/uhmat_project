@@ -50,7 +50,7 @@ public class MainController extends HttpServlet {
 		Action action = null;
 		
 		// 메인 화면 이동
-		if(command.equals("/uhamt_project/")) {
+		if(command.equals("/")) {
 			forward = new ActionForward();
 			forward.setPath("main.jsp");
 			forward.setRedirect(false);

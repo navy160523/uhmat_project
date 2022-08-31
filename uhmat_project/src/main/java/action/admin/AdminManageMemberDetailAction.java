@@ -22,9 +22,9 @@ public class AdminManageMemberDetailAction implements Action {
 		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
 		int pageLimit = 10; // 한 페이지 당 표시할 페이지 목록 수
 		
-		String email = "";
-		if(request.getParameter("email") != null) {
-			email = request.getParameter("email");
+		String nickname = "";
+		if(request.getParameter("nickname") != null) {
+			nickname = request.getParameter("nickname");
 		}
 //		System.out.println("email : " + email);
 		
@@ -65,7 +65,7 @@ public class AdminManageMemberDetailAction implements Action {
 		
 		ArrayList<MemberDTO> list = service.getMemberList(pageNum, listLimit, keyword);
 		
-		MemberDTO memberDetail = service.getMember(email);
+		MemberDTO memberDetail = service.getMember(nickname);
 //		System.out.println("memberDetail: " + memberDetail);
 		
 		request.setAttribute("memberDetail", memberDetail);

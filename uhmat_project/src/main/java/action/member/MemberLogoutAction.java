@@ -17,7 +17,9 @@ public class MemberLogoutAction implements Action {
 		
 		// 세션 객체 가져와서 초기화
 		HttpSession session = request.getSession();
+		if(session!=null) {
 		session.invalidate();
+		}
 		
 		// 메인페이지 포워딩
 		forward = new ActionForward();

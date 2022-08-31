@@ -199,7 +199,8 @@
 <input type="text" id="nickName" name="nickName" value="${member.nickname }"><br>
 <span id="checkNickNameResult"></span><br>
 <label>이메일</label><br>
-<input type="text" id="email" name="email" value="${member.email }" readonly="readonly"><br>
+<input type="hidden" id="email" name="email" value="${member.email }" readonly="readonly" >
+<label>${member.email }</label> <br>
 <span id="EmailResult"></span><br>
 <label>생년월일</label><br>
 <input type="date" id="birth" name="birth" value="${member.birthdate }"><br>

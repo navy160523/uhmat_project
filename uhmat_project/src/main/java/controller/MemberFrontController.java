@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,13 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
 import action.Action;
-import action.admin.AllBoardListAction;
 import action.member.MemberAuthAction;
 import action.member.MemberBoardListAction;
 import action.member.MemberChechDuplicateEmailAction;
@@ -48,6 +47,7 @@ public class MemberFrontController extends HttpServlet {
 		System.out.println(command);
 		ActionForward forward = null;
 		Action action = null;
+		HttpSession session = request.getSession();
 		// 회원가입 폼
 		if (command.equals("/MemberJoinForm.me")) {
 			forward = new ActionForward();
@@ -180,95 +180,100 @@ public class MemberFrontController extends HttpServlet {
 			forward = new ActionForward();
 			forward.setPath("/member/naverlogin.jsp");
 			forward.setRedirect(false);
-		}
-		// 패스워드 찾기 폼
-		else if (command.equals("/MemberFindPasswordForm.me")) {
+		} else if (command.equals("/MemberLogin.me")) {
 			forward = new ActionForward();
-			forward.setPath("/member/findPassword.jsp");
+			forward.setPath("/member/login.jsp");
 			forward.setRedirect(false);
-		}
-		// 패스워드 찾기 처리
-		else if (command.equals("/MemberFindPasswordPro.me")) {
-
-			try {
-				action = new MemberFindPasswordProAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
-		// 새로운 패스워드 메일 전송
-		else if (command.equals("/SendPasswordMail.me")) {
-			try {
-				action = new MemberSendPasswordMailAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// 비밀번호 변경 폼
-		else if (command.equals("/MemberPasswordModifyForm.me")) {
-			forward = new ActionForward();
-			forward.setPath("/member/passwordModify.jsp");
-			forward.setRedirect(false);
-		}
-		// 비밀번호 변경 처리
-		else if (command.equals("/MemberPasswordModifyPro.me")) {
-			try {
-				action = new MemberPasswordModifyProAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		// 사용자 정보 폼
-		else if (command.equals("/MemberDetailForm.me")) {
-			try {
-				action = new MemberDetailFormAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	
-		// 사용자 정보 수정 처리
-		else if (command.equals("/MemberDetailModifyPro.me")) {
-			try {
-				action = new MemberDetailModifyProAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
+			// 패스워드 찾기 폼
+		else if (command.equals("/MemberFindPasswordForm.me")) {
+				forward = new ActionForward();
+				forward.setPath("/member/findPassword.jsp");
+				forward.setRedirect(false);
 			}
-		}else  if (command.equals("/MemberDetailList.me")) {
-			MemberDTO member=null;
-			try {
-				MemberDetailListAction list = new MemberDetailListAction();
-				member=list.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			// 패스워드 찾기 처리
+			else if (command.equals("/MemberFindPasswordPro.me")) {
+
+				try {
+					action = new MemberFindPasswordProAction();
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			}
-			JSONObject jobj = new JSONObject();
-			List<MemberDTO> list = new ArrayList<MemberDTO>();
-			list.add(member);
-			String gson = new Gson().toJson(list);
-			System.out.println(list);
-			response.setContentType("application/json; charset=utf-8");
-			response.getWriter().write(gson);
-	} else if (command.equals("/MemberBoardList.me")) {
-		try {
-			action = new MemberBoardListAction();
-			forward = action.execute(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// 새로운 패스워드 메일 전송
+			else if (command.equals("/SendPasswordMail.me")) {
+				try {
+					action = new MemberSendPasswordMailAction();
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			// 비밀번호 변경 폼
+			else if (command.equals("/MemberPasswordModifyForm.me")) {
+				forward = new ActionForward();
+				forward.setPath("/member/passwordModify.jsp");
+				forward.setRedirect(false);
+			}
+			// 비밀번호 변경 처리
+			else if (command.equals("/MemberPasswordModifyPro.me")) {
+				try {
+					action = new MemberPasswordModifyProAction();
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		if (session.getAttribute("sNickName") != null) {
+			// 사용자 정보 폼
+			 if (command.equals("/MemberDetailForm.me")) {
+
+				try {
+					action = new MemberDetailFormAction();
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			// 사용자 정보 수정 처리
+			else if (command.equals("/MemberDetailModifyPro.me")) {
+				try {
+					action = new MemberDetailModifyProAction();
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if (command.equals("/MemberDetailList.me")) {
+				MemberDTO member = null;
+				try {
+					MemberDetailListAction list = new MemberDetailListAction();
+					member = list.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				JSONObject jobj = new JSONObject();
+				List<MemberDTO> list = new ArrayList<MemberDTO>();
+				list.add(member);
+				String gson = new Gson().toJson(list);
+				System.out.println(list);
+				response.setContentType("application/json; charset=utf-8");
+				response.getWriter().write(gson);
+			} else if (command.equals("/MemberBoardList.me")) {
+				try {
+					action = new MemberBoardListAction();
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-	} else if(command.equals("/MemberLogin.me")) {
-		forward = new ActionForward();
-		forward.setPath("/member/login.jsp");
-		forward.setRedirect(false);
-	}
 
 		if (forward != null) {
 			if (forward.isRedirect()) {
@@ -276,14 +281,13 @@ public class MemberFrontController extends HttpServlet {
 			} else {
 				request.getRequestDispatcher(forward.getPath()).forward(request, response);
 			}
-		}
+		} 
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
-		
+
 		doProcess(request, response);
 	}
 
