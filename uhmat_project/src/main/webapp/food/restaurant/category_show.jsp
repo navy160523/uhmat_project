@@ -5,6 +5,15 @@
 <html lang="en">
 <head>
 <title>Category Page</title>
+<script src="js/jquery-3.6.0.js"></script>
+<script>
+	$(function(){
+		$("a").on("click",function(){
+			 var idx = $('a').index(this);
+			 $("select>option").eq(idx+1).attr("selected","selected");
+		})
+	});
+</script>
 <style>
     .K2-grid {
       padding: 5px;
@@ -64,67 +73,66 @@
 
 <body>
 	<div class='K2-grid coll-3 icon-p-2'>
-<h2> 음식 종류별 식당 </h2>
-        
+       
 	<ul>
 		<li>
-		    <a href='restaurantList.re?category=족발·보쌈'>
+		    <a>
 		    <span>족발·보쌈</span></a>
 		</li>
 		
 		<li>
-		    <a href='restaurantList.re?category=찜·탕·찌개'>
+		    <a>
 		    <span>찜·탕·찌개</span></a>
 		</li>
 		
 		<li>
-		    <a href='restaurantList.re?category=돈까스·회·일식'>
+		    <a>
 		    <span>돈까스·회·일식</span></a>
 		</li>
 		        
 		<li>
-		    <a href='restaurantList.re?category=피자'>
+		    <a>
 		    <span>피자</span></a>
 		</li>
 		
 		<li>
-			 <a href='restaurantList.re?category=고기·구이'>
+			 <a>
 		    <span>고기·구이</span></a>
 		</li>
 		
 		
 		<li>
-		     <a href='restaurantList.re?category=치킨'>
+		     <a>
 		    <span>치킨</span></a>
 		</li>
 		
 		<li>
-		     <a href='restaurantList.re?category=중식'>
+		     <a>
 		    <span>중식</span></a>
 		</li>
 		
 		<li>
-		     <a href='restaurantList.re?category=도시락'>
+		     <a>
 		    <span>도시락</span></a>
 		</li>
 		
 		<li>
-		     <a href='restaurantList.re?category=패스트푸드'>
+		     <a>
 		    <span>패스트푸드</span></a>
 		</li>
 		
 		<li>
-		     <a href='restaurantList.re?category=분식1'>
+		     <a>
 		    <span>분식1</span></a>
 		</li>
 		
 		<li>
-		     <a href='restaurantList.re?category=분식2'>
+		     <a>
 		    <span>분식2</span></a>
 		</li>
 		
 		<li>
-		    <a href='restaurantList.re?category=돈까스·회·일식'>
+		    <a>
 		    <span>카페·디저트</span></a>
 		</li>
 		

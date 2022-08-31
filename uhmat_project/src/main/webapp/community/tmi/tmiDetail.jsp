@@ -29,15 +29,15 @@
 	}
 	
 	.btn input {
-		border: 2px solid #7FB77E;
+		border: 2px solid #16213E;
 		background-color: white;
-		color: #7FB77E;
+		color: #16213E;
 		padding: 5px;
 		border-radius: 5px
 	}
 	
 	.btn input:hover {
-		background-color: #7FB77E;
+		background-color: #16213E;
 		color: white;
 	}
 	

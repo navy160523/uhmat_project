@@ -23,7 +23,7 @@
 		
 		<table>
 			<tr>
-				<td><input type="text" name="nickname" required="required" ></td>
+				<td><input type="text" name="nickname" value="${sessionScope.sNickName }" readonly="readonly" ></td>
 			</tr>
 			<tr>
 				<td><textarea rows="10" cols="70" placeholder="댓글을 작성하세요" name="content"></textarea></td>

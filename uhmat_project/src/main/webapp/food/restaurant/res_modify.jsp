@@ -12,26 +12,21 @@
 	border: 1px solid red;
 	margin: auto;
 }
-
 h2{
 	text-align: center;
 }
-
 table{
 	margin:auto;
 	width:450px;
 }
-
 .td_left{
 	width:150px;
 	background: orange;
 }
-
 .td_right{
 	width: 300px;
 	background: skyblue;
 }
-
 #commandCell{
 	text-align: center;
 }
@@ -43,7 +38,6 @@ table{
 		$('#photo').change(function(){
 		    setImageFromFile(this, '#image');
 		});
-
 		function setImageFromFile(input, expression) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
@@ -53,8 +47,21 @@ table{
 		        reader.readAsDataURL(input.files[0]);
 		    }
 		}
+		
+		//더보기 클릭 시 음식 카테고리 선택 가능
+		$("#more").click(function(){
+// 			alert("버튼 선택!");
+			$.ajax({
+				url:"food/restaurant/category_show.jsp",
+				success: function(res){
+					$("#showCategory").html(res);
+				}
+			})
+		})
+		
 	});
-
+	
+	
 </script>
 </head>
 <body>
@@ -73,9 +80,32 @@ table{
 	 -->
 	<section id="writeForm">
 		<h2>식당 글 수정</h2>
+		<div id="showCategory">
+		</div>
 		<form action="restaurantModifyPro.re" method="post" enctype="multipart/form-data">
 			<input type="hidden" value="${resInfo.photo }" name="originalPhoto">
 			<table>
+				<tr>
+					<th><label for="category">카테고리 선택</label></th>
+					<td>
+						<select name="category" required="required">
+							<option value="" selected="selected">선택</option>
+							<option value="족발·보쌈">족발·보쌈</option>
+							<option value="찜·탕·찌개">찜·탕·찌개</option>
+							<option value="돈까스·회·일식">돈까스·회·일식</option>
+							<option value="피자">피자</option>
+							<option value="고기·구이">고기·구이</option>
+							<option value="치킨">치킨</option>
+							<option value="중식">중식</option>
+							<option value="도시락">도시락</option>
+							<option value="패스트푸드">패스트푸드</option>
+							<option value="분식1">분식1</option>
+							<option value="분식2">분식2</option>
+							<option value="카페·디저트">카페·디저트</option>
+						</select>
+						<input type="button" id="more" value="카테고리 보기">
+					</td>
+				</tr>
 				<tr>
 					<th><label for="res_name">식당이름</label></th>
 					<td><input type="text" name="res_name" id="res_name" required="required" value="${resInfo.resName }" readonly="readonly"></td>
@@ -92,7 +122,7 @@ table{
 				<tr>
 					<th><label for="phone_number">식당 전화번호</label></th>
 
-					<td><input type="tel" pattern="[0-9]{3}-[0-9]{3-4}-[0-9]{4}" id="phone_number" name="phone_number" value="${resInfo.phoneNumber }"></td>
+					<td><input type="tel" name="phone_number" value="${resInfo.phoneNumber }"></td>
 
 				</tr>
 				
@@ -145,7 +175,6 @@ table{
 		        center: new kakao.maps.LatLng(${map.latitude},${map.longitude}), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    };
-
 			var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
 			// 지도를 클릭한 위치에 표출할 마커입니다

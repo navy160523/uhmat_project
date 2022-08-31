@@ -68,10 +68,10 @@
                                 <label for="content">내용</label>
                             </div>
                             <div align="right" >
-								<input type="submit" class="btn btn-primary" value="등록">
-								<input type="reset" class="btn btn-primary" value="다시쓰기" >
-								<input type="button" class="btn btn-primary" value="메인" onclick="location.href='./'">
-								<input type="button" class="btn btn-primary" value="취소" onclick="history.back()">
+								<input type="submit" class="btn btn-outline-success" value="등록">
+								<input type="reset" class="btn btn-outline-success" value="다시쓰기" >
+								<input type="button" class="btn btn-outline-danger" value="메인" onclick="location.href='./'">
+								<input type="button" class="btn btn-outline-danger" value="취소" onclick="history.back()">
 							</div>
                         </form>
                     </div>
