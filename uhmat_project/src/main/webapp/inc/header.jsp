@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
+<link href="css/header.css" rel="stylesheet" type="text/css">
 <script src="https://kit.fontawesome.com/5382a0d7e0.js" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
@@ -30,16 +30,16 @@
 		<!-- 로그인 및 회원가입 부분 시작 -->
 		<div class="loginPart">
 		<c:choose>
-			<c:when test="${empty sessionScope.sNickName}">
-				<a href="MemberLogin.me">로그인</a> | <a href="MemberJoinForm.me">회원가입</a>
+			<c:when test="${empty sessionScope.sEmail}">
+				<a href="MemberLogin.me">로그인</a>&nbsp; <a href="MemberJoinForm.me">회원가입</a>
 			</c:when>
 			<c:otherwise>
 				<%-- 하이퍼링크에 자바스크립트 함수 연결 시 href 속성에 아무 경로도 지정하지 않는 방법 --%>
-				<a href="MemberDetailForm.me?nickName=${sessionScope.sNickName }">${sessionScope.sNickName }
-					님 </a>  | <a href="MemberLogout.me">로그아웃</a>
+				<a href="MemberDetailForm.me?email=${sessionScope.sEmail }">${sessionScope.sEmail }
+					님 </a>&nbsp; <a href="MemberLogout.me">로그아웃</a>
 				<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
-				<c:if test="${sessionScope.sNickName eq 'admin'}"> | <a
-						href="AdminMain.ad">관리자페이지</a>
+				<c:if test="${sessionScope.sEmail eq 'admin'}"> | <a
+						href="AdminMain.me">관리자페이지</a>
 				</c:if>
 			</c:otherwise>
 		</c:choose>
@@ -51,12 +51,12 @@
     <ul>
     	<li>
     	<div class="dropdown">
-    		<a href="CompanyDetail.cp">회사소개</a>
+    		<a href="CompanyModify.cp">회사소개</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="CompanyDetail.cp">회사 소개</a></li>
-					<li><a href="UhmatDetail.cp">어맛 소개</a></li>
-					<li><a href="DeveloperDetail.cp">개발자 소개</a></li>
+					<li><a href="CompanyModify.cp">회사 소개</a></li>
+					<li><a href="UhmatModify.cp">어맛 소개</a></li>
+					<li><a href="DeveloperModify.cp">개발자 소개</a></li>
 					<li><a href="Policy.cp">이용약관</a></li>
 				</ul>	
 				</div>
@@ -71,11 +71,10 @@
     		<a href="ReviewList.re">어맛리뷰</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
+					<li><a href="RestaurantInfo.re">음식으로 보기</a></li>
+					<li><a href="ReviewList.re">리뷰로 보기</a></li>
+					<li><a href="mapForm.re">지도로 보기</a></li>
+					<li><a href="restaurantList.re">음식점목록</a></li>
 				</ul>	
 				</div>
   	  	</div>
@@ -125,9 +124,32 @@
 	  		
   	</ul>
     </div>
-    	
-	
-	
+    <!-- 검색 창 부분 시작 -->
+	<nav class="search">
+	<div class="searchContainer">
+		<div class="row">
+		<!-- 검색 버튼 눌렀을 때 mainController 로 통해 uhmatSearch 페이지로 가게끔 구현해야함 -->
+			<form method="post" name="search" action="UhmatSearch.sch">
+				<table class="pullRight">
+					<tr>
+						<td>
+							<i class="fa-solid fa-magnifying-glass" style="font-size: 1.1em"></i>
+							<input type="search" id="searchControl"
+								placeholder="검색할 음식명이나 음식점명" name="searchText" value="" maxlength="100" autocomplete="off">
+						</td>
+						<td>
+							<button id="searchBtn" type="submit" title="검색"
+							    class="submitBtn">
+								<span class="blind">검색</span>
+								<span class="searchIconSubmit"></span>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	</section>
 	<!-- 검색 창 부분 끝 -->
     
    	</header>
