@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.member.MemberDetailModifyProService;
@@ -18,16 +19,17 @@ public class MemberDetailModifyProAction implements Action {
 		ActionForward forward =null;
 		 String email= request.getParameter("email");
 		 String name=request.getParameter("name");
-		 String nickname= request.getParameter("nickName");
+		 String nickName= request.getParameter("nickName");
 		 Date birthdate= Date.valueOf(request.getParameter("birth"));
 		 String postCode= request.getParameter("postCode");
 		 String address1=request.getParameter("address1");
 		 String address2=request.getParameter("address2");
-		 
+		 HttpSession session =request.getSession();
+		 if(session.getAttribute("sNickName").equals(nickName) ) {
 		 MemberDTO member = new MemberDTO();
 		 member.setEmail(email);
 		 member.setName(name);
-		 member.setNickname(nickname);
+		 member.setNickname(nickName);
 		 member.setBirthdate(birthdate);
 		 member.setPostCode(postCode);
 		 member.setAddress1(address1); 
@@ -44,10 +46,17 @@ public class MemberDetailModifyProAction implements Action {
 			} else {
 				// 가입 성공 시 인증 메일 발송을 위한 서블릿 주소 요청(파라미터 : 아이디, 이메일)
 				forward = new ActionForward();
-				forward.setPath("index.jsp");
+				forward.setPath("main.jsp");
 				forward.setRedirect(false);
 			}
-			
+		 }else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('권한없음!')");
+				out.println("history.back()");
+				out.println("</script>");
+		 }
 			return forward;
 	}
 

@@ -1,42 +1,25 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
+<title>TMI 답글</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+ 	<!-- Google fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="css/styles.css" rel="stylesheet" />
 <style type="text/css">
-	#replyForm {
-		width: 500px;
-		height: 450px;
-		border: 1px solid red;
-		margin: auto;
-	}
 	
-	h1 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 450px;
-	}
-	
-	.td_left {
-		width: 150px;
-		background: orange;
-		text-align: center;
-	}
-	
-	.td_right {
-		width: 300px;
-		background: skyblue;
-	}
-	
-	#commandCell {
-		text-align: center;
-	}
 </style>
 </head>
 <body>
@@ -45,8 +28,27 @@
 	<!-- 헤더 들어가는 곳 -->
 	
 	<!-- 게시판 답글 작성 -->
-	<section id="replyForm">
-		<h1>댓글의 답글 작성</h1>
+	 <!-- Contact Section-->
+	      <section class="page-section" id="contact">
+	          <div class="container">
+	              <!-- Contact Section Heading-->
+	              <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">TMI 답글</h2>
+	              <!-- Icon Divider-->
+	              <div class="divider-custom">
+	                  <div class="divider-custom-line"></div>
+	                  <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+	                  <div class="divider-custom-line"></div>
+	              </div>
+	              <!-- Contact Section Form-->
+	              <div class="row justify-content-center">
+	                  <div class="col-lg-8 col-xl-7">
+	                      <!-- * * * * * * * * * * * * * * *-->
+	                      <!-- * * SB Forms Contact Form * *-->
+	                      <!-- * * * * * * * * * * * * * * *-->
+	                      <!-- This form is pre-integrated with SB Forms.-->
+	                      <!-- To make this form functional, sign up at-->
+	                      <!-- https://startbootstrap.com/solution/contact-forms-->
+	                      <!-- to get an API token!-->
 		<form action="TmiRereplyWritePro.co" name="TmiRereplyForm" method="post">
 			<!-- 글번호와 페이지번호 전달 -->
 			<input type="hidden" name="board_idx" value="${tmiRereply.board_idx }">
@@ -56,37 +58,48 @@
 			<input type="hidden" name="re_ref" value="${tmiRereply.re_ref }">
 			<input type="hidden" name="re_lev" value="${tmiRereply.re_lev }">
 			<input type="hidden" name="re_seq" value="${tmiRereply.re_seq }">
-			<table>
-				<tr>
-					<td class="td_left"><label for="nickname">글쓴이</label></td>
-					<td class="td_right">
-						<input type="text" name="nickname" value="${tmiRereply.nickname }" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="content">댓글 내용</label></td>
-					<td class="td_right">
-						<input type="text" name="cotent" value="Re:${tmiRereply.content }" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="content">내용</label></td>
-					<td class="td_right">
-						<textarea id="content" name="content" cols="40" rows="15" required="required"></textarea>
-					</td>
-				</tr>
-			</table>
-			<section id="commandCell">
-				<input type="submit" value="답글등록">&nbsp;&nbsp;
-				<input type="reset" value="다시쓰기">&nbsp;&nbsp;
-				<input type="button" value="취소" onclick="history.back()">
-			</section>
+				<div class="form-floating mb-3">
+					<input class="form-control" type="text" name="nickname" id="nickname" value="${sessionScope.sNickName }" readonly="readonly" />
+					<label for="nickname">어맛인</label>
+				</div>
+				
+				<div class="form-floating mb-3">
+					<input class="form-control" type="text" name="cotent" value="Re:${tmiRereply.content }" required="required" />
+					<label for="content">댓글 내용</label>
+				</div>
+				<div class="form-floating mb-3">
+					<textarea class="form-control" id="content" name="content" style="height: 10rem" required="required"></textarea>
+					<label for="content">내용</label>
+					
+				</div>
+				<div align="center" >
+				<input type="submit" class="btn btn-primary" value="답글등록">
+				<input type="reset" class="btn btn-primary" value="다시쓰기">
+				<input type="button" class="btn btn-primary" value="취소" onclick="history.back()">
+				</div>
 		</form>
+	  </div>
+	  </div>
+   	</div>
 	</section>
 	
 	<!-- 푸터 들어가는 곳 -->
 	<jsp:include page="../../inc/footer.jsp"/>
 	<!-- 푸터 들어가는 곳 -->
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+	
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<!-- * *                               SB Forms JS                               * *-->
+	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>
 

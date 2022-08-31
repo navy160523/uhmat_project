@@ -17,8 +17,24 @@ import action.MateDetailAction;
 import action.MateListAction;
 import action.MateModifyFromAction;
 import action.MateModifyProAction;
+import action.MateReplyDeleteAction;
+import action.MateReplyModifyAction;
 import action.MateReplyWriteAction;
+import action.MateRereplyFormAction;
+import action.MateRereplyWriteAction;
 import action.MateWriteProAction;
+import action.RecipeDeleteAction;
+import action.RecipeDetailAction;
+import action.RecipeListAction;
+import action.RecipeModifyFormAction;
+import action.RecipeModifyProAction;
+import action.RecipeReplyDeleteAction;
+import action.RecipeReplyModifyAction;
+import action.RecipeReplyWriteAction;
+import action.RecipeRereplyFormAction;
+import action.RecipeRereplyWriteAction;
+import action.RecipeSearchAction;
+import action.RecipeWriteProAction;
 import action.TmiDeleteProAction;
 import action.TmiDetailAction;
 import action.TmiListAction;
@@ -64,21 +80,20 @@ public class CommunityFrontController extends HttpServlet {
 		ActionForward forward = null;
 		
 
+		// ----------------------------------------------------------------------------
 		// 추출된 서블릿 주소를 if문을 사용하여 판별하고 각 주소에 따른 액션(작업) 요청
-		// 글쓰기 폼을 요청하는 서블릿(/MateWriteForm.co) 요청
 		// 리스트를 요청하는 서블릿(/MateListForm.co) 요청
 		if(command.equals("/MateList.co")) {
 			action = new MateListAction();
 
 			try {
-				action = new TmiListAction();
+				action = new MateListAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				System.out.println("TmiListAction 오류 - " + e.getMessage());
 				e.printStackTrace();
 			}
 			
-
 		// -----------------------------------------------------------------	
 		// 글쓰기 폼을 요청하는 서블릿(/MateWriteForm.co) 요청
 		} else if(command.equals("/MateWriteForm.co")) {
@@ -94,21 +109,11 @@ public class CommunityFrontController extends HttpServlet {
 
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				System.out.println("TmiWriteProAction 오류 - " + e.getMessage());
+				System.out.println("MateWriteProAction 오류 - " + e.getMessage());
 
 				e.printStackTrace();
 
-						}
-		} else if(command.equals("/MateWritePro.mate")) {
-			action = new MateWriteProAction();
-			try {
-
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				System.out.println("TmiWriteProAction 오류 - " + e.getMessage());
-				e.printStackTrace();
-
-						}
+			}
 		// ------------------------------------------------------------------
 		// 글 디테일 뷰를 요청하는 서블릿(/MateDetail.co) 요청
 		} else if(command.equals("/MateDetail.co")) {
@@ -122,15 +127,6 @@ public class CommunityFrontController extends HttpServlet {
 
 			}
 			
-		} else if(command.equals("/TmiDetail.co")) {
-			// tmi 게시글 상세내용 보기
-			try {
-				action = new TmiDetailAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				System.out.println("TmiDetailAction 오류 - " + e.getMessage());
-				e.printStackTrace();
-			}
 		// -----------------------------------------------------------------------
 		// 글 수정에 필요한 게시물 조회 요청하는 서블릿(/MateModifyForm.co) 요청
 		} else if(command.equals("/MateModifyForm.co")) {
@@ -181,26 +177,75 @@ public class CommunityFrontController extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println("MateReplyProAction 오류 - " + e.getMessage());
 				e.printStackTrace();
-			} 
-		}	else if(command.equals("/MateDeleteForm.co")) {
-				forward = new ActionForward();
-				forward.setPath("community/mate/mate_delete.jsp");
-				forward.setRedirect(false);
-				
-		} else if(command.equals("/MateDeletePro.co")) {
-			action = new MateDeleteProAction();
+			}
+		// ------------------------------------------------------
+		// 댓글 리스트
+		} else if(command.equals("/MateReplyList.co")) {
+			action = new MateDetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				System.out.println("MateDeleteProAction 오류 - " + e.getMessage());
+				System.out.println(" MateDetailAction - reply 오류 - " + e.getMessage());
+				e.printStackTrace();
+			}	
+		// ---------------------------------------------------------------	
+		// 댓글 수정	
+		} else if(command.equals("/MateReplyModifyForm.co")) {
+			forward = new ActionForward();
+			forward.setPath("community/mate/mate_replyModify.jsp");
+			forward.setRedirect(false);
+			
+		} else if(command.equals("/MateReplyModifyPro.co")) {
+			action = new MateReplyModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+			
+		// --------------------------------------------------------------------
+		// 댓글 삭제
+		} else if(command.equals("/MateReplyDeleteForm.co")) {
+			forward = new ActionForward();
+			forward.setPath("community/mate/mate_replyDelete.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/MateReplyDeletePro.co")) {
+			action = new MateReplyDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(" MateReplyDeleteAction - reply 오류 - " + e.getMessage());
+				e.printStackTrace();
+			}
+		// ----------------------------------------------------------------------
+		// 대댓글 글쓰기
+		} else if(command.equals("/MateRereplyForm.co")) {
+//				forward = new ActionForward();
+//				forward.setPath("community/mate/mate_RereplyForm.jsp");
+//				forward.setRedirect(false);
+			action = new MateRereplyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+		} else if(command.equals("/MateRereplyWrite.co")) {
+			action = new MateRereplyWriteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(" MateRereplyWriteAction 오류 - " + e.getMessage());
+			}
 		}
 		//-------------------------------------------------
 		// Tmi 서블릿 요청 시작
 		 else if (command.equals("/TmiList.co")) {
-			System.out.println("게시물 전체목록 조회");
+			System.out.println("---------------------------------------------");
+			System.out.println("게시물 전체목록과 검색기능 조회");
 			try {
 				action = new TmiListAction();
 				forward = action.execute(request, response);
@@ -210,12 +255,14 @@ public class CommunityFrontController extends HttpServlet {
 			}
 			
 		} else if(command.equals("/TmiWriteForm.co")) {
+			System.out.println("---------------------------------------------");
 			System.out.println("게시물 작성 작업");
 			forward = new ActionForward();
-			forward.setPath("community/tmiWrite.jsp");
+			forward.setPath("community/tmi/tmiWrite.jsp");
 			forward.setRedirect(false);
 			
 		} else if(command.equals("/TmiWritePro.co")) {
+			System.out.println("---------------------------------------------");
 			System.out.println("게시물 작성 요청");
 			try {
 				action = new TmiWriteProAction();
@@ -226,6 +273,7 @@ public class CommunityFrontController extends HttpServlet {
 			}
 			
 		} else if(command.equals("/TmiDetail.co")) {
+			System.out.println("---------------------------------------------");
 			System.out.println("게시물 상세 내용 조회");
 			try {
 				action = new TmiDetailAction();
@@ -257,16 +305,15 @@ public class CommunityFrontController extends HttpServlet {
 				System.out.println("TmiModifyProAction 오류 - " + e.getMessage());
 				e.printStackTrace();
 			}
-
 			
 		} else if(command.equals("/TmiDeleteForm.co")) {
 			System.out.println("게시물 삭제 조회");
 			forward = new ActionForward();
-			forward.setPath("community/tmiDelete.jsp");
+			forward.setPath("community/tmi/tmiDelete.jsp");
 			forward.setRedirect(false);
 			
-		} else if(command.equals("/TmiDeletePro.co")) {
-			System.out.println("댓글 삭제 요청");
+		}  else if(command.equals("/TmiDeletePro.co")) {
+			System.out.println("게시물 삭제 요청");
 			try {
 				action = new TmiDeleteProAction();
 				forward = action.execute(request, response);
@@ -317,7 +364,7 @@ public class CommunityFrontController extends HttpServlet {
 		} else if(command.equals("/TmiReplyDeleteForm.co")) {
 			System.out.println("댓글 삭제 작업");
 			forward = new ActionForward();
-			forward.setPath("/community/tmiReplyDelete.jsp");
+			forward.setPath("/community/tmi/tmiReplyDelete.jsp");
 			forward.setRedirect(false);
 		} else if(command.equals("/TmiReplyDeletePro.co")) {
 			System.out.println("댓글 삭제 요청 작업");
@@ -357,7 +404,169 @@ public class CommunityFrontController extends HttpServlet {
 				System.out.println("TmiDetailAction(답글리스트) 오류 - " + e.getMessage());
 				e.printStackTrace();
 			}
+		// ==============================================================================================
+			
+		// 레시피 시작
+		// 레시피 글쓰기
+		} else if(command.equals("/RecipeWriteForm.co")) {
+			forward = new ActionForward();
+			forward.setPath("community/recipe/recipe_write.jsp");
+			forward.setRedirect(false); // Dispatcher 방식(생략 가능)
+			
+		} else if(command.equals("/RecipeWritePro.co")) {
+			action = new RecipeWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println("RecipeWriteProAction 오류 - " + e.getMessage());
+				e.printStackTrace();
+			}
+		// ----------------------------------------------------------------------------
+		// 레시피 리스트
+		} else if(command.equals("/RecipeList.co")) {
+			action = new RecipeListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeListAction 오류 - " + e.getMessage());
+			}
+		// -----------------------------------------------------------------------------
+		// 레시피 상세페이지
+		} else if(command.equals("/RecipeDetail.co")) {
+			action = new RecipeDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeDetailAction 오류 - " + e.getMessage());
+			}
+		} else if(command.equals("/RecipeModifyForm.co")) {
+			System.out.println("레시피글 수정 작업");
+			try {
+				action = new RecipeModifyFormAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeModifyFormAction 오류 - " + e.getMessage());
+			}
+		} else if(command.equals("/RecipeModifyPro.co")) {
+			System.out.println("레시피글 수정 작업 요청");
+			try {
+				action = new RecipeModifyProAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeModifyProAction 오류 - " + e.getMessage());
+			}
+			
+		} else if(command.equals("/RecipeDeleteForm.co")){
+			System.out.println("레시피글 삭제 작업");
+			forward = new ActionForward();
+			forward.setPath("community/recipe/recipe_delete.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/RecipeDeletePro.co")) {
+			System.out.println("레시피글 삭제 작업 요청");
+			action = new RecipeDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeDeleteAction 오류 - " + e.getMessage());
+			}
+		// -------------------------------------------------------------------------------
+		// 레시피 댓글
+		} else if(command.equals("/RecipeReplyForm.co")) {
+			System.out.println(request.getParameter("레시피댓글 작성 작업"));
+			forward = new ActionForward();
+			forward.setPath("community/recipe/recipe_replyForm.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/RecipeReplyWrite.co")){
+			System.out.println(request.getParameter("레시피댓글 작성 작업 요청"));
+			action = new RecipeReplyWriteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println("RecipeReplyWriteAction 오류 - " + e.getMessage());
+				e.printStackTrace();
+			}
 		}
+		// ------------------------------------------------------
+		// 레시피 댓글 리스트
+		else if(command.equals("/RecipeReplyList.co")) {
+			System.out.println(request.getParameter("레시피댓글 리스트 작업"));
+			action = new RecipeDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				System.out.println(" RecipeDetailAction - reply 오류 - " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		// ---------------------------------------------------------------	
+		// 레시피 댓글 수정	
+		else if(command.equals("/RecipeReplyModifyForm.co")) {
+			System.out.println(request.getParameter("레시피댓글 수정 작업"));
+			forward = new ActionForward();
+			forward.setPath("community/recipe/recipe_replyModify.jsp");
+			forward.setRedirect(false);
+			
+		} else if(command.equals("/RecipeReplyModifyPro.co")) {
+			action = new RecipeReplyModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeReplyModifyAction - reply 오류 - " + e.getMessage());
+			}
+		// --------------------------------------------------------------------
+		// 레시피 댓글 삭제
+		} else if(command.equals("/RecipeReplyDeleteForm.co")) {
+			System.out.println("레시피댓글 삭제 작업");
+			forward = new ActionForward();
+			forward.setPath("/community/recipe/recipe_replyDelete.jsp");
+			forward.setRedirect(false);
+		} else if(command.equals("/RecipeReplyDeletePro.co")) {
+			System.out.println("레시피댓글 삭제 요청 작업");
+			try {
+				action = new RecipeReplyDeleteAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeReplyDeleteAction 오류 - " + e.getMessage());
+			}
+		} else if(command.equals("/RecipeRereplyForm.co")) {
+			System.out.println("레시피 대댓글 작성 작업");
+			action = new RecipeRereplyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/RecipeRereplyWrite.co")) {
+			System.out.println("레시피 대댓글 작성 작업 요청");
+			action = new RecipeRereplyWriteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeRereplyWriteAction 오류 - " + e.getMessage());
+			}
+		// ------------------------------------------------------------------------------
+		// 레시피 검색	
+		} else if(command.equals("/RecipeSearch.co")) {
+			action = new RecipeSearchAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("RecipeSearchAction 오류 - " + e.getMessage());
+			}
+		}
+		
+		
 		// ------------------------------------------------------------------
 		// ActionFoward 객체에 저장된 포워딩 정보에 따른 포워딩 작업을 수행하기 위한 공통코드 작성
 		if(forward != null) {

@@ -1,11 +1,6 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,18 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import action.Action;
-import action.member.MemberAuthAction;
-import action.member.MemberChechDuplicateEmailAction;
-import action.member.MemberChechDuplicateNickNameAction;
-import action.member.MemberJoinProAction;
-import action.member.MemberLoginProAction;
-import action.member.MemberLogoutAction;
 import action.member.MemberNaverLoginAction;
-import action.member.MemberSendAuthMailAction;
 import vo.ActionForward;
 
 

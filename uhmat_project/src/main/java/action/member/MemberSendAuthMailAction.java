@@ -124,7 +124,7 @@ public class MemberSendAuthMailAction implements Action {
 				
 				out.println("</script>");
 				forward = new ActionForward();
-				forward.setPath("MemberLoginForm.me");
+				forward.setPath("MemberLogin.me");
 				forward.setRedirect(false);
 			}
 			

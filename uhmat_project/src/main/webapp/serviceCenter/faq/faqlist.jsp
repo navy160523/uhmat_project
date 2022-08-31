@@ -7,7 +7,87 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ 게시판</title>
-<link href="../../css/noticeList.css" ref="stylesheet">
+<style type="text/css">
+	#listForm {
+		width: 1024px;
+		max-height: 610px;
+		margin: auto;
+	}
+	
+	h2 {
+		text-align: center;
+	}
+	
+	table {
+		margin: auto;
+		width: 1024px;
+	}
+	
+	#tr_top {
+		background: black;
+		color: white;
+		text-align: center;
+	}
+	
+	table td {
+		text-align: center;
+	}
+	
+	#subject {
+		text-align: left;
+		padding-left: 20px;
+	}
+	
+	#pageList {
+		margin: auto;
+		width: 1024px;
+		text-align: center;
+	}
+	
+	#emptyArea {
+		margin: auto;
+		width: 1024px;
+		text-align: center;
+	}
+	
+	#buttonArea {
+		margin: auto;
+		width: 1024px;
+		text-align: right;
+	}
+	
+	table tr td {height: 35px;}
+	
+	.topButton{
+	position: relative;
+	float: left;
+/*     displays: flex; */
+    align-items: center;
+    justify-content: center;
+    margin: -1px 0 0 -1px;
+    padding: 0 10px;
+    height: 30px;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 1.1;
+    text-decoration: none;
+    border: 1px solid #FFF;
+	background-color: black;
+	color:white;
+	}
+	
+	#keyword{
+		text-align: right;
+	}
+	
+	#bt {
+		background-color: black;
+		color:white;
+	}
+}
+	
+</style>
 
 
 </head>
@@ -64,7 +144,7 @@
 							<td>${FAQ.date }</td>
 							<td>${FAQ.readcount }</td>
 						</tr>
-					</c:forEach>
+						</c:forEach>
 	 			</c:when>
 	 			<c:otherwise>
 					<tr><td colspan="5"> 게시물이 존재하지 않습니다</td></tr> 			

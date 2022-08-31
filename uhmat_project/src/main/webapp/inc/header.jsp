@@ -39,7 +39,7 @@
 					님 </a>  | <a href="MemberLogout.me">로그아웃</a>
 				<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
 				<c:if test="${sessionScope.sNickName eq 'admin'}"> | <a
-						href="AdminMain.ad">관리자페이지</a>
+						href="AdminMain.me">관리자페이지</a>
 				</c:if>
 			</c:otherwise>
 		</c:choose>
@@ -71,9 +71,9 @@
     		<a href="ReviewList.re">어맛리뷰</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
+					<li><a href="restaurantList.re">식당으로 보기</a></li>
+					<li><a href="reviewList.re">리뷰 보기</a></li>
+					<li><a href="map.re"></a></li>
 					<li><a href="#">link2</a></li>
 					<li><a href="#">link2</a></li>
 				</ul>	

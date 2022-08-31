@@ -9,14 +9,14 @@ import vo.MemberDTO;
 
 public class MemberDetailService {
 
-	public MemberDTO getMember(String email) {
+	public MemberDTO getMember(String nickName) {
 		MemberDTO member = null;
 		
 		Connection con = getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
-		member = dao.selectMember(email);
+		member = dao.selectMember(nickName);
 		
 		close(con);
 		

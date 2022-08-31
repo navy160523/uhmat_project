@@ -19,9 +19,10 @@ public class TmiRereplyWriteProAction implements Action {
 		
 		TmiRereplyWriteProService service = new TmiRereplyWriteProService();
 		
-		//TmiReplyDTO 객체 저장
+		// TmiReplyDTO 객체 저장
 		TmiReplyDTO tmiRereply = new TmiReplyDTO();
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		tmiRereply.setIdx(idx);
 		tmiRereply.setBoard_idx(Integer.parseInt(request.getParameter("board_idx")));
 		tmiRereply.setNickname(request.getParameter("nickname"));
 		tmiRereply.setContent(request.getParameter("content"));
@@ -41,7 +42,7 @@ public class TmiRereplyWriteProAction implements Action {
 			out.println("</script>");
 		} else {
 			forward = new ActionForward();
-			forward.setPath("TmiDetail.co?idx=" + idx + "&board_idx=" + Integer.parseInt(request.getParameter("board_idx")) + "&pageNum=" + request.getParameter("pageNum"));
+			forward.setPath("TmiDetail.co?idx="+ Integer.parseInt(request.getParameter("board_idx")) + "&pageNum=" + request.getParameter("pageNum"));
 			forward.setRedirect(true);
 		}
 		

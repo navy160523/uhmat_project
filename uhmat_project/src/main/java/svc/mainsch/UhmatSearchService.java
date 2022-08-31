@@ -65,7 +65,7 @@ public class UhmatSearchService {
 		dao.setConnection(con);
 		
 		// 게시물 목록 조회 호출
-		reviewList = dao.selectMainReviewBoardList(search);
+		reviewList = dao.selectMainReviewBoardList(search); 
 		
 		// Connection 객체 반환
 		close(con);

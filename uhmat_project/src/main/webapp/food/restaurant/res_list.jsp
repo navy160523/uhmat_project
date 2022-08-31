@@ -32,13 +32,12 @@
 						<td>${resInfo.resName }</td>
 						<td>${resInfo.rating }</td>
 						<td>${resInfo.reviewCount }</td>
-						<td><img width="200" src="upload/${resInfo.photo }"></td>
+						<td><img src="upload/${resInfo.photo }"></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<button onclick="location.href='restaurantWriteForm.re'">글쓰기</button>
 
 </body>
 </html>

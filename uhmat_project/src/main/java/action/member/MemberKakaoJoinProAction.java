@@ -53,7 +53,7 @@ public class MemberKakaoJoinProAction implements Action {
 						out.println("</script>");
 					} else {
 						HttpSession session = request.getSession();
-						session.setAttribute("sEmail", member.getEmail());
+						session.setAttribute("sNickName", member.getNickname());
 						
 						forward = new ActionForward();
 						forward.setPath("index.jsp");
@@ -75,10 +75,16 @@ public class MemberKakaoJoinProAction implements Action {
 					session.setAttribute("sNickName", member.getNickname());
 					
 					forward = new ActionForward();
-					forward.setPath("index.jsp");
+					forward.setPath("main.jsp");
 					forward.setRedirect(true);
 				}
 		}
+	
+		 
+		 
+		 
+		 
+		 
 		
 		return forward;
 	}

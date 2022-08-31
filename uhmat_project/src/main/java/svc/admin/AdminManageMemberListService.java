@@ -46,7 +46,7 @@ public class AdminManageMemberListService {
 		return list;
 	}
 
-	public MemberDTO getMember(String email) {
+	public MemberDTO getMember(String nickname) {
 		MemberDTO member = null;
 		
 		Connection con = getConnection();
@@ -55,7 +55,7 @@ public class AdminManageMemberListService {
 		
 		dao.setConnection(con);
 		
-		member = dao.selectMember(email);
+		member = dao.selectMember(nickname);
 		
 		close(con);
 		

@@ -6,7 +6,7 @@ import static db.JdbcUtil.getConnection;
 import java.sql.Connection;
 
 import dao.RestaurantDAO;
-import vo.RestaurantInfoDTO;
+import vo.*;
 
 public class RestaurantDetailService {
 
@@ -22,4 +22,15 @@ public class RestaurantDetailService {
 		return dto;
 	}
 
+	public MapDTO getMapInfo(String resName) {	//지도 위치 정보를 들고옴
+		System.out.println("RestaurantModifyFormService - getMapInfo()");
+		MapDTO dto = new MapDTO();
+		Connection con = getConnection();
+		RestaurantDAO dao = RestaurantDAO.getInstance();
+		dao.setConnection(con);
+		dto = dao.getMapInfo(resName);
+		
+		close(con);
+		return dto;
+	}
 }

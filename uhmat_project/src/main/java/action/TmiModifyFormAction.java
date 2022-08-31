@@ -32,7 +32,7 @@ public class TmiModifyFormAction implements Action {
 		
 		// tmiBoard 디렉토리의 tmiModify.jsp 페이지로 포워딩
 		forward = new ActionForward();
-		forward.setPath("community/tmiModify.jsp?idx=" + idx);
+		forward.setPath("community/tmi/tmiModify.jsp?idx=" + idx);
 		forward.setRedirect(false);
 		
 		return forward;

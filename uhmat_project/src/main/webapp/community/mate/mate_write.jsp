@@ -22,7 +22,7 @@
 
 				<tr>
 					<td>닉네임</td>
-					<td><input type="text" id="nickname" name="nickname" required="required"></td>
+					<td><input type="text" id="nickname" name="nickname" value="${sessionScope.sNickName }" required="required"></td>
 				</tr>
 				<tr>
 					<td>제목</td>

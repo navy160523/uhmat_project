@@ -61,27 +61,11 @@ table{
 	<section id="writeForm">
 		<h2>식당 글 등록</h2>
 		<form action="restaurantWritePro.re" method="post" enctype="multipart/form-data">
-			<table> 
+			<table>
 				<tr>
 					<th><label for="res_name">식당이름</label></th>
 					<td><input type="text" name="res_name" id="res_name" required="required"></td>
 				</tr>
-				<tr>
-					<th><label for="category">카테고리 선택</label></th>
-					<td>
-						<select name="category" id="category">
-							<option value="족발">족발</option>
-							<option value="보쌈">보쌈</option>
-							<option value="찜">찜</option>
-							<option value="일식">일식</option>
-							<option value="피자&파스타">피자&파스타</option>
-							<option value="고기&구이">고기&구이</option>
-							<option value="도시락">도시락</option>
-							<option value="중식">중식</option>
-						</select>
-					</td>
-				</tr>
-				<!-- 다음 주소로 교체할 수도? -->
 				<tr>
 					<th><label for="r_postcode">우편번호</label></th>
 					<td><input type="text" name="r_postcode" id="r_postcode" required="required"></td>

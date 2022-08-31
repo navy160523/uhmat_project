@@ -1,11 +1,11 @@
 package svc;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.util.ArrayList;
 
-import dao.*;
-import db.*;
-import vo.*;
+import dao.RestaurantDAO;
+import db.JdbcUtil;
+import vo.RestaurantInfoDTO;
 
 public class MapService {
 
@@ -17,9 +17,10 @@ public class MapService {
 		
 		RestaurantDAO dao = RestaurantDAO.getInstance();
 		
-		dao.setConnection(con);
+		dao.setConnection(con); 
 		
 		list = dao.selectMapList(keyword);
+		
 		System.out.println("list : " + list);
 		JdbcUtil.close(con);
 		

@@ -37,7 +37,7 @@ public class MemberNaverLoginAction implements Action {
 	    String api_id = "";
 		String email = "";
 		String name = "";
-		String nickname = "";
+		String nickName = "";
 		String gender = "";
 		String age = "";
 		String birthday = "";
@@ -111,7 +111,7 @@ public class MemberNaverLoginAction implements Action {
 	    		    		 api_id = (String)resObj2.get("id");
 	    		    		 email = (String)resObj2.get("email");
 	    		    		 name = (String)resObj2.get("name");
-	    		    		 nickname = (String)resObj2.get("nickname");
+	    		    		 nickName = (String)resObj2.get("nickname");
 	    		    		 gender = (String)resObj2.get("gender");
 	    		    		 age = (String)resObj2.get("age");
 	    		    		 birthday = (String)resObj2.get("birthday");
@@ -120,7 +120,7 @@ public class MemberNaverLoginAction implements Action {
 	    		    		 mobile = (String)resObj2.get("mobile");
 	    		    		
 	    		    		System.out.println("네이버코드 = "+api_id+ " 이메일 :"+ email 
-	    		    				+" 이름 : "+ name+" 닉네임 : "+nickname+" 성별 : "+ gender+" 나이 : "+age
+	    		    				+" 이름 : "+ name+" 닉네임 : "+nickName+" 성별 : "+ gender+" 나이 : "+age
 	    		    				+" 생일 : "+ birthyear+" 생일년도 : "+birthday+" 핸드폰 : "+ mobile);
 		    				}
 	    			
@@ -139,7 +139,7 @@ public class MemberNaverLoginAction implements Action {
 		 member.setEmail(email);
 		 member.setName(name);
 		 member.setPasswd("NULL");
-		 member.setNickname("네이버로그인"+nickname);
+		 member.setNickname("네이버로그인"+nickName);
 		 member.setBirthdate(birthdate);
 		 member.setAuth_status("Y");
 		 member.setApi_id(api_id);
@@ -171,7 +171,7 @@ public class MemberNaverLoginAction implements Action {
 						session.setAttribute("sNickName", member.getNickname());
 						
 						forward = new ActionForward();
-						forward.setPath("index.jsp");
+						forward.setPath("uhmat_project/");
 						forward.setRedirect(true);
 					}
 				}
@@ -187,10 +187,10 @@ public class MemberNaverLoginAction implements Action {
 					out.println("</script>");
 				} else {
 					HttpSession session = request.getSession();
-					session.setAttribute("sEmail", member.getEmail());
+					session.setAttribute("sNickName", member.getNickname());
 					
 					forward = new ActionForward();
-					forward.setPath("index.jsp");
+					forward.setPath("uhmat_project/");
 					forward.setRedirect(true);
 				}
 		}	

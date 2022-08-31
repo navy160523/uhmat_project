@@ -26,7 +26,7 @@ public class TmiReplyWriteAction implements Action {
 		int idx = Integer.parseInt(request.getParameter("idx"));
 //		tmiReply.setBoard_idx(Integer.parseInt(request.getParameter("board_idx")));
 		tmiReply.setBoard_idx(idx);
-		tmiReply.setNickname("admin");
+		tmiReply.setNickname(request.getParameter("nickname"));
 		tmiReply.setContent(request.getParameter("content"));
 		System.out.println(tmiReply);
 		

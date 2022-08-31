@@ -154,11 +154,7 @@
 		</section>
 		
 		<section id="pageList">
-		<!-- 
-		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
-		=> 클릭 시 BoardList.bo 서블릿 주소 요청하면서 
-		   현재 페이지 번호(pageNum) - 1 값을 page 파라미터로 전달
-		-->
+	
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
 					<input type="button" value="이전" onclick="location.href='MemberBoardList.me?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">

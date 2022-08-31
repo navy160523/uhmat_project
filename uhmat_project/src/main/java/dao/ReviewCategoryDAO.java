@@ -430,6 +430,10 @@ public class ReviewCategoryDAO {
 		
 		return totalLike;
 	}
+	
+	// 메인에 출력할 값들 불러오기
+	//수정 필요!!
+	
 	public ArrayList<ReviewBoardDTO> selectMainReviewBoardList() {
 		ArrayList<ReviewBoardDTO> list = null;
 		PreparedStatement pstmt = null;
@@ -503,9 +507,9 @@ public class ReviewCategoryDAO {
 		 ****************************************/
 			
 			try {
-				String sql = "SELECT * FROM reviewboard WHERE subject=?";
+				String sql = "SELECT * FROM reviewboard WHERE subject LIKE ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, search);
+				pstmt.setString(1, '%'+search+'%');
 				
 				rs = pstmt.executeQuery();
 				

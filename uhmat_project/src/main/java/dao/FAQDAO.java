@@ -320,9 +320,9 @@ public class FAQDAO {
 		
 		
 		try {
-			String sql = "SELECT * FROM FAQBoard WHERE subject=?";
+			String sql = "SELECT * FROM FAQBoard WHERE subject LIKE ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, search);
+			pstmt.setString(1, '%'+search+'%');
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<FAQDTO>();

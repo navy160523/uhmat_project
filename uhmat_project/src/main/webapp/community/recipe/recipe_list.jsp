@@ -23,7 +23,7 @@
 <!-- 						사진 업로드 해라,, 좋은 말 할 때,,, -->
 						<td><img src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='img/recipe_default_img/아기치타.jpg';" width="100" ></td>
 						<td width="800" height="50"><a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">${recipe.subject }</a> <br> 
-							${recipe.nickname } | ${recipe.readcount } |  ${recipe.datetime }</td>
+							${recipe.nickname } | ${recipe.readcount } |  ${recipe.date }</td>
 					</tr>
 					
 				</c:forEach>
@@ -33,7 +33,7 @@
 							<tr>
 								<td><img src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='img/recipe_default_img/아기치타.jpg';" width="100"></td>
 						<td width="800" height="50"><a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${recipeSearchPageInfo.pageNum}">${recipe.subject }</a> <br> 
-							${recipe.nickname } | ${recipe.readcount } |  ${recipe.datetime }</td>
+							${recipe.nickname } | ${recipe.readcount } |  ${recipe.date }</td>
 							</tr>
 						</c:forEach>
 	 			</c:when>

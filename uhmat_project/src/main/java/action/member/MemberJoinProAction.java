@@ -19,7 +19,7 @@ public class MemberJoinProAction implements Action {
 		 String email= request.getParameter("email");
 		 String name=request.getParameter("name");
 		 String passwd= request.getParameter("passwd");
-		 String nickname= request.getParameter("nickName");
+		 String nickName= request.getParameter("nickName");
 		 Date birthdate= Date.valueOf(request.getParameter("birth"));
 		 String postCode= request.getParameter("postCode");
 		 String address1=request.getParameter("address1");
@@ -28,7 +28,7 @@ public class MemberJoinProAction implements Action {
 		 member.setEmail(email);
 		 member.setName(name);
 		 member.setPasswd(passwd);
-		 member.setNickname(nickname);
+		 member.setNickname(nickName);
 		 member.setBirthdate(birthdate);
 		 member.setPostCode(postCode);
 		 member.setAddress1(address1); 

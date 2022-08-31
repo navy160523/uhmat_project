@@ -39,22 +39,20 @@ public class TmiDetailAction implements Action {
 		System.out.println("TmiDetailAction(댓글 리스트)" + tmiReplyList);
 		
 		// 답글 리스트 작업
-		ArrayList<TmiReplyDTO> tmiRereplyList = service.getTmiRereplyList(idx);
-		System.out.println("TmiDetailAction(답글 리스트)" + tmiRereplyList);
-		
+//		ArrayList<TmiReplyDTO> tmiRereplyList = service.getTmiRereplyList(idx);
+//		System.out.println("TmiDetailAction(답글 리스트)" + tmiRereplyList);
 
 		// 조회결과(1개 게시물 정보 = CommunityTmiDTO 객체)를 request 객체에 저장
 		request.setAttribute("tmiBoard", tmiBoard);
 //		System.out.println(tmiBoard.getIdx());
 		
-
 		// 댓글 조회 결과
 		request.setAttribute("tmiReplyList", tmiReplyList);
 
 		// ActionForward 객체를 활용하여 community 디렉토리의 tmiDetail.jsp 페이지 포워딩 설정
 		// => Dispatcher 방식
 		forward = new ActionForward();
-		forward.setPath("community/tmiDetail.jsp");
+		forward.setPath("community/tmi/tmiDetail.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

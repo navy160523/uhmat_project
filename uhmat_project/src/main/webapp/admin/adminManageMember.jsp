@@ -11,7 +11,7 @@
 	
 
 	
-	<jsp:include page="adminTop.jsp"></jsp:include>
+	
 	
    <form action="AdminManageMemberList.ad" method="get">
 	    <table border="1">
@@ -44,7 +44,7 @@
 		            <td>${member.nickname}</td>
 		            <td>${member.email }</td>
 					<td>${member.boardCount}</td>
-		            <td><a href="AdminManageMemberDetail.ad?email=${member.email }&keyword=${param.keyword}">보기</a></td>
+		            <td><a href="AdminManageMemberDetail.ad?nickname=${member.nickname }&keyword=${param.keyword}">보기</a></td>
 		            <td><input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${member.email }'"></td>
 		        </tr>
 			</c:forEach>

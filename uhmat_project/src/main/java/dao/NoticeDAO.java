@@ -294,9 +294,9 @@ public class NoticeDAO {
 		
 		
 		try {
-			String sql = "SELECT * FROM NoticeBoard WHERE subject=? ";
+			String sql = "SELECT * FROM NoticeBoard WHERE subject LIKE ? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, search);
+			pstmt.setString(1, '%'+search+'%');
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<NoticeDTO>();
