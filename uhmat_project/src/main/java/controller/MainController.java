@@ -40,6 +40,16 @@ public class MainController extends HttpServlet {
 				request.getRequestDispatcher(forward.getPath()).forward(request, response);
 			}
 		}
+		else if (command.equals("/UhmatSearch.sch")) {
+			try {
+				action = new UhmatSearchAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 	@Override

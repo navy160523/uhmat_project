@@ -78,6 +78,12 @@ table{
 	private int reviewCount; //식당 리뷰 개수
 	dto 객체 이름 : resInfo
 	 -->
+	<c:if test="${sessionScope.sNickName ne 'admin'}">
+		<script>
+			alert("관리자가 아닙니다!");
+			history.back();
+		</script>
+	</c:if>
 	<section id="writeForm">
 		<h2>식당 글 수정</h2>
 		<div id="showCategory">

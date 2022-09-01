@@ -72,8 +72,8 @@
     			<div class="dropdownContent">
 				<ul>
 					<li><a href="restaurantList.re">식당으로 보기</a></li>
-					<li><a href="reviewList.re">리뷰 보기</a></li>
-					<li><a href="map.re"></a></li>
+					<li><a href="ReviewList.re">리뷰 보기</a></li>
+					<li><a href="map.re">지도로 보기</a></li>
 					<li><a href="#">link2</a></li>
 					<li><a href="#">link2</a></li>
 				</ul>	

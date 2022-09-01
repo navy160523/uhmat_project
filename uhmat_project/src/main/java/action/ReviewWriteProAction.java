@@ -21,6 +21,8 @@ public class ReviewWriteProAction implements Action {
 		System.out.println("ReviewWriteProAction");
 		ActionForward forward = null;
 		
+		
+		
 		// 포워딩 정보를 저장하는 ActionForward 타입 변수 선언
 				// -----------------------------------------------------------------------
 				// 비즈니스 로직(데이터베이스 처리)을 위한 데이터 준비 작업 수행
@@ -36,7 +38,7 @@ public class ReviewWriteProAction implements Action {
 				String uploadPath = "upload"; // 가상의 폴더명
 				
 				// 2. 업로드 파일 크기를 제한하기 위한 정수 형태의 값 지정(10MB 제한)
-				int fileSize = 1024 * 1024 * 10; // byte(1) -> KB(1024Byte) -> MB(1024KB) -> 10MB 단위 변환
+				int fileSize = 1024 * 1024 * 10*2; // byte(1) -> KB(1024Byte) -> MB(1024KB) -> 10MB 단위 변환
 				
 				// 3. 현재 프로젝트(서블릿)를 처리하는 객체인 서블릿 컨텍스트 객체 얻어오기
 				ServletContext context = request.getServletContext();
@@ -68,7 +70,7 @@ public class ReviewWriteProAction implements Action {
 				dto.setRating(Float.parseFloat(multi.getParameter("rating")));
 				dto.setContent(multi.getParameter("content"));
 				// 주의! 파일 정보를 가져올 때 getParameter() 메서드 사용 불가
-				dto.setPhoto(multi.getOriginalFileName("photo")); // 원본 파일명
+//				dto.setPhoto(multi.getOriginalFileName("photo")); // 원본 파일명
 				dto.setPhoto(multi.getFilesystemName("photo")); // 실제 업로드 파일명
 				// 만약, DTO 클래스에 toString() 메서드가 오버라이딩 되어 있을 경우 변수명만으로 출력 가능
 //				System.out.println(board);
@@ -79,10 +81,11 @@ public class ReviewWriteProAction implements Action {
 				String tag = multi.getParameter("tag");
 
 				ReviewWriteProService service = new ReviewWriteProService();
-				boolean isWriteSuccess = service.registBoard(dto, tag);
+				boolean isWriteSuccess = service.registBoard(dto);
+				boolean isTagWrite = service.registTag(tag);
 				
 				// Service 클래스로부터 글쓰기 작업 요청 처리 결과를 전달받아 성공/실패 여부 판별
-				if(!isWriteSuccess) { // 글쓰기 실패 시
+				if(!(isWriteSuccess && isTagWrite)) { // 글쓰기 실패 시
 					// 자바스크립트를 통해 "글쓰기 실패!" 를 출력 후 이전페이지로 돌아가기
 					// => jsp 페이지에서는 out.println() 메서드를 통해 HTML 코드 등을 출력하지만
 					//    자바 클래스에서는 response 객체를 통해 문서 타입 설정 및 출력 객체를 가져와서

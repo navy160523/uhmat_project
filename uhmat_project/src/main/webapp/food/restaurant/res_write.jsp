@@ -65,6 +65,12 @@ table{
 </script>
 </head>
 <body>
+	<c:if test="${sessionScope.sNickName ne 'admin'}">
+		<script>
+			alert("관리자가 아닙니다!");
+			history.back();
+		</script>
+	</c:if>
 	<section id="writeForm">
 		<h2>식당 글 등록</h2>
 		<div id="showCategory">

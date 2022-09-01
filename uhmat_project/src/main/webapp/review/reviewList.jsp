@@ -44,12 +44,7 @@
 					$.ajax({
 						type: "post",
 						url: "ReviewList.re?pageNum=${pageInfo.pageNum + 1}",
-						data: {
-							pageNum: ${pageInfo.pageNum}+1,
-							<%if(request.getParameter("resName")!=null){%>
-							resName: '${param.resName}'
-							<%}%>
-						},
+						data: $("#list").serialize(),
 						dataType: "text",
 						success: 
 							function(response) {
@@ -152,6 +147,6 @@
 	<section id="append" style="display:none;">
 	</section>
 	
-	<jsp:include page="/inc/footer.jsp" />
+		<section id="ft"><jsp:include page="/inc/footer.jsp" /></section>
 </body>
 </html>

@@ -50,7 +50,7 @@
 			<table>
 				<tr>
 					<td class="td_left"><label for="name">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="nickname" value="${notice.nickname}" required="required" readonly="readonly" ></td>
+					<td class="td_right"><input type="text" name="nickname" value="${sessionScope.sNickName}" required="required" readonly="readonly" ></td>
 				</tr>
 				<tr>
 					<td class="td_left"><label for="subject">제목</label></td>

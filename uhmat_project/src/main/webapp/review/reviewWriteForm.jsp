@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,12 +45,6 @@
 </script>
 </head>
 <body>
-	<c:if test="${ empty sessionScope.sNickName }">
-		<script>
-			alert("글쓰기는 로그인이 필요합니다!");
-			location.href="MemberLogin.me";
-		</script>
-	</c:if>
 		<h1>새 게시물</h1>
 		<nav>
 			<input type="button" value="리스트로" onclick="history.back()">
@@ -60,7 +53,7 @@
 		<form  name="fr"action="ReviewWritePro.re" method="post" enctype="multipart/form-data">
 			<table id="tr">
 				<tr>
-					<td><input type="text" name="nickname" value="${sessionScope.sNickName }" readonly="readonly" ></td>
+					<td><input type="text" name="nickname" placeholder="작성자(세션아이디)" required="required" ></td>
 					<!--  회원가입 로그인이 연동되면 nickname을 세션값으로받습니다. -->
 				</tr>
 				<tr>

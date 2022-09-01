@@ -10,8 +10,10 @@
 	#articleForm {
 		width: 500px;
 		height: 550px;
-		border: 1px solid red;
+/* 		border: 1px solid red; */
 		margin: auto;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		
 	}
 	
 	h2 {
@@ -39,12 +41,13 @@
 	}
 	
 	#articleContentArea {
-		background: orange;
+		background: #ff1818;
 		margin-top: 20px;
 		height: 350px;
 		text-align: center;
 		overflow: auto;
 		white-space: pre-line;
+		
 	}
 	
 	#commandList {
@@ -84,8 +87,10 @@
 		</section>
 	</section>
 	<section id="commandList">
+		<c:if test="${sessionScope.sNickName eq FAQ.nickname }">
 		<input type="button" value="수정" onclick="location.href='NoticeModifyForm.sc?idx=${notice.idx}&pageNum=${param.pageNum}'">
-		<input type="button" value="삭제" onclick="location.href='NoticeDelete.sc?idx=${notice.idx}&pageNum=${param.pageNum}'">
+			<input type="button" value="삭제" onclick="location.href='NoticeDelete.sc?idx=${notice.idx}&pageNum=${param.pageNum}'">
+		</c:if>
 		<input type="button" value="목록" onclick="location.href='NoticeList.sc?pageNum=${param.pageNum}'">
 	</section>
 </body>

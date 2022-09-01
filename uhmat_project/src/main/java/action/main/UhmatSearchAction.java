@@ -1,11 +1,11 @@
-package action.mainsrh;
+package action.main;
 
 import java.util.*;
 
 import javax.servlet.http.*;
 
 import action.*;
-import svc.mainsch.*;
+import svc.main.*;
 import vo.*;
 
 public class UhmatSearchAction implements Action {

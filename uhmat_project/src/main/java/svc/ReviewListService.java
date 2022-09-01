@@ -34,8 +34,8 @@ public class ReviewListService {
 		return listCount;
 	}
 
-	public static ArrayList<ReviewBoardDTO> getBoardList(int pageNum, int listLimit) {
-		System.out.println("ReviewListService - getBoardList()");
+	public static ArrayList<ReviewBoardDTO> getBoardList(int pageNum, int listLimit, String targetTag) {
+		System.out.println("ReviewListService - getBoardList(int pageNum, int listLimit, String targetTag)");
 		
 		// 리턴할 데이터를 저장할 변수 선언
 		ArrayList<ReviewBoardDTO> reviewList = null;
@@ -50,12 +50,39 @@ public class ReviewListService {
 		dao.setConnection(con);
 		
 		// 게시물 목록 조회 호출
-		reviewList = dao.selectReviewBoardList(pageNum, listLimit);
-		
+		if(targetTag.equals("")) {
+			
+			reviewList = dao.selectReviewBoardList(pageNum, listLimit);
+			
+		} else {
+			
+			reviewList = dao.selectReviewBoardList(pageNum, listLimit, targetTag);
+		}
 		// Connection 객체 반환
 		close(con);
 		
 		return reviewList;
 	}
 
+	public static ArrayList<ReviewBoardDTO> getBoardList(String resName, int pageNum, int listLimit) {
+		System.out.println("ReviewListService - getBoardList(String resName, int pageNum, int listLimit)");
+		
+		// 리턴할 데이터를 저장할 변수 선언
+		ArrayList<ReviewBoardDTO> reviewList = null;
+		
+		// Connectino 객체 가져오기
+		Connection con = getConnection();
+		
+		// ReviewCategoryDAO 객체 가져오기
+		ReviewCategoryDAO dao = ReviewCategoryDAO.getInstance();
+		// dao에 Connection 객체 전달하기
+		dao.setConnection(con);		
+		
+		//식당으로 검색된 리뷰
+		reviewList = dao.selectReviewBoardList(resName, pageNum, listLimit);
+		
+		close(con);
+		return reviewList;
+	}
+	
 }

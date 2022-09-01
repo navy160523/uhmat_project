@@ -7,33 +7,32 @@ import javax.servlet.http.*;
 import svc.*;
 import vo.*;
 
-public class ReviewLikeAction implements Action {
+public class ReviewReplyWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		System.out.println("ReviewLikeAction.re");
-		
+		System.out.println("ReviewReplyWriteAction");
 		ActionForward forward = null;
 		
-		int idx = Integer.parseInt(request.getParameter("idx"));
-		String nickname = request.getParameter("nickname"); //session id 받는 곳
+		int board_idx = Integer.parseInt(request.getParameter("idx"));
+		String nickname = request.getParameter("nickname");
+		String content = request.getParameter("content");
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
-		System.out.println(idx + nickname + pageNum);
 		
-		ReviewLikeService service = new ReviewLikeService();
-		boolean isModifySuccess = service.modifyLike(idx, nickname);
+		ReviewReplyWriteService service = new ReviewReplyWriteService();
+		boolean isWriteSuccess = service.registReply(board_idx, nickname, content);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		if(!isModifySuccess) {
+		if(!isWriteSuccess) {
 			out.println("<script>");
 			out.println("alert('좋아요 수정 실패!')");
 			out.println("</script>");
 		} else {
 			forward = new ActionForward();
-			forward.setPath("ReviewDetail.re?idx=" + idx + "&pageNum=" + pageNum);
+			forward.setPath("ReviewDetail.re?idx=" + board_idx + "&pageNum=" + pageNum);
 			forward.setRedirect(true);
 		}
 		return forward;

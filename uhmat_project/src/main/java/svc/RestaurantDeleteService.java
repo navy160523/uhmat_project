@@ -56,6 +56,7 @@ public class RestaurantDeleteService {
 		System.out.println("RestaurantDeleteService - deleteMapInfo");
 		Connection con = getConnection();
 		RestaurantDAO dao = RestaurantDAO.getInstance();
+		dao.setConnection(con);
 		dao.deleteMapInfo(resName);
 		
 		close(con);

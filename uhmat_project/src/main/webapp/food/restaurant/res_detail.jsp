@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h2>${resInfo.resName } <small style="font-size: 0.5em">별점 ${resInfo.rating } &nbsp; | &nbsp; <a href="#">${resInfo.reviewCount }개의 리뷰</a></small></h2>
+    <h2>${resInfo.resName } <small style="font-size: 0.5em">별점 ${resInfo.rating } &nbsp; | &nbsp; <a href="ReviewList.re?resName=${resInfo.resName }">${resInfo.reviewCount }개의 리뷰</a></small></h2>
 	<img src="upload/${resInfo.photo }" width="200">
 	<!-- 식당 정보 출력 -->
         <table>

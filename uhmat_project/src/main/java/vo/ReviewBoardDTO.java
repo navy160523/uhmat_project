@@ -1,7 +1,7 @@
 package vo;
 
 /*
-CREATE TABLE reviewBoard(
+CREATE TABLE reviewboard(
 idx INT PRIMARY KEY,
 res_name VARCHAR(50) REFERENCES restaurantInfo(res_name),
 nickname VARCHAR(10) REFERENCES member(id),

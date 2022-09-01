@@ -10,7 +10,8 @@
 	#articleForm {
 		width: 500px;
 		height: 550px;
-		border: 1px solid red;
+/* 		border: 1px solid red; */
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 		margin: auto;
 	}
 	
@@ -39,7 +40,7 @@
 	}
 	
 	#articleContentArea {
-		background: orange;
+		background: white;
 		margin-top: 20px;
 		height: 350px;
 		text-align: center;
@@ -55,6 +56,8 @@
 </style>
 </head>
 <body>
+
+
 	<!-- 게시판 상세내용 보기 -->
 	<section id="articleForm">
 		<h2>글 상세내용 보기</h2>
@@ -86,50 +89,43 @@
 			${faq.content }
 		</section>
 	</section>
-	<section id="replyArea">
-		<!-- insertForm 섹션(댓글 작성 영역)은 세션 아이디가 존재할 경우에만 출력 -->
-
-	<section id="insertForm">
-		<c:choose>
-			<c:when test="${not empty reply.board_idx}">
+	
+	<c:if test="${sessionScope.sNickName eq 'admin'}"> 
+		<section id="replyArea">
+			<section id="insertForm">
+						<form action="FAQDetailReply.sc" style="position: relative; left: 40%; top:50%;">
+							<!-- 댓글 전송 시 현재 게시물 글번호(idx)도 함께 전송 -->
+							<input type="hidden" name="idx" value="${param.idx }">
+							<!-- 댓글 전송 시 현재 게시물 닉네임(nickname) 함께 전송 -->
+							<input type="hidden" name="nickname" value="${faq.nickname }">
+							<!-- 페이지번호도 함께 전송 -->
+							<input type="hidden" name="pageNum" value="${param.pageNum}">
+							<textarea rows="3" cols="50" name="answer"></textarea>
+							<input type="submit" value="등록">
+						</form>
+			</section>
 			
-			</c:when>
-			<c:otherwise>
-				<form action="FAQDetailReply.sc" style="position: relative; left: 40%; top:50%;">
-					<!-- 댓글 전송 시 현재 게시물 글번호(idx)도 함께 전송 -->
-					<input type="hidden" name="idx" value="${param.idx }">
-					<!-- 댓글 전송 시 현재 게시물 닉네임(nickname) 함께 전송 -->
-					<input type="hidden" name="nickname" value="${faq.nickname }">
-					<!-- 페이지번호도 함께 전송 -->
-					<input type="hidden" name="pageNum" value="${param.pageNum}">
-					<textarea rows="3" cols="50" name="answer"></textarea>
-					<input type="submit" value="등록">
-				</form>
-			</c:otherwise>
-		</c:choose>	
-	</section>
-
-		<section id="replyViewArea" style="position: relative; left: 40%; top:50%;">
-			<!-- ArrayList(replyList) 객체 크기만큼 for문 반복 -->
-			<br>
-			     <table>
-			     	<tr>
-				     	<td>답변 : </td><td> ${reply.answer }</td>
-				     	<td><input type="button" value="삭제" onclick="location.href='FAQDetailReplyDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"></td>
-
-			     	</tr>
-			     </table>
-			<br>
-		</section>
-	</section>
-	<section id="commandList" >
-		<input type="button" value="이전글" onclick="location.href='FAQDetail.sc?idx=${faq.idx-1}&pageNum=${param.pageNum}&keyword=${param.keyword }'">
-		<input type="button" value="다음글" onclick="location.href='FAQDetail.sc?idx=${faq.idx+1}&pageNum=${param.pageNum}&keyword=${param.keyword }'">
-		<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
-		<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
+			<section id="replyViewArea" style="position: relative; left: 40%; top:50%;">
+					<!-- ArrayList(replyList) 객체 크기만큼 for문 반복 -->
+					<br>
+					     <table>
+					     	<tr>
+						     	<td>답변 : </td><td> ${reply.answer }</td>
+						     	<td><input type="button" value="삭제" onclick="location.href='FAQDetailReplyDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"></td>
 		
-		<input type="button" value="목록" onclick="location.href='FAQList.sc?pageNum=${param.pageNum}&keyword=${param.keyword }'">
-	</section>
+					     	</tr>
+					     </table>
+					<br>
+			</section>
+		</section>
+	</c:if>
+		<section id="commandList" >
+	<c:if test="${sessionScope.sNickName eq faq.nickname}">
+			<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
+			<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
+	</c:if>
+			<input type="button" value="목록" onclick="location.href='FAQList.sc?pageNum=${param.pageNum}&keyword=${param.keyword }'">
+		</section>
 </body>
 </html>
 

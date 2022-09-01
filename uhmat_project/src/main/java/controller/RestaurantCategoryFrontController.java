@@ -62,16 +62,24 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (command.equals("/restaurantWriteForm.re")) {
-			HttpSession session = request.getSession();
-			System.out.println("session.getAttribute(\"sNickname\"):"+session.getAttribute("sNickname"));
-			String name = (String)session.getAttribute("sNickname");
-			if(!name.equals("admin")) {
-				PrintWriter out = response.getWriter();
-				out.print("<script>alert('관리자가 아닙니다!');history.back();</script>");
-			}
 			System.out.println("식당 글 입력 폼 요청!");
 			forward = new ActionForward();
-
+			//세션을 확인 후 권한이 있는지 확인
+			HttpSession session = request.getSession();
+			String name = (String)session.getAttribute("sNickName");
+			System.out.println("session name: "+name);
+			PrintWriter out = response.getWriter(); 
+			response.setContentType("text/html; charset=UTF-8");
+			if(name == null) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('식당 입력 권한 없음!');history.back();</script>");
+			}
+			
+			if(!name.equals("admin")) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('식당 입력 권한 없음!');history.back();</script>");
+			}
+			
 			forward.setPath("food/restaurant/res_write.jsp");
 
 			forward.setRedirect(false);
@@ -172,6 +180,22 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			}
 
 		} else if(command.equals("/ReviewDeleteForm.re")) {
+			//세션을 확인 후 권한이 있는지 확인
+			HttpSession session = request.getSession();
+			String name = (String)session.getAttribute("sNickName");
+			String reviewer = (String)session.getAttribute("reviewer");
+			System.out.println("session name: "+name);
+			PrintWriter out = response.getWriter(); 
+			response.setContentType("text/html; charset=UTF-8");
+			if(name == null) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('리뷰 삭제 권한 없음!');history.back();</script>");
+			}
+			
+			if(!name.equals(reviewer)) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('리뷰 삭제 권한 없음!');history.back();</script>");
+			}
 			forward = new ActionForward();
 			forward.setPath("food/review/reviewDeleteForm.jsp");
 			forward.setRedirect(false);

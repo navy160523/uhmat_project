@@ -24,13 +24,13 @@
 	}
 	
 	#tr_top {
-		background: black;
-		color: white;
+		color: black;
 		text-align: center;
 	}
 	
 	table td {
 		text-align: center;
+		
 	}
 	
 	#subject {
@@ -65,40 +65,51 @@
     align-items: center;
     justify-content: center;
     margin: -1px 0 0 -1px;
-    padding: 0 10px;
+    padding: 5px;
     height: 30px;
     font-size: 20px;
-    color: #fff;
+    color: #7FB77E;
     text-align: center;
     line-height: 1.1;
     text-decoration: none;
-    border: 1px solid #FFF;
-	background-color: black;
-	color:white;
+    border: 2px solid #fff;
+    border-radius: 5px;
+	background-color: white;
+	color:black;
+	}
+	a {
+		text-decoration: none; 
+		color: red; 
 	}
 	
 	#keyword{
+		padding: 3px; 
+		background-color:white;
+		border-radius: 5px;
 		text-align: right;
 	}
 	
 	#bt {
-		background-color: black;
-		color:white;
+		padding: 2px; 
+		border: 2px solid #fff;
+		background-color: white;
+/* 		border-color: #000; */
+		border-radius: 5px;
+		color: #717171;
 	}
-}
+	
+	
+
 	
 </style>
 
 
 </head>
 <body>
-		<header>
 			<jsp:include page="../../inc/header.jsp"></jsp:include>
-		</header>
 		
 		<section id="listForm">
 		<h2>FAQ</h2>
-		<input type="button" value="홈" onclick="location.href='index.jsp'">
 
 		<div id="topButton">
 			<br>
@@ -136,9 +147,16 @@
 							<td>${FAQ.category }</td>
 							<td>${FAQ.idx }</td>
 							<td id="subject">
-								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&keyword=${param.keyword}">
+								<c:choose>
+									<c:when test="${not empty sessionScope.sNickName }">
+									<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&keyword=${param.keyword}">
+										${FAQ.subject }
+									</a>
+									</c:when>
+									<c:otherwise>
 									${FAQ.subject }
-								</a>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>${FAQ.nickname }</td>
 							<td>${FAQ.date }</td>
@@ -187,14 +205,14 @@
 			</c:choose>
 		</section>
 		
-		<section id="buttonArea">
-			<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" id="bt"/>
-		</section>
+		<c:if test="${not empty sessionScope.sNickName }"> 
+			<section id="buttonArea">
+				<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" id="bt"/>
+			</section>
+		</c:if>
 		
 		<!-- Footer 부분 -->
-		<footer>
 			<jsp:include page="../../inc/footer.jsp"></jsp:include>
-		</footer>
 </body>
 </html>
 

@@ -24,8 +24,7 @@
 	}
 	
 	#tr_top {
-		background: black;
-		color: white;
+		color: black;
 		text-align: center;
 	}
 	
@@ -65,37 +64,47 @@
     align-items: center;
     justify-content: center;
     margin: -1px 0 0 -1px;
-    padding: 0 10px;
+    padding: 5px;
     height: 30px;
     font-size: 20px;
-    color: #fff;
+    color: #7FB77E;
     text-align: center;
     line-height: 1.1;
     text-decoration: none;
-    border: 1px solid #FFF;
-	background-color: black;
-	color:white;
+    border: 2px solid #fff;
+    border-radius: 5px;
+	background-color: white;
+	color:black;
+	}
+	a {
+		text-decoration: none; 
+		color: red; 
 	}
 	
 	#keyword{
+		padding: 3px; 
+		background-color:white;
+		border-radius: 5px;
 		text-align: right;
-		
 	}
+	
 	#bt {
-		background-color: black;
-		color:white;
+		padding: 2px; 
+		border: 2px solid #fff;
+		background-color: white;
+/* 		border-color: #000; */
+		border-radius: 5px;
+		color: #717171;
 	}
-}
+	
 </style>
 </head>
 <body>
-		<header>
 			<jsp:include page="../../inc/header.jsp"></jsp:include>
-		</header>
-		
+			
 		<section id="listForm">
+		
 		<h2>Notice</h2>
-		<input type="button" value="홈" onclick="location.href='index.jsp'">
 		
 		<div id="topButton">
 			<br>
@@ -124,7 +133,7 @@
 			<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -> JSTL과 EL 활용-->
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
-			<!--  제발 복습하자!!! -->
+				
 	 		<c:choose>
 	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
@@ -191,9 +200,13 @@
 				</c:otherwise>
 			</c:choose>
 		</section>
-		<section id="buttonArea">
-			<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.sc'" id="bt" />
-		</section>
+		<c:if test="${sessionScope.sNickName eq 'admin'}"> 
+			<section id="buttonArea">
+				<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.sc'" id="bt" />
+			</section>
+		</c:if>
+		
+		<jsp:include page="../../inc/footer.jsp"/>
 </body>
 </html>
 
