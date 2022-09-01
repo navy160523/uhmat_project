@@ -47,7 +47,7 @@ public class MemberFrontController extends HttpServlet {
 		System.out.println(command);
 		ActionForward forward = null;
 		Action action = null;
-		HttpSession session = request.getSession();
+	
 		// 회원가입 폼
 		if (command.equals("/MemberJoinForm.me")) {
 			forward = new ActionForward();
@@ -227,6 +227,7 @@ public class MemberFrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+		HttpSession session = request.getSession();
 		if (session.getAttribute("sNickName") != null) {
 			// 사용자 정보 폼
 			 if (command.equals("/MemberDetailForm.me")) {
