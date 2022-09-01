@@ -27,7 +27,7 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-		<h1>RestaurantBoard - 게시물이 존재하지 않습니다.</h1>
+		<h1>RestaurantBoard - 검색결과 게시물이 존재하지 않습니다.</h1>
 		</c:otherwise>
 		</c:choose>	
 		<!-- reviewBoard -->
@@ -43,7 +43,7 @@
 					</table>
 				</c:when>
 				<c:otherwise>
-				<h1>ReviewBoard - 게시물이 존재하지 않습니다.</h1>
+				<h1>ReviewBoard - 검색결과 게시물이 존재하지 않습니다.</h1>
 				</c:otherwise>
 			</c:choose>	
 		
