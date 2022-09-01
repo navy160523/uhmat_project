@@ -161,12 +161,12 @@ border-left: 0;
 			<form action="MemberLoginPro.me" method="post"  >
 			
 				<div class="form-floating mb-3" style="margin-top: 50px;">
-					 <input class="form-control" type="text" name="email" 
+					 <input class="form-control" type="text" name="email" placeholder="이메일"
 						required="required">
 						<label>email</label>
 				</div >
 				<div class="form-floating mb-3">
-					 <input class="form-control"  type="password" name="passwd"
+					 <input class="form-control"  type="password" name="passwd" placeholder="패스워드"
 						required="required"><label>비밀번호</label>
 				</div>
 		

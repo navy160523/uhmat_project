@@ -57,6 +57,7 @@ text-align: center;
 			$("#confirmEmailResult").html("");
 			$("#checkNickNameResult").html("");
 			$("#confirmEmailResult").html("");
+			$("#EmailResult").html("");
 		});
 
 		$("#passwd").on(
@@ -337,12 +338,12 @@ text-align: center;
 
 	
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="name" id="name"  required="required"  >
+             <input class="form-control" type="text" name="name" id="name"  required="required"  placeholder="이름">
               <label for="name">이름</label> 
         </div>
         <br>
  		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="nickName" id="nickName"  maxlength="10" required="required" >
+             <input class="form-control" type="text" name="nickName" id="nickName"  maxlength="10" required="required"  placeholder="닉네임">
               <label for="nickname">닉네임</label> 
               <div id="checkNickNameResult"></div>
         </div>
@@ -353,27 +354,27 @@ text-align: center;
 	
 			<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
 		<div class="form-floating mb-3">
-             <input class="form-control" type="password" name="passwd" id="passwd"  maxlength="16" required="required"  >
+             <input class="form-control" type="password" name="passwd" id="passwd"  maxlength="16" required="required"  placeholder="패스워드" >
               <label for="passwd">비밀번호</label> 
              	<span id="checkPasswdResult"></span>
         </div>
         <br>
         <div class="form-floating mb-3">
-             <input class="form-control" type="password" name="passwd2" id="passwd2"  maxlength="16" required="required"  >
+             <input class="form-control" type="password" name="passwd2" id="passwd2"  maxlength="16" required="required"   placeholder="패스워드">
               <label for="passwd2">비밀번호 확인</label> 
               <span id="confirmPasswdResult"></span>
         </div>
 	
 		<br>
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="email" id="email"  required="required"  >
+             <input class="form-control" type="text" name="email" id="email"  required="required"   placeholder="이메일">
               <label for="email">E-Mail</label> 
               <span id="EmailResult"></span>
         </div>
 	
 		<br>
 			<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="emailCheck" id="emailCheck"  required="required"  >
+             <input class="form-control" type="text" name="emailCheck" id="emailCheck"  required="required"  placeholder="이메일" >
               <label for="emailCheck">E-Mail 확인</label> 
              <span id="confirmEmailResult"></span>
         </div>
@@ -381,29 +382,29 @@ text-align: center;
 	
 		<br>
 			<div class="form-floating mb-3">
-             <input class="form-control" type="date" name="birth" id="birth"  required="required"  >
+             <input class="form-control" type="date" name="birth" id="birth"  required="required"   placeholder="생일">
               <label for="birth">생년월일</label> 
              <span id="confirmEmailResult"></span>
         </div>
 	
 		<br>
 	<div>
-		<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+		<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기" placeholder="우편">
 		</div>
 		<br>
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
+             <input class="form-control" type="text" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()"  placeholder="우편">
               <label for="postCode">우편번호</label> 
         </div>
 	
 			
 			
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
+             <input class="form-control" type="text" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" placeholder="우편" >
               <label for="address1">도로명주소</label> 
         </div>
         	<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="address2" id="sample4_roadAddress"  >
+             <input class="form-control" type="text" name="address2" id="sample4_roadAddress"   placeholder="우편">
               <label for="address2">상세주소</label> 
         </div>
 			

@@ -140,14 +140,14 @@
 			</div>
 			<div class="form-floating mb-3">
 			
-			<input class="form-control" type="password" name="alterPassword" id="alterPassword">
+			<input class="form-control" type="password" name="alterPassword" id="alterPassword" placeholder="비밀번호">
 			<label>임시 비밀번호</label>
 			</div>
 		</c:if>
 		<c:if test="${sessionScope.sNickName != null}">
 			<div class="form-floating mb-3">
 		
-			<input class="form-control" type="password" name="alterPassword" id="alterPassword">
+			<input class="form-control" type="password" name="alterPassword" id="alterPassword" placeholder="비밀번호">
 			<label>현재 비밀번호</label>
 			</div>
 		</c:if>
@@ -155,7 +155,7 @@
 		
 		<div class="form-floating mb-3">
 			<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
-			<input class="form-control" type="password" name="passwd" id="passwd" maxlength="16"
+			<input class="form-control" type="password" name="passwd" id="passwd" maxlength="16" placeholder="비밀번호"
 				 required="required">
 				<label>비밀번호</label>
 				 <span id="checkPasswdResult"></span>
@@ -164,7 +164,7 @@
 
 		
 		<div class="form-floating mb-3">
-			<input class="form-control" type="password" name="passwd2" id="passwd2" maxlength="16"
+			<input class="form-control" type="password" name="passwd2" id="passwd2" maxlength="16" placeholder="비밀번호"
 				required="required"> 
 				<label>비밀번호확인</label>
 				<span id="confirmPasswdResult"></span>
