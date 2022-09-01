@@ -36,7 +36,7 @@
 					<h1>ReviewBoard</h1>
 					<table>
 							<c:forEach  var="review" items="${reviewBoard }">
-								<tr onclick="window.open('reviewDetail.re?resName=${review.idx}')">
+								<tr onclick="window.open('reviewDetail.re?idx=${review.idx}+'&pageNum='${pageInfo.pageNum}')">
 									<td><h1 style="color:blue">${review.subject }</h1></td>
 								</tr>
 							</c:forEach>
