@@ -1,4 +1,4 @@
-package svc.mainsch;
+package svc.main;
 
 import static db.JdbcUtil.close;
 import static db.JdbcUtil.getConnection;

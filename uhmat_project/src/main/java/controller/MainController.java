@@ -32,6 +32,16 @@ public class MainController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if (command.equals("/UhmatSearch.sch")) {
+			try {
+				action = new UhmatSearchAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 
 		if (forward != null) {
 			if (forward.isRedirect()) {

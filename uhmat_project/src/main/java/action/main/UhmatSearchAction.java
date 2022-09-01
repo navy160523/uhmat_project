@@ -1,12 +1,19 @@
-package action.mainsrh;
+package action.main;
 
-import java.util.*;
+import java.util.ArrayList;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import action.*;
-import svc.mainsch.*;
-import vo.*;
+import action.Action;
+import svc.main.UhmatSearchService;
+import vo.ActionForward;
+import vo.CommunityTmiDTO;
+import vo.FAQDTO;
+import vo.MateDTO;
+import vo.NoticeDTO;
+import vo.RestaurantInfoDTO;
+import vo.ReviewBoardDTO;
 
 public class UhmatSearchAction implements Action {
 
