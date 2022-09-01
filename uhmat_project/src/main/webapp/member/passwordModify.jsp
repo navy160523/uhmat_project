@@ -6,6 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+ 	<!-- Google fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="css/styles.css" rel="stylesheet" />
+	<link href="css/button.css" rel="stylesheet" type="text/css">
 <script src="./js/jquery-3.6.0.js"></script>
 <script>
 	$(function() {
@@ -114,7 +128,7 @@
 	<jsp:include page="../inc/header.jsp" flush="false" />
 	<!-- 헤더 들어가는곳 -->
 	<div id="container">
-
+	<h1>비밀번호 변경</h1>
 	<form action="MemberPasswordModifyPro.me" method="post">
 
 		<input type="hidden" id="email" name="email" value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }"> 
@@ -124,35 +138,39 @@
 			<h2>※이메일로 발송해드린 비밀번호가 임시 비밀번호 입니다.</h2>
 			<h2>※회원님의 비밀번호를 변경해 주시길 바랍니다.</h2>
 			</div>
-			<div>
-			<label>임시 비밀번호</label><br> 
-			<input type="password" name="alterPassword" id="alterPassword">
+			<div class="form-floating mb-3">
+			
+			<input class="form-control" type="password" name="alterPassword" id="alterPassword">
+			<label>임시 비밀번호</label>
 			</div>
 		</c:if>
 		<c:if test="${sessionScope.sNickName != null}">
-			<div>
-			<label>현재 비밀번호</label><br> 
-			<input type="password" name="alterPassword" id="alterPassword">
+			<div class="form-floating mb-3">
+		
+			<input class="form-control" type="password" name="alterPassword" id="alterPassword">
+			<label>현재 비밀번호</label>
 			</div>
 		</c:if>
 		
-		<label>비밀번호</label>
-		<div>
+		
+		<div class="form-floating mb-3">
 			<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
-			<input type="password" name="passwd" id="passwd" maxlength="16"
-				placeholder="영문자,숫자,특수문자 8~16글자" required="required"> <span
-				id="checkPasswdResult"> <!-- 패스워드 검증 결과 표시할 위치 -->
-			</span>
+			<input class="form-control" type="password" name="passwd" id="passwd" maxlength="16"
+				 required="required">
+				<label>비밀번호</label>
+				 <span id="checkPasswdResult"></span>
 		</div>
 		<br>
 
-		<label>비밀번호확인</label>
-		<div>
-			<input type="password" name="passwd2" id="passwd2" maxlength="16"
-				required="required"> <span id="confirmPasswdResult"></span>
+		
+		<div class="form-floating mb-3">
+			<input class="form-control" type="password" name="passwd2" id="passwd2" maxlength="16"
+				required="required"> 
+				<label>비밀번호확인</label>
+				<span id="confirmPasswdResult"></span>
 		</div>
 		<br>
-		<input type="submit" value="변경하기">
+		<input class="w-btn-outline w-btn-green-outline"   type="submit" value="변경하기">
 	</form>
 	<br> <a href="MemberFindPasswordForm.me">비밀번호 찾기</a>
 	
@@ -160,5 +178,17 @@
 		<!-- 푸터 들어가는곳 -->
 	<jsp:include page="../inc/footer.jsp" flush="false" />
 	<!-- 푸터 들어가는곳 -->
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+	
+	
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>

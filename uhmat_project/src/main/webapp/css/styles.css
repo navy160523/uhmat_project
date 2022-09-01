@@ -2676,7 +2676,7 @@ textarea.form-control-lg {
   pointer-events: none;
   border: 0.125rem solid transparent;
   transform-origin: 0 0;
-  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+  transition: opacity 0.5s ease-in-out, transform 0.1s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-floating > label {
@@ -11427,7 +11427,7 @@ html {
 }
 .form-floating label {
   font-size: 1.5rem;
-  color: #6c757d;
+  color: #000000;
 }
 
 .masthead {
