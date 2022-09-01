@@ -287,16 +287,15 @@ public class NoticeDAO {
 		return list;
 	}
 	
-	public ArrayList<NoticeDTO> selectMainAnythingList(String search) {
+	public ArrayList<NoticeDTO> selectSVNoticeList() {
 		ArrayList<NoticeDTO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		
 		try {
-			String sql = "SELECT * FROM NoticeBoard WHERE subject LIKE ? ";
+			String sql = "SELECT * FROM NoticeBoard ORDER BY idx LIMIT 5";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, '%'+search+'%');
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<NoticeDTO>();
@@ -315,7 +314,6 @@ public class NoticeDAO {
 				list.add(notice);
 				
 			}
-//			System.out.println("list : " + list);
 			
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());

@@ -313,16 +313,15 @@ public class FAQDAO {
 		return list;
 	}
 	
-	public ArrayList<FAQDTO> selectMainAnythingList(String search) {
+	public ArrayList<FAQDTO> selectSVFAQList() {
 		ArrayList<FAQDTO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		
 		try {
-			String sql = "SELECT * FROM FAQBoard WHERE subject LIKE ?";
+			String sql = "SELECT * FROM FAQBoard ORDER BY idx DESC LIMIT 5";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, '%'+search+'%');
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<FAQDTO>();

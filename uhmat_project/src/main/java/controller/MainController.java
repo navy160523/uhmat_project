@@ -32,14 +32,6 @@ public class MainController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
-		if (forward != null) {
-			if (forward.isRedirect()) {
-				response.sendRedirect(forward.getPath());
-			} else {
-				request.getRequestDispatcher(forward.getPath()).forward(request, response);
-			}
-		}
 		else if (command.equals("/UhmatSearch.sch")) {
 			try {
 				action = new UhmatSearchAction();
@@ -48,8 +40,16 @@ public class MainController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
+			
+			if (forward != null) {
+				if (forward.isRedirect()) {
+					response.sendRedirect(forward.getPath());
+				} else {
+					request.getRequestDispatcher(forward.getPath()).forward(request, response);
+				}
+			}
+			
 	}
 
 	@Override

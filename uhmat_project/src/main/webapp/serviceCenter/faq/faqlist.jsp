@@ -7,106 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ 게시판</title>
-<style type="text/css">
-	#listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		color: black;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-		
-	}
-	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#buttonArea {
-		margin: auto;
-		width: 1024px;
-		text-align: right;
-	}
-	
-	table tr td {height: 35px;}
-	
-	.topButton{
-	position: relative;
-	float: left;
-/*     displays: flex; */
-    align-items: center;
-    justify-content: center;
-    margin: -1px 0 0 -1px;
-    padding: 5px;
-    height: 30px;
-    font-size: 20px;
-    color: #7FB77E;
-    text-align: center;
-    line-height: 1.1;
-    text-decoration: none;
-    border: 2px solid #fff;
-    border-radius: 5px;
-	background-color: white;
-	color:black;
-	}
-	a {
-		text-decoration: none; 
-		color: red; 
-	}
-	
-	#keyword{
-		padding: 3px; 
-		background-color:white;
-		border-radius: 5px;
-		text-align: right;
-	}
-	
-	#bt {
-		padding: 2px; 
-		border: 2px solid #fff;
-		background-color: white;
-/* 		border-color: #000; */
-		border-radius: 5px;
-		color: #717171;
-	}
-	
-	
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
+<link href="css/faq/faqlist.css" rel="stylesheet">
 
-	
-</style>
 
 
 </head>
 <body>
-			<jsp:include page="../../inc/header.jsp"></jsp:include>
+		<jsp:include page="../../inc/header.jsp"></jsp:include>
 		
 		<section id="listForm">
 		<h2>FAQ</h2>

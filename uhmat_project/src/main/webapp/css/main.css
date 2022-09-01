@@ -1,104 +1,38 @@
 @charset "UTF-8";
 
-
-
-.search {
-	height: 250px;
-	background-image: url("/uhmat_project/image/mainSample3.jpg");
+.mainImage {
 	position:relative;
-/* 	border: solid 1px; */
-	background-size: cover;
-/* 	top: 115px; */
-	background-repeat: no-repeat;
-	background-position: center center ;
-}
-
-.searchContainer {
-	margin-left: 200px;
-}
-
-#searchControl {
-	position: relative;
-	top: 100px;
-	width: 540px;
-	height: 40px; 
-	border-radius: 2em;
-	position: relative;
-	border-color: white;
-	align-items: center;
-	padding-left: 40px;
-	
-}
-
-::placeholder {
-	position:relative;
-	left: 0px;
-	font-size: 16px;
-}
-
-i{
-	position: relative;
-	top: 102px;
-	left: 33px;
-	z-index: 999;
-	
-}
-
-#searchBtn {
-	border-radius: 2em;
-	background-color: rgb(194,205,47); 
-	color: white;
-	border-color: rgb(194,205,47);
-	font-size: 18px;
-	width: 70px;
-	height: 39px;
-	position: relative;
-	top: 100px;
-	right: 70px;
-	
-}
-
-.searchBox {
-	width: 300px;
-	vertical-align: middle;
-	position: relative;
+	height: 300px;
+	width: 100%;
+	object-fit: cover;
 }
 
 
-
-.searchContainer .icon {
-	position: albsolute;
-	top: 50%;
-	margin-left: 15px;
-	margin-top: 15px;
-}
-
-
-
-.mainContainer {
-	width: 995px;
+.mainViewContainer {
+	width: 1100px;
 	margin: 0 auto;
 }
 
 .rankContainer {
 	height: 300px;
-	width: 995px;
+	width: 1100px;
 	border: solid 1px;
-	margin-top: 10px;
+	margin-top: 80px;
 }
 
 .rankReview {
 	border: solid 1px;
 	height: 300px;
-	width: 995px;
+	width: 1100px;
 	margin-top: 20px;
 }
 
 .reviewer {
 	border: solid 1px;
 	height: 250px;
-	width: 300px;
+	width: 1100px;
 	margin-top: 20px;
+	margin-bottom: 80px;
 }
 
 
@@ -134,6 +68,3 @@ i{
 	75% {background-image: url("/image/sample4.jpg");}
 	100% {background-image: url("/image/sample5.jpg");}
 }
-
-
-

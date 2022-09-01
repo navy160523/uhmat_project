@@ -40,6 +40,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../../inc/header.jsp"></jsp:include>
 	<!-- 게시판 글 수정 -->
 	<section id="modifyForm">
 		<h1>게시판 글 수정</h1>
@@ -82,6 +83,7 @@
 			</section>
 		</form>
 	</section>
+	<jsp:include page="../../inc/footer.jsp"></jsp:include>
 </body>
 </html>
 

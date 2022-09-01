@@ -829,9 +829,9 @@ public class ReviewCategoryDAO {
 		 ****************************************/
 			
 			try {
-				String sql = "SELECT * FROM reviewboard WHERE subject LIKE ?";
+				String sql = "SELECT * FROM reviewboard WHERE subject= ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, '%'+search+'%');
+				pstmt.setString(1, search);
 				
 				rs = pstmt.executeQuery();
 				
