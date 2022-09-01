@@ -189,12 +189,37 @@
 	}
 	
 </script>
+<style type="text/css">
+#container {
+/* 	border: 1px solid #ccc; */
+	width: 995px;
+	margin: 0 auto;
+/* 	display: flex; */
+	padding-top: 20px;
+	padding-bottom: 20px;
+	
+}
+
+.joinFrom{
+
+	width: 995px;
+	align-items: center; 
+}
+
+h1{
+text-align: center;
+}
+</style>
 </head>
 <body>
-
+	<!-- 헤더 들어가는곳 -->
+	<jsp:include page="../inc/header.jsp" flush="false" />
+	<!-- 헤더 들어가는곳 -->
+<div id="container">
+<h1>내정보</h1>
 <form action="MemberDetailModifyPro.me" method="post">
 <label>이름</label><br>
-<input type="text" id="name" name="name" value="${member.name }" ><br>
+<input type="text" id="name" name="name" value="${member.name }" required="required"><br>
 <label>닉네임</label><br>
 <input type="text" id="nickName" name="nickName" value="${member.nickname }"><br>
 <span id="checkNickNameResult"></span><br>
@@ -233,6 +258,9 @@
 		<div id="boadlist"></div>
 
 </section>
-
+</div>
+	<!-- 푸터 들어가는곳 -->
+	<jsp:include page="../inc/footer.jsp" flush="false" />
+	<!-- 푸터 들어가는곳 -->
 </body>
 </html>

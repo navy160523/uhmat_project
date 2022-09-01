@@ -171,7 +171,7 @@ public class MemberNaverLoginAction implements Action {
 						session.setAttribute("sNickName", member.getNickname());
 						
 						forward = new ActionForward();
-						forward.setPath("uhmat_project/");
+						forward.setPath("main.jsp");
 						forward.setRedirect(true);
 					}
 				}
@@ -190,7 +190,7 @@ public class MemberNaverLoginAction implements Action {
 					session.setAttribute("sNickName", member.getNickname());
 					
 					forward = new ActionForward();
-					forward.setPath("uhmat_project/");
+					forward.setPath("main.jsp");
 					forward.setRedirect(true);
 				}
 		}	

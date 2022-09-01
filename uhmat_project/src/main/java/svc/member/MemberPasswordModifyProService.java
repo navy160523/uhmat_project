@@ -11,14 +11,14 @@ import dao.MemberDAO;
 
 public class MemberPasswordModifyProService {
 
-	public boolean modifyPassword(String email, String passwd) {
+	public boolean modifyPassword(String email, String passwd,String nickname) {
 		boolean isModifyPasswordSuccess = false;
 
 		Connection con = getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 
-		int updateCount = dao.newPassword(email, passwd);
+		int updateCount = dao.newPassword(email, passwd,nickname);
 
 		if (updateCount > 0) {
 			commit(con);

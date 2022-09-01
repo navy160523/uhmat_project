@@ -104,7 +104,7 @@ public class MemberSendPasswordMailAction implements Action {
 			
 			// 발송 성공 시 DB auth_code 테이블에 아이디, 인증코드 추가
 			MemberSendPasswordMailService service = new MemberSendPasswordMailService();
-			boolean isNewPasswordSuccess = service.newPassword(email, newPasswd); 
+			boolean isNewPasswordSuccess = service.newPassword(email, newPasswd,""); 
 			
 			if(!isNewPasswordSuccess) {
 				response.setContentType("text/html; charset=UTF-8");
@@ -121,7 +121,7 @@ public class MemberSendPasswordMailAction implements Action {
 				out.println("alert('새로운 패스워드 등록 성공!')");
 				out.println("</script>");
 				forward = new ActionForward();
-				forward.setPath("MemberLoginForm.me");
+				forward.setPath("MemberPasswordModifyForm.me");
 				forward.setRedirect(false);
 			}
 			

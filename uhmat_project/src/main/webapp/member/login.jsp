@@ -38,7 +38,7 @@
 	background-color: #f2f2f2;
 	width: 100%;
 	height: 550px;
-	/* 	padding: 20px; */
+	/*	 padding: 20px; */
 	text-align: center;
 }
 
@@ -123,7 +123,7 @@
 		<div class="buttonResult" id="slmpl">
 <!-- 			<iframe name="iframe1" id="iframe01" src="MemberNaverForm.me" -->
 <!-- 				frameborder="0" cellspacing="0"></iframe> -->
-		    <jsp:include  page="naverlogin.jsp"></jsp:include>
+		    <jsp:include   page="naverlogin.jsp"></jsp:include>
 			<br>
 <!-- 			<iframe name="iframe1" id="iframe02" src="MemberKakaoForm.me" -->
 <!-- 				frameborder="0" cellspacing="0"></iframe> -->

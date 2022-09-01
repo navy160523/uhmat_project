@@ -301,16 +301,17 @@ public class MemberDAO {
 		return isApiUserSuccess;
 	}
 
-	public int newPassword(String email, String passwd) {
+	public int newPassword(String email, String passwd,String nickname) {
 		int updateCount = 0;
 
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "UPDATE member SET passwd=? WHERE email=?";
+			String sql = "UPDATE member SET passwd=? WHERE email=? or nickname=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, passwd);
 			pstmt.setString(2, email);
+			pstmt.setString(3, nickname);
 			updateCount = pstmt.executeUpdate();
 			System.out.println("패스워드 갱신 성공!");
 		} catch (SQLException e) {

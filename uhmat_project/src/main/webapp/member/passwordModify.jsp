@@ -95,12 +95,31 @@
 
 	});
 </script>
+<style type="text/css">
+#container {
+/* 	border: 1px solid #ccc; */
+	width: 995px;
+	margin: 0 auto;
+/* 	display: flex; */
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+	
+}
+
+</style>
 </head>
 <body>
+	<!-- 헤더 들어가는곳 -->
+	<jsp:include page="../inc/header.jsp" flush="false" />
+	<!-- 헤더 들어가는곳 -->
+	<div id="container">
+
 	<form action="MemberPasswordModifyPro.me" method="post">
 
-		<input type="hidden" id="email" name="email" value="${sessionScope.sEmail== null?param.email:sessionScope.sEmail }"> 
-		<c:if test="${sessionScope.sEmail == null}">
+		<input type="hidden" id="email" name="email" value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }"> 
+		<input type="hidden" id="nickname" name="nickname" value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }"> 
+		<c:if test="${sessionScope.sNickName == null}">
 			<div>
 			<h2>※이메일로 발송해드린 비밀번호가 임시 비밀번호 입니다.</h2>
 			<h2>※회원님의 비밀번호를 변경해 주시길 바랍니다.</h2>
@@ -110,7 +129,7 @@
 			<input type="password" name="alterPassword" id="alterPassword">
 			</div>
 		</c:if>
-		<c:if test="${sessionScope.sEmail != null}">
+		<c:if test="${sessionScope.sNickName != null}">
 			<div>
 			<label>현재 비밀번호</label><br> 
 			<input type="password" name="alterPassword" id="alterPassword">
@@ -135,5 +154,11 @@
 		<br>
 		<input type="submit" value="변경하기">
 	</form>
+	<br> <a href="MemberFindPasswordForm.me">비밀번호 찾기</a>
+	
+		</div>
+		<!-- 푸터 들어가는곳 -->
+	<jsp:include page="../inc/footer.jsp" flush="false" />
+	<!-- 푸터 들어가는곳 -->
 </body>
 </html>

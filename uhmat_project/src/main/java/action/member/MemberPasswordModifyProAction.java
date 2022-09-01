@@ -15,10 +15,11 @@ public class MemberPasswordModifyProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		String email = request.getParameter("email");
+		String nickname=request.getParameter("nickname");
 		String passwd= request.getParameter("passwd");
 
 		MemberPasswordModifyProService service = new MemberPasswordModifyProService();
-		boolean isModifyPasswordSuccess = service.modifyPassword(email, passwd);
+		boolean isModifyPasswordSuccess = service.modifyPassword(email, passwd,nickname);
 		
 		if(!isModifyPasswordSuccess) {
 			response.setContentType("text/html; charset=UTF-8");
@@ -35,7 +36,7 @@ public class MemberPasswordModifyProAction implements Action {
 			out.println("alert('새로운 패스워드 등록 성공!')");
 			out.println("</script>");
 			forward = new ActionForward();
-			forward.setPath("MemberLoginForm.me");
+			forward.setPath("MemberLogin.me");
 			forward.setRedirect(true);
 		}
 	
