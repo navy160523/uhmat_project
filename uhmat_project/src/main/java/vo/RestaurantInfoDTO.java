@@ -1,22 +1,19 @@
 package vo;
-/*
-	create table restaurantInfo(
-		res_name VARCHAR(50) PRIMARY KEY,
-		r_postcode VARCHAR(5) NOT NULL,
-		address VARCHAR(50) NOT NULL,
-		rating FLOAT DEFAULT 0,
-		phone_number  VARCHAR(15) NOT NULL,
-		opentime VARCHAR(200) NOT NULL,
-		res_link VARCHAR(100),
-		photo VARCHAR(100),
-		res_info VARCHAR(5000) NOT NULL,
-		reviewCount INT default 0
-		longitude DOUBLE,
-		latitude DOUBLE,
-	);
-*/
 
-public class RestaurantInfoDTO {
+//create table restaurantInfo(
+//res_name VARCHAR(50) PRIMARY KEY,
+//r_postcode VARCHAR(5) NOT NULL,
+//address VARCHAR(50) NOT NULL,
+//rating FLOAT DEFAULT 0,
+//phone_number  VARCHAR(15) NOT NULL,
+//opentime VARCHAR(200) NOT NULL,
+//res_link VARCHAR(100),
+//photo VARCHAR(100),
+//res_info VARCHAR(5000) NOT NULL,
+//reviewCount INT default 0
+//);
+
+public class RestaurantInfoDTO { 
 	private String resName;	//식당 이름
 	private String rPostcode;	//우편번호
 	private String address;	//상세 주소 
@@ -27,16 +24,23 @@ public class RestaurantInfoDTO {
 	private String photo; //식당 사진
 	private float rating;	//별점
 	private int reviewCount; //식당 리뷰 개수
-	private double longitude;
-	private double latitude;
+	private double longitude;	//지도 위도
+	private double latitude;	//지도 경도
+	private String category; // 식당 카테고리 (DB 수정 필요)
 	
-
 	@Override
 	public String toString() {
 		return "RestaurantInfoDTO [resName=" + resName + ", rPostcode=" + rPostcode + ", address=" + address
 				+ ", resInfo=" + resInfo + ", phoneNumber=" + phoneNumber + ", opentime=" + opentime + ", resLink="
-				+ resLink + ", photo=" + photo + ", rating=" + rating + ", reviewCount=" + reviewCount + ", longitude="
-				+ longitude + ", latitude=" + latitude + "]";
+				+ resLink + ", photo=" + photo + ", rating=" + rating + ", reviewCount=" + reviewCount + ", category="
+				+ category + "]";
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getResInfo() {
 		return resInfo;
@@ -98,16 +102,20 @@ public class RestaurantInfoDTO {
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
 	}
-	public final double getLongitude() {
+
+	public double getLongitude() {
 		return longitude;
 	}
-	public final void setLongitude(double longitude) {
+
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	public final double getLatitude() {
+
+	public double getLatitude() {
 		return latitude;
 	}
-	public final void setLatitude(double latitude) {
+
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 }

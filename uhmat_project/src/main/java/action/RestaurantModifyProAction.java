@@ -17,6 +17,9 @@ public class RestaurantModifyProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		System.out.println("RestaurantModifyProAction");
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		// 파일첨부를 위한 multipart request 사용
 		String uploadPath = "/upload"; // 루트(webapp)의 하위 폴더 upload 에 저장
 		String realPath = request.getServletContext().getRealPath(uploadPath);
@@ -24,6 +27,7 @@ public class RestaurantModifyProAction implements Action {
 		MultipartRequest multi = new MultipartRequest(request, realPath, fileSize, "UTF-8",new DefaultFileRenamePolicy());
 
 		RestaurantInfoDTO dto = new RestaurantInfoDTO();
+		dto.setCategory(multi.getParameter("category"));
 		dto.setResName(multi.getParameter("res_name"));
 		dto.setrPostcode(multi.getParameter("r_postcode"));
 		dto.setAddress(multi.getParameter("address"));
@@ -50,14 +54,18 @@ public class RestaurantModifyProAction implements Action {
 		map.setLongitude(Double.parseDouble(multi.getParameter("longitude")));
 		map.setLatitude(Double.parseDouble(multi.getParameter("latitude")));
 		
+		System.out.println(dto);
+		System.out.println("-------------------------------");
+		System.out.println(map);
+		
 		// ---------------------------여기까지 필요한 정보 dto 에 저장 -----------------------------
 		
 		//Service 클래스를 호출하여 식당정보 수정!
 		RestaurantModifyProService service = new RestaurantModifyProService();
 		boolean isModifySuccess = false;
 		String photo = service.bringPhoto(dto.getResName());
-		System.out.println("photo: "+ photo);
-		System.out.println("dto - photo: "+dto.getPhoto());
+//		System.out.println("photo: "+ photo);
+//		System.out.println("dto - photo: "+dto.getPhoto());
 		if(dto.getPhoto() == null) {	//사진을 수정하지 않았을 경우
 			dto.setPhoto(photo);	//원래 사진을 dto 에 저장
 			isModifySuccess = service.modifyResInfo(dto);
@@ -78,7 +86,7 @@ public class RestaurantModifyProAction implements Action {
 		}else {
 			PrintWriter out = response.getWriter(); 
 			response.setContentType("text/html; charset=UTF-8");
-
+			System.out.println("식당 수정 실패!");
 			out.print("<script>alert('식당 정보 수정 실패!');history.back();</script>");
 		}		
 

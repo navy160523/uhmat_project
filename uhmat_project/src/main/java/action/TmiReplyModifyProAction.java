@@ -21,7 +21,7 @@ public class TmiReplyModifyProAction implements Action {
 		TmiReplyDTO tmiReply = new TmiReplyDTO();
 		tmiReply.setIdx(Integer.parseInt(request.getParameter("idx")));
 		tmiReply.setBoard_idx(Integer.parseInt(request.getParameter("board_idx")));
-		tmiReply.setNickname("admin");
+		tmiReply.setNickname(request.getParameter("nickname"));
 		tmiReply.setContent(request.getParameter("content"));
 		
 		// modifyTmiReply() 메서드를 호출하여 댓글 수정 작업 요청

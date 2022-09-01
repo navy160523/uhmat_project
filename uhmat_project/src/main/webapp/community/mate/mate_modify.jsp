@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<!-- 헤더 들어가는 곳 -->
 	<jsp:include page="../../inc/header.jsp"/>
 	<!-- 헤더 들어가는 곳 -->
-	
+	<c:if test="${sessionScope.sNickName != tmiReply.nickname }">
+		<script>alert("수정 권한이 없습니다");history.back();</script>
+	</c:if>
 	<form action="MateModifyPro.co" name="MateForm" method="post">
 		<!-- 게시물 수정에 필요한 글번호와 페이징 처리에 필요한 페이지번호도 함께 전달 -->
 		<input type="hidden" name="idx" value="${mate.idx }">

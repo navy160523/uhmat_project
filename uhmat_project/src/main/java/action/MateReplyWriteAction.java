@@ -26,7 +26,6 @@ public class MateReplyWriteAction implements Action {
       mateReply.setIdx(Integer.parseInt(request.getParameter("idx")));
       mateReply.setNickname(request.getParameter("nickname"));
       mateReply.setContent(request.getParameter("content"));
-      
 //      mateReply.setRe_ref(Integer.parseInt(request.getParameter("re_ref")));
 //      mateReply.setRe_lev(Integer.parseInt(request.getParameter("re_lev")));
 //      mateReply.setRe_seq(Integer.parseInt(request.getParameter("re_seq")));

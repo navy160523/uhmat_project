@@ -21,6 +21,7 @@ public class MateWriteProAction implements Action {
 		
 		MateDTO mate = new MateDTO();
 //		mate.setIdx(Integer.parseInt(request.getParameter("idx")));
+		
 		mate.setNickname(request.getParameter("nickname"));
 		mate.setSubject(request.getParameter("subject"));
 		mate.setContent(request.getParameter("content"));

@@ -17,7 +17,7 @@ public class ReviewLikeAction implements Action {
 		ActionForward forward = null;
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
-		String nickname = request.getParameter("nickname");
+		String nickname = request.getParameter("nickname"); //session id 받는 곳
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		System.out.println(idx + nickname + pageNum);
 		

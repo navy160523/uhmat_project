@@ -37,7 +37,7 @@ public class ReviewModifyProAction implements Action {
 		String uploadPath = "upload"; // 가상의 폴더명
 				
 		// 2. 업로드 파일 크기를 제한하기 위한 정수 형태의 값 지정(10MB 제한)
-		int fileSize = 1024 * 1024 * 10; // byte(1) -> KB(1024Byte) -> MB(1024KB) -> 10MB 단위 변환
+		int fileSize = 1024 * 1024 * 10*2; // byte(1) -> KB(1024Byte) -> MB(1024KB) -> 10MB 단위 변환
 				
 		// 3. 현재 프로젝트(서블릿)를 처리하는 객체인 서블릿 컨텍스트 객체 얻어오기
 		ServletContext context = request.getServletContext();
@@ -68,7 +68,7 @@ public class ReviewModifyProAction implements Action {
 		dto.setRating(Float.parseFloat(multi.getParameter("rating")));
 		dto.setContent(multi.getParameter("content"));
 
-		dto.setPhoto(multi.getOriginalFileName("photo"));
+//		dto.setPhoto(multi.getOriginalFileName("photo"));
 		dto.setPhoto(multi.getFilesystemName("photo"));
 	
 		ReviewModifyProService service = new ReviewModifyProService();

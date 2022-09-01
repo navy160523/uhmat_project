@@ -67,8 +67,26 @@ input:checked ~ label:hover ~ label {
   padding-right: 0;
 }
 </style>
+<script src="js/jquery-3.6.0.js"></script>
+<script>
+	$(function(){
+		var rating = ${dto.rating};
+		for(i=0;i<9;i++){
+			if($("input:radio").eq(i).val()==rating){
+				$("input:radio").eq(i).attr("checked",true);
+			}
+		}
+	});
+
+</script>
 </head>
 <body>
+	<c:if test="${ dto.nickname != sessionScope.sNickName }">
+		<script>
+			alert("글 수정 권한이  없습니다!");
+			history.back();
+		</script>
+	</c:if>
 	<h1>ReviewModifyForm</h1>
 	<nav><input type="button" value="이전으로" onclick="history.back()"></nav>
 	<section>
@@ -80,7 +98,7 @@ input:checked ~ label:hover ~ label {
 			<table border="1">
 
 				<tr>
-					<td>작성자&nbsp;<input type="text" name="nickname" value="${dto.nickname }" readonly="readonly"></td>
+					<td>작성자&nbsp;<input type="text" name="nickname" value="${sessionScope.sNickName }" readonly="readonly"></td>
 					<!--  회원가입 로그인이 연동되면 nickname을 세션값으로받습니다. -->
 				</tr>
 				<tr>
@@ -104,6 +122,7 @@ input:checked ~ label:hover ~ label {
 				<tr>
 					<td><div class="row">
 						  <fieldset class="rate">
+						  
 						    <input id="rate2-star5" class="starRow" type="radio" name="rating" value="5" />
 						    <label for="rate2-star5" title="Awesome">5</label>
 						

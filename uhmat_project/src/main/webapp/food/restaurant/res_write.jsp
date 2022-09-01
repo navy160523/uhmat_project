@@ -12,26 +12,21 @@
 	border: 1px solid red;
 	margin: auto;
 }
-
 h2{
 	text-align: center;
 }
-
 table{
 	margin:auto;
 	width:450px;
 }
-
 .td_left{
 	width:150px;
 	background: orange;
 }
-
 .td_right{
 	width: 300px;
 	background: skyblue;
 }
-
 #commandCell{
 	text-align: center;
 }
@@ -43,7 +38,6 @@ table{
 		$('#photo').change(function(){
 		    setImageFromFile(this, '#image');
 		});
-
 		function setImageFromFile(input, expression) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
@@ -53,33 +47,60 @@ table{
 		        reader.readAsDataURL(input.files[0]);
 		    }
 		}
+		
+		//더보기 클릭 시 음식 카테고리 선택 가능
+		$("#more").click(function(){
+// 			alert("버튼 선택!");
+			$.ajax({
+				url:"food/restaurant/category_show.jsp",
+				success: function(res){
+					$("#showCategory").html(res);
+				}
+			})
+		})
+		
 	});
-
+	
+	
 </script>
 </head>
 <body>
+	<c:if test="${sessionScope.sNickName ne 'admin'}">
+		<script>
+			alert("관리자가 아닙니다!");
+			history.back();
+		</script>
+	</c:if>
 	<section id="writeForm">
 		<h2>식당 글 등록</h2>
+		<div id="showCategory">
+		</div>
 		<form action="restaurantWritePro.re" method="post" enctype="multipart/form-data">
 			<table> 
 				<tr>
-					<th><label for="res_name">식당이름</label></th>
-					<td><input type="text" name="res_name" id="res_name" required="required"></td>
-				</tr>
-				<tr>
 					<th><label for="category">카테고리 선택</label></th>
 					<td>
-						<select name="category" id="category">
-							<option value="족발">족발</option>
-							<option value="보쌈">보쌈</option>
-							<option value="찜">찜</option>
-							<option value="일식">일식</option>
-							<option value="피자&파스타">피자&파스타</option>
-							<option value="고기&구이">고기&구이</option>
-							<option value="도시락">도시락</option>
+						<select name="category" required="required">
+							<option value="" selected="selected">선택</option>
+							<option value="족발·보쌈">족발·보쌈</option>
+							<option value="찜·탕·찌개">찜·탕·찌개</option>
+							<option value="돈까스·회·일식">돈까스·회·일식</option>
+							<option value="피자">피자</option>
+							<option value="고기·구이">고기·구이</option>
+							<option value="치킨">치킨</option>
 							<option value="중식">중식</option>
+							<option value="도시락">도시락</option>
+							<option value="패스트푸드">패스트푸드</option>
+							<option value="분식1">분식1</option>
+							<option value="분식2">분식2</option>
+							<option value="카페·디저트">카페·디저트</option>
 						</select>
+						<button id="more">카테고리 보기</button>
 					</td>
+				</tr>
+				<tr>
+					<th><label for="res_name">식당이름</label></th>
+					<td><input type="text" name="res_name" id="res_name" required="required"></td>
 				</tr>
 				<!-- 다음 주소로 교체할 수도? -->
 				<tr>
@@ -140,7 +161,6 @@ table{
 		        center: new kakao.maps.LatLng(35.1584642,129.0620414), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    };
-
 			var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
 			// 지도를 클릭한 위치에 표출할 마커입니다

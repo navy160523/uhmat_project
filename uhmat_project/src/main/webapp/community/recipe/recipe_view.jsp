@@ -18,7 +18,7 @@
 	<section>
 		<table>
 			<tr>
-				<td>${recipe.nickname } | ${recipe.datetime } | ${recipe.readcount }</td> 
+				<td>${recipe.nickname } | ${recipe.date } | ${recipe.readcount }</td> 
 			</tr>
 		</table>
 	</section>
@@ -72,7 +72,7 @@
 	</section>
 
 	<!-- 		푸터 들어가는 곳 -->
-	<jsp:include page="../../inc/footer.jsp"/>
+<%-- 	<jsp:include page="../../inc/footer.jsp"/> --%>
 	<!-- 		푸터 들어가는 곳 -->
 	
 </body>

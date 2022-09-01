@@ -1,42 +1,15 @@
 package controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
 
-import org.json.simple.JSONObject;
+import action.*;
+import action.main.*;
+import vo.*;
 
-import com.google.gson.Gson;
-
-import action.Action;
-import action.member.MemberAuthAction;
-import action.member.MemberChechDuplicateEmailAction;
-import action.member.MemberChechDuplicateNickNameAction;
-import action.member.MemberDetailFormAction;
-import action.member.MemberDetailListAction;
-import action.member.MemberDetailModifyProAction;
-import action.member.MemberFindPasswordProAction;
-import action.member.MemberGoogleJoinProAction;
-import action.member.MemberJoinProAction;
-import action.member.MemberKakaoJoinProAction;
-import action.member.MemberLoginProAction;
-import action.member.MemberLogoutAction;
-import action.member.MemberPasswordModifyProAction;
-import action.member.MemberSendAuthMailAction;
-import action.member.MemberSendPasswordMailAction;
-import vo.ActionForward;
-import vo.MemberDTO;
-
-/**
- * Servlet implementation class MainController
- */
 @WebServlet("/")
 public class MainController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
@@ -51,12 +24,14 @@ public class MainController extends HttpServlet {
 		
 		// 메인 화면 이동
 		if(command.equals("/")) {
-			forward = new ActionForward();
-			forward.setPath("main.jsp");
-			forward.setRedirect(false);
+			try {
+				action = new MainAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-					
-	
 
 		if (forward != null) {
 			if (forward.isRedirect()) {

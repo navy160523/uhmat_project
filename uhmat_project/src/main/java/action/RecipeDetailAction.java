@@ -18,7 +18,7 @@ public class RecipeDetailAction implements Action {
 		System.out.println("RecipeDetailAction");
 		
 		ActionForward forward = null;
-		 
+		
 		// request 객체를 통해 전달받은 파라미터(idx) 가져오기
 		int idx = Integer.parseInt(request.getParameter("idx"));
 //		System.out.println("idx : " + idx);

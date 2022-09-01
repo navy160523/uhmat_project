@@ -287,6 +287,47 @@ public class NoticeDAO {
 		return list;
 	}
 	
+	public ArrayList<NoticeDTO> selectMainAnythingList(String search) {
+		ArrayList<NoticeDTO> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			String sql = "SELECT * FROM NoticeBoard WHERE subject LIKE ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, '%'+search+'%');
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<NoticeDTO>();
+			
+			while(rs.next()) {
+				NoticeDTO notice = new NoticeDTO();
+				notice.setContent(rs.getString("content"));
+				notice.setDate(rs.getDate("date"));
+				notice.setIdx(rs.getInt("idx"));
+				notice.setNickname(rs.getString("nickname"));
+				notice.setOriginal_File(rs.getString("original_File"));
+				notice.setReal_File(rs.getString("real_File"));
+				notice.setSubject(rs.getString("subject"));
+				notice.setCategory(rs.getString("category"));
+				
+				list.add(notice);
+				
+			}
+//			System.out.println("list : " + list);
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		return list;
+	}
+	
+	
 	
 	
 }

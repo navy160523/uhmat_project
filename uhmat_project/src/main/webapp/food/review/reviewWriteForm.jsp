@@ -1,71 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
-
-/* Basic styles */
-
-.row {
-  text-align: left;
-}
-
-.rate {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-.starRow {
-  display: none;
-}
-
-label {
-  float: right;
-  font-size: 0;
-  color: #d9d9d9;
-}
-
-label:before {
-  content: "\f005";
-  font-family: FontAwesome;
-  font-size: 40px;
-}
-
-label:hover,
-label:hover ~ label {
-  color: #fcd000;
-  transition: 0.2s;
-}
-
-.starRow:checked ~ label {
-  color: #fcd000;
-}
-/* #ccac00 */
-input:checked ~ label:hover,
-input:checked ~ label:hover ~ label {
-  color: #fcd000;
-  transition: 0.2s;
-}
-
-
-/* Half-star*/
-
-.star-half {
-  position: relative;
-}
-
-.star-half:before {
-  position: absolute;
-  content: "\f089";
-  padding-right: 0;
-}
-</style>
+<link href="food/review/reviewWriteForm.css" rel="stylesheet">
 <script src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
@@ -105,23 +46,21 @@ input:checked ~ label:hover ~ label {
 </script>
 </head>
 <body>
-	<h1>reviewWriteForm</h1>
+	<c:if test="${ empty sessionScope.sNickName }">
+		<script>
+			alert("글쓰기는 로그인이 필요합니다!");
+			location.href="MemberLogin.me";
+		</script>
+	</c:if>
+		<h1>새 게시물</h1>
 		<nav>
 			<input type="button" value="리스트로" onclick="history.back()">
 		</nav>
 	<section>
-		<form  name="fr" action="ReviewWritePro.re" method="post" enctype="multipart/form-data">
-			<table border="1">
-			<!-- 
-					1.제목
-					2. Tag(db수정해야함?)
-					3. 음식점 찾기
-					4. ratings
-					likes (추가해야함)
-					5. content				
-				 -->
+		<form  name="fr"action="ReviewWritePro.re" method="post" enctype="multipart/form-data">
+			<table id="tr">
 				<tr>
-					<td>작성자&nbsp;<input type="text" name="nickname" placeholder="세션 nickname" required="required" ></td>
+					<td><input type="text" name="nickname" value="${sessionScope.sNickName }" readonly="readonly" ></td>
 					<!--  회원가입 로그인이 연동되면 nickname을 세션값으로받습니다. -->
 				</tr>
 				<tr>
@@ -134,7 +73,7 @@ input:checked ~ label:hover ~ label {
 					-->
 				</tr>
 				<tr>
-					<td><input type="text" name="res_name" placeholder="음식점 위치 찾기" required="required">&nbsp;<button>찾기</button></td>
+					<td><input type="text" name="res_name" placeholder="음식점 위치 찾기" required="required">&nbsp;<button class="btn">찾기</button></td>
 					
 					<!-- 지도 api와 연동 -->
 				</tr>
@@ -179,11 +118,11 @@ input:checked ~ label:hover ~ label {
 				</tr>
 				<tr>
 					<!-- 파일 첨부 형식은 input 태그의 type="file" 속성 사용 -->
-					<td>파일첨부<input type="file" name="photo" required="required" /></td>
+					<td><input type="file" class="btn" name="photo" required="required" /></td>
 				</tr>
 			</table>
 		<section>
-			<input type="submit" value="제출해버렷">
+			<input type="submit" class="btn" value="제출해버렷">
 		</section>
 		</form>
 	</section>

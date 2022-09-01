@@ -1,75 +1,134 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+<head>
+<title>Category Page</title>
+<style>
+    .K2-grid {
+      padding: 5px;
+      text-align: center;
+  }
+  
+  .K2-grid ul {
+      clear: both;
+      margin: 15px 0 20px;
+      padding:0;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+  }
+  
+  .coll-3 ul li {
+      width: 30%;
+  }
+  
+  .K2-grid li {
+      font-size: 0.9em;
+      font-weight: 500;
+      line-height: 1.3em;
+      text-align: center;
+      background: #ffffff;
+      border-radius: 5px;
+      margin: 5px 0;
+      box-sizing: border-box;
+      box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+      padding: 10px 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .K2-grid li a {
+      display: block;
+      text-decoration: none;
+      color: #333;
+  }
+  
+  .K2-grid li svg {
+      margin: 3px 0;
+      width: 35px;
+      height: 35px;
+      fill: #26ae61;
+      display: inline-block;
+  }
+  
+  .K2-grid li span {
+      display: block;
+      padding: 0 3px;
+  }
+  </style>
+</head>
 
-    <title>Jumbotron Template for Bootstrap</title>
-
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <main role="main">
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">카테고리별 식당 정보~~</h1>
-          <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-        </div>
-      </div>
-
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-        </div>
-
-        <hr>
-
-      </div> <!-- /container -->
-
-    </main>
-
-    <footer class="container">
-      <p>&copy; Company 2017-2018</p>
-    </footer>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+<body>
+	<div class='K2-grid coll-3 icon-p-2'>
+<h2> 음식 종류별 식당 </h2>
+        
+	<ul>
+		<li>
+		    <a href='restaurantList.re?category=족발·보쌈'>
+		    <span>족발·보쌈</span></a>
+		</li>
+		
+		<li>
+		    <a href='restaurantList.re?category=찜·탕·찌개'>
+		    <span>찜·탕·찌개</span></a>
+		</li>
+		
+		<li>
+		    <a href='restaurantList.re?category=돈까스·회·일식'>
+		    <span>돈까스·회·일식</span></a>
+		</li>
+		        
+		<li>
+		    <a href='restaurantList.re?category=피자'>
+		    <span>피자</span></a>
+		</li>
+		
+		<li>
+			 <a href='restaurantList.re?category=고기·구이'>
+		    <span>고기·구이</span></a>
+		</li>
+		
+		
+		<li>
+		     <a href='restaurantList.re?category=치킨'>
+		    <span>치킨</span></a>
+		</li>
+		
+		<li>
+		     <a href='restaurantList.re?category=중식'>
+		    <span>중식</span></a>
+		</li>
+		
+		<li>
+		     <a href='restaurantList.re?category=도시락'>
+		    <span>도시락</span></a>
+		</li>
+		
+		<li>
+		     <a href='restaurantList.re?category=패스트푸드'>
+		    <span>패스트푸드</span></a>
+		</li>
+		
+		<li>
+		     <a href='restaurantList.re?category=분식1'>
+		    <span>분식1</span></a>
+		</li>
+		
+		<li>
+		     <a href='restaurantList.re?category=분식2'>
+		    <span>분식2</span></a>
+		</li>
+		
+		<li>
+		    <a href='restaurantList.re?category=돈까스·회·일식'>
+		    <span>카페·디저트</span></a>
+		</li>
+		
+	</ul>
+</div>
+</body>
 </html>

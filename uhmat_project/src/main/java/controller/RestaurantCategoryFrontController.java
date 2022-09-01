@@ -1,19 +1,14 @@
 package controller;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
+import javax.servlet.http.*;
 
 import action.Action;
 import action.CheckHashAction;
-import action.MapAction;
 import action.RestaurantDeleteAction;
 import action.RestaurantDetailAction;
 import action.RestaurantListAction;
@@ -38,7 +33,7 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+		response.setCharacterEncoding("UTF-8");
 		String command = request.getServletPath();
 		System.out.println(command);
 		ActionForward forward = null;
@@ -69,7 +64,22 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 		} else if (command.equals("/restaurantWriteForm.re")) {
 			System.out.println("식당 글 입력 폼 요청!");
 			forward = new ActionForward();
-
+			//세션을 확인 후 권한이 있는지 확인
+			HttpSession session = request.getSession();
+			String name = (String)session.getAttribute("sNickName");
+			System.out.println("session name: "+name);
+			PrintWriter out = response.getWriter(); 
+			response.setContentType("text/html; charset=UTF-8");
+			if(name == null) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('식당 입력 권한 없음!');history.back();</script>");
+			}
+			
+			if(!name.equals("admin")) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('식당 입력 권한 없음!');history.back();</script>");
+			}
+			
 			forward.setPath("food/restaurant/res_write.jsp");
 
 			forward.setRedirect(false);
@@ -119,6 +129,11 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 				// TODO Auto-generated catch block 
 				e.printStackTrace();
 			}
+		} else if (command.equals("/resCategory.re")) {
+			System.out.println("음식 종류별 식당 보기 요청!");
+			forward = new ActionForward();
+			forward.setPath("food/restaurant/category_page.jsp");
+			forward.setRedirect(false);
 		}
 		// 추가로 태그와 카테고리 관련된 작업 요청이 더 필요함!!
 
@@ -165,6 +180,22 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			}
 
 		} else if(command.equals("/ReviewDeleteForm.re")) {
+			//세션을 확인 후 권한이 있는지 확인
+			HttpSession session = request.getSession();
+			String name = (String)session.getAttribute("sNickName");
+			String reviewer = (String)session.getAttribute("reviewer");
+			System.out.println("session name: "+name);
+			PrintWriter out = response.getWriter(); 
+			response.setContentType("text/html; charset=UTF-8");
+			if(name == null) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('리뷰 삭제 권한 없음!');history.back();</script>");
+			}
+			
+			if(!name.equals(reviewer)) {
+				System.out.println("돌아갸야댐!!");
+				out.print("<script>alert('리뷰 삭제 권한 없음!');history.back();</script>");
+			}
 			forward = new ActionForward();
 			forward.setPath("food/review/reviewDeleteForm.jsp");
 			forward.setRedirect(false);
@@ -198,21 +229,21 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 
 		}else if (command.equals("/map.re")) {
 
-			MapAction mapGet = new MapAction();
-			
-			String keyword= "";
-			
-			if(request.getParameter("keyword")!=null) {
-				keyword = request.getParameter("keyword");
-			}
-			System.out.println("keyword : " + keyword);
-			
-			ArrayList<RestaurantInfoDTO> list = mapGet.execute(keyword);
-
-			String gson = new Gson().toJson(list);
-			System.out.println(list);
-			response.setContentType("application/json; charset=utf-8");
-			response.getWriter().write(gson);
+//			MapAction mapGet = new MapAction();	//여기서부턴 지도  import 작업이 필요함!
+//			
+//			String keyword= "";
+//			
+//			if(request.getParameter("keyword")!=null) {
+//				keyword = request.getParameter("keyword");
+//			}
+//			System.out.println("keyword : " + keyword);
+//			
+//			ArrayList<RestaurantInfoDTO> list = mapGet.execute(keyword);
+//
+//			String gson = new Gson().toJson(list);
+//			System.out.println(list);
+//			response.setContentType("application/json; charset=utf-8");
+//			response.getWriter().write(gson);
 		
 		// 지도 보여주기
 		} else if (command.equals("/mapForm.re")) {

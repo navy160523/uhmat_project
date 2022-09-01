@@ -1,9 +1,11 @@
 package action;
 
 
+import java.util.*;
+
 import javax.servlet.http.*;
 
-import svc.ReviewDetailService;
+import svc.*;
 import vo.*;
 
 
@@ -20,9 +22,14 @@ public class ReviewDetailAction implements Action {
 		
 		ReviewDetailService service = new ReviewDetailService();
 		ReviewBoardDTO dto = service.getReviewBoard(idx);
+		ArrayList<ReviewReplyDTO> replyList = ReviewDetailService.getDetailReply(idx);
 		
 		request.setAttribute("dto", dto);
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("replyList", replyList);
+		HttpSession session = request.getSession();
+		session.setAttribute("reviewer", dto.getNickname());
+		
 		System.out.println(dto);
 		forward = new ActionForward();
 

@@ -1,17 +1,14 @@
 package action;
 
-import java.io.PrintWriter;
-
+import java.io.*;
 import java.net.*;
 
 import javax.servlet.http.*;
 
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.oreilly.servlet.*;
+import com.oreilly.servlet.multipart.*;
 
 import svc.*;
-
 import vo.*;
 
 public class RestaurantWriteProAction implements Action {
@@ -19,9 +16,9 @@ public class RestaurantWriteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-
+		
+		
 		request.setCharacterEncoding("UTF-8");
-
 		System.out.println("RestaurantWriteProAction");
 		// 파일첨부를 위한 multipart request 사용
 		String uploadPath = "/upload"; // 루트(webapp)의 하위 폴더 upload 에 저장
@@ -31,10 +28,11 @@ public class RestaurantWriteProAction implements Action {
 //	 	out.println(realPath);
 
 		String realPath = request.getServletContext().getRealPath(uploadPath);
-		int fileSize = 1024 * 1024 * 10; // byte -> MB -> 10MB
+		int fileSize = 1024 * 1024 * 20; // byte -> MB -> 10MB
 		MultipartRequest multi = new MultipartRequest(request, realPath, fileSize, "UTF-8",new DefaultFileRenamePolicy());
 
 		RestaurantInfoDTO dto = new RestaurantInfoDTO();
+		dto.setCategory(multi.getParameter("category"));
 		dto.setResName(multi.getParameter("res_name"));
 		dto.setrPostcode(multi.getParameter("r_postcode"));
 		dto.setAddress(multi.getParameter("address"));
@@ -79,7 +77,7 @@ public class RestaurantWriteProAction implements Action {
 			PrintWriter out = response.getWriter(); 
 			response.setContentType("text/html; charset=UTF-8");
 
-			out.print("<script>alert('식당 입력 실패!');history.back();</script>");
+			out.print("<script>alert('식당 입력 실패! 이미 존재하는 식당일수도!?');history.back();</script>");
 		}
 		
 		return forward;
