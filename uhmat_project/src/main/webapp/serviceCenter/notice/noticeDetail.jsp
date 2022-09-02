@@ -33,7 +33,7 @@
 						실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드
 						-->
 							<a href="upload/${notice.real_File }" download="${notice.original_File }">
-							${notice.real_File }
+							${notice.original_File  }
 							</a>
 						</td>
 					</tr>
@@ -44,7 +44,7 @@
 		</section>
 	</section>
 	<section id="commandList">
-		<c:if test="${not empty sessionScope.sNickName and sessionScope.sNickName eq FAQ.nickname }">
+		<c:if test="${not empty sessionScope.sNickName and (sessionScope.sNickName eq notice.nickname or sessionScope.sNickName eq 'admin') }">
 		<input type="button" value="수정" onclick="location.href='NoticeModifyForm.sc?idx=${notice.idx}&pageNum=${param.pageNum}'">
 			<input type="button" value="삭제" onclick="location.href='NoticeDelete.sc?idx=${notice.idx}&pageNum=${param.pageNum}'">
 		</c:if>

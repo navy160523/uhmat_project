@@ -37,7 +37,7 @@
 						<form name="qna_board_search_frm" method="post" action="FAQList.sc">
 							<input type="text" name="keyword" value="" class="faqsearch font_18 noto400" placeholder="검색어를 입력하세요">
 								<div style="position:absolute; top:15px; right:20px;">
-									<input type="submit" name="search_type" value="검색" style="text-indent:-1000em; width:20px; height:20px; background:url('/img/search_bar_bg_02.png') 0 0 no-repeat; border:0 none; cursor:pointer;">
+									<input type="submit" name="search_type" value="검색">
 								</div>
 						</form>
 			  	    </div>
@@ -47,7 +47,7 @@
 	</section>
 	<section>
 	<div id="FAQ">
-		<h3 class="brown">FAQ</h3>
+		<h3 class="brown">최근 신고 글</h3>
 			<table>
 				<c:forEach var="faq" items="${faq5 }">
 					<tr>
@@ -59,7 +59,7 @@
 	</section>
 	<section>
 	<div id="notice">
-  		<h3 class="brown">Notice</h3>
+  		<h3 class="brown">최근 공지사항</h3>
 			<c:forEach var="notice" items="${notice5 }" >
 				<table>
 						<tr>

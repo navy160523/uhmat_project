@@ -38,7 +38,7 @@
 						실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드
 						-->
 							<a href="upload/${faq.real_File }" download="${faq.original_File }">
-							${faq.real_File }
+							${faq.original_File }
 							</a>
 						</td>
 					</tr>
@@ -50,8 +50,8 @@
 		</section>
 	</section>
 	
-	<c:if test="${sessionScope.sNickName eq 'admin'}"> 
 		<section id="replyArea">
+	<c:if test="${sessionScope.sNickName eq 'admin' and empty reply}"> 
 			<section id="insertForm">
 						<form action="FAQDetailReply.sc" style="position: relative; left: 40%; top:50%;">
 							<!-- 댓글 전송 시 현재 게시물 글번호(idx)도 함께 전송 -->
@@ -64,23 +64,27 @@
 							<input type="submit" value="등록">
 						</form>
 			</section>
-			
+	</c:if>
 			<section id="replyViewArea" style="position: relative; left: 40%; top:50%;">
 					<!-- ArrayList(replyList) 객체 크기만큼 for문 반복 -->
 					<br>
 					     <table>
+			<c:if test="${ not empty reply }">
 					     	<tr>
-						     	<td>답변 : </td><td> ${reply.answer }</td>
+						     	<td>관리자 답변 : </td><td> ${reply.answer }</td>
+						     </tr>
+		    </c:if>
+			<c:if test="${sessionScope.sNickName eq 'admin' }">
+						     <tr>	
 						     	<td><input type="button" value="삭제" onclick="location.href='FAQDetailReplyDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"></td>
-		
 					     	</tr>
+			</c:if>
 					     </table>
 					<br>
 			</section>
 		</section>
-	</c:if>
 		<section id="commandList" >
-	<c:if test="${sessionScope.sNickName eq faq.nickname}">
+	<c:if test="${sessionScope.sNickName eq faq.nickname or sessionScope.sNickName eq faq.nickname or sessionScope.sNickName eq 'admin'}">
 			<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
 			<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
 	</c:if>

@@ -44,10 +44,11 @@
 	<!-- 게시판 글 수정 -->
 	<section id="modifyForm">
 		<h1>게시판 글 수정</h1>
-		<form action="NoticeModify.sc" name="noticeModifyForm" method="post">
+		<form action="NoticeModify.sc" name="noticeModifyForm" method="post" enctype="multipart/form-data">
 		<!-- 게시물 수정에 필요한 글번호와 페이징 처리에 필요한 페이지번호도 함께 전달 -->
 		<input type="hidden" name="idx" value="${notice.idx }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
+		<input type="hidden" name="real_File" value="${notice.real_File }">
 			<table>
 				<tr>
 					<td class="td_left"><label for="name">글쓴이</label></td>
@@ -62,9 +63,8 @@
 					<td class="td_right"><textarea id="content" name="content" cols="40" rows="15" required="required" >${notice.content }</textarea></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="file">파일</label></td>
-					<!-- 파일 수정 기능은 제외(파일명만 표시) -->
-					<td class="td_right">${notice.original_File }(수정불가)</td>
+					<td class="td_left"><label for="file">파일 첨부</label></td>
+					<td class="td_right"><input name="file" type="file"> ${notice.original_File }</td>
 				</tr>
 				<tr>
 					<td class="td_left"><label for="category">카테고리</label></td>

@@ -616,9 +616,9 @@ public class RestaurantDAO {
 				ResultSet rs = null;
 				
 				try {
-					String sql = "SELECT * FROM restaurant_info WHERE res_name = ?";
+					String sql = "SELECT * FROM restaurant_info WHERE res_name LIKE ?";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, search);
+					pstmt.setString(1, "%" + search + "%");
 					rs = pstmt.executeQuery();
 					
 

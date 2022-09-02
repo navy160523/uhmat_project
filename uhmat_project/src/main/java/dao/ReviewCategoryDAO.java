@@ -829,9 +829,9 @@ public class ReviewCategoryDAO {
 		 ****************************************/
 			
 			try {
-				String sql = "SELECT * FROM reviewboard WHERE subject= ?";
+				String sql = "SELECT * FROM reviewboard WHERE subject LIKE ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, search);
+				pstmt.setString(1, "%" + search + "%");
 				
 				rs = pstmt.executeQuery();
 				
@@ -881,6 +881,33 @@ public class ReviewCategoryDAO {
 				close(pstmt);
 			}
 		return reviewList;
+	}
+	public int selectResearchReviewListCount(String search) {
+		int listCount = 0;
+		
+		//구문 작성 전 Setting
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		// 구문 작성 및 실행
+		try {
+			String sql = "SELECT COUNT(*) FROM reviewboard WHERE subject LIKE ?	";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + search + "%");
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 구문 작성 및 실행 오류 - selectReviewListCount()" + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 		
 }

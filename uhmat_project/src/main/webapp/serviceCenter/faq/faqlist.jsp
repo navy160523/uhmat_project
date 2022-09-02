@@ -14,7 +14,7 @@
 <link href="css/faq/faqlist.css" rel="stylesheet">
 
 
-
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
 		<jsp:include page="../../inc/header.jsp"></jsp:include>
@@ -44,6 +44,7 @@
 				<td width="150px">작성자</td>
 				<td width="150px">날짜</td>
 				<td width="100px">조회수</td>
+				<td width="100px">첨부파일</td>
 
 
 			</tr>
@@ -72,6 +73,9 @@
 							<td>${FAQ.nickname }</td>
 							<td>${FAQ.date }</td>
 							<td>${FAQ.readcount }</td>
+							<c:if test="${not empty FAQ.real_File  }">
+							<td><i class='fas fa-link' style='font-size:20px;color:blue'></i></td>
+							</c:if>
 						</tr>
 						</c:forEach>
 	 			</c:when>

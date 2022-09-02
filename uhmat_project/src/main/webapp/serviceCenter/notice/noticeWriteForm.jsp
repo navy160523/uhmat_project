@@ -41,7 +41,7 @@
 				</tr>
 				<tr>
 					<td class="td_left"><label for="file">파일 첨부</label></td>
-					<td class="td_right"><input name="file" type="file" id="file" required="required" /></td>
+					<td class="td_right"><input name="file" type="file" id="file" /></td>
 				</tr>
 				<tr>
 					<td class="td_left"><label for="category">카테고리</label></td>
