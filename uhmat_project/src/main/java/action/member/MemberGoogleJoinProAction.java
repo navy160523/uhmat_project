@@ -10,6 +10,7 @@ import action.Action;
 import mail.GenerateUserAuthenticationCode;
 import svc.member.MemberGoogleJoinProService;
 import svc.member.MemberJoinProService;
+import util.SHA256;
 import vo.ActionForward;
 import vo.MemberDTO;
 
@@ -18,17 +19,18 @@ public class MemberGoogleJoinProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward =null;
-		 String email= request.getParameter("email");
-		 System.out.println(request.getParameter("email"));
-		 String name=request.getParameter("name");
+		 String email= request.getParameter("email1");
+		 System.out.println(request.getParameter("email1"));
+		 String name=request.getParameter("name1");
 		
-		 String api_id=request.getParameter("api_id");
+		 String api_id=request.getParameter("api_id1");
 		 GenerateUserAuthenticationCode genAuthCode = new GenerateUserAuthenticationCode(10);
-		 String newPasswd = genAuthCode.getAuthCode();
+		 String rawPasswd = genAuthCode.getAuthCode();
+		 String passwd= SHA256.encodeSha256(rawPasswd);
 		 MemberDTO member = new MemberDTO();
 		 member.setEmail(email);
 		 member.setName(name);
-		 member.setPasswd(newPasswd);
+		 member.setPasswd(passwd);
 		 member.setNickname("구글로그인"+email);
 		 member.setAuth_status("Y");
 		 member.setApi_id(api_id);

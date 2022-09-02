@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.member.MemberLoginProService;
+import util.SHA256;
 import vo.ActionForward;
 import vo.MemberDTO;
 
@@ -20,11 +21,11 @@ public class MemberLoginProAction implements Action {
 		ActionForward forward = null;
 		
 //		String email = request.getParameter("email");
-//		String passwd = request.getParameter("passwd");
-	
+		String rawPasswd = request.getParameter("passwd");
+		 String passwd= SHA256.encodeSha256(rawPasswd);
 		MemberDTO member = new MemberDTO();
 		member.setEmail(request.getParameter("email"));
-		member.setPasswd(request.getParameter("passwd"));
+		member.setPasswd(passwd);
 	
 		MemberLoginProService service = new MemberLoginProService();
 		

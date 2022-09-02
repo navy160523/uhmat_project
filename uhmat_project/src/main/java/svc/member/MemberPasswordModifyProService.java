@@ -32,4 +32,20 @@ public class MemberPasswordModifyProService {
 		return isModifyPasswordSuccess;
 	}
 
+	public boolean alterPasswdCheck(String email, String alterPasswd, String nickname) {
+		boolean isalterCheckSuccess = false;
+
+		Connection con = getConnection();
+		MemberDAO dao = MemberDAO.getInstance();
+		dao.setConnection(con);
+
+		isalterCheckSuccess = dao.alterPasswdCheck(email, alterPasswd,nickname);
+
+	
+
+		close(con);
+
+		return isalterCheckSuccess;
+	}
+
 }

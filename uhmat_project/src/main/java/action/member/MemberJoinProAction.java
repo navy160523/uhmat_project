@@ -6,8 +6,10 @@ import java.sql.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import action.Action;
 import svc.member.MemberJoinProService;
+import util.SHA256;
 import vo.ActionForward;
 import vo.MemberDTO;
 
@@ -16,9 +18,12 @@ public class MemberJoinProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward =null;
+	
 		 String email= request.getParameter("email");
 		 String name=request.getParameter("name");
-		 String passwd= request.getParameter("passwd");
+	
+		 String rawPasswd = request.getParameter("passwd");
+		 String passwd= SHA256.encodeSha256(rawPasswd);
 		 String nickName= request.getParameter("nickName");
 		 Date birthdate= Date.valueOf(request.getParameter("birth"));
 		 String postCode= request.getParameter("postCode");

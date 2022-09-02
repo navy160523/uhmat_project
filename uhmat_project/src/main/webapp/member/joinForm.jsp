@@ -49,8 +49,10 @@ text-align: center;
 
 	$(function() {
 		var emailFlag=false;
+		var emailCheckFlag=false;
 		var nicknameFlag=false;
 		var passwdFlag=false;
+		var passwdCheckFlag=false;
 		$("input[type=reset]").on("click", function() {
 			$("#checkPasswdResult").html("");
 			$("#confirmPasswdResult").html("");
@@ -136,12 +138,12 @@ text-align: center;
 			if (passwd == passwd2) {
 				$("#confirmPasswdResult").html("일치 합니다");
 				$("#confirmPasswdResult").css("color", "GREEN");
-				passwdFlag=true;
+				passwdCheckFlag=true;
 
 			} else {
 				$("#confirmPasswdResult").html("일치 하지 않습니다");
 				$("#confirmPasswdResult").css("color", "RED");
-				passwdFlag=false;
+				passwdCheckFlag=false;
 
 			}
 
@@ -154,13 +156,13 @@ text-align: center;
 			if (email == email2) {
 				$("#confirmEmailResult").html("일치 합니다");
 				$("#confirmEmailResult").css("color", "GREEN");
-				emailFlag=true;
+				emailCheckFlag=true;
 
 			} else {
 				$("#confirmEmailResult").html("일치 하지 않습니다");
 
 				$("#confirmEmailResult").css("color", "RED");
-				emailFlag=false;
+				emailCheckFlag=false;
 
 			}
 
@@ -273,11 +275,18 @@ text-align: center;
 				 $('#email').focus();
 				return false
 			}
-			if(!passwdFlag){
-				 $('#passwd').focus();
+			else if(!emailCheckFlag){
+				 $('#emailCheck').focus();
 				return false
 			}
-			if(!nicknameFlag){
+			else if(!passwdFlag){
+				 $('#passwd').focus();
+				return false
+			}else if(!passwdCheckFlag){
+				 $('#passwd2').focus();
+					return false
+				}
+			else if(!nicknameFlag){
 				 $('#nickName').focus();
 				return false
 			}else{

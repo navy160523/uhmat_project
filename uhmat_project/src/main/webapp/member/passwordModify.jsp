@@ -1,30 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-	<!-- Font Awesome icons (free version)-->
-	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
- 	<!-- Google fonts-->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Core theme CSS (includes Bootstrap)-->
-	<link href="css/styles.css" rel="stylesheet" />
-	<link href="css/button.css" rel="stylesheet" type="text/css">
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
+
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="css/styles.css" rel="stylesheet" />
+<link href="css/button.css" rel="stylesheet" type="text/css">
 <script src="./js/jquery-3.6.0.js"></script>
 <script>
 	$(function() {
-		
-		
+		var passwdFlag = false;
+		var passwdCheckFlag = false;
 
 		$("#passwd").on(
 				"keyup",
@@ -63,27 +72,58 @@
 						if (specRegex.exec(password)) { // 특수문자(!@#$%) 검사
 							count++;
 						}
+					
+						let passwd2 = $("#passwd2").val();
+						let passwdAlter=$("#alterPassword").val();
+						
+
+						// 두 패스워드 비교
+						if(password == passwdAlter){
+							$("#checkPasswdResult").html("현재 비밀번호와 같습니다.");
+							$("#checkPasswdResult").css("color", "RED");
+							passwdFlag = false;
+						}
+							if (password == passwd2) {
+								$("#confirmPasswdResult").html("일치 합니다");
+								$("#confirmPasswdResult").css("color", "GREEN");
+								passwdCheckFlag = true;
+
+							} else {
+								$("#confirmPasswdResult").html("일치 하지 않습니다");
+								$("#confirmPasswdResult").css("color", "RED");
+								passwdCheckFlag = false;
+
+							}
+						
+						
 
 						// 패턴 카운팅 결과를 사용하여 복잡도 판별 결과 출력(if 문 또는 switch-case 문 사용)
 						if (count == 4) {
 							$("#checkPasswdResult").html("사용 가능 : 안전");
 							$("#checkPasswdResult").css("color", "GREEN");
+							passwdFlag = true;
 						} else if (count == 3) {
 							$("#checkPasswdResult").html("사용 가능 : 보통");
 							$("#checkPasswdResult").css("color", "blue");
+							passwdFlag = true;
 						} else if (count == 2) {
 							$("#checkPasswdResult").html("사용 가능 : 위험");
 							$("#checkPasswdResult").css("color", "ORANGE");
+							passwdFlag = true;
 						} else {
 							$("#checkPasswdResult").html(
 									"영문자, 숫자, 특수문자 중 2가지 이상 조합 필수!");
 							$("#checkPasswdResult").css("color", "RED");
+							passwdFlag = false;
 						}
 
 					} else { // 패스워드 길이 또는 사용 가능 문자 체크 부적합 시
 						$("#checkPasswdResult").html(
 								"8~16자리 영문자, 숫자, 특수문자 조합 필수!");
 						$("#checkPasswdResult").css("color", "RED");
+						passwdFlag = false;
+						
+					
 
 					}
 				});
@@ -97,30 +137,45 @@
 			if (passwd == passwd2) {
 				$("#confirmPasswdResult").html("일치 합니다");
 				$("#confirmPasswdResult").css("color", "GREEN");
+				passwdCheckFlag = true;
 
 			} else {
 				$("#confirmPasswdResult").html("일치 하지 않습니다");
 				$("#confirmPasswdResult").css("color", "RED");
+				passwdCheckFlag = false;
 
 			}
 
 		});
+		
+		$('form').submit(function() {
 
+			if (!passwdFlag) {
+				$('#passwd').focus();
+				return false
+
+			}if(!passwdCheckFlag){
+				$('#passwd2').focus();
+				return false
+				
+			} else {
+				return true
+			}
+
+		});
 
 	});
 </script>
 <style type="text/css">
 #container {
-/* 	border: 1px solid #ccc; */
+	/* 	border: 1px solid #ccc; */
 	width: 995px;
 	margin: 0 auto;
-/* 	display: flex; */
+	/* 	display: flex; */
 	padding-top: 20px;
 	padding-bottom: 20px;
 	text-align: center;
-	
 }
-
 </style>
 </head>
 <body>
@@ -128,67 +183,73 @@
 	<jsp:include page="../inc/header.jsp" flush="false" />
 	<!-- 헤더 들어가는곳 -->
 	<div id="container">
-	<h1>비밀번호 변경</h1>
-	<form action="MemberPasswordModifyPro.me" method="post">
+		<h1>비밀번호 변경</h1>
+		<form action="MemberPasswordModifyPro.me" method="post">
 
-		<input type="hidden" id="email" name="email" value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }"> 
-		<input type="hidden" id="nickname" name="nickname" value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }"> 
-		<c:if test="${sessionScope.sNickName == null}">
-			<div>
-			<h2>※이메일로 발송해드린 비밀번호가 임시 비밀번호 입니다.</h2>
-			<h2>※회원님의 비밀번호를 변경해 주시길 바랍니다.</h2>
-			</div>
-			<div class="form-floating mb-3">
-			
-			<input class="form-control" type="password" name="alterPassword" id="alterPassword" placeholder="비밀번호">
-			<label>임시 비밀번호</label>
-			</div>
-		</c:if>
-		<c:if test="${sessionScope.sNickName != null}">
-			<div class="form-floating mb-3">
-		
-			<input class="form-control" type="password" name="alterPassword" id="alterPassword" placeholder="비밀번호">
-			<label>현재 비밀번호</label>
-			</div>
-		</c:if>
-		
-		
-		<div class="form-floating mb-3">
-			<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
-			<input class="form-control" type="password" name="passwd" id="passwd" maxlength="16" placeholder="비밀번호"
-				 required="required">
-				<label>비밀번호</label>
-				 <span id="checkPasswdResult"></span>
-		</div>
-		<br>
+			<input type="hidden" id="email" name="email"
+				value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }">
+			<input type="hidden" id="nickname" name="nickname"
+				value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }">
+			<c:if test="${sessionScope.sNickName == null}">
+				<div>
+					<h2>※이메일로 발송해드린 비밀번호가 임시 비밀번호 입니다.</h2>
+					<h2>※회원님의 비밀번호를 변경해 주시길 바랍니다.</h2>
+				</div>
+				<div class="form-floating mb-3">
 
-		
-		<div class="form-floating mb-3">
-			<input class="form-control" type="password" name="passwd2" id="passwd2" maxlength="16" placeholder="비밀번호"
-				required="required"> 
-				<label>비밀번호확인</label>
-				<span id="confirmPasswdResult"></span>
-		</div>
-		<br>
-		<input class="w-btn-outline w-btn-green-outline"   type="submit" value="변경하기">
-	</form>
-	<br> <a href="MemberFindPasswordForm.me">비밀번호 찾기</a>
-	
-		</div>
-		<!-- 푸터 들어가는곳 -->
+					<input class="form-control" type="password" name="alterPassword"
+						id="alterPassword" placeholder="비밀번호"> <label>임시
+						비밀번호</label>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.sNickName != null}">
+				<div class="form-floating mb-3">
+
+					<input class="form-control" type="password" name="alterPassword"
+						id="alterPassword" placeholder="비밀번호"> <label>현재
+						비밀번호</label>
+				</div>
+			</c:if>
+
+
+			<div class="form-floating mb-3">
+				<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
+				<input class="form-control" type="password" name="passwd"
+					id="passwd" maxlength="16" placeholder="비밀번호" required="required">
+				<label>비밀번호</label> <span id="checkPasswdResult"></span>
+			</div>
+			<br>
+
+
+			<div class="form-floating mb-3">
+				<input class="form-control" type="password" name="passwd2"
+					id="passwd2" maxlength="16" placeholder="비밀번호" required="required">
+				<label>비밀번호확인</label> <span id="confirmPasswdResult"></span>
+			</div>
+			<br> <input class="w-btn-outline w-btn-green-outline"
+				type="submit" value="변경하기">
+		</form>
+		<br> <a href="MemberFindPasswordForm.me">비밀번호 찾기</a>
+
+	</div>
+	<!-- 푸터 들어가는곳 -->
 	<jsp:include page="../inc/footer.jsp" flush="false" />
 	<!-- 푸터 들어가는곳 -->
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 
 	<!-- Bootstrap core JS-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 	<!-- Core theme JS-->
 	<script src="js/scripts.js"></script>
-	
-	
+
+
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>

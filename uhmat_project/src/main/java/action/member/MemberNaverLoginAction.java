@@ -16,8 +16,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import action.Action;
+import mail.GenerateUserAuthenticationCode;
 import svc.member.MemberKakaoJoinProService;
 import svc.member.MemberNaverLoginService;
+import util.SHA256;
 import vo.ActionForward;
 import vo.MemberDTO;
 
@@ -135,10 +137,13 @@ public class MemberNaverLoginAction implements Action {
 	    } catch (Exception e) {
 	      System.out.println(e);
 	    }
+	    GenerateUserAuthenticationCode genAuthCode = new GenerateUserAuthenticationCode(10);
+		 String rawPasswd = genAuthCode.getAuthCode();
+		 String passwd= SHA256.encodeSha256(rawPasswd);
 	    Date birthdate= Date.valueOf(birthyear+"-"+birthday);
 		 member.setEmail(email);
 		 member.setName(name);
-		 member.setPasswd("NULL");
+		 member.setPasswd(passwd);
 		 member.setNickname("네이버로그인"+nickName);
 		 member.setBirthdate(birthdate);
 		 member.setAuth_status("Y");

@@ -148,7 +148,7 @@ public class MemberFrontController extends HttpServlet {
 		// 간편로그인 중 구글 폼
 		else if (command.equals("/MemberGoogleForm.me")) {
 			forward = new ActionForward();
-			forward.setPath("/member/google.jsp");
+			forward.setPath("/member/login.jsp");
 			forward.setRedirect(false);
 		}
 		// 간편로그인 중 구글 처리

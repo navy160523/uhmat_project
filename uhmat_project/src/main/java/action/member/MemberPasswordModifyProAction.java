@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import mail.GenerateUserAuthenticationCode;
 import svc.member.MemberPasswordModifyProService;
+import util.SHA256;
 import vo.ActionForward;
 
 public class MemberPasswordModifyProAction implements Action {
@@ -16,9 +18,17 @@ public class MemberPasswordModifyProAction implements Action {
 		ActionForward forward = null;
 		String email = request.getParameter("email");
 		String nickname=request.getParameter("nickname");
-		String passwd= request.getParameter("passwd");
-
+		String rawpasswd= request.getParameter("passwd");
+		String rawalterPasswd =request.getParameter("alterPassword");
 		MemberPasswordModifyProService service = new MemberPasswordModifyProService();
+		String alterPasswd= SHA256.encodeSha256(rawalterPasswd);
+		boolean alterPasswdCheck = service.alterPasswdCheck(email, alterPasswd,nickname);
+		
+		
+		
+		if(alterPasswdCheck) {
+		String passwd= SHA256.encodeSha256(rawpasswd);
+		
 		boolean isModifyPasswordSuccess = service.modifyPassword(email, passwd,nickname);
 		
 		if(!isModifyPasswordSuccess) {
@@ -38,6 +48,14 @@ public class MemberPasswordModifyProAction implements Action {
 			forward = new ActionForward();
 			forward.setPath("MemberLogin.me");
 			forward.setRedirect(true);
+		}
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('(임시 또는 현재) 비밀번호가 다릅니다.')");
+			out.println("history.back()");
+			out.println("</script>");
 		}
 	
 

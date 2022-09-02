@@ -692,5 +692,34 @@ public class MemberDAO {
 		return BoardList;
 	}
 
+	public boolean alterPasswdCheck(String email, String alterPasswd, String nickname) {
+		boolean isPasswdCheck = false;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+
+		try {
+			String sql = "SELECT * from member where passwd=? and (email=? or nickname=?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, alterPasswd);
+			pstmt.setString(2, email);
+			pstmt.setString(3, nickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isPasswdCheck=true;
+				
+			}
+			System.out.println("체크 성공!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+
+		}
+
+		return isPasswdCheck;
+	}
+
 
 }

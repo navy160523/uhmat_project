@@ -20,6 +20,7 @@ import mail.GenerateUserAuthenticationCode;
 import mail.GmailSMTPAuthenticator;
 import svc.member.MemberSendAuthMailService;
 import svc.member.MemberSendPasswordMailService;
+import util.SHA256;
 import vo.ActionForward;
 
 public class MemberSendPasswordMailAction implements Action {
@@ -103,8 +104,11 @@ public class MemberSendPasswordMailAction implements Action {
 //			System.out.println("메일이 정상적으로 전송되었습니다.");
 			
 			// 발송 성공 시 DB auth_code 테이블에 아이디, 인증코드 추가
+			 GenerateUserAuthenticationCode genAuthPassCode = new GenerateUserAuthenticationCode(10);
+			 String rawPasswd = genAuthPassCode.getAuthCode();
+			 String passwd= SHA256.encodeSha256(newPasswd);
 			MemberSendPasswordMailService service = new MemberSendPasswordMailService();
-			boolean isNewPasswordSuccess = service.newPassword(email, newPasswd,""); 
+			boolean isNewPasswordSuccess = service.newPassword(email, passwd,""); 
 			
 			if(!isNewPasswordSuccess) {
 				response.setContentType("text/html; charset=UTF-8");
