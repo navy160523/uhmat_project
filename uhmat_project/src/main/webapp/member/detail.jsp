@@ -10,6 +10,7 @@
 <script src="./js/jquery-3.6.0.js"></script>
 
 <script>
+	var nicknameFlag=false;
 	$(function() {
 		$.ajax({
 			url : "http://localhost:8080/uhmat_project/MemberBoardList.me",  // ./ 현재경로표시
@@ -81,6 +82,7 @@
 
 								$("#checkNickNameResult").html("한글, 영어로  4~16자리 필수! (주의 : 맨앞 특수문자,숫자 불가)");
 								$("#checkNickNameResult").css("color", "RED");
+								nicknameFlag=false
 
 							} else {
 								$
@@ -95,9 +97,11 @@
 												if (data === 'usable') {
 													$('#checkNickNameResult').text('사용할 수 있는 닉네임입니다.');
 													$("#checkNickNameResult").css("color","GREEN");
+													nicknameFlag=true
 												} else {
 													$('#checkNickNameResult').text('이미 사용 중인 닉네임입니다.');
 													$("#checkNickNameResult").css("color", "RED");
+													nicknameFlag=false
 												}
 											},
 											error : function(data, textStatus) {
@@ -149,6 +153,17 @@
 
 						});
 		
+		$('form').submit(function(){
+
+	
+			if(!nicknameFlag){
+				 $('#nickName').focus();
+				return false
+			}else{
+				return true
+			}
+
+			})
 		
 
 			
@@ -344,6 +359,7 @@ font-family: 'Poor Story', cursive;;
 
 	
 <input type="hidden" id="icon" name="icon" value="${member.icon}">
+<input type="hidden" id="nickName" name="nickName" value="${member.nickname }">
 
 <label>이름</label>
 <input class="form-control" type="text" id="name" name="name" value="${member.name }" required="required">
@@ -353,7 +369,7 @@ font-family: 'Poor Story', cursive;;
 <br>
 <div>
 <label>닉네임</label>
-<input class="form-control" type="text" id="nickName" name="nickName" value="${member.nickname }">
+<input class="form-control" type="text" id="newNickName" name="newNickName" value="${member.nickname }">
 <span id="checkNickNameResult"></span>
 </div>
 <br>
@@ -410,12 +426,16 @@ font-family: 'Poor Story', cursive;;
 </div>
 <hr>
 <section>
-		<select id="selectBox" id="selectBox" name="title"  >
+		<div>
+		보고싶은 리스트
+			<select id="selectBox" id="selectBox" name="title"  >
 					<option value="Mate" selected="selected">Mate</option>
 					<option value="Tmi">Tmi</option>
 					<option value="Recipe">Recipe</option>
 					<option value="FAQ" >FAQ</option>
 				</select>
+		</div>
+	
 				
 		<div id="boadlist"></div>
 
