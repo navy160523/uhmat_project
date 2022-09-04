@@ -49,7 +49,6 @@ text-align: center;
 
 	$(function() {
 		var emailFlag=false;
-		var emailCheckFlag=false;
 		var nicknameFlag=false;
 		var passwdFlag=false;
 		var passwdCheckFlag=false;
@@ -59,7 +58,6 @@ text-align: center;
 			$("#confirmEmailResult").html("");
 			$("#checkNickNameResult").html("");
 			$("#confirmEmailResult").html("");
-			$("#EmailResult").html("");
 		});
 
 		$("#passwd").on(
@@ -99,7 +97,19 @@ text-align: center;
 						if (specRegex.exec(password)) { // 특수문자(!@#$%) 검사
 							count++;
 						}
-
+						let passwd2 = $("#passwd2").val();
+					
+						
+					
+							if (password == passwd2) {
+								$("#confirmPasswdResult").html("일치 합니다");
+								$("#confirmPasswdResult").css("color", "GREEN");
+								passwdCheckFlag = true;
+							} else {
+								$("#confirmPasswdResult").html("일치 하지 않습니다");
+								$("#confirmPasswdResult").css("color", "RED");
+								passwdCheckFlag = false;
+							}
 						// 패턴 카운팅 결과를 사용하여 복잡도 판별 결과 출력(if 문 또는 switch-case 문 사용)
 						if (count == 4) {
 							$("#checkPasswdResult").html("사용 가능 : 안전");
@@ -156,13 +166,13 @@ text-align: center;
 			if (email == email2) {
 				$("#confirmEmailResult").html("일치 합니다");
 				$("#confirmEmailResult").css("color", "GREEN");
-				emailCheckFlag=true;
+				emailFlag=true;
 
 			} else {
 				$("#confirmEmailResult").html("일치 하지 않습니다");
 
 				$("#confirmEmailResult").css("color", "RED");
-				emailCheckFlag=false;
+				emailFlag=false;
 
 			}
 
@@ -274,18 +284,15 @@ text-align: center;
 			if(!emailFlag){
 				 $('#email').focus();
 				return false
-			}
-			else if(!emailCheckFlag){
-				 $('#emailCheck').focus();
+			}else if(!passwdCheckFlag){
+				$('#passwd2').focus();
 				return false
+				
 			}
 			else if(!passwdFlag){
 				 $('#passwd').focus();
 				return false
-			}else if(!passwdCheckFlag){
-				 $('#passwd2').focus();
-					return false
-				}
+			}
 			else if(!nicknameFlag){
 				 $('#nickName').focus();
 				return false
@@ -347,12 +354,12 @@ text-align: center;
 
 	
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="name" id="name"  required="required"  placeholder="이름">
+             <input class="form-control" type="text" name="name" id="name"  required="required"  >
               <label for="name">이름</label> 
         </div>
         <br>
  		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="nickName" id="nickName"  maxlength="10" required="required"  placeholder="닉네임">
+             <input class="form-control" type="text" name="nickName" id="nickName"  maxlength="10" required="required" >
               <label for="nickname">닉네임</label> 
               <div id="checkNickNameResult"></div>
         </div>
@@ -363,27 +370,27 @@ text-align: center;
 	
 			<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
 		<div class="form-floating mb-3">
-             <input class="form-control" type="password" name="passwd" id="passwd"  maxlength="16" required="required"  placeholder="패스워드" >
+             <input class="form-control" type="password" name="passwd" id="passwd"  maxlength="16" required="required"  >
               <label for="passwd">비밀번호</label> 
              	<span id="checkPasswdResult"></span>
         </div>
         <br>
         <div class="form-floating mb-3">
-             <input class="form-control" type="password" name="passwd2" id="passwd2"  maxlength="16" required="required"   placeholder="패스워드">
+             <input class="form-control" type="password" name="passwd2" id="passwd2"  maxlength="16" required="required"  >
               <label for="passwd2">비밀번호 확인</label> 
               <span id="confirmPasswdResult"></span>
         </div>
 	
 		<br>
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="email" id="email"  required="required"   placeholder="이메일">
+             <input class="form-control" type="text" name="email" id="email"  required="required"  >
               <label for="email">E-Mail</label> 
               <span id="EmailResult"></span>
         </div>
 	
 		<br>
 			<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="emailCheck" id="emailCheck"  required="required"  placeholder="이메일" >
+             <input class="form-control" type="text" name="emailCheck" id="emailCheck"  required="required"  >
               <label for="emailCheck">E-Mail 확인</label> 
              <span id="confirmEmailResult"></span>
         </div>
@@ -391,29 +398,29 @@ text-align: center;
 	
 		<br>
 			<div class="form-floating mb-3">
-             <input class="form-control" type="date" name="birth" id="birth"  required="required"   placeholder="생일">
+             <input class="form-control" type="date" name="birth" id="birth"  required="required"  >
               <label for="birth">생년월일</label> 
              <span id="confirmEmailResult"></span>
         </div>
 	
 		<br>
 	<div>
-		<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기" placeholder="우편">
+		<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 		</div>
 		<br>
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()"  placeholder="우편">
+             <input class="form-control" type="text" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
               <label for="postCode">우편번호</label> 
         </div>
 	
 			
 			
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" placeholder="우편" >
+             <input class="form-control" type="text" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
               <label for="address1">도로명주소</label> 
         </div>
         	<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="address2" id="sample4_roadAddress"   placeholder="우편">
+             <input class="form-control" type="text" name="address2" id="sample4_roadAddress"  >
               <label for="address2">상세주소</label> 
         </div>
 			

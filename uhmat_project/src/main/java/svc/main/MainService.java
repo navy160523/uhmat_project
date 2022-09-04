@@ -1,11 +1,11 @@
 package svc.main;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.util.ArrayList;
 
-import dao.*;
-import db.*;
-import vo.*;
+import dao.ReviewCategoryDAO;
+import db.JdbcUtil;
+import vo.ReviewBoardDTO;
 
 public class MainService {
 

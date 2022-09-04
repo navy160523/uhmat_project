@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<jsp:include page="../../inc/header.jsp"></jsp:include>
     <h2>${resInfo.resName } <small style="font-size: 0.5em">별점 ${resInfo.rating } &nbsp; | &nbsp; <a href="ReviewList.re?resName=${resInfo.resName }">${resInfo.reviewCount }개의 리뷰</a></small></h2>
 	<img src="upload/${resInfo.photo }" width="200">
 	<!-- 식당 정보 출력 -->
@@ -50,10 +51,12 @@
        			<th>식당 상세정보: </th>
        			<td>${resInfo.resInfo } </td>
             </tr>
-            <tr>
-       			<th><a href="${resInfo.resLink }">식당링크 </a></th>
-       			<td> </td>
-            </tr>
+            <c:if test="${not empty resInfo.resLink }">
+	            <tr>
+	       			<th><a href="${resInfo.resLink }">식당링크 </a></th>
+	       			<td> </td>
+	            </tr>
+            </c:if>
             <tr>
                 <td colspan="4"></td>
             </tr>
@@ -92,5 +95,7 @@
         <%if(request.getParameter("category")!=null) {%>
         	<button onclick="location.href='restaurantList.re?category=${param.category }'">${param.category } 목록</button>
         <%} %>
+        
+        <jsp:include page="../../inc/footer.jsp"></jsp:include>
 </body>
 </html>

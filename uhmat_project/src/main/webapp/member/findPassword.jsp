@@ -42,7 +42,7 @@
 <form action="MemberFindPasswordPro.me" method="get">
 <h3>찾으실 이메일을 적어주세요</h3><br>
 <div class="form-floating mb-3">
-<input class="form-control" type="text" id="email" name="email" placeholder="이메일">
+<input class="form-control" type="text" id="email" name="email">
 <label>Email</label>
 </div>
 

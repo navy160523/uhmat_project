@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.CommunityDAO;
-import svc.TmiListService;
+import svc.community.TmiListService;
 import vo.CommunityTmiDTO;
 
 public class MemberTmiListService extends TmiListService {

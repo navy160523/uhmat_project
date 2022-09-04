@@ -64,7 +64,7 @@
 
 <body>
 	<div class='K2-grid coll-3 icon-p-2'>
-<h2> 음식 종류별 식당 </h2>
+<h2> 카테고리별로 식당보기 </h2>
         
 	<ul>
 		<li>

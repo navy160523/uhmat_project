@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import dao.FAQDAO;
 import db.JdbcUtil;
-import svc.FAQListService;
+import svc.serviceCenter.FAQListService;
 import vo.FAQDTO;
 
 public class MemberFAQListService extends FAQListService {

@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <style type="text/css">
@@ -29,33 +29,40 @@
 	}
 	
 	.btn input {
-		border: 2px solid #16213E;
+		border: 2px solid #FF1818;
 		background-color: white;
-		color: #16213E;
+		color: #FF1818;
 		padding: 5px;
 		border-radius: 5px
 	}
 	
 	.btn input:hover {
-		background-color: #16213E;
+		background-color: #FF1818;
 		color: white;
 	}
 	
 	.reply {
-		border-bottom: 2px solid #ccc;
+		border-bottom: 2px solid #FF1818;
 	}
 	
 	.section input {
-		border: 2px solid #7FB77E;
+		border: 2px solid #FF1818;
 		background-color: white;
-		color: #7FB77E;
+		color: #FF1818;
 		padding: 5px;
 		border-radius: 5px
 	}
 	
 	.section input:hover {
-		background-color: #7FB77E;
+		background-color: #FF1818;
 		color: white;
+	}
+	.nickname_time_readcount>i{
+ 		position: static;
+	}
+	
+	.material-icons {
+		position: static;
 	}
 
 	
@@ -74,7 +81,8 @@
 				<td class="subject">${tmiBoard.subject }</td> 
 			</tr>
 			<tr>
-				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${tmiBoard.nickname } | <i class="fa fa-clock-o"></i> ${tmiBoard.date } | <i class='far fa-eye'></i> ${tmiBoard.readcount }</td> 
+				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${tmiBoard.nickname } | <i class="fa fa-clock-o"></i> ${tmiBoard.date } | <i class='far fa-eye'></i> ${tmiBoard.readcount }
+				</td> 
 			</tr>
 			<tr>
 				<td>${tmiBoard.content }</td>
@@ -98,7 +106,7 @@
 			<tr>
 				<td>
 					<c:forEach begin="1" end="${tmiReply.re_lev }">
-						<i class="material-icons" style="font-size:20px;color:#7FB77E">subdirectory_arrow_right</i>
+						<i class="material-icons" style="font-size:20px;color:#F0A500">subdirectory_arrow_right</i>
 					</c:forEach>
 					${tmiReply.nickname } | ${tmiReply.date }
 				</td>

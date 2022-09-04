@@ -102,14 +102,16 @@ public class FAQDAO {
 		
 		try {
 
-			String sql = "UPDATE FAQBoard SET nickname=?, subject=?, content=?, category=? WHERE idx=?";
+			String sql = "UPDATE FAQBoard SET nickname=?, subject=?, content=?, category=?, original_File=?, real_File=? WHERE idx=?";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, faq.getNickname());
 			pstmt.setString(2, faq.getSubject());
 			pstmt.setString(3, faq.getContent());
 			pstmt.setString(4, faq.getCategory());
-			pstmt.setInt(5, faq.getIdx());
+			pstmt.setString(5, faq.getOriginal_File());
+			pstmt.setString(6, faq.getReal_File());
+			pstmt.setInt(7, faq.getIdx());
 			updateCount = pstmt.executeUpdate();
 			System.out.println(updateCount);
 			
@@ -313,16 +315,15 @@ public class FAQDAO {
 		return list;
 	}
 	
-	public ArrayList<FAQDTO> selectMainAnythingList(String search) {
+	public ArrayList<FAQDTO> selectSVFAQList() {
 		ArrayList<FAQDTO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		
 		try {
-			String sql = "SELECT * FROM FAQBoard WHERE subject LIKE ?";
+			String sql = "SELECT * FROM FAQBoard ORDER BY idx DESC LIMIT 5";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, '%'+search+'%');
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<FAQDTO>();

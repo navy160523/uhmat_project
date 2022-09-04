@@ -101,12 +101,15 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE NoticeBoard SET nickname=?, subject=?, content=? WHERE idx=?";
+			String sql = "UPDATE NoticeBoard SET nickname=?, subject=?, content=?, category=?, original_File=?, real_File=? WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, notice.getNickname());
 			pstmt.setString(2, notice.getSubject());
 			pstmt.setString(3, notice.getContent());
-			pstmt.setInt(4, notice.getIdx());
+			pstmt.setString(4, notice.getCategory());
+			pstmt.setString(5, notice.getOriginal_File());
+			pstmt.setString(6, notice.getReal_File());
+			pstmt.setInt(7, notice.getIdx());
 			
 			updateCount = pstmt.executeUpdate();
 //			System.out.println(updateCount);
@@ -287,16 +290,15 @@ public class NoticeDAO {
 		return list;
 	}
 	
-	public ArrayList<NoticeDTO> selectMainAnythingList(String search) {
+	public ArrayList<NoticeDTO> selectSVNoticeList() {
 		ArrayList<NoticeDTO> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		
 		try {
-			String sql = "SELECT * FROM NoticeBoard WHERE subject LIKE ? ";
+			String sql = "SELECT * FROM NoticeBoard ORDER BY idx LIMIT 5";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, '%'+search+'%');
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<NoticeDTO>();
@@ -315,7 +317,6 @@ public class NoticeDAO {
 				list.add(notice);
 				
 			}
-//			System.out.println("list : " + list);
 			
 		} catch (SQLException e) {
 			System.out.println("SQL 구문 오류 발생! -  " + e.getMessage());

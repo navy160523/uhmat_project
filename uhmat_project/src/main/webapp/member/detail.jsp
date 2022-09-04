@@ -217,7 +217,7 @@ text-align: center;
 	<!-- 헤더 들어가는곳 -->
 <div id="container">
 <h1>내정보</h1>
-<form action="MemberDetailModifyPro.me" method="post" >
+<form action="MemberDetailModifyPro.me" method="post">
 <label>이름</label><br>
 <input type="text" id="name" name="name" value="${member.name }" required="required"><br>
 <label>닉네임</label><br>
