@@ -49,7 +49,7 @@
 						<td class="link" width="350" height="50"><a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">${recipe.subject }</a></td>
 						<td>${recipe.nickname }</td>
 						<td>${recipe.readcount }</td>  
-						<td>${recipe.datetime }</td>
+						<td>${recipe.date }</td>
 					</tr>
 					
 				</c:forEach>
@@ -61,7 +61,7 @@
 						<td class="link" width="350" height="50"><a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">${recipe.subject }</a></td>
 						<td>${recipe.nickname }</td>
 						<td>${recipe.readcount }</td>  
-						<td>${recipe.datetime }</td>
+						<td>${recipe.date }</td>
 					</tr>
 				</c:forEach>
 	 		</c:when>

@@ -345,7 +345,9 @@ text-align: center;
 </script>
 </head>
 <body>
+
 <jsp:include page="../inc/header.jsp" flush="false" />
+
 <div class="joinFrom" id="container">
 	<h1>회원가입</h1>
 	<br>

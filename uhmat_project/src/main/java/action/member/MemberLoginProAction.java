@@ -50,9 +50,10 @@ public class MemberLoginProAction implements Action {
 					out.println("history.back()");
 					out.println("</script>");
 				} else {
-					member = service.getMember(request.getParameter("email"));
+				member = service.getMember(request.getParameter("email"));
 				HttpSession session = request.getSession();
 				session.setAttribute("sNickName", member.getNickname());
+				session.setAttribute("sIcon", member.getIcon());
 				System.out.println(member.getNickname());
 				forward = new ActionForward();
 				forward.setPath("main.jsp");

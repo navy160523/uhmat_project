@@ -24,6 +24,7 @@ public class MemberDetailModifyProAction implements Action {
 		 String postCode= request.getParameter("postCode");
 		 String address1=request.getParameter("address1");
 		 String address2=request.getParameter("address2");
+		 String icon=request.getParameter("icon");
 		 HttpSession session =request.getSession();
 		 if(session.getAttribute("sNickName").equals(nickName) ) {
 		 MemberDTO member = new MemberDTO();
@@ -34,6 +35,7 @@ public class MemberDetailModifyProAction implements Action {
 		 member.setPostCode(postCode);
 		 member.setAddress1(address1); 
 		 member.setAddress2(address2);
+		 member.setIcon(icon);
 		 MemberDetailModifyProService service = new MemberDetailModifyProService();
 		 boolean isMotifyMemberSuccess = service.motifyMember(member);
 		 if(!isMotifyMemberSuccess) {
