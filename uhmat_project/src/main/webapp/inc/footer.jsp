@@ -57,7 +57,7 @@
 		</div>
 		
 		<div class="languageTranslate">
-			한국어 | 日本語 | English
+<!-- 			한국어 | 日本語 | English -->
 		</div>
 		
 	</footer>

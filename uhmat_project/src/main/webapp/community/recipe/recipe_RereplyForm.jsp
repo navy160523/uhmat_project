@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,7 @@
 	<link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
+	
 	<!-- 헤더 들어가는 곳 -->
 	<jsp:include page="../../inc/header.jsp"/>
 	<!-- 헤더 들어가는 곳 -->
@@ -46,6 +48,12 @@
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
 		
+		<c:if test="${sessionScope.sNickName eq null }">
+				<script type="text/javascript">
+					alert("로그인을 하시오.");
+					history.back();
+				</script>
+			</c:if>
 		<form action="RecipeRereplyWrite.co" name="RereplyForm" method="post">
 		<input type="hidden" name="idx" value="${param.reply_idx }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">

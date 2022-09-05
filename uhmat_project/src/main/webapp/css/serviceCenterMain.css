@@ -131,21 +131,29 @@ article#front{
 
 
 /* 사이드바 */
-.noto400 {
-    font-family: 'Noto Sans KR' !important;
-    font-weight: 400 !important;
-}
+
 .font_15 {
     font-size: 15px;
 }
-sub_left_menu a {
-    display: block;
-    line-height: 30px;
-    color: #535353;
-    letter-spacing: -0.5px;
+
+.sidebar{
+	float:left;
+	left : 9%;
+	position: fixed;
+	font-family: 'Poor Story', cursive;
 }
 
-#sidebar{
-	float:left;
-	border: 1px solid red;
+.sidebar ul li a{
+    display: block;
+    padding: 13px 30px;
+    border-bottom: 1px solid #10558d;
+    color: #6C757D;
+    font-size: 16px;
+    position: relative;
+}
+
+.sidebar ul li a .icon{
+    color: #6C757D;
+    width: 30px;
+    display: inline-block;
 }

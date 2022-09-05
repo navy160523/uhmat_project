@@ -105,5 +105,24 @@ public class ReviewListService {
 		close(con);
 		return reviewList;
 	}
+
+	public ArrayList<ReviewBoardDTO> getRecentBoardList(int pageNum, int listLimit, String targetTag) {
+		// 리턴할 데이터를 저장할 변수 선언
+				ArrayList<ReviewBoardDTO> reviewList = null;
+				
+				// Connectino 객체 가져오기
+				Connection con = getConnection();
+				
+				// ReviewCategoryDAO 객체 가져오기
+				ReviewCategoryDAO dao = ReviewCategoryDAO.getInstance();
+				// dao에 Connection 객체 전달하기
+				dao.setConnection(con);		
+				
+				//식당으로 검색된 리뷰
+				reviewList = dao.selectRecentReview(pageNum, listLimit,targetTag);
+				
+				close(con);
+				return reviewList;
+	}
 	
 }

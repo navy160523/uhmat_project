@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
 <script src="https://kit.fontawesome.com/5382a0d7e0.js" crossorigin="anonymous"></script>
-
+<script src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 	function confirmLogout() {
 		if(confirm("로그아웃 하시겠습니까?")) { // 확인 : true, 취소 : false 리턴됨

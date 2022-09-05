@@ -73,12 +73,12 @@
 
 		});
 
-		$("#nickName").on("keyup",function() {
+		$("#newNickName").on("keyup",function() {
 
 							var regex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#$%()]{4,10}$/;
 
-							if (!regex.exec($("#nickName").val())
-									|| $("#nickName").val() == null) { // 부적합한 아이디일 경우
+							if (!regex.exec($("#newNickName").val())
+									|| $("#newNickName").val() == null) { // 부적합한 아이디일 경우
 
 								$("#checkNickNameResult").html("한글, 영어로  4~16자리 필수! (주의 : 맨앞 특수문자,숫자 불가)");
 								$("#checkNickNameResult").css("color", "RED");
@@ -90,18 +90,24 @@
 											type : "post",
 											url : "http://localhost:8080/uhmat_project/CheckDuplicateNickName.me",
 											data : {
-												nickName : $("#nickName").val(),
+												nickName : $("#newNickName").val(),
 											},
 											dataType : "text",
 											success : function(data) {
-												if (data === 'usable') {
+												if (data == 'usable') {
 													$('#checkNickNameResult').text('사용할 수 있는 닉네임입니다.');
 													$("#checkNickNameResult").css("color","GREEN");
 													nicknameFlag=true
-												} else {
+												} else if(data == 'not-usable') {
+													if($("#newNickName").val() == $("#nickName").val() ){
+														$('#checkNickNameResult').text('사용할 수 있는 닉네임입니다.');
+														$("#checkNickNameResult").css("color","GREEN");
+														nicknameFlag=true
+													}else{
 													$('#checkNickNameResult').text('이미 사용 중인 닉네임입니다.');
 													$("#checkNickNameResult").css("color", "RED");
 													nicknameFlag=false
+													}
 												}
 											},
 											error : function(data, textStatus) {
@@ -154,10 +160,14 @@
 						});
 		
 		$('form').submit(function(){
-
+			if($("#newNickName").val() == $("#nickName").val() ){
+				$('#checkNickNameResult').text('사용할 수 있는 닉네임입니다.');
+				$("#checkNickNameResult").css("color","GREEN");
+				nicknameFlag=true
+			}
 	
 			if(!nicknameFlag){
-				 $('#nickName').focus();
+				 $('#newNickName').focus();
 				return false
 			}else{
 				return true
@@ -179,16 +189,7 @@ $(function(){
 	  var i = 0;
 	  var selectjpg="";
 	  
-	  $("#modal-make").click(function(){
-		   $("#imgSlide").attr("src", imgList[i]);
-		    $(".modal").fadeIn();
-		  });
-		  
-		  $("#imgSlide").click(function(){
-			  $("#myjpg").attr("src", imgList[i]);
-		    $(".modal").fadeOut();
-		  
-		  });
+	 
 
 	  	$("#prev").click(function(){
 	  	   i--;
@@ -217,6 +218,18 @@ $(function(){
 		      }
 		
 	});
+	 $("#modal-make").click(function(){
+		   $("#imgSlide").attr("src", imgList[i]);
+		    $(".modal").fadeIn();
+		  });
+		  
+		  $("#imgSlide").click(function(){
+			  $("#myjpg").attr("src", imgList[i]);
+			  selectjpg=(i+1)+"-1.jpg";
+	          $("#icon").val(selectjpg);
+		    $(".modal").fadeOut();
+		  
+		  });
 	   
 	  
 });
@@ -410,8 +423,10 @@ font-family: 'Poor Story', cursive;;
 </div>
 <div class="right">
 <div align="center">
+		
 		<img id="myjpg"alt="어맛캐릭터" src="image/character/${member.icon}" width="125px" height="125px"><br>
 		<button id="modal-make" >캐릭터 변경</button>
+	
 		<div class="modal">
 		  <div class="modal_content" 
 		       title="클릭하면 창이 닫힙니다.">

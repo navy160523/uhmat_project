@@ -28,6 +28,7 @@
 		<button onclick="location.href='RecipeList.co'">recipe</button>
 		<br>
 	</div>
+	
 	<!-- ---------------------------------------------------------------------------- -->
 	<main>
 	<div class="main" align="center">
@@ -38,7 +39,7 @@
 						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
 						<c:choose>
 							<c:when test="${not empty recipe.real_File1 }">
-								<img class="recipeImg"  width="100" src="./upload/recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
+								<img class="recipeImg"  width="100" src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
 							</c:when>
 							<c:otherwise>
 								<img class="recipeImg" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
@@ -52,9 +53,9 @@
 							</a>
 						</div>
 						
-						<span>${recipe.nickname }</span><br>
-						<span>${recipe.readcount }</span><br>  
-						<span>${recipe.datetime }</span>
+						<span>${recipe.nickname }</span> <br>
+						<span>${recipe.readcount }</span> <br>  
+						<span>${recipe.date }</span>
 						
 					</div>
 				</c:forEach>
@@ -66,7 +67,7 @@
 						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
 						<c:choose>
 							<c:when test="${not empty recipe.real_File1 }">
-								<img class="recipeImg" src="./upload/recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
+								<img class="recipeImg" src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
 							</c:when>
 						<c:otherwise>
 							<img class="recipeImg" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
@@ -75,14 +76,14 @@
 					</a>
 					
 					<div>
-						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
+						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}'">
 						<b>${recipe.subject }</b>
 						</a>
 					</div>
 					
 						<span>${recipe.nickname }</span> <br>
 						<span>${recipe.readcount }</span> <br>  
-						<span>${recipe.datetime }</span>
+						<span>${recipe.date }</span>
 					</div>
 				</c:forEach>
 	 		</c:when>
@@ -95,7 +96,6 @@
 	
 	</main>	
 	
-	
 	<!-- ---------------------------------------------------------------------------- -->
 	
 	<!-- 
@@ -105,13 +105,13 @@
 	-->
 	<div align="center" style="clear: both;">
 	
-	<i class='fas fa-plus-circle' style='position: relative; font-size:48px; color:#AAAAAA' onclick="location.href='RecipeWriteForm.co'"/></i>
+	<i class='fas fa-plus-circle' style='position: relative; font-size:48px;color:#6C757D;' onclick="location.href='RecipeWriteForm.co'"/></i>
 	
 	<!-- 	레시피 검색 -->
 	<div align="center">
 		<form action="RecipeSearch.co" method="get" class="search">
 			<input type="text" placeholder="search" name="keyword" value=${param.keyword }>
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" class="searchBtn">
     	</form>
 	</div>
 	
@@ -120,64 +120,65 @@
 	<section class="pageList">
 	
 		<c:choose>
-         <c:when test="${pageInfo.pageNum > 1}">
-            <input type="button" class="before_next" value="이전" onclick="location.href='RecipeList.co?pageNum=${pageInfo.pageNum - 1}'">
-         </c:when>
-         <c:when test="${recipeSearchPageInfo.pageNum > 1}">
-               <input type="button" class="before_next" value="이전" onclick="location.href='RecipeSearch.co?pageNum=${recipeSearchPageInfo.pageNum - 1}&keyword=${param.keyword }'">
-            </c:when>
-         <c:otherwise>
-            <input type="button" class="before_next" value="이전">
-         </c:otherwise>
-      </c:choose>
-      
-      <!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
-   <c:choose>
-      <c:when test="${empty recipeSearchPageInfo }">
-         <c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
-            <!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
-            <c:choose>
-               <c:when test="${pageInfo.pageNum eq i}">
-                  ${i }
-               </c:when>
-               <c:otherwise>
-                  <a href="RecipeList.co?pageNum=${i }">${i }</a>
-               </c:otherwise>
-            </c:choose>
-         </c:forEach>
-      </c:when>
-      <c:otherwise>
-               <c:forEach var="i" begin="${recipeSearchPageInfo.startPage }" end="${recipeSearchPageInfo.endPage }" >
-                  <!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
-                  <c:choose>
-                     <c:when test="${recipeSearchPageInfo.pageNum eq i}">
-                        ${i}
-                     </c:when>
-                     <c:otherwise>
-                        <a href="RecipeSearch.co?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
-         
-                     </c:otherwise>
-                  </c:choose>
-               </c:forEach>
-            </c:otherwise>
-      </c:choose>   
-   <!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
-   <c:choose>
-      <c:when test="${pageInfo.pageNum < pageInfo.maxPage}">
-         <input type="button" class="before_next" value="다음" onclick="location.href='RecipeList.co?pageNum=${pageInfo.pageNum + 1}'">
-      </c:when>
-      <c:when test="${recipeSearchPageInfo.pageNum lt recipeSearchPageInfo.maxPage}">
-         <input type="button" class="before_next" value="다음" onclick="location.href='RecipeSearch.co?pageNum=${recipeSearchPageInfo.pageNum + 1}&keyword=${param.keyword }'">
-      </c:when>
-      <c:otherwise>
-         <input type="button" class="before_next" value="다음">
-      </c:otherwise>
-   </c:choose>
-		</section>
+			<c:when test="${pageInfo.pageNum > 1}">
+				<input type="button" class="before_next" value="이전" onclick="location.href='RecipeList.co?pageNum=${pageInfo.pageNum - 1}'">
+			</c:when>
+			<c:when test="${recipeSearchPageInfo.pageNum > 1}">
+					<input type="button" class="before_next" value="이전" onclick="location.href='RecipeSearch.co?pageNum=${recipeSearchPageInfo.pageNum - 1}&keyword=${param.keyword }'">
+				</c:when>
+			<c:otherwise>
+				<input type="button" class="before_next" value="이전">
+			</c:otherwise>
+		</c:choose>
+		
+		<!-- 페이지 번호 목록은 시작 페이지(startPage)부터 끝 페이지(endPage) 까지 표시 -->
+	<c:choose>
+		<c:when test="${empty recipeSearchPageInfo }">
+			<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }">
+				<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
+				<c:choose>
+					<c:when test="${pageInfo.pageNum eq i}">
+						${i }
+					</c:when>
+					<c:otherwise>
+						<a href="RecipeList.co?pageNum=${i }">${i }</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+					<c:forEach var="i" begin="${recipeSearchPageInfo.startPage }" end="${recipeSearchPageInfo.endPage }" >
+						<!-- 단, 현재 페이지 번호는 링크 없이 표시 -->
+						<c:choose>
+							<c:when test="${recipeSearchPageInfo.pageNum eq i}">
+								${i}
+							</c:when>
+							<c:otherwise>
+								<a href="RecipeSearch.co?pageNum=${i}&keyword=${param.keyword }">${i} &nbsp;</a>
+			
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:otherwise>
+		</c:choose>	
+	<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
+	<c:choose>
+		<c:when test="${pageInfo.pageNum < pageInfo.maxPage}">
+			<input type="button" class="before_next" value="다음" onclick="location.href='RecipeList.co?pageNum=${pageInfo.pageNum + 1}'">
+		</c:when>
+		<c:when test="${recipeSearchPageInfo.pageNum lt recipeSearchPageInfo.maxPage}">
+			<input type="button" class="before_next" value="다음" onclick="location.href='RecipeSearch.co?pageNum=${recipeSearchPageInfo.pageNum + 1}&keyword=${param.keyword }'">
+		</c:when>
+		<c:otherwise>
+			<input type="button" class="before_next" value="다음">
+		</c:otherwise>
+	</c:choose>
+	</section>	
 	</div>
+	
 	
 	<!-- 		푸터 들어가는 곳 -->
 		<jsp:include page="../../inc/footer.jsp"/>
-	<!-- 		푸터 들어가는 곳  -->
+	<!-- 		푸터 들어가는 곳 -->
 </body>
 </html>

@@ -48,11 +48,6 @@
 /* 		text-decoration: none; */
 		text-decoration: none; color: black; 
 	}
-	
-	td.link:hover{
-	background-color: #808080;
-	cursor: pointer;
-	}	
 
 	.search input {
  		padding: 5px; 
@@ -64,19 +59,11 @@
 /* 		font-weight: bold; */
 	}
 	
-.before_next {
-	border: 5px solid #717171;
-	background-color: #717171;
-	border-radius: 5px;
-	color: white;
-	font-family: 'Poor Story', cursive;
-}
-
-.before_next:hover {
-	background-color: white;
-	color : #717171;
-	cursor: pointer;
-}
+	.before_next {
+		border: 2px solid #c6c6c6;
+ 		padding: 5px;
+ 		border-radius: 5px;
+	}
 	
 	.mateBanner img {
 	border-radius: 10px;

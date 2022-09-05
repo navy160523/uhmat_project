@@ -37,7 +37,12 @@ public class MainController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		} else if (command.equals("NoticeList.sc")) {	//사이드바 공지 이동
+				forward = new ActionForward();
+				forward.setPath("/serviceCenter/notice/noticelist.jsp");
+				forward.setRedirect(false);
+			} 
+			
 		
 	
 		

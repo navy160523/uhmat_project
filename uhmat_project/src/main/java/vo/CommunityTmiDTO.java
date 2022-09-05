@@ -20,6 +20,7 @@ public class CommunityTmiDTO {
 	private int readcount;
 	private Timestamp date;
 	private String report;
+	private String category;
 	
 	
 	public int getIdx() {
@@ -63,6 +64,12 @@ public class CommunityTmiDTO {
 	}
 	public void setReport(String report) {
 		this.report = report;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	@Override
 	public String toString() {

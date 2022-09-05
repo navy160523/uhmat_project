@@ -69,7 +69,7 @@
 				    <label for="file">파일첨부</label>
 				</div>
 				
-			<div class="form-floating mb-3">
+			<div class="form-floating sm-3">
 				<select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
 					<option value="알림"></option>
 					<option value="오류신고">오류신고</option>

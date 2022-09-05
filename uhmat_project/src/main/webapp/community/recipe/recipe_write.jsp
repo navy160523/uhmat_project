@@ -56,40 +56,50 @@
 		(생략 시 enctype="application/x-www-form-urlencoded" 속성이 기본값으로 설정됨)
 		-->
 		<form action="RecipeWritePro.co" name="recipeForm" method="post" enctype="multipart/form-data">
-			
 			<!-- 닉네임 -->
             <div class="form-floating mb-3">
             	<input class="form-control" type="text" name="nickname" id="nickname" placeholder="닉네임을 입력해달라!" value="${sessionScope.sNickName }" readonly="readonly">
                 <label for="nickname">어맛인</label> 
             </div>
-                            <!-- 제목 -->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" type="text" name="subject" id="subject" placeholder="제목을 입력해주세요!">
-                                <label for="subject">제목</label>
-                            </div>
-                            <!-- 내용-->
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" name="content" id="content" placeholder="내용을 입력해주세요 !" style="height: 10rem"></textarea>
-                                <label for="message">내용</label>
-                            </div>
-				
-				<div>
-<!-- 					파일 첨부 형식은 input 태그의 type="file" 속성 사용 -->
-					<input type="file" name="file1" multiple="multiple" >
-					<input type="file" name="file2" multiple="multiple" >
-					<input type="file" name="file3" multiple="multiple" >
-					<input type="file" name="file4" multiple="multiple" >
-					<input type="file" name="file5" multiple="multiple" >
-				</div>
-				<div align="right" >
-					<input type="submit" class="btn btn-primary" value="등록">
-					<input type="reset" class="btn btn-primary" value="다시쓰기" >
-					<input type="button" class="btn btn-primary" value="메인" onclick="location.href='./'">
-					<input type="button" class="btn btn-primary" value="취소" onclick="history.back()">
-				</div>
+            <!-- 제목 -->
+            <div class="form-floating mb-3">
+                 <input class="form-control" type="text" name="subject" id="subject" placeholder="제목을 입력해주세요!">
+                 <label for="subject">제목</label>
+            </div>
+            <!-- 내용-->
+            <div class="form-floating mb-3">
+                 <textarea class="form-control" name="content" id="content" placeholder="내용을 입력해주세요 !" style="height: 10rem"></textarea>
+                 <label for="message">내용</label>
+            </div>
+<!-- 			파일 첨부 형식은 input 태그의 type="file" 속성 사용 -->
+			<div class="form-floating sm-3">
+				 <input class="form-control" type="file" name="file1" multiple="multiple" >
+				 <label for="file">파일1</label>
+			</div>	
+			<div class="form-floating sm-3">
+				 <input class="form-control" type="file" name="file2" multiple="multiple" >
+				 <label for="file">파일2</label>
+			</div>
+			<div class="form-floating sm-3">
+				 <input class="form-control" type="file" name="file3" multiple="multiple" >
+				 <label for="file">파일3</label>
+			</div>
+			<div class="form-floating sm-3">
+				 <input class="form-control" type="file" name="file4" multiple="multiple" >
+				 <label for="file">파일4</label>
+			</div>
+			<div class="form-floating sm-3">
+				 <input class="form-control" type="file" name="file5" multiple="multiple" >
+				 <label for="file">파일5</label>
+			</div>
+			<div align="right" >
+				 <input type="submit" class="btn btn-primary" value="등록">
+				 <input type="reset" class="btn btn-primary" value="다시쓰기" >
+				 <input type="button" class="btn btn-primary" value="메인" onclick="location.href='./'">
+				 <input type="button" class="btn btn-primary" value="취소" onclick="history.back()">
+			</div>
 		</form>
 		</div>
-        </div>
         </div>
         </section>
         

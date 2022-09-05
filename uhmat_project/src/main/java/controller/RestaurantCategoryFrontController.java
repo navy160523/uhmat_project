@@ -279,7 +279,7 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			forward.setPath("/food/map/map.jsp");
 			forward.setRedirect(false);
 
-		}
+		} 
 
 		if (forward != null)
 

@@ -1113,6 +1113,71 @@ ArrayList<ReviewBoardDTO> reviewList = null;
 			
 			return listCount;
 		}
+		public ArrayList<ReviewBoardDTO> selectRecentReview(int pageNum, int listLimit, String targetTag) {
+			System.out.println("selectReviewBestLikeBoardList()");
+			ArrayList<ReviewBoardDTO> reviewList = null;
+			
+			String sql = "";
+			PreparedStatement pstmt = null,pstmt2=null;
+			ResultSet rs = null,rs2=null;
+			
+			// 시작행 번호 계산
+			int startRow = (pageNum  - 1) * listLimit;
+
+				try {
+					sql = "SELECT * FROM reviewboard "
+								+ "ORDER BY date DESC "
+								+ "LIMIT ?, ?";
+					
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, startRow);
+					pstmt.setInt(2, listLimit);
+					
+					rs = pstmt.executeQuery();
+					
+					reviewList = new ArrayList<ReviewBoardDTO>();
+					String tagResult = "";
+					while(rs.next()) {	
+						ReviewBoardDTO dto = new ReviewBoardDTO();
+						// 게시물 정보 저장
+						dto.setIdx(rs.getInt("idx"));
+						dto.setRes_name(rs.getString("res_name"));
+						dto.setNickname(rs.getString("nickname"));
+						dto.setSubject(rs.getString("subject"));
+						dto.setPhoto(rs.getString("photo"));
+						dto.setContent(rs.getString("content"));
+						dto.setLikes(rs.getInt("likes"));
+						dto.setRating(rs.getFloat("rating"));
+						dto.setDate(rs.getDate("date"));
+							String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
+							pstmt2  = con.prepareStatement(sql2);
+							pstmt2.setInt(1, dto.getIdx());
+							rs2 = pstmt2.executeQuery();
+							
+							tagResult = "#";
+							StringJoiner joiner = new StringJoiner("#");
+								while(rs2.next()) {
+									
+									joiner.add(rs2.getString("tag_name"));;
+								}
+							
+							tagResult = tagResult + joiner;
+							System.out.println(tagResult);
+							dto.setTag_name(tagResult);
+						reviewList.add(dto);
+						System.out.println("=====================");
+						System.out.println(dto);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("SQL 구문작성오류 - selectReviewList()");
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+			return reviewList;
+		}
 		
 		
 }

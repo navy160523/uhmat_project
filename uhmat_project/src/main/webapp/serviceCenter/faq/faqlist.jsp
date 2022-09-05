@@ -56,15 +56,20 @@
 									</td>
 									</c:when>
 									<c:otherwise>
-									${FAQ.subject }
+									<td>${FAQ.subject }</td>
 									</c:otherwise>
 								</c:choose>
 							<td>${FAQ.nickname }</td>
 							<td>${FAQ.date }</td>
 							<td>${FAQ.readcount }</td>
-							<c:if test="${not empty FAQ.real_File }"> 
-								<td> <i class='fas fa-link' style='font-size:20px; color:blue'></i></td> 
-							</c:if>
+	 						<td>
+	 						
+		 						<c:if test="${not empty FAQ.real_File }">
+		 							<i class='fas fa-link' style='font-size:20px; color:blue'></i>
+		 						 </c:if>
+	 						 </td>
+
+								  
 						</tr>
 						</c:forEach>
 	 			</c:when>

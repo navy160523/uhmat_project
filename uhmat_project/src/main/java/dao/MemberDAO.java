@@ -676,7 +676,7 @@ public class MemberDAO {
 					Board.setNickname(rs.getString("nickname"));
 					Board.setSubject(rs.getString("subject"));
 					Board.setContent(rs.getString("content"));
-					Board.setDatetime(rs.getTimestamp("datetime"));
+					Board.setDate(rs.getTimestamp("datetime"));
 					BoardList.add(Board);
 					System.out.println("Recipe - selectAnythingList() 호출!");
 

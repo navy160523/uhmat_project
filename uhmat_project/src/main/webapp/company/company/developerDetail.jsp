@@ -9,9 +9,7 @@
 </head>
 <body>
 	<!-- 헤더 들어가는곳 -->
-	<header id="header">
 		<jsp:include page="/inc/header.jsp" flush="false" />
-	</header>
 	<!-- 헤더 들어가는곳 -->
 	
 	<!-- 본문 시작 -->
@@ -107,19 +105,12 @@
 		    </li>
 		</ul>
 	</section>
-	
-	<!-- 사이드바 들어가는곳 -->
-		<jsp:include page="/inc/sidebar.jsp" flush="false" />
-	<!-- 사이드바 들어가는곳 -->
-	
 	</div>
 	<!-- 본문 끝 -->
 	
 	
 	<!-- 푸터 들어가는곳 -->
-	<footer id="footer">
 		<jsp:include page="/inc/footer.jsp" flush="false" />
-	</footer>
 	<!-- 푸터 들어가는곳 -->	
 </body>
 </html>

@@ -1,7 +1,8 @@
 @charset "UTF-8";
 	#menuBar button {
- 		background-color: #6C757D;
- 		color: white;
+ 		border: 2px solid #7FB77E;
+ 		background-color: white;
+		color: #7FB77E;
 		padding: 5px;
 		border-radius: 5px;
 		font-family: 'Luckiest Guy', cursive;
@@ -10,8 +11,8 @@
 	}
 	
 	#menuBar button:hover {
-		background-color :white;
-		color: #6C757D;
+		background-color: #7FB77E;
+		color: white;
 	}
 	
 	h2 {
@@ -46,60 +47,47 @@
 
 	.search input { 
  		padding: 3px; 
-		border: 2px solid #6C757D;;
-		background-color:white;;
-		color: #6C757D;;
+		border: 2px solid #7FB77E;
+		background-color:white;
+		color: #717171;
 		border-radius: 5px;
 		font-family: 'Poor Story', cursive;
 /* 		font-weight: bold; */
 	}
 	
-	.searchBtn:hover {
-		background-color: #6C757D;
-		color : white;
-		cursor: pointer;
-	}
-	
 	.before_next {
-		border: 2px solid #6C757D;
-		background-color: #6C757D;
-		border-radius: 2px;
-		color: white;
-		font-family: 'Poor Story', cursive;
-	}
-	
-	.before_next:hover {
+		border: 2px solid #7FB77E;
 		background-color: white;
-		color : #6C757D;
-		cursor: pointer;
+		border-radius: 5px;
+		color: #717171;
+		font-family: 'Poor Story', cursive; 
+/* 		font-weight: bold; */
 	}
 	
 	.topButton {
-		background-color: #6C757D;
+		background-color: white;
 		padding: 5px;
 		border-radius: 5px;
-		color: white;
 		font-family: 'Poor Story', cursive;
 	}
 	
 	.topButton:hover {
-		background-color: white;
-		color: #6C757D;
+		background-color: #FF1818;
+		color: white;
 	}
 	
 	.faqButton {
-		border: 2px solid #6C757D;
-		background-color: #6C757D;
-		color: white;
+		border: 2px solid #FF1818;
+		background-color: white;
+		color: #FF1818;
 		padding: 5px;
 		border-radius: 5px;
 		font-family: 'Poor Story', cursive;
 	}
 	
 	.faqButton:hover {
-		background-color: white;
-		color: #6C757D;
-		cursor: pointer;
+		background-color: #FF1818;
+		color: white;
 	}
 	
 	td.link:hover{

@@ -17,13 +17,13 @@
 	<a href="" class="before_next">관리자뷰</a>
 	<a href="AllBoardList.ad" class="before_next">모든게시물</a>
 	<a href="AdminManageMemberList.ad" class="before_next">회원관리</a>
-</div>	
-<div class="memberList">회원정보 수정
-<iframe src="AdminManageMemberList.ad" width="100%" height="500" ></iframe>
+<div>회원정보 수정
+<iframe src="AdminManageMemberList.ad" width="100%" height="500"  ></iframe>
 </div>
 
-<div class="memberList">게시글 정보 수정
+<div>게시글 정보 수정
 <iframe src="AllBoardList.ad" width="100%" height="500"></iframe>
+</div>
 </div>
 </body>
 </html>
