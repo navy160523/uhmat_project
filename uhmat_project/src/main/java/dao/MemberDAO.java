@@ -87,7 +87,7 @@ public class MemberDAO {
 		String sql = "";
 		
 		try {
-			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,1-1.jpg,?,?)";
+			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getNickname());
 			pstmt.setString(2, dto.getName());
@@ -97,8 +97,9 @@ public class MemberDAO {
 			pstmt.setString(6, dto.getPostCode());
 			pstmt.setString(7, dto.getAddress1());
 			pstmt.setString(8, dto.getAddress2());
-			pstmt.setString(9, dto.getAuth_status());
-			pstmt.setString(10, dto.getApi_id());
+			pstmt.setString(9, "1-1.jpg");
+			pstmt.setString(10, dto.getAuth_status());
+			pstmt.setString(11, dto.getApi_id());
 			
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {

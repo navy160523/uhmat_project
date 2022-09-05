@@ -113,6 +113,30 @@
 .info .link {
 	color: #5085BB;
 }
+
+.flex-container {
+	display: flex;
+}
+
+.flex-container>.left {
+	
+	height: 800px;
+	width: 20%;
+
+	text-align: left;
+
+
+}
+.flex-container>.right {
+	
+	height: 800px;
+	width: 80%;
+
+
+	text-align: left;
+
+
+}
 </style>
 <script type="text/javascript">
 window.onload = function(){
@@ -186,7 +210,7 @@ window.onload = function(){
 		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 		        // mouseout 했을 때는 인포윈도우를 닫습니다
 		       
-		        kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+		        kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow,val['resName']));
 		        kakao.maps.event.addListener(marker, 'mouseover', makeOutListener(infowindow));
 		         
 
@@ -217,8 +241,9 @@ window.onload = function(){
 		      		$("#list").append(content);
 		         
 		         });
-				function makeOverListener(map, marker, infowindow) {
+				function makeOverListener(map, marker, infowindow,resName) {
 				    return function() {
+				    	alert(resName);
 				        infowindow.open(map, marker);
 				    };
 				}
@@ -240,20 +265,35 @@ window.onload = function(){
 </script>
 </head>
 <body>
+
+	<!-- 헤더 들어가는곳 -->
+	<jsp:include page="../../inc/header.jsp" flush="false" />
+	<!-- 헤더 들어가는곳 -->
+	
+	<h3 align="center">지도로검색하기</h3><br>
+	<div class="flex-container">
+<div class="left">
 	<input type="button" value="홈" onclick="location.href='index.jsp'">
 	<input type="button" value="음식점목록"
 		onclick="location.href='restaurantList.re'">
 
-
 		<input type="text" placeholder="음식적을 검색하세요" id="keyword"
 			name="keyword" val size="15"> <input type="button" value="검색"
-			id="keywordSelect" >
+			id="keywordSelect" ><br>
+			<div id="list"></div>
 	
 
-	<div id="map" style="width: 100%; height: 500px;"></div>
+	</div>
+	<div class="right">
+	<div id="map" style="width: 100%; height: 800px;"></div>
 	
-	<div id="list"></div>
-
+	</div>
+	</div>
+	
+	
+	<!-- 푸터 들어가는곳 -->
+	<jsp:include page="../../inc/footer.jsp" flush="false" />
+	<!-- 푸터 들어가는곳 -->
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc765c4cdf63c6a5bcc8181887cebf33"></script>
 	<script type="text/javascript" src="./js/jquery-3.6.0.js"></script>
@@ -263,11 +303,6 @@ window.onload = function(){
 	
 	
 $(function(){
-	
-
-	
-		
-	
 $("#keywordSelect").on("click", function() {
 		$("#list").empty();
 		var mapContainer = document.getElementById('map'), // 지도의 중심좌표
@@ -335,7 +370,7 @@ $("#keywordSelect").on("click", function() {
 		        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 		        // mouseout 했을 때는 인포윈도우를 닫습니다
 		       
-		        kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+		        kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow, val['resName']));
 		        kakao.maps.event.addListener(marker, 'mouseover', makeOutListener(infowindow));
 		         
 
@@ -366,8 +401,9 @@ $("#keywordSelect").on("click", function() {
 		      		$("#list").append(content);
 		         
 		         });
-				function makeOverListener(map, marker, infowindow) {
+				function makeOverListener(map, marker, infowindow,resName) {
 				    return function() {
+				    	alert(resName);
 				        infowindow.open(map, marker);
 				    };
 				}
