@@ -27,8 +27,9 @@ public class MemberDetailModifyProAction implements Action {
 		 String address2=request.getParameter("address2");
 		 String icon=request.getParameter("icon");
 		 HttpSession session =request.getSession();
-		 if(session.getAttribute("sNickName").equals(nickName) ) {
 		 MemberDTO member = new MemberDTO();
+		 if(session.getAttribute("sNickName").equals(nickName) ) {
+		
 		 member.setEmail(email);
 		 member.setName(name);
 		 member.setNickname(newNickName);
@@ -48,6 +49,7 @@ public class MemberDetailModifyProAction implements Action {
 				out.println("</script>");
 			} else {
 				// 가입 성공 시 인증 메일 발송을 위한 서블릿 주소 요청(파라미터 : 아이디, 이메일)
+				session.setAttribute("sNickName",  member.getNickname());
 				forward = new ActionForward();
 				forward.setPath("main.jsp");
 				forward.setRedirect(false);

@@ -326,7 +326,7 @@ public class MemberDAO {
 	}
 
 	public MemberDTO selectMember(String nickName) {
-//		System.out.println("selectMember");
+		System.out.println("selectMember");
 		MemberDTO member = null;
 
 		PreparedStatement pstmt = null;
@@ -348,7 +348,7 @@ public class MemberDAO {
 				member.setAddress1(rs.getString("address1"));
 				member.setAddress2(rs.getString("address2"));
 				member.setIcon(rs.getString("icon"));
-
+				System.out.println("내정보:"+member);
 //				System.out.println(member);
 			}
 		} catch (SQLException e) {
