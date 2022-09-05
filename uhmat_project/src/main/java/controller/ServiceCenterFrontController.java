@@ -220,7 +220,15 @@ public class ServiceCenterFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		else if(command.equals("/LiveTalkPro.sc")) {
+			try {
+				action = new LiveTalkProAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		
 		//--------------------------------------------------------------------
