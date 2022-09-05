@@ -1,137 +1,282 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<!DOCTYPE html>
-<html>
-<head> 
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
-<script src="https://kit.fontawesome.com/5382a0d7e0.js" crossorigin="anonymous"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript">
-	function confirmLogout() {
-		if(confirm("로그아웃 하시겠습니까?")) { // 확인 : true, 취소 : false 리턴됨
-			// MemberLogout.me 포워딩
-			location.href = "MemberLogout.me";
-		}
+<link href="css/header.css" rel="stylesheet">
+
+
+<!-- 제이쿼리 -->
+	<script src="js/jquery-3.6.0.js"></script>
+	
+	
+<!-- 스크립트 -->
+	<script type="text/javascript">
+	$(function(){
+		
+		//스크롤 이벤트
+	    var lastScrollTop = 0; 
+	    var delta = 15;
+	    
+	    $(window).scroll(function(event){
+	    	
+	       var st = $(this).scrollTop();
+	       
+	       if(Math.abs(lastScrollTop - st) <= delta)
+	          return; // 스크롤값을 받아서 리턴한다.
+	       
+	          
+	      	// 내릴때
+			if ((st > lastScrollTop) && (lastScrollTop>0)) {
+		       
+		  		$("#header1").css({
+		  			"position" : "fixed ",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		$("#backGraound").css({
+		  			"z-index" : "2",
+		  			"position" : "fixed ",
+		  			"transition-duration" : "0.5s",
+		  			"opacity": "1"
+		  		});
+		       
+		  		
+	              /* 로고 글자 */
+	              $("#logo > a").css({
+// 	                  "color" : "#4288eb ",
+	                 "color" : "#81c543 ",
+	                 "transition-duration" : "0.5s"
+	              });
+		  		
+		  		
+		  		/* 로그인 글자 */
+		  		$(".login > a").css({
+		  			"color" : "black ",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		
+		  		/* 장바구니 글자, 마이페이지 */
+		  		$("#cart > a, .myPage > li a ").css({
+		  			"color" : "black ",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		
+		  		/* 메뉴바 글자 */
+		  		$(".menu > li > a").css({
+		  			"color" : "black ",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		
+		   // 올릴때
+		   } else {
+		  		$("#header1").css({
+		  			"background-color":"",
+		  			"position" : "fixed",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		$("#backGraound").css({
+		  			"z-index" : "",
+		  			"transition-duration" : "0.5s",
+		  			"opacity": "0"
+		  		});
+		       
+		  		/* 로고 글자 */
+		  		$("#logo > a").css({
+		  			"color" : "",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		
+		  		/* 로그인 글자 */
+		  		$(".login > a").css({
+		  			"color" : "",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		
+		  		/* 장바구니 글자, 마이페이지 */
+		  		$("#cart > a, .myPage > li a ").css({
+		  			"color" : "",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+		  		
+		  		/* 메뉴바 글자 */
+		  		$(".menu > li > a").css({
+		  			"color" : "",
+		  			"transition-duration" : "0.5s"
+		  		});
+		  		
+
+		   }
+		       lastScrollTop = st;
+	    });
+	    
+	    
+	});
+	
+	function login() {
+		window.open("MemberLoginForm.me", "login", "width=400, height=600");
 	}
-</script> 
-</head>
-<body>
-<div id="headerContainer">
-	<header id="uhmatHeader">
-		<!-- 로고 들어가는 곳 시작 -->
-    	<div class="mainLogo">
-    		<a href="/uhmat_project/"><img src="image/uhmatMainLogo.jpg"></a>
-    	</div>
-		<!-- 로고 들어가는 곳 끝 -->
+	
+	</script>
+
+
+
+
+<!-- 헤더 -->
+<header style="position: relative; width:100%;">
+	
+	
+		 	
+	<!-- 백그라운드 -->
+	<div id="backGraound" style=" width:100%; height:180px; background-color: white; position: absolute; z-index: 0; opacity: 0;"></div>
+
+
+	<!-- 헤더 기능 메뉴 -->
+	<div id="header1" style=" width:100%; position: absolute; z-index: 3; ">
+	
 		
-		<!-- 로그인 및 회원가입 부분 시작 -->
-		<div class="loginPart">
-		<c:choose>
-			<c:when test="${empty sessionScope.sNickName}">
-				<a href="MemberLogin.me">로그인</a>&nbsp; <a href="MemberJoinForm.me">회원가입</a>
-			</c:when>
-			<c:otherwise>
-				<%-- 하이퍼링크에 자바스크립트 함수 연결 시 href 속성에 아무 경로도 지정하지 않는 방법 --%>
-				<a href="MemberDetailForm.me?nickName=${sessionScope.sNickName }">${sessionScope.sNickName }
-					님 </a>&nbsp; <a href="MemberLogout.me">로그아웃</a>
-				<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
-				<c:if test="${sessionScope.sNickName eq 'admin'}"> | <a
-						href="AdminMain.me">관리자페이지</a>
-				</c:if>
-			</c:otherwise>
-		</c:choose>
+			<!-- 	<!-- 촤락  -->
+		<!-- 	<div id="font_img_holder"> -->
+		<!-- 		<img src="https://cdn.imweb.me/upload/S201808095b6c2aff66469/4c07bab104c64.gif" width="147" alt="" style="max-width: 100%; height: auto;"> -->
+		<!-- 	</div> -->
+	
+	
+		<!-- 로고 -->
+	
+			
+		<img id="main_logo" src="img/main/main_logo.png" alt="로고">
+		
+		
+		<div id="logo">
+			<a href="./">트리어스</a>
 		</div>
-		<!-- 로그인 및 회원가입 부분 끝 -->
 		
-	<!-- 탑 메뉴 부분 시작 -->
-	<div class="topMenu">
-    <ul>
-    	<li>
-    	<div class="dropdown">
-    		<a href="CompanyDetail.cp">회사소개</a>
-    			<div class="dropdownContent">
-				<ul>
-					<li><a href="CompanyDetail.cp">회사 소개</a></li>
-					<li><a href="UhmatDetail.cp">어맛 소개</a></li>
-					<li><a href="DeveloperDetail.cp">개발자 소개</a></li>
-					<li><a href="Policy.cp">이용약관</a></li>
-				</ul>	
-				</div>
-  	  	</div>
-  	  	</li>
-  	  	
-  	  	
-  	  	<!-- 어맛리뷰 카테고리 항목들 모자르면 추가하시면 됩니다 -->
-  	  	<!-- 카테고리 항목들 주소 추가하시면 됩니다 -->
-  	  	<li>
-  	  	<div class="dropdown">
-    		<a href="ReviewList.re">어맛리뷰</a>
-    			<div class="dropdownContent">
-				<ul>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-					<li><a href="#">link2</a></li>
-				</ul>	
-				</div>
-  	  	</div>
-  	  	</li>
-  	  	
-  	  	<!-- 커뮤니티 각 게시판 주소 추가하시면 됩니다 -->
-  	  	<li>
-  	  	<div class="dropdown">
-    		<a href="MateList.co">커뮤니티</a>
-    			<div class="dropdownContent">
-				<ul>
-					<li><a href="MateList.co">어맛 메이트</a></li>
-					<li><a href="TmiList.co">어맛인들의 tmi</a></li>
-					<li><a href="RecipeList.co">어맛 레시피</a></li>
-				</ul>	
-				</div>
-  	  	</div>
-  	  	</li>
-  	  	
-  	  	<!-- 이벤트 게시판 주소 추가하시면 됩니다 -->
-  	  	<li>
-  	  	<div class="dropdown">
-    		<a href="./event/NewFile.jsp">이벤트</a>
-    			<div class="dropdownContent">
-				<ul>
-					<li><a href="#">어맛룰렛</a></li>
-				</ul>	
-				</div>
-  	  	</div>
-  	  	</li>	
-  	  	
-  	  	<!-- 고객센터 주소 추가하시면 됩니다 -->
-  	  	<li>
-  	  	<div class="dropdown">
-    		<a href="NoticeList.sc">고객센터</a>
-    			<div class="dropdownContent">
-				<ul>
-					<li><a href="NoticeList.sc">공지사항</a></li>
-					<li><a href="FAQList.sc">FAQ</a></li>
-				</ul>	
-				</div>
-  	  	</div>
-  	  	</li> 
-	  		
-  	</ul>
-    </div>
-    	
-	<!-- 검색 창 부분 시작 -->
 		
-	<!-- 검색 창 부분 끝 -->
-    
-   	</header>
-	<!-- 탑 메뉴 부분 끝 -->
-	
-	
-	
-</div>
-</body>
-</html>   
+		
+		<!-- 로그인/마이페이지/장바구니 영역 -->
+		<div id=login>
+
+		
+			<section>
+				<c:choose>
+					<c:when test="${empty sessionScope.sId}">
+						<div class="login">
+							
+							<a onclick="login()">로그인</a>
+						</div>
+					</c:when>
+					
+					
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${sessionScope.sId eq 'admin'}">
+								<div class="login">
+									<a href="Admin.my">${sessionScope.sId }님</a>
+									<a href="MemberLogout.me">로그아웃</a>
+								</div>
+							</c:when>
+							
+							
+							<c:otherwise>
+
+
+
+								<!-- 장바구니 영역 -->
+								<div id="cart">
+									<a href="Cart.my">장바구니 </a> 
+								</div>
+								
+								
+								
+								<!-- 마이페이지 영역 -->
+								<div id="myPage">
+									<ul class="myPage">
+			
+			
+										<li><a>${sessionScope.sId }님</a>
+											<ul class="subMyPage">
+												<li><a href="UpdateMemberInfoForm.my">회원정보수정</a></li>
+												<li><a href="Wishlist.my">위시리스트</a></li>
+												<li><a href="SupportHistory.my">후원 내역 조회</a></li>
+												<li> <a href="CampaignApplyList.cp">신청 캠페인 조회</a></li>
+												<li><a href="OrderList.my">주문내역 조회</a></li>
+												<li><a href="MemberLogout.me">로그아웃</a></li>
+											</ul>
+										</li>
+										
+										
+									</ul>
+								</div>
+								
+
+								
+							</c:otherwise>
+							
+							
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
+			</section>
+		
+		
+		<!-- 로그인/마이페이지/장바구니 영역 끝 -->
+		</div>
+		
+		
+		<hr style="	width: 100%; opacity: 1; margin: 0 ;">
+		
+		
+	 	<!-- 메뉴바 영역 -->
+		<div id="menu">
+			<ul class="menu">
+			
+			
+				<li><a href="CampaignList.cp">캠페인</a>
+					<ul class="subMenu">
+						<li><a href="CampaignList.cp">진행중인 캠페인</a></li>
+					</ul>
+				</li>
+				
+				
+				<li><a href="SupportList.su">후원하기</a>
+					<ul class="subMenu">
+						<li><a href="SupportList.su">진행중인 후원</a></li>
+					</ul>
+				</li>
+				
+				
+				<li><a href="StoreItemList.st?sto_category=반려나무">스토어</a>
+					<ul class="subMenu">
+						<li><a href="StoreItemList.st?sto_category=반려나무">반려나무</a></li>
+						<li><a href="StoreItemList.st?sto_category=식물">반려식물</a></li>
+						<li><a href="StoreItemList.st?sto_category=부자재">부자재</a></li>
+					</ul>
+				</li>
+				
+				
+				<li><a href="DiaryList.cm">커뮤니티</a>
+					<ul class="subMenu">
+						<li><a href="NoticeList.cm">공지사항</a></li>
+						<li><a href="CampaignReviewList.cm">캠페인 참여후기</a></li>
+						<li><a href="DiaryList.cm">반려나무 성장일기</a></li>
+						<li><a href="FreeBoardList.cm">자유게시판</a></li>
+						<li><a href="QnaList.cm">Q & A</a></li>
+					</ul>
+				</li>
+				
+				
+			</ul>
+		<!-- 메뉴바 영역 끝-->
+		</div>
+
+		
+		
+	<!-- 헤더 기능 메뉴 끝-->
+	</div>
+</header>

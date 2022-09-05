@@ -19,7 +19,6 @@
 	
 	// 좋아요 추가
 	function likeAdd(target) {
-		alert("click!");
 		
 		$.ajax({
 			type: "post",
@@ -56,9 +55,6 @@
 			success:function(response){
 // 				alert("식당 정보 추가됨!");
 				$("#restaurantInfo").html(response);
-				$("#restaurantInfo header").remove();
-				$("#restaurantInfo footer").remove();
-				$("#buttons").remove();
 			}
 		});
 	})
@@ -103,46 +99,46 @@
 	<section id="mother">
 			<!--  이미지 박스 -->
 			<section id="son">
+				<!--  샘플이미지 -->
 				<section id="imgBox">
-					<p><img id="img" src="upload/${dto.photo }" alt="파일"></p>
-				</section>	
-				
-				<!-- 제목, 해쉬태그. 별점 박스 -->
+					<p><img id="sample" src ="upload/${dto.photo }" alt="default" ></p>
+					<p class="name">작성자 : ${dto.nickname }</p>
+<%-- 					<p class="name">작성일 : ${dto.date }</p> --%>
+				</section>
 				<section id="cntBox1">
-				<p class="border">${dto.subject }</p>
-				<p id="name">Writer : ${dto.nickname }</p>
-				<p>
-					<c:set var="tagList" value="${fn:split(dto.tag_name, '#')}"/>
-					<c:forEach var="tag" items="${tagList }" varStatus="t">
-						<c:if test="${t.count > 0 }">
-							<button class="btn">#${tag }</button>
-						</c:if>
-					</c:forEach>
-				</p>
-					<p>${dto.res_name }</p>
-					<!-- 지도 api와 연동 -->
-					<div class='star-rating'><span style ="width:${dto.rating*20}%; "></span></div>(${dto.rating})<!--  CSS 로 구현 -->
-				</section>
-				
-				<!-- 내용, 좋아요, 댓글작성, 공유 버튼 박스 -->
-				<section id="cntBox2">	
-					<p ><textarea id="cnt" rows="20" cols="100">${dto.content }</textarea></p>
+					<p class="border">${dto.subject }</p>
 					<p>
-					<button id="likeBtn" onclick="likeAdd(this)" >❤</button>&nbsp;<span id="heart">${dto.likes }</span>
-					<button id="msgBtn" onclick="location.href='ReviewReplyList.re?idx=${dto.idx}&nickname=${dto.nickname }&pageNum=${param.pageNum}'">💬</button>
-					<button id="shrBtn" >🔗</button>
-					</p>
-					<p>
-					<c:choose>
-						<c:when test="${not empty replyList }">
-							<c:forEach var="reply" items="${replyList}">
-							<p>${reply.nickname }  ${reply.content }</p>
+						<c:set var="tagList" value="${fn:split(dto.tag_name, '#')}"/>
+						<c:forEach var="tag" items="${tagList }" varStatus="t">
+							<c:if test="${t.count > 0 }">
+								<button class="btn">#${tag }</button>
+							</c:if>
 						</c:forEach>
-						</c:when>
-					</c:choose>
 					</p>
-				</section>
+						<p>${dto.res_name }</p>
+						<!-- 지도 api와 연동 -->
+					<div class='star-rating'><span style ="width:${dto.rating*20}%; "></span></div>(${dto.rating})<!--  CSS 로 구현 -->
 			</section>
+				<!-- 내용, 좋아요, 댓글작성, 공유 버튼 박스 -->
+			<section id="cntBox2">	
+				<p><img id="img" src="upload/${dto.photo }" alt="파일"></p>
+				<p ><textarea id="cnt" rows="20" cols="100">${dto.content }</textarea></p>
+				<p>
+				<button id="likeBtn" onclick="likeAdd(this)" >❤</button>&nbsp;<span id="heart">${dto.likes }</span>
+				<button id="msgBtn" onclick="location.href='ReviewReplyList.re?idx=${dto.idx}&nickname=${dto.nickname }&pageNum=${param.pageNum}'">💬</button>
+				<button id="shrBtn" >🔗</button>
+				</p>
+				<p>
+				<c:choose>
+					<c:when test="${not empty replyList }">
+						<c:forEach var="reply" items="${replyList}">
+						<p>${reply.nickname }  ${reply.content }</p>
+					</c:forEach>
+					</c:when>
+				</c:choose>
+				</p>
+			</section>
+		</section>
 			<hr>
 			<!--  식당 정보 박스 -->
 			<section id="daughter">

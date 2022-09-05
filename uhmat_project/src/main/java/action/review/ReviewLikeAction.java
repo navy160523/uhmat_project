@@ -1,13 +1,14 @@
 package action.review;
 
-import java.io.*;
+import java.io.PrintWriter;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
-import svc.*;
 import svc.review.ReviewLikeService;
-import vo.*;
+import vo.ActionForward;
 
 public class ReviewLikeAction implements Action {
 
@@ -17,9 +18,10 @@ public class ReviewLikeAction implements Action {
 		System.out.println("ReviewLikeAction.re");
 		
 		ActionForward forward = null;
+		HttpSession session = request.getSession();
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
-		String nickname = request.getParameter("nickname"); //session id 받는 곳
+		String nickname = (String)session.getAttribute("sNickName"); //session id 받는 곳
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		System.out.println(idx + nickname + pageNum);
 		

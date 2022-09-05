@@ -728,7 +728,7 @@ public class CommunityDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				tmiBoard = new CommunityTmiDTO(); 
+				tmiBoard = new CommunityTmiDTO();
 				tmiBoard.setIdx(rs.getInt("idx"));
 				tmiBoard.setNickname(rs.getString("nickname"));
 				tmiBoard.setSubject(rs.getString("subject"));

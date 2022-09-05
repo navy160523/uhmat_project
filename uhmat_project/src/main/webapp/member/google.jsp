@@ -8,38 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
   <script src="https://apis.google.com/js/api:client.js"></script>
   <script src="./js/jquery-3.6.0.js"></script>
-  <script>
-  var googleUser = {};
-  var startApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '837887660613-421qj1q5bgrv1b2h0fbd3nk629l9ounm.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        plugin_name: "uhmat",
-        // Request scopes in addition to 'profile' and 'email'
-        scope: 'profile email'
-      });
-      attachSignin(document.getElementById('customBtn'));
-    });
-  };
-
-  function attachSignin(element) {
-    console.log(element.id);
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-    		$("#name").val(googleUser.getBasicProfile().getName());
-    		$("#email").val(googleUser.getBasicProfile().getEmail());
-    		$("#api_id").val(googleUser.getBasicProfile().getId());
-    		document.gooleSubmit.submit();
-    	
-        
-        }, function(error) { 
-          alert(JSON.stringify(error, undefined, 2));
-        });
-
-  }
-  </script>
   <style type="text/css">
     #customBtn {
       display: inline-block;
@@ -76,6 +44,44 @@
       font-family: 'Roboto', sans-serif;
     }
   </style>
+  <script>
+ 
+	 
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '837887660613-421qj1q5bgrv1b2h0fbd3nk629l9ounm.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        plugin_name: "uhmat",
+        // Request scopes in addition to 'profile' and 'email'
+        scope: 'profile email'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+ 	
+
+function attachSignin(element) {
+    console.log(element.id);
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+    		$("#name").val(googleUser.getBasicProfile().getName());
+    		$("#email").val(googleUser.getBasicProfile().getEmail());
+    		$("#api_id").val(googleUser.getBasicProfile().getId());
+    		document.gooleSubmit.submit();
+    	
+        
+        }, function(error) { 
+          alert(JSON.stringify(error, undefined, 2));
+        });
+
+  }
+
+  
+  </script>
+  
   </head>
   <body>
   <!-- In the callback, you would hide the gSignInWrapper element on a
@@ -86,7 +92,7 @@
       <span class="buttonText">Google계정으로 로그인</span>
     </div>
   </div>
-  <script>startApp();</script>
+ <script>startApp();</script>
   
   
   <form action="MemberGoogleJoinPro.me" name="gooleSubmit" method="post">
@@ -94,5 +100,6 @@
   <input type="hidden" id="email" name="email">
   <input type="hidden" id="api_id" name="api_id">
   </form>
+ 
 </body>
 </html>

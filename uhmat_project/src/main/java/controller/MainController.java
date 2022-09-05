@@ -28,23 +28,12 @@ public class MainController extends HttpServlet {
 		Action action = null;
 		
 		
-		// 검색 이동
-		if(command.equals("/UhmatSearch.sch")) {
-			try {
-				action = new UhmatSearchAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else if (command.equals("NoticeList.sc")) {	//사이드바 공지 이동
-				forward = new ActionForward();
-				forward.setPath("/serviceCenter/notice/noticelist.jsp");
-				forward.setRedirect(false);
-			} 
-			
-		
-	
+		// 사이드바 공지사항 이동
+		if (command.equals("NoticeList.sc")) {
+			forward = new ActionForward();
+			forward.setPath("/serviceCenter/notice/noticelist.jsp");
+			forward.setRedirect(false);
+		} 
 		
 
 		if (forward != null) {

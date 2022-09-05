@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.main.ReviewBestAction;
-import action.main.ReviewRecentAction;
 import action.main.UhmatSearchAction;
-import action.review.ReviewListAction;
 import vo.ActionForward;
 
 /**
@@ -29,37 +27,16 @@ public class MainFrontController extends HttpServlet {
 		System.out.println(command);
 		ActionForward forward = null;
 		Action action = null;
-		// 회원가입 폼
-		if (command.equals("/UhmatSearch.sch")) {
+		// 최다 좋아요 리뷰
+		if(command.equals("/ReviewBest.ma")) {
 			try {
-				action = new UhmatSearchAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} else if(command.equals("/ReviewBest.ma")) {
-			try {
-				System.out.println("------------------------------");
-				System.out.println("좋아요 순 리뷰 요청!");
 				action = new ReviewBestAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ReviewRecent.ma")) {
-			try {
-				System.out.println("------------------------------");
-				System.out.println("리뷰 최신순으로 조회!");
-				action = new ReviewRecentAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		}
+		} 
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {

@@ -58,22 +58,11 @@
 /* 		font-family: 'Poor Story', cursive; */
 /* 		font-weight: bold; */
 	}
-	.search{
- 		padding: 5px; 
-		border: 2px solid #c6c6c6;
-		background-color:white;
-		color: #717171;
-		border-radius: 5px;
-/* 		font-family: 'Poor Story', cursive; */
-/* 		font-weight: bold; */
-	}
+	
 	.before_next {
 		border: 2px solid #c6c6c6;
-	background-color: #717171;
-	border-radius: 5px;
-	color: white;
-	font-family: 'Poor Story', cursive;
-	text-decoration: none;
+ 		padding: 5px;
+ 		border-radius: 5px;
 	}
 	
 	.mateBanner img {

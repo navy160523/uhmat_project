@@ -73,8 +73,8 @@
 	//content 글자 수 제한 코드 
 	$(document).ready(function(){
 	    $('p[id^=content]').each(function(){
-	        if ($(this).text().length > 120) {
-	        $(this).html($(this).text().substr(0,120)+"<br>" +"<span id='highlight' onclick='more()'>...더보기</span>");
+	        if ($(this).text().length > 90) {
+	        $(this).html($(this).text().substr(0,90)+"<br>" +"<span id='highlight' onclick='more()'>...더보기</span>");
 	        }
 	    });
 	
@@ -128,8 +128,8 @@
 								<p>${board.nickname}</p>
 								<section id="photo">
 								<p><img src="upload/${board.photo }"alt="파일" ></p>
-						</section>
-						<section id="tdName">
+								</section>
+							<section id="tdName">
 								<p class="tdName">
 								<c:set var="tagList" value="${fn:split(board.tag_name, '#')}"/>
 								<c:forEach var="tag" items="${tagList }" varStatus="t">
@@ -139,11 +139,11 @@
 								</c:forEach>
 								</p>
 								<p class="tdName"><div class='star-rating'><span style ="width:${board.rating*20}%"></span></div>(${board.rating }) <span><span id="heart">❤</span>${board.likes}</span></p>
-						</section>
+							</section>
 							
-						<section id="cnt">
+							<section id="cnt">
 							<p id="content${state.count }"onclick="location.href='ReviewDetail.re?idx=' + ${board.idx}+'&pageNum=' +${pageInfo.pageNum}">${board.content}</p> <!-- 이부분에서 나중에 댓글 항목 추가, 더보기 란 할 수 있도록 해야함 -->
-						</section>
+							</section>
 						</section>
 					</c:forEach>
 				</c:when>
