@@ -37,7 +37,7 @@
 				실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드
 				-->
 					<a href="upload/${notice.real_File }" download="${notice.original_File }">
-					${notice.real_File }
+					${notice.original_File }
 					</a>
 				</td>
 			</tr>

@@ -38,7 +38,7 @@
 				실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드
 				-->
 					<a href="upload/${faq.real_File }" download="${faq.original_File }">
-					${faq.real_File }
+					${faq.original_File }
 					</a>
 				</td>
 			</tr>
