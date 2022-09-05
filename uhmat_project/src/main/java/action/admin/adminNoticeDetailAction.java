@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.NoticeDetailService;
+import svc.serviceCenter.NoticeDetailService;
 import vo.ActionForward;
 import vo.NoticeDTO;
 

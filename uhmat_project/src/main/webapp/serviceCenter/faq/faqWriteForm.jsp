@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ 글 등록</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<title>Notice 글 등록</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	
 	<!-- Favicon-->
@@ -23,46 +22,92 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../../inc/header.jsp"></jsp:include>
-	
-	<section id="writeForm">
-	<h2>FAQ게시판 글 등록</h2>
+	<!-- 헤더 들어가는 곳 -->
+		<jsp:include page="../../inc/header.jsp"/>
+	<!-- 헤더 들어가는 곳 -->
+ <section class="page-section" id="contact">
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">FAQ 글 쓰기</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Form-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-7">
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- * * SB Forms Contact Form * *-->
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- This form is pre-integrated with SB Forms.-->
+                        <!-- To make this form functional, sign up at-->
+                        <!-- https://startbootstrap.com/solution/contact-forms-->
+                        <!-- to get an API token!-->
 		<form action="FAQWritePro.sc" method="post" enctype="multipart/form-data" name="boardform">
-			<table border="1">
-				<tr>
-					<td class="td_left"><label for="nickname">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="nickname" id="nickname" required="required" value="${sessionScope.sNickName }"/></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="subject">제목</label></td>
-					<td class="td_right"><input name="subject" type="text" id="subject" required="required" /></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="content">내용</label></td>
-					<td><textarea id="content" name="content" cols="40"	rows="15" required="required"></textarea></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="file">파일 첨부</label></td>
-					<td class="td_right"><input name="file" type="file" id="file" /></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="category">카테고리</label></td>
-					<td colspan="3">
-						<select id="selectBox" name="category">
-							<option value="오류신고">오류신고</option>
-							<option value="음식점등록">음식점등록</option>
-							<option value="자도 오류">지도 오류</option>
-						</select>
-					</td>
-				</tr>
-			</table>
-			<section id="commandCell">
-				<input type="submit" value="등록"> &nbsp;&nbsp;
-				<input type="reset" value="다시쓰기" /> &nbsp;&nbsp;
-				<input type="button" value="취소" onclick="history.back()">
-			</section>
+				<!-- 닉네임 -->
+				<div class="form-floating mb-3">
+				    <input class="form-control" type="text" name="nickname" id="nickname" value="${sessionScope.sNickName }" readonly="readonly" placeholder="닉네임을 입력해달라!" >
+				    <label for="nickname">어맛인</label> 
+				</div>
+				
+				<!-- 제목 -->
+				<div class="form-floating mb-3">
+				    <input class="form-control" type="text" name="subject" id="subject" placeholder="제목을 입력해주세요!">
+				    <label for="subject">제목</label>
+				</div>
+				
+				<!-- 내용-->
+				<div class="form-floating mb-3">
+				   <textarea class="form-control" name="content" id="content"  placeholder="내용을 입력해주세요 !" style="height: 10rem"></textarea>
+				   <label for="content">내용</label>
+ 				 </div>
+ 				 
+ 				 <div class="form-floating mb-3">
+				    <input class="form-control" type="file" name="file" id="file" placeholder="제목을 입력해주세요!" required="required" >
+				    <label for="file">파일첨부</label>
+				</div>
+				
+			<div class="form-floating mb-3">
+				<select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
+					<option value="알림"></option>
+					<option value="오류신고">오류신고</option>
+					<option value="음식점등록">음식점등록</option>
+					<option value="자도 오류">지도 오류</option>
+				</select>			
+				<label for="category">카테고리</label>
+			</div>
+			
+			
+	
+			<div align="right" >
+				<input type="submit" class="btn btn-secondary" value="등록">
+				<input type="reset" class="btn btn-secondary" value="다시쓰기" >
+				<input type="button" class="btn btn-secondary" value="취소" onclick="history.back()">
+			</div>
 		</form>
+		</div>
+		</div>
+	</div>
 	</section>
-	<jsp:include page="../../inc/footer.jsp"></jsp:include>
+	
+	<!-- 푸터 들어가는 곳 -->
+	<jsp:include page="../../inc/footer.jsp"/>
+	<!-- 푸터 들어가는 곳 -->
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+	
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<!-- * *                               SB Forms JS                               * *-->
+	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>

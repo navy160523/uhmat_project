@@ -385,30 +385,6 @@ $("#keywordSelect").on("click", function() {
 			
 		});			
 	});
-	
-// 	$.AJAX({ 
-// 		TYPE: "GET",
-// 		URL: "HTTP://LOCALHOST:8080/UHMAT_PROJECT/MAP.RE",
-// 		DATA : {KEYWORD:$('#KEYWORD').VAL()}, 
-// 		DATATYPE: "JSON",
-// 		SUCCESS : FUNCTION(DATA) {
-			
-		         
-// 				$.EACH(DATA, FUNCTION(KEY, VAL){
-				
-						
-// 			         });
-		
-// 	},
-// 	ERROR : FUNCTION() {
-// 		ALERT('ERROR');
-// 	}
-	
-// 	});
-		 
-		 
-		 
-	   
 });
 
 

@@ -39,7 +39,7 @@
 					님 </a>&nbsp; <a href="MemberLogout.me">로그아웃</a>
 				<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
 				<c:if test="${sessionScope.sNickName eq 'admin'}"> &nbsp; <a
-						href="AdminMain.me">관리자페이지</a>
+						href="AdminMain.ad">관리자페이지</a>
 				</c:if>
 			</c:otherwise>
 		</c:choose>
@@ -72,7 +72,7 @@
     			<div class="dropdownContent">
 				<ul>
 					<li><a href="ReviewList.re">어맛리뷰</a></li>
-					<li><a href="resCategory.re">카테고리별 리뷰</a></li>
+					<li><a href="restaurantList.re">식당 리스트</a></li>
 					<li><a href="mapForm.re">지도로 찾기</a></li>
 				</ul>	
 				</div>
@@ -108,7 +108,7 @@
   	  	<!-- 고객센터 주소 추가하시면 됩니다 -->
   	  	<li>
   	  	<div class="dropdown">
-    		<a href="ServiceCenterMain.sc">고객센터</a>
+    		<a href="NoticeList.sc">고객센터</a>
     			<div class="dropdownContent">
 				<ul>
 					<li><a href="NoticeList.sc">공지사항</a></li>

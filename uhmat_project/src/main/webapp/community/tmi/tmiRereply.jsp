@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,6 +50,16 @@
 	                      <!-- To make this form functional, sign up at-->
 	                      <!-- https://startbootstrap.com/solution/contact-forms-->
 	                      <!-- to get an API token!-->
+	                  
+		<!-- 로그인시 댓글 작성 -->  
+			<c:if test="${sessionScope.sNickName eq null }">
+				<script type="text/javascript">
+				alert("로그인을 해주세요 :)");
+				history.back();
+				</script>
+			</c:if>
+		<!-- 로그인시 댓글 작성 -->
+			
 		<form action="TmiRereplyWritePro.co" name="TmiRereplyForm" method="post">
 			<!-- 글번호와 페이지번호 전달 -->
 			<input type="hidden" name="board_idx" value="${tmiRereply.board_idx }">
@@ -73,9 +84,9 @@
 					
 				</div>
 				<div align="center" >
-				<input type="submit" class="btn btn-primary" value="답글등록">
-				<input type="reset" class="btn btn-primary" value="다시쓰기">
-				<input type="button" class="btn btn-primary" value="취소" onclick="history.back()">
+				<input type="submit" class="btn btn-secondary" value="답글등록">
+				<input type="reset" class="btn btn-secondary" value="다시쓰기">
+				<input type="button" class="btn btn-secondary" value="취소" onclick="history.back()">
 				</div>
 		</form>
 	  </div>

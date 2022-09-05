@@ -87,7 +87,7 @@ public class MemberDAO {
 		String sql = "";
 		
 		try {
-			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?)";
+			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getNickname());
 			pstmt.setString(2, dto.getName());
@@ -97,8 +97,9 @@ public class MemberDAO {
 			pstmt.setString(6, dto.getPostCode());
 			pstmt.setString(7, dto.getAddress1());
 			pstmt.setString(8, dto.getAddress2());
-			pstmt.setString(9, dto.getAuth_status());
-			pstmt.setString(10, dto.getApi_id());
+			pstmt.setString(9, "1-1.jpg");
+			pstmt.setString(10, dto.getAuth_status());
+			pstmt.setString(11, dto.getApi_id());
 			
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -301,16 +302,17 @@ public class MemberDAO {
 		return isApiUserSuccess;
 	}
 
-	public int newPassword(String email, String passwd) {
+	public int newPassword(String email, String passwd,String nickname) {
 		int updateCount = 0;
 
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "UPDATE member SET passwd=? WHERE email=?";
+			String sql = "UPDATE member SET passwd=? WHERE email=? or nickname=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, passwd);
 			pstmt.setString(2, email);
+			pstmt.setString(3, nickname);
 			updateCount = pstmt.executeUpdate();
 			System.out.println("패스워드 갱신 성공!");
 		} catch (SQLException e) {
@@ -325,7 +327,7 @@ public class MemberDAO {
 	}
 
 	public MemberDTO selectMember(String nickName) {
-//		System.out.println("selectMember");
+		System.out.println("selectMember");
 		MemberDTO member = null;
 
 		PreparedStatement pstmt = null;
@@ -346,7 +348,8 @@ public class MemberDAO {
 				member.setPostCode(rs.getString("postcode"));
 				member.setAddress1(rs.getString("address1"));
 				member.setAddress2(rs.getString("address2"));
-
+				member.setIcon(rs.getString("icon"));
+				System.out.println("내정보:"+member);
 //				System.out.println(member);
 			}
 		} catch (SQLException e) {
@@ -370,11 +373,13 @@ public class MemberDAO {
 			String sql = "SELECT * FROM member WHERE email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
+			
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				member = new MemberDTO();
 				member.setNickname(rs.getString("nickname"));
+				member.setIcon(rs.getString("icon"));
 
 			}
 		} catch (SQLException e) {
@@ -395,7 +400,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "UPDATE member SET nickname=?,name=?,birthdate=?, postcode=?,address1=?,address2=? WHERE email=?";
+			String sql = "UPDATE member SET nickname=?,name=?,birthdate=?, postcode=?,address1=?,address2=?,icon=? WHERE email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getNickname());
 			pstmt.setString(2, member.getName());
@@ -403,7 +408,8 @@ public class MemberDAO {
 			pstmt.setString(4, member.getPostCode());
 			pstmt.setString(5, member.getAddress1());
 			pstmt.setString(6, member.getAddress2());
-			pstmt.setString(7, member.getEmail());
+			pstmt.setString(7, member.getIcon());
+			pstmt.setString(8, member.getEmail());
 
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -689,6 +695,35 @@ public class MemberDAO {
 		}
 		System.out.println("selectAnythingList - " + BoardList);
 		return BoardList;
+	}
+
+	public boolean alterPasswdCheck(String email, String alterPasswd, String nickname) {
+		boolean isPasswdCheck = false;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+
+		try {
+			String sql = "SELECT * from member where passwd=? and (email=? or nickname=?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, alterPasswd);
+			pstmt.setString(2, email);
+			pstmt.setString(3, nickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isPasswdCheck=true;
+				
+			}
+			System.out.println("체크 성공!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+
+		}
+
+		return isPasswdCheck;
 	}
 
 

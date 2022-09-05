@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.CommunityDAO;
-import svc.RecipeListProService;
+import svc.community.RecipeListProService;
 import vo.RecipeDTO;
 
 public class MemberRecipeListService extends RecipeListProService {

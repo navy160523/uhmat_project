@@ -1,52 +1,14 @@
-@charset "EUC-KR";
+@charset "UTF-8";
 
 .clear{clear: both;}
 
 
 /* -------------------------------- */
+
 article#front{
 	margin: 5px 0px 5px 0px;
 }
-#solution{
-	width:910px;
-	min-height:150px;
-	border: 1px solid #FFFFFF;
-	background-color: #ebebeb;
-	padding: 10px;
-	margin: 0 0 0 20px;
-	border-radius: 10px;
-}
-#hosting,#security,#payment{
-	width: 30%;
-	padding: 10px;
-	float: left;
-}
-#hosting h3,#security h3,#payment h3{
-	font-size: 14px;
-	font-weight: 600;
-	color: #333;
-	margin: 0 0 10px 80px;
-}
-#hosting p,#security p,#payment p{
-	font-size: 12px;
-	color: #333;
-	margin: 0 0 0px 80px;
-}
-#hosting{
-	background-image: url("../images/icon1.png");
-	background-repeat: no-repeat;
-	background-position: left 15px;
-}
-#security{
-	background-image: url("../images/icon2.png");
-	background-repeat: no-repeat;
-	background-position: left 15px;
-}
-#payment{
-	background-image: url("../images/icon3.png");
-	background-repeat: no-repeat;
-	background-position: left 15px;
-}
+
 
 /* -------------------------------- */
 
@@ -57,19 +19,22 @@ article#front{
 }
 
 #FAQ h3, #notice h3{
-	font-size: 14px;
-	font-style: italic;;
-	font-weight: normal;
-	width: 420px;
-	height: 24px;
-	background-image: url("../images/h3_back.jpg");
-	background-repeat: no-repeat;
-	padding: 5px 0 0 22px;
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Poor Story', cursive;
 
 }
 /* FAQ */
 #FAQ .brown{
 	color: #827b00;
+}
+
+.faqList {
+	margin: auto;
+	width: 800px;
+	text-align: center;
+	font-family: 'Poor Story', cursive;
+	
 }
 
 #FAQ table{
@@ -113,7 +78,16 @@ article#front{
 
 /* notice */
 #notice .brown{
+	text-align: center;
 	color: #827b00;
+}
+
+.noticeList {
+	margin: auto;
+	width: 800px;
+	text-align: center;
+	font-family: 'Poor Story', cursive;
+	
 }
 
 #notice table{
@@ -156,7 +130,7 @@ article#front{
 }
 
 
-/* øﬁ¬  ªÁ¿ÃµÂπŸ */
+/* ÏÇ¨Ïù¥ÎìúÎ∞î */
 .noto400 {
     font-family: 'Noto Sans KR' !important;
     font-weight: 400 !important;

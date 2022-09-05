@@ -173,7 +173,7 @@ public class CommunityDAO {
 			pstmt.setString(2, mate.getNickname());
 			pstmt.setString(3, mate.getSubject());
 			pstmt.setString(4, mate.getContent());
-			pstmt.setString(5, "N");
+			pstmt.setString(5, mate.getReport());
 
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -210,8 +210,6 @@ public class CommunityDAO {
 
 	// 1개 게시물의 상세 정보 조회 작업 수행하는 getMate() 메서드
 	public MateDTO getMate(int idx) {
-
-
 		MateDTO mate = null;
 
 		PreparedStatement pstmt = null;
@@ -1454,15 +1452,15 @@ public class CommunityDAO {
 			}
 			
 			// 답글을 mate_reply 테이블에 INSERT 작업
-			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,now(),?)";
+			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,?,now())";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, num);
 			pstmt2.setString(2, recipeReply.getNickname());
-			pstmt2.setString(3, recipeReply.getContent());
-			pstmt2.setInt(4, num);
-			pstmt2.setInt(5, 0);
+			pstmt2.setInt(3, recipeReply.getBoard_idx());
+			pstmt2.setString(4, recipeReply.getContent());
+			pstmt2.setInt(5, recipeReply.getRe_ref());
 			pstmt2.setInt(6, 0);
-			pstmt2.setInt(7, recipeReply.getBoard_idx());
+			pstmt2.setInt(7, 0);
 			System.out.println(recipeReply);
 			
 			insertCount = pstmt2.executeUpdate();
@@ -1646,15 +1644,15 @@ public class CommunityDAO {
 			RecipeRereplyInsertCount = pstmt2.executeUpdate();
 			
 			// 답글을 mate_reply 테이블에 INSERT 작업
-			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,now(),?)";
+			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,?,now())";
 			pstmt3 = con.prepareStatement(sql);
 			pstmt3.setInt(1, num);
 			pstmt3.setString(2, recipeRereply.getNickname());
-			pstmt3.setString(3, recipeRereply.getContent());
-			pstmt3.setInt(4, recipeRereply.getRe_ref());
-			pstmt3.setInt(5, recipeRereply.getRe_lev() + 1);
-			pstmt3.setInt(6, recipeRereply.getRe_seq() + 1);
-			pstmt3.setInt(7, recipeRereply.getBoard_idx());
+			pstmt3.setInt(3, recipeRereply.getBoard_idx());
+			pstmt3.setString(4, recipeRereply.getContent());
+			pstmt3.setInt(5, recipeRereply.getRe_ref());
+			pstmt3.setInt(6, recipeRereply.getRe_lev() + 1);
+			pstmt3.setInt(7, recipeRereply.getRe_seq() + 1);
 //			System.out.println(mateReply);
 			RecipeRereplyInsertCount = pstmt3.executeUpdate();
 			
@@ -1754,6 +1752,15 @@ public class CommunityDAO {
 		return recipeSearchList;
 	}
 
-	
+	public ArrayList<CommunityTmiDTO> selectMainTmiBoardList(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<MateDTO> selectMainMateBoardList(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

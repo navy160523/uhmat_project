@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.RecipeDetailService;
+import svc.community.RecipeDetailService;
 import vo.ActionForward;
 import vo.RecipeDTO;
 import vo.RecipeReplyDTO;

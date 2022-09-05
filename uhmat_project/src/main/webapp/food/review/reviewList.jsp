@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%-- <c:when test="${sessionScope.sNickName eq}"></c:when> --%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sunflower&display=swap" rel="stylesheet">
+
+
 <link href="food/review/reviewList.css" rel="stylesheet">
 <script src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
@@ -91,6 +96,11 @@
 		});
 	});
 		
+	function add() {
+// 		var content = "<span>새 게시물</span>"
+// 		$("#plus").show(content);
+		$("#plus").html("<span>새 게시물</span>");
+	}
 </script>
 <style>
 	.star-rating {width:205px; }
@@ -99,56 +109,53 @@
 </style>
 </head>
 <body id="mainPage">
-<% String name = (String)(session.getAttribute("sNickName")); %>
- <%=name%>
-		<section id="hd"><jsp:include page="/inc/header.jsp" /></section>
+
+		<jsp:include page="/inc/header.jsp" />
+		
 		<aside id="aside">
-		<button id="plus" onclick="location.href='ReviewWriteForm.re'">➕ 새 게시물</button><br>
+		<button id="plus" onclick="location.href='ReviewWriteForm.re'">🍽️<span class="plustext">리뷰 작성하기</span></button><br>
 
 		</aside>
+		
 	<section id="mother">
-	<section id="list" >
-		<c:choose>
-			<c:when test="${not empty reviewList and pageInfo.listCount gt 0}">
-				<c:forEach var="board" items="${reviewList}" varStatus="state">
-					<!--  -->
-					<section id="listView">
-						<p id="subject" class="tdName">${board.subject }</p>
-						<section id="photo">
-						<p><img src="upload/${board.photo }" width="400px" height="250px"alt="파일" ></p>
-						
+		<section id="list" >
+			<c:choose>
+				<c:when test="${not empty reviewList and pageInfo.listCount gt 0}">
+					<c:forEach var="board" items="${reviewList}" varStatus="state">
+						<!--  -->
+						<section id="listView">
+							<p id="subject" class="tdName">${board.subject }</p>
+								<p>${board.nickname}</p>
+								<section id="photo">
+								<p><img src="upload/${board.photo }"alt="파일" ></p>
 						</section>
 						<section id="tdName">
-
-						
-						<p class="tdName">
-						<c:set var="tagList" value="${fn:split(board.tag_name, '#')}"/>
-						<c:forEach var="tag" items="${tagList }" varStatus="t">
-							<c:if test="${t.count > 0 }">
-								<button class="btn" id="targetTag${t.count }">#${tag }</button>
-							</c:if>
-						</c:forEach>
-						</p>
-<%-- 						<tr><td id="tagName${state.count }"><span style="display:none;">${board.tag_name}</span></td></tr> --%>
-<%-- 						<tr><td id="tagName${state.count }"><span style="display:none;">${board.tag_name}</span></td></tr> --%>
-						<p class="tdName"><div class='star-rating'><span style ="width:${board.rating*20}%"></span></div>(${board.rating }) <span><span id="heart">❤</span>${board.likes}</span></p>
-<%-- 						<p class="tdName"><span><span id="heart">❤</span>${board.likes}개</span></p>				 --%>
+								<p class="tdName">
+								<c:set var="tagList" value="${fn:split(board.tag_name, '#')}"/>
+								<c:forEach var="tag" items="${tagList }" varStatus="t">
+									<c:if test="${t.count > 0 }">
+										<button class="btn" id="targetTag${t.count }">#${tag }</button>
+									</c:if>
+								</c:forEach>
+								</p>
+								<p class="tdName"><div class='star-rating'><span style ="width:${board.rating*20}%"></span></div>(${board.rating }) <span><span id="heart">❤</span>${board.likes}</span></p>
 						</section>
-						
+							
 						<section id="cnt">
-						<p id="content${state.count }"onclick="location.href='ReviewDetail.re?idx=' + ${board.idx}+'&pageNum=' +${pageInfo.pageNum}">${board.content}</p> <!-- 이부분에서 나중에 댓글 항목 추가, 더보기 란 할 수 있도록 해야함 -->
+							<p id="content${state.count }"onclick="location.href='ReviewDetail.re?idx=' + ${board.idx}+'&pageNum=' +${pageInfo.pageNum}">${board.content}</p> <!-- 이부분에서 나중에 댓글 항목 추가, 더보기 란 할 수 있도록 해야함 -->
 						</section>
-					</section>
-				</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="8">게시글이 존재하지 않습니다.</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
+						</section>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="8">게시글이 존재하지 않습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+		</section>
 	</section>
-	</section>
+	
 	<section id="append" style="display:none;">
 	</section>
 	

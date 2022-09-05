@@ -32,10 +32,12 @@
     		$("#email").val(googleUser.getBasicProfile().getEmail());
     		$("#api_id").val(googleUser.getBasicProfile().getId());
     		document.gooleSubmit.submit();
+    	
         
         }, function(error) { 
           alert(JSON.stringify(error, undefined, 2));
         });
+
   }
   </script>
   <style type="text/css">
@@ -84,7 +86,6 @@
       <span class="buttonText">Google계정으로 로그인</span>
     </div>
   </div>
-  <div id="name1"></div>
   <script>startApp();</script>
   
   

@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import vo.*;
@@ -10,6 +11,7 @@ import static db.JdbcUtil.*;
 public class ReviewCategoryDAO {
 	private static ReviewCategoryDAO instance = new ReviewCategoryDAO();
 	private static Connection con;
+	private static final DecimalFormat df = new DecimalFormat("0.00");
 	public void setConnection(Connection con) {
 		this.con = con; 
 	} 
@@ -93,6 +95,7 @@ public class ReviewCategoryDAO {
 					dto.setContent(rs.getString("content"));
 					dto.setLikes(rs.getInt("likes"));
 					dto.setRating(rs.getFloat("rating"));
+					dto.setDate(rs.getDate("date"));
 					
 						String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
 						pstmt2  = con.prepareStatement(sql2);
@@ -172,6 +175,7 @@ public class ReviewCategoryDAO {
 							dto.setContent(rs.getString("content"));
 							dto.setLikes(rs.getInt("likes"));
 							dto.setRating(rs.getFloat("rating"));
+							dto.setDate(rs.getDate("date"));
 							
 								String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
 								pstmt2  = con.prepareStatement(sql2);
@@ -242,6 +246,7 @@ public class ReviewCategoryDAO {
 					dto.setContent(rs.getString("content"));
 					dto.setLikes(rs.getInt("likes"));
 					dto.setRating(rs.getFloat("rating"));
+					dto.setDate(rs.getDate("date"));
 				
 					String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
 					pstmt2  = con.prepareStatement(sql2);
@@ -287,6 +292,7 @@ public class ReviewCategoryDAO {
 				dto.setRating(rs.getFloat("rating"));
 				dto.setRes_name(rs.getString("res_name"));
 				dto.setSubject(rs.getString("subject"));
+				dto.setDate(rs.getDate("date"));
 				
 				String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
 				pstmt2  = con.prepareStatement(sql2);
@@ -342,38 +348,10 @@ public class ReviewCategoryDAO {
 			close(rs);
 			close(pstmt);
 			
-			// 리뷰 개수에 따른 별점 평균 조회
-			sql = "SELECT AVG(rating), COUNT(idx) FROM reviewboard "
-					+ " WHERE res_name =? "
-					+ " GROUP BY res_name";
-			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dto.getRes_name());
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				double avgRating = rs.getInt("AVG(rating)");
-				int reviewCount = rs.getInt("Count(idx)");
-				sql = "UPDATE restaurant_info SET rating=?, reviewcount=? WHERE res_name=?";
-				pstmt2 = con.prepareStatement(sql);
-				pstmt2.setDouble(1, avgRating);		//식당에 해당하는 리뷰들의 평점 평균 업데이트
-				pstmt2.setInt(2, reviewCount+1);	// 원래 리뷰개수의 +1
-				pstmt2.setString(3, dto.getRes_name());
-				System.out.println("-------------------------------------");
-				System.out.println("avgRating:"+avgRating);
-				System.out.println("reviewcount: "+reviewCount);
-				System.out.println(dto.getRes_name());
-				System.out.println("--------------------------------------");
-				pstmt2.executeUpdate();
-			}
-			
-			close(rs);
-			close(pstmt);
-			close(pstmt2);
 			
 			
 			//Insert작업 수행
-			sql = "INSERT INTO reviewboard VALUES(?,?,?,?,?,?,0,?)";
+			sql = "INSERT INTO reviewboard VALUES(?,?,?,?,?,?,0,?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, dto.getRes_name());
@@ -384,6 +362,30 @@ public class ReviewCategoryDAO {
 			pstmt.setFloat(7, dto.getRating());
 			
 			insertCount = pstmt.executeUpdate();
+			// 리뷰 개수에 따른 별점 평균 조회
+			sql = "SELECT AVG(rating), COUNT(idx) FROM reviewboard "
+					+ " WHERE res_name =? "
+					+ " GROUP BY res_name";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getRes_name());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				double avgRating =Double.parseDouble(df.format((rs.getDouble("AVG(rating)"))));
+				int reviewCount = rs.getInt("Count(idx)");
+				sql = "UPDATE restaurant_info SET rating=?, reviewcount=? WHERE res_name=?";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setDouble(1, avgRating);		//식당에 해당하는 리뷰들의 평점 평균 업데이트
+				pstmt2.setInt(2, reviewCount);	// 원래 리뷰개수
+				pstmt2.setString(3, dto.getRes_name());
+				System.out.println("-------------------------------------");
+				System.out.println("avgRating:"+avgRating);
+				System.out.println("reviewcount: "+reviewCount);
+				System.out.println(dto.getRes_name());
+				System.out.println("--------------------------------------");
+				pstmt2.executeUpdate();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -447,9 +449,12 @@ public class ReviewCategoryDAO {
 		
 		int updateCount = 0;
 		
-		PreparedStatement pstmt = null;
-		
-		String sql = "UPDATE reviewboard SET res_name=?, subject=?, rating=?, content=?, photo=? "
+		PreparedStatement pstmt = null, pstmt2=null;
+		ResultSet rs = null;
+		// 리뷰 개수에 따른 별점 평균 조회
+		String sql;
+				
+		 sql = "UPDATE reviewboard SET res_name=?, subject=?, rating=?, content=?, photo=? "
 				+ "WHERE idx=?";
 		
 		try {
@@ -462,12 +467,41 @@ public class ReviewCategoryDAO {
 			pstmt.setInt(6, dto.getIdx());
 			
 			updateCount = pstmt.executeUpdate();
+			try {
+				sql = "SELECT AVG(rating), COUNT(idx) FROM reviewboard "
+						+ " WHERE res_name =? "
+						+ " GROUP BY res_name";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, dto.getRes_name());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					double avgRating =Double.parseDouble(df.format((rs.getDouble("AVG(rating)"))));
+					int reviewCount = rs.getInt("Count(idx)");
+					sql = "UPDATE restaurant_info SET rating=?, reviewcount=? WHERE res_name=?";
+					pstmt2 = con.prepareStatement(sql);
+					pstmt2.setDouble(1, avgRating);		//식당에 해당하는 리뷰들의 평점 평균 업데이트
+					pstmt2.setInt(2, reviewCount);	// 원래 리뷰개수 그대로
+					pstmt2.setString(3, dto.getRes_name());
+					System.out.println("-------------------------------------");
+					System.out.println("avgRating:"+avgRating);
+					System.out.println("reviewcount: "+reviewCount);
+					System.out.println(dto.getRes_name());
+					System.out.println("--------------------------------------");
+					pstmt2.executeUpdate();
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		} catch (SQLException e) {
 			
 			System.out.println("SQL 구문 작성 및 실행오류 - " + e.getMessage());
 			e.printStackTrace();
 		} finally {
+			close(rs);
 			close(pstmt);
+			close(pstmt2);
 		}
 		
 		return updateCount;
@@ -532,19 +566,75 @@ public class ReviewCategoryDAO {
 	public int deleteReview(int idx) {
 		int deleteCount = 0;
 		
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null, pstmt2=null;
+		ResultSet rs = null, rs2=null;
 		
-		String sql = "DELETE FROM reviewBoard WHERE idx=?";
+		String sql;
+		
 		try {
+			sql = "SELECT res_name FROM reviewboard WHERE idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs2 = pstmt.executeQuery();
+			String resName = "";
+			if(rs2.next()) {
+				resName = rs2.getString("res_name");
+			} 			
+			close(pstmt);
+				
+			sql = "DELETE FROM reviewBoard WHERE idx=?";
+			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			
 			deleteCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("SQL구문 작성 및 실행 오류 - " + e.getMessage());
 			
-		} finally {
+			close(pstmt);
+			sql = "SELECT AVG(rating), COUNT(idx) FROM reviewboard "
+					+ " WHERE res_name =? "
+					+ " GROUP BY res_name";
+			System.out.println("--------------------------------");
+			System.out.println("resName: "+resName);
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, resName);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println("================================");
+				System.out.println("삭제 후 식당 정보 업데이트!");
+				System.out.println("================================");
+				double avgRating =Double.parseDouble(df.format((rs.getDouble("AVG(rating)"))));
+				int reviewCount = rs.getInt("Count(idx)");
+				sql = "UPDATE restaurant_info SET rating=?, reviewcount=? WHERE res_name=?";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setDouble(1, avgRating);		//식당에 해당하는 리뷰들의 평점 평균 업데이트
+				pstmt2.setInt(2, reviewCount);	// 원래 리뷰개수 그대로
+				pstmt2.setString(3, resName);
+				System.out.println("-------------------------------------");
+				System.out.println("avgRating:"+avgRating);
+				System.out.println("reviewcount: "+reviewCount);
+				System.out.println(resName);
+				System.out.println("--------------------------------------");
+				pstmt2.executeUpdate();
+			}else {
+				//삭제하고 연동된 리뷰가 아예 없을 때는 0으로 변경
+				sql = "UPDATE restaurant_info SET rating=0, reviewcount=0 WHERE res_name=?";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setString(1, resName);
+				System.out.println("-------------------------------------");
+				System.out.println("--------------------------------------");
+				pstmt2.executeUpdate();
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs2);
+			close(rs);
 			close(pstmt);
 		}
 		
@@ -756,158 +846,273 @@ public class ReviewCategoryDAO {
 		
 		return replyList;
 	}
-	public ArrayList<ReviewBoardDTO> selectMainReviewBoardList() {
-		ArrayList<ReviewBoardDTO> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		PreparedStatement pstmt2 = null;
-		ResultSet rs2 = null;
-		String tagResult = "";
-		try {
-			String sql = "SELECT * FROM reviewboard";
-			pstmt = con.prepareStatement(sql);
+	
+	//태그 업데이트
+	public int updateTag(int idx, String tag) {
 			
-			rs = pstmt.executeQuery();
-			
-			list = new ArrayList<ReviewBoardDTO>();
-			
-			while(rs.next()) {
-				ReviewBoardDTO dto = new ReviewBoardDTO();
-				dto.setIdx(rs.getInt("idx"));
-				dto.setContent(rs.getString("content"));
-				dto.setLikes(rs.getInt("likes"));
-				dto.setNickname(rs.getString("nickname"));
-				dto.setPhoto(rs.getString("photo"));
-				dto.setRating(rs.getFloat("rating"));
-				dto.setRes_name(rs.getString("res_name"));
-				dto.setSubject(rs.getString("subject"));
-				
-				list.add(dto);
-				
-				String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
-				pstmt2  = con.prepareStatement(sql2);
-				pstmt2.setInt(1, dto.getIdx());
-				rs2 = pstmt2.executeQuery();
-				
-				tagResult = "#";
-				StringJoiner joiner = new StringJoiner("#");
-				while(rs2.next()) {
-					
-					joiner.add(rs2.getString("tag_name"));;
-				}
-				
-				tagResult = tagResult + joiner;
-					System.out.println(tagResult);
-					dto.setTag_name(tagResult);
-					close(rs2);
-					close(pstmt2);
-			}
-				System.out.println(list); //DTO값을 잘 전달 받았는지 체크!
+			PreparedStatement pstmt = null;
+			String sql= "";
+			int updateCount = 0;
+			tag = tag.replaceAll("#", "");
+			String str[] = tag.split(" ");
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("SQL 구문작성 및 실행오류 - selectMainReviewBoardList() - " + e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return list;
-		
-	}
-	public ArrayList<ReviewBoardDTO> selectMainReviewBoardList(String search) {
-
-		ArrayList<ReviewBoardDTO> reviewList = null;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		PreparedStatement pstmt2 = null;
-		ResultSet rs2 = null;
-		
-		/*************************************
-		 * 댓글 부분 구현될 경우 새로 sql 문 작성 해야 함
-		 ****************************************/
-			
 			try {
-				String sql = "SELECT * FROM reviewboard WHERE subject LIKE ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + search + "%");
-				
-				rs = pstmt.executeQuery();
-				
-				reviewList = new ArrayList<ReviewBoardDTO>();
+					sql="DELETE FROM tag_relation WHERE review_idx=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, idx);
+					pstmt.executeUpdate();
+					close(pstmt);
+					commit(con);
 					
-				while(rs.next()) {
-					
-					ReviewBoardDTO dto = new ReviewBoardDTO();
-					String tagResult = "";
-					// 게시물 정보 저장
-					dto.setIdx(rs.getInt("idx"));
-					dto.setRes_name(rs.getString("res_name"));
-					dto.setNickname(rs.getString("nickname"));
-					dto.setSubject(rs.getString("subject"));
-					dto.setPhoto(rs.getString("photo"));
-					dto.setContent(rs.getString("content"));
-					dto.setLikes(rs.getInt("likes"));
-					dto.setRating(rs.getFloat("rating"));
-					
-					
-					String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
-					pstmt2  = con.prepareStatement(sql2);
-					pstmt2.setInt(1, dto.getIdx());
-					rs2 = pstmt2.executeQuery();
-					
-					tagResult = "#";
-					StringJoiner joiner = new StringJoiner("#");
-					while(rs2.next()) {
-						
-						joiner.add(rs2.getString("tag_name"));;
-					}
-					
-					tagResult = tagResult + joiner;
-					System.out.println(tagResult);
-//				System.out.println(dto);
-					dto.setTag_name(tagResult);
-					reviewList.add(dto);
-					close(rs2);
-					close(pstmt2);
+					for(String s : str) {
+						sql="INSERT INTO tag_relation VALUES(?, ?)";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, idx);
+						pstmt.setString(2, s);
+						updateCount = pstmt.executeUpdate();
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("SQL 구문작성오류 - selectReviewList()");
+				System.out.println("SQL 구문 작성 및 실행 오류 - updateTag()");
+			} finally {
+				close(pstmt);
+			}
+			return updateCount;
+		}
+		
+		// 목민수파트
+		public ArrayList<ReviewBoardDTO> selectReviewBestLikeBoardList(int pageNum, int listLimit, String targetTag) {
+			System.out.println("selectReviewBestLikeBoardList()");
+			ArrayList<ReviewBoardDTO> reviewList = null;
+			
+			String sql = "";
+			PreparedStatement pstmt = null,pstmt2=null;
+			ResultSet rs = null,rs2=null;
+			
+			// 시작행 번호 계산
+			int startRow = (pageNum  - 1) * listLimit;
+
+				try {
+					sql = "SELECT * FROM reviewboard "
+								+ "ORDER BY likes DESC "
+								+ "LIMIT ?, ?";
+					
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, startRow);
+					pstmt.setInt(2, listLimit);
+					
+					rs = pstmt.executeQuery();
+					
+					reviewList = new ArrayList<ReviewBoardDTO>();
+					String tagResult = "";
+					while(rs.next()) {	
+						ReviewBoardDTO dto = new ReviewBoardDTO();
+						// 게시물 정보 저장
+						dto.setIdx(rs.getInt("idx"));
+						dto.setRes_name(rs.getString("res_name"));
+						dto.setNickname(rs.getString("nickname"));
+						dto.setSubject(rs.getString("subject"));
+						dto.setPhoto(rs.getString("photo"));
+						dto.setContent(rs.getString("content"));
+						dto.setLikes(rs.getInt("likes"));
+						dto.setRating(rs.getFloat("rating"));
+						dto.setDate(rs.getDate("date"));
+							String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
+							pstmt2  = con.prepareStatement(sql2);
+							pstmt2.setInt(1, dto.getIdx());
+							rs2 = pstmt2.executeQuery();
+							
+							tagResult = "#";
+							StringJoiner joiner = new StringJoiner("#");
+								while(rs2.next()) {
+									
+									joiner.add(rs2.getString("tag_name"));;
+								}
+							
+							tagResult = tagResult + joiner;
+							System.out.println(tagResult);
+							dto.setTag_name(tagResult);
+						reviewList.add(dto);
+						System.out.println("=====================");
+						System.out.println(dto);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("SQL 구문작성오류 - selectReviewList()");
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+			return reviewList;
+		}
+
+		//박영재
+		public ArrayList<ReviewBoardDTO> selectMainReviewBoardList(String search) {
+
+			ArrayList<ReviewBoardDTO> reviewList = null;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			PreparedStatement pstmt2 = null;
+			ResultSet rs2 = null;
+			
+			/*************************************
+			 * 댓글 부분 구현될 경우 새로 sql 문 작성 해야 함
+			 ****************************************/
+				
+				try {
+					String sql = "SELECT * FROM reviewboard WHERE subject LIKE ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + search + "%");
+					
+					rs = pstmt.executeQuery();
+					
+					reviewList = new ArrayList<ReviewBoardDTO>();
+						
+					while(rs.next()) {
+						
+						ReviewBoardDTO dto = new ReviewBoardDTO();
+						String tagResult = "";
+						// 게시물 정보 저장
+						dto.setIdx(rs.getInt("idx"));
+						dto.setRes_name(rs.getString("res_name"));
+						dto.setNickname(rs.getString("nickname"));
+						dto.setSubject(rs.getString("subject"));
+						dto.setPhoto(rs.getString("photo"));
+						dto.setContent(rs.getString("content"));
+						dto.setLikes(rs.getInt("likes"));
+						dto.setRating(rs.getFloat("rating"));
+						dto.setDate(rs.getDate("date"));
+						
+						String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
+						pstmt2  = con.prepareStatement(sql2);
+						pstmt2.setInt(1, dto.getIdx());
+						rs2 = pstmt2.executeQuery();
+						
+						tagResult = "#";
+						StringJoiner joiner = new StringJoiner("#");
+						while(rs2.next()) {
+							
+							joiner.add(rs2.getString("tag_name"));;
+						}
+						
+						tagResult = tagResult + joiner;
+						System.out.println(tagResult);
+//					System.out.println(dto);
+						dto.setTag_name(tagResult);
+						reviewList.add(dto);
+						close(rs2);
+						close(pstmt2);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("SQL 구문작성오류 - selectReviewList()");
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+			return reviewList;
+		}
+		
+		//검색어 없을 때 메인에 가져올 목록
+		public ArrayList<ReviewBoardDTO> selectMainReviewBoardList() {
+ArrayList<ReviewBoardDTO> reviewList = null;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			PreparedStatement pstmt2 = null;
+			ResultSet rs2 = null;
+			
+			/*************************************
+			 * 댓글 부분 구현될 경우 새로 sql 문 작성 해야 함
+			 ****************************************/
+				
+				try {
+					String sql = "SELECT * FROM reviewboard ORDER BY likes DESC";
+					pstmt = con.prepareStatement(sql);
+					
+					rs = pstmt.executeQuery();
+					
+					reviewList = new ArrayList<ReviewBoardDTO>();
+						
+					while(rs.next()) {
+						
+						ReviewBoardDTO dto = new ReviewBoardDTO();
+						String tagResult = "";
+						// 게시물 정보 저장
+						dto.setIdx(rs.getInt("idx"));
+						dto.setRes_name(rs.getString("res_name"));
+						dto.setNickname(rs.getString("nickname"));
+						dto.setSubject(rs.getString("subject"));
+						dto.setPhoto(rs.getString("photo"));
+						dto.setContent(rs.getString("content"));
+						dto.setLikes(rs.getInt("likes"));
+						dto.setRating(rs.getFloat("rating"));
+						dto.setDate(rs.getDate("date"));
+						
+						String sql2 = "SELECT tag_name FROM tag_relation WHERE review_idx=?";
+						pstmt2  = con.prepareStatement(sql2);
+						pstmt2.setInt(1, dto.getIdx());
+						rs2 = pstmt2.executeQuery();
+						
+						tagResult = "#";
+						StringJoiner joiner = new StringJoiner("#");
+						while(rs2.next()) {
+							
+							joiner.add(rs2.getString("tag_name"));;
+						}
+						
+						tagResult = tagResult + joiner;
+						System.out.println(tagResult);
+//					System.out.println(dto);
+						dto.setTag_name(tagResult);
+						reviewList.add(dto);
+						close(rs2);
+						close(pstmt2);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("SQL 구문작성오류 - selectReviewList()");
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+			return reviewList;
+		}
+		
+		public int selectResearchReviewListCount(String search) {
+			int listCount = 0;
+			
+			//구문 작성 전 Setting
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			// 구문 작성 및 실행
+			try {
+				String sql = "SELECT COUNT(*) FROM reviewboard WHERE subject LIKE ?	";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + search + "%");
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("SQL 구문 작성 및 실행 오류 - selectReviewListCount()" + e.getMessage());
 			} finally {
 				close(rs);
 				close(pstmt);
 			}
-		return reviewList;
-	}
-	public int selectResearchReviewListCount(String search) {
-		int listCount = 0;
-		
-		//구문 작성 전 Setting
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		// 구문 작성 및 실행
-		try {
-			String sql = "SELECT COUNT(*) FROM reviewboard WHERE subject LIKE ?	";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + search + "%");
-			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
-				listCount = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("SQL 구문 작성 및 실행 오류 - selectReviewListCount()" + e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
+			return listCount;
 		}
 		
-		return listCount;
-	}
 		
 }

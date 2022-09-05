@@ -62,8 +62,8 @@
 							</div>
 
 						<div align="right">
-							<input type="submit" class="btn btn-primary" value="삭제">
-							<input type="button" class="btn btn-primary" value="돌아가기" onclick="javascript:history.back()">
+							<input type="submit" class="btn btn-secondary"value="삭제">
+							<input type="button" class="btn btn-secondary" value="돌아가기" onclick="javascript:history.back()">
 						</div>
 					</form>
 				</div>

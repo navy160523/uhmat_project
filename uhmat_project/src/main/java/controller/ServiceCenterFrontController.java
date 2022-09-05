@@ -8,6 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.*;
+import action.serviceCenter.FAQDeleteAction;
+import action.serviceCenter.FAQDetailAction;
+import action.serviceCenter.FAQDetailReplyAction;
+import action.serviceCenter.FAQDetailReplyDeleteAction;
+import action.serviceCenter.FAQListAction;
+import action.serviceCenter.FAQModifyFormAction;
+import action.serviceCenter.FAQModifyProAction;
+import action.serviceCenter.FAQWriteProAction;
+import action.serviceCenter.FAQlistCategoryAction;
+import action.serviceCenter.LiveTalkAction;
+import action.serviceCenter.LiveTalkProAction;
+import action.serviceCenter.NoticeDeleteAction;
+import action.serviceCenter.NoticeDetailAction;
+import action.serviceCenter.NoticeListAction;
+import action.serviceCenter.NoticeModifyFormAction;
+import action.serviceCenter.NoticeModifyProAction;
+import action.serviceCenter.NoticeWriteProAction;
+import action.serviceCenter.NoticelistCategoryAction;
 import vo.*;
 
 @WebServlet("*.sc")
@@ -201,19 +219,6 @@ public class ServiceCenterFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		
-		// 서비스센터 메인 호출하는 서블릿
-		
-		else if(command.equals("/ServiceCenterMain.sc")) {
-			try {
-				action = new ServiceCenterMainAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		}
 
 		

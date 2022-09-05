@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.FAQDetailService;
+import svc.serviceCenter.FAQDetailService;
 import vo.ActionForward;
 import vo.FAQDTO;
 import vo.FAQReplyDTO;

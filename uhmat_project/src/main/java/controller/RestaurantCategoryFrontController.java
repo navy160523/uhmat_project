@@ -1,27 +1,36 @@
 package controller;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import action.Action;
-import action.CheckHashAction;
-import action.RestaurantDeleteAction;
-import action.RestaurantDetailAction;
-import action.RestaurantListAction;
-import action.RestaurantModifyFormAction;
-import action.RestaurantModifyProAction;
-import action.RestaurantWriteProAction;
-import action.ReviewDeleteProAction;
-import action.ReviewDetailAction;
-import action.ReviewLikeAction;
-import action.ReviewListAction;
-import action.ReviewModifyFormAction;
-import action.ReviewModifyProAction;
-import action.ReviewWriteProAction;
+import action.restaurant.MapAction;
+import action.restaurant.RestaurantDeleteAction;
+import action.restaurant.RestaurantDetailAction;
+import action.restaurant.RestaurantListAction;
+import action.restaurant.RestaurantModifyFormAction;
+import action.restaurant.RestaurantModifyProAction;
+import action.restaurant.RestaurantWriteProAction;
+import action.review.CheckHashAction;
+import action.review.ReviewDeleteProAction;
+import action.review.ReviewDetailAction;
+import action.review.ReviewLikeAction;
+import action.review.ReviewListAction;
+import action.review.ReviewModifyFormAction;
+import action.review.ReviewModifyProAction;
+import action.review.ReviewReplyListAction;
+import action.review.ReviewReplyWriteAction;
+import action.review.ReviewWriteProAction;
 import vo.ActionForward;
 import vo.RestaurantInfoDTO;
 
@@ -209,7 +218,7 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		} else if(command.equals("/ReviewLikeAction.re")) {
+		}  else if(command.equals("/ReviewLikeAction.re")) {
 			 try {
 				action = new ReviewLikeAction();
 				 forward = action.execute(request, response);
@@ -226,24 +235,42 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 				
 				e.printStackTrace();
 			}
+		} else if(command.equals("/ReviewReplyList.re")) {
+			 try {
+				 action = new ReviewReplyListAction();
+				 forward = action.execute(request, response);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+
+		}  else if(command.equals("/ReviewReplyWriteAction.re")) {
+			 try {
+				 action = new ReviewReplyWriteAction();
+				 forward = action.execute(request, response);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
 
 		}else if (command.equals("/map.re")) {
 
-//			MapAction mapGet = new MapAction();	//여기서부턴 지도  import 작업이 필요함!
-//			
-//			String keyword= "";
-//			
-//			if(request.getParameter("keyword")!=null) {
-//				keyword = request.getParameter("keyword");
-//			}
-//			System.out.println("keyword : " + keyword);
-//			
-//			ArrayList<RestaurantInfoDTO> list = mapGet.execute(keyword);
-//
-//			String gson = new Gson().toJson(list);
-//			System.out.println(list);
-//			response.setContentType("application/json; charset=utf-8");
-//			response.getWriter().write(gson);
+			MapAction mapGet = new MapAction();	//여기서부턴 지도  import 작업이 필요함!
+			
+			String keyword= "";
+			
+			if(request.getParameter("keyword")!=null) {
+				keyword = request.getParameter("keyword");
+			}
+			System.out.println("keyword : " + keyword);
+			
+			ArrayList<RestaurantInfoDTO> list = mapGet.execute(keyword);
+			
+			request.setAttribute("list", list);
+			String gson = new Gson().toJson(list);
+			System.out.println(list);
+			response.setContentType("application/json; charset=utf-8");
+			response.getWriter().write(gson);
 		
 		// 지도 보여주기
 		} else if (command.equals("/mapForm.re")) {
