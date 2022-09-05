@@ -73,7 +73,9 @@ public class RestaurantListAction implements Action {
 		List<RestaurantInfoDTO> list = null;
 		//카테고리로 검색될 경우
 		
-		if(category != null) {
+		if(request.getParameter("bestRes")!=null){
+			list = service.selectBestRes(pageNum,listLimit);
+		}else if(category != null) {
 			if(keyword!=null) {	//검색어 있을 때
 				list = service.selelctRestaurantList(pageNum,listLimit,category,keyword);
 				System.out.println("카테고리+ 키워드로 검색됨!");

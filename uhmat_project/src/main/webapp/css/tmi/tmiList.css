@@ -47,53 +47,43 @@ h2 {
 	color: black;
 }
 
-.search input {
-	padding: 5px; 
-	border: 2px solid #c6c6c6;
-	background-color:white;
-	color: #717171;
-	border-radius: 5px;
-	font-family: 'Poor Story', cursive;
+td.link:hover{
+	background-color: #6C757D;
+	cursor: pointer;
 }
 
-.searchIcon {
-	padding: 2px;
-	border: 2px solid #FF1818;
-	background-color: white;
-	color: #FF1818;
+.search {
+	padding: 3px; 
+	border: 2px solid #6C757D;
+	background-color:white;
+	color: #6C757D;
 	border-radius: 5px;
-	color: #717171;
+/* 	font-family: 'Poor Story', cursive; */
+}
+
+#searchIcon:hover {
+	background-color: #6C757D;;
+	color : white;
+	cursor: pointer;
 }
 
 .before_next {
-	border: 2px solid #FF1818;
-	background-color: white;
-	border-radius: 5px;
-	color: #717171;
+	border: 2px solid #6C757D;;
+	background-color: #6C757D;
+	border-radius: 2px;
+	color: white;
 	font-family: 'Poor Story', cursive;
 }
 
-/* .tmiBanner img { */
-/* border-radius: 10px; */
-/* } */
+.before_next:hover {
+	background-color: white;
+	color : #6C757D;
+	cursor: pointer;
+}
 
 #plus {
 	border-bottom: none;
 	margin: 0px;
 	position: relative;
 	left: 590px;
-}
-
-.tmiButton {
-	border: 2px solid #FF1818;
-	background-color: white;
-	color: #FF1818;
-	padding: 5px;
-	border-radius: 5px;
-	font-family: 'Poor Story', cursive;
-}
-
-.tmiButton:hover {
-	background-color: #FF1818;
-	color: white;
 }

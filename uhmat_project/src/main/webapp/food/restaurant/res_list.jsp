@@ -107,7 +107,7 @@
 		</section>
 		
 		<!-- 리스트 ajax 부분 -->
-		<section>
+		<section id="bestResCall">
 			<table id="repeat">
 				<c:choose>
 					<c:when test="${empty restaurantInfo }">
@@ -134,7 +134,7 @@
 		
 		</section>
 		
-		<c:if test="${sessionScope.sNickName eq 'admin' }">
+		<c:if test="${sessionScope.sNickName == 'admin' }">
 			<section id="buttons">
 				<button class="btn" onclick="location.href='restaurantWriteForm.re'">글쓰기</button>
 				<button class="btn" onclick="location.href='resCategory.re'">카테고리 보기</button>

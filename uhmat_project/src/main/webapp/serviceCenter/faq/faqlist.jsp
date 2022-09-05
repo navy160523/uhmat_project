@@ -14,40 +14,31 @@
 <link href="css/faq/faqlist.css" rel="stylesheet">
 
 
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
+	
 		<jsp:include page="../../inc/header.jsp"></jsp:include>
 		
-		<section id="listForm">
 		<h2>FAQ</h2>
 
-		<div id="topButton">
-			<br>
-				<input type="button" class="topButton c1" value="전체" name="" onclick="location.href='FAQlistCategory.sc?name='+name">
-				<input type="button" class="topButton c2" value="오류신고" name="오류신고" onclick="location.href='FAQlistCategory.sc?name='+name">
-				<input type="button" class="topButton c3" value="음식점등록" name="음식점등록" onclick="location.href='FAQlistCategory.sc?name='+name">
-				<input type="button" class="topButton c4" value="지도 오류" name="지도 오류" onclick="location.href='FAQlistCategory.sc?name='+name">
-<!-- 				<section style="clear: both;"></section> -->
-			<br>
-		<!-- 검색하기 기능 -->
-			<form action="FAQList.sc" method="get" id="keyword">
-				<input type="text" placeholder="검색어를 입력하세요" name="keyword" value=${param.keyword }>
-				<input type="submit" value="검색" id="bt">
-			</form>
-		</div>	
-		<table border="1">
-			<tr id="tr_top">
-				<td width="150px">카테고리</td>
-				<td width="100px">번호</td>
+		<div id="menuBar" align="center">
+				<input type="button"  class="topButton" value="전체" name="" onclick="location.href='FAQlistCategory.sc?name='+name">
+				<input type="button"  class="topButton" value="오류신고" name="오류신고" onclick="location.href='FAQlistCategory.sc?name='+name">
+				<input type="button"  class="topButton" value="음식점등록" name="음식점등록" onclick="location.href='FAQlistCategory.sc?name='+name">
+				<input type="button"  class="topButton" value="지도 오류" name="지도 오류" onclick="location.href='FAQlistCategory.sc?name='+name">
+		</div>
+		
+		<table class="faqList">
+			<tr>
+				<td>카테고리</td>
+				<td>번호</td>
 				<td>제목</td>
-				<td width="150px">작성자</td>
-				<td width="150px">날짜</td>
-				<td width="100px">조회수</td>
-				<td width="100px">첨부파일</td>
-
-
+				<td>작성자</td>
+				<td>날짜</td>
+				<td>조회수</td>
+				<td>첨부파일</td>
 			</tr>
+			
 			<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -> JSTL과 EL 활용-->
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
@@ -55,27 +46,30 @@
 	 			<c:when test="${not empty list  }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
 					<c:forEach var="FAQ" items="${list}"> 
-						<tr>
+						<tr class="faqListTable">
 							<td>${FAQ.category }</td>
 							<td>${FAQ.idx }</td>
-							<td id="subject">
 								<c:choose>
 									<c:when test="${not empty sessionScope.sNickName }">
-									<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&keyword=${param.keyword}">
+									<td class="link" width="350" height="50" onclick="location.href='FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&keyword=${param.keyword}'">
 										${FAQ.subject }
-									</a>
+									</td>
 									</c:when>
 									<c:otherwise>
-									${FAQ.subject }
+									<td>${FAQ.subject }</td>
 									</c:otherwise>
 								</c:choose>
-							</td>
 							<td>${FAQ.nickname }</td>
 							<td>${FAQ.date }</td>
 							<td>${FAQ.readcount }</td>
-							<c:if test="${not empty FAQ.real_File  }">
-							<td><i class='fas fa-link' style='font-size:20px;color:blue'></i></td>
-							</c:if>
+	 						<td>
+	 						
+		 						<c:if test="${not empty FAQ.real_File }">
+		 							<i class='fas fa-link' style='font-size:20px; color:blue'></i>
+		 						 </c:if>
+	 						 </td>
+
+								  
 						</tr>
 						</c:forEach>
 	 			</c:when>
@@ -85,15 +79,40 @@
 	 		</c:choose>
 			
 		</table>
-		</section>
 		
-		<section id="pageList">
+		<br>
+		
+		<!-- 검색하기 기능 -->
+		<div align="center">
+			<form action="FAQList.sc" class="search" method="get" id="keyword">
+				<input type="text" placeholder="search" name="keyword" value=${param.keyword }>
+				<input type="submit" class="searchBtn" value="검색" >
+			
+		
+			<!-- 버튼 창 -->
+			<c:if test="${not empty sessionScope.sNickName }"> 
+			<div style="position: static; left: 800px;">
+			<br>
+			<button type="button" class="faqButton"
+				onclick="location.href='FAQWriteForm.sc'">글쓰기</button>
+			<button type="button" class="faqButton" onclick="location.href='./'">메인</button>
+			</div>
+			</c:if>
+			</form>
+		</div>
+		
+		<br>
+		
+		<!-- ---------------------------------------------- -->
+		
+		
+		<div align="center">
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'" id="bt">
+					<input type="button" value="이전" class="before_next" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전" disabled="disabled" id="bt">
+					<input type="button" value="이전" class="before_next" disabled="disabled" >
 				</c:otherwise>
 			</c:choose>
 				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" >
@@ -112,22 +131,36 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" id="bt">
+					<input type="button" value="다음" class="before_next" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" id="bt">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음" disabled="disabled" id="bt">
+					<input type="button" value="다음" class="before_next" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
-		</section>
+		</div>
 		
-		<c:if test="${not empty sessionScope.sNickName }"> 
-			<section id="buttonArea">
-				<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" id="bt"/>
-			</section>
-		</c:if>
+
 		
 		<!-- Footer 부분 -->
 			<jsp:include page="../../inc/footer.jsp"></jsp:include>
+			
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<!-- * *                               SB Forms JS                               * *-->
+	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>
 

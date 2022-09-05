@@ -22,6 +22,7 @@ public class CommunityTmiDTO {
 	private String report;
 	private String category;
 	
+	
 	public int getIdx() {
 		return idx;
 	}

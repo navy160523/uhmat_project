@@ -29,71 +29,96 @@
 		<br>
 	</div>
 	
-	
-	<table class="recipeList">
-		<tr>
-			<td></td>
-			<td>제목</td>
-			<td>닉네임</td>
-			<td>조회수</td>
-			<td>작성일</td>
-		
-		</tr>
-		<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -->
-		<!-- 조건 : recipeList 객체가 비어있지 않고 pageInfo 객체의 listCount 가 0보다 클 경우 -->
+	<!-- ---------------------------------------------------------------------------- -->
+	<main>
+	<div class="main" align="center">
 		<c:choose>
 			<c:when test="${not empty recipeList and pageInfo.listCount gt 0 and empty recipeSearchPageInfo.listCount}">
 				<c:forEach var="recipe" items="${recipeList }">
-					<tr class="recipeListTable">
-						<td><img src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png';" width="100" ></td>
-						<td class="link" width="350" height="50"><a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">${recipe.subject }</a></td>
-						<td>${recipe.nickname }</td>
-						<td>${recipe.readcount }</td>  
-						<td>${recipe.date }</td>
-					</tr>
-					
+					<div class= "recipeList">
+						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
+						<c:choose>
+							<c:when test="${not empty recipe.real_File1 }">
+								<img class="recipeImg"  width="100" src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
+							</c:when>
+							<c:otherwise>
+								<img class="recipeImg" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
+							</c:otherwise>
+						</c:choose>
+						</a>
+						
+						<div>
+							<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
+								<b>${recipe.subject }</b>
+							</a>
+						</div>
+						
+						<span>${recipe.nickname }</span> <br>
+						<span>${recipe.readcount }</span> <br>  
+						<span>${recipe.date }</span>
+						
+					</div>
 				</c:forEach>
 			</c:when>
+			
 			<c:when test="${not empty recipeSearchPageInfo.listCount }">
-	 			<c:forEach var="recipe" items="${recipeSearchList}"> 
-					<tr class="recipeListTable">
-						<td><img src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='img/recipe_default_img/레시피디폴트.png';" width="100" ></td>
-						<td class="link" width="350" height="50"><a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">${recipe.subject }</a></td>
-						<td>${recipe.nickname }</td>
-						<td>${recipe.readcount }</td>  
-						<td>${recipe.date }</td>
-					</tr>
+	 			<c:forEach var="recipe" items="${recipeSearchList}">
+	 			<div class= "recipeList"> 
+						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
+						<c:choose>
+							<c:when test="${not empty recipe.real_File1 }">
+								<img class="recipeImg" src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
+							</c:when>
+						<c:otherwise>
+							<img class="recipeImg" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
+						</c:otherwise>
+					</c:choose>
+					</a>
+					
+					<div>
+						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}'">
+						<b>${recipe.subject }</b>
+						</a>
+					</div>
+					
+						<span>${recipe.nickname }</span> <br>
+						<span>${recipe.readcount }</span> <br>  
+						<span>${recipe.date }</span>
+					</div>
 				</c:forEach>
 	 		</c:when>
+	 		
 			<c:otherwise>
 				<tr><td colspan="5">게시물이 존재하지 않습니다.</td></tr>
 			</c:otherwise>
 		</c:choose>
-		<tr>
-			<td id="plus"><i class='fas fa-plus-circle' style='position:static; font-size:48px;color:#AAAAAA' onclick="location.href='RecipeWriteForm.co'"/></i></td>
-		</tr>
-	</table>
-	
-	<!-- 	레시피 검색 -->
-	<div align="center">
-		<form action="RecipeSearch.co" method="get" class="search">
-			<input type="text" placeholder="search" name="keyword" value=${param.keyword }>
-			<input type="submit" value="검색">
-    	</form>
 	</div>
-	&nbsp;
-	<!-- 글쓰기 버튼 클릭 시 글쓰기 페이지로 이동 -->
-<!-- 	<div style="position: relative; right: -1210px; top:35px;"> -->
-<!-- 		<i class='fas fa-plus-circle' style='position:static; font-size:48px;color:#7FB77E' onclick="location.href='RecipeWriteForm.co'"/></i> -->
-<!-- <!-- 		<input type="button" value="글쓰기" onclick="location.href='RecipeWriteForm.co'"/> --> 
-<!-- 	</div> -->
+	
+	</main>	
+	
+	<!-- ---------------------------------------------------------------------------- -->
 	
 	<!-- 
 		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
 		=> 클릭 시 mateList.mate 서블릿 주소 요청하면서 
 		   현재 페이지 번호(pageNum) - 1 값을 page 파라미터로 전달
 	-->
+	<div align="center" style="clear: both;">
+	
+	<i class='fas fa-plus-circle' style='position: relative; font-size:48px;color:#6C757D;' onclick="location.href='RecipeWriteForm.co'"/></i>
+	
+	<!-- 	레시피 검색 -->
 	<div align="center">
+		<form action="RecipeSearch.co" method="get" class="search">
+			<input type="text" placeholder="search" name="keyword" value=${param.keyword }>
+			<input type="submit" value="검색" class="searchBtn">
+    	</form>
+	</div>
+	
+	<br>
+
+	<section class="pageList">
+	
 		<c:choose>
 			<c:when test="${pageInfo.pageNum > 1}">
 				<input type="button" class="before_next" value="이전" onclick="location.href='RecipeList.co?pageNum=${pageInfo.pageNum - 1}'">
@@ -148,8 +173,9 @@
 			<input type="button" class="before_next" value="다음">
 		</c:otherwise>
 	</c:choose>
-		
+	</section>	
 	</div>
+	
 	
 	<!-- 		푸터 들어가는 곳 -->
 		<jsp:include page="../../inc/footer.jsp"/>

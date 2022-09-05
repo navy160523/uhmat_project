@@ -21,19 +21,78 @@
 	        }
 	    });
 	    
+	    $("#nextBestReview").on("click",function(){
+	    	 $.ajax({
+		   			type: "post",
+		   			url: "ReviewBest.ma",	//리뷰를 좋아요 순으로 가져오는 요청
+		   			data:{
+		   				pageNum: ${pageInfo.pageNum}+1
+		   			},
+		   			dataType: "text",
+		   			async : false,
+		   			success: function(response) {
+	  					var content = $("#bestReview").html(response).find("#list");
+//	   					alert(response);
+	  					$("#bestReview").html(content);
+		   		   }
+		   		});
+	    });
+	    
 	  window.onload = function(){
-	   	   $.ajax({
-	   			type: "post",
-	   			url: "ReviewBest.ma",	//리뷰를 좋아요 순으로 가져오는 요청
-	   		
-	   			dataType: "text",
-	   			async : false,
-	   			success: function(response) {
-  					var content = $("#bestReview").html(response).find("#list");
-//   					alert(response);
-  					$("#bestReview").html(content);
-	   		   }
-	   		});
+   	   $.ajax({
+   			type: "post",
+   			url: "ReviewBest.ma",	//리뷰를 좋아요 순으로 가져오는 요청
+   		
+   			dataType: "text",
+   			async : false,
+   			success: function(response) {
+ 					var content = $("#bestReview").html(response).find("#list");
+ 					$("#bestReview").html(content);
+   		   }
+   		});
+	   	   
+	   	$.ajax({
+   			type: "post",
+   			url: "ReviewRecent.ma",	//리뷰를 좋아요 순으로 가져오는 요청
+
+   			dataType: "text",
+   			async : false,
+   			success: function(response) {
+					var content = $("#recentReview").html(response).find("#list");
+//					alert(response);
+					$("#recentReview").html(content);
+   		   }
+   		});
+	   	   
+	   	$.ajax({
+   			type: "post",
+   			url: "restaurantList.re",	//식당을 가져오는 요청
+   			data: {
+   				bestRes : true
+   			},
+   			dataType: "text",
+   			async : false,
+   			success: function(response) {
+// 				alert($(response).find("#repeat").html());
+				var table = $(response).find("#repeat");
+				var td = table.find("td:eq(0)");
+				var td2 = table.find("tr:eq(0) td:eq(3) img").prop('src');
+				var inputTd = $("#bestRes td:eq(0)").text();
+				$("#bestRes td").eq(0).text(td.text());
+				$("#bestRes img").eq(0).attr('src',td2);
+				
+				for(var i=0;i<3;i++){
+					var td = table.find("tr:eq("+i+") td:eq(0)");
+					var td2 = table.find("tr:eq("+i+") td:eq(3) img").prop('src');
+					var inputTd = $("#bestRes td:eq("+i+")").text();
+					$("#bestRes td").eq(i).text(td.text());
+					$("#bestRes img").eq(i).attr('src',td2);
+				}
+   				
+   		   }
+   		});
+	   	
+   	   
 	  }
 	
 	});
@@ -67,19 +126,17 @@
 			<div class="rankContainer">
 				<div class = "imgContainer" ><h2>최다 좋아요 리뷰</h2>
 						<div id="bestReview">
-						
+							
 						</div>
 				</div>
 			</div>
 		<!-- 최고의 리뷰 순위 끝 -->
-		
+		<div class="clear"></div>
 		<!-- 최신 리뷰 시작 -->
-			<div class="rankReview" id="recentReview">
+			<div class="rankReview">
 				<div class = "imgContainer"><h2>어맛 최신 리뷰</h2>
-					<div id="bestResList">
-						<img src="image/sample1.jpg" width="200" height="100">
-						<img src="image/sample2.jpg" width="200" height="100">
-						<img src="image/sample3.jpg" width="200" height="100">
+					<div id="recentReview">
+						
 					</div>
 				</div>
 			</div>
@@ -89,30 +146,26 @@
 			<div class="rankReview" id="bestRes">
 				<div class = "imgContainer"><h2>어맛 추천 식당</h2>
 					<!-- 별점, 댓글의 개수 순으로 내림차순 정렬된 식당의 값 -->
-					
+					<div id="bestRes">
+						<table>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><img src="#" width="300" height="200"></td>
+								<td><img src="#" width="300" height="200"></td>
+								<td><img src="#" width="300" height="200"></td>
+							</tr>
+						</table>
+						
+					</div>
 				</div>
 			</div>
 		<!-- 어맛 추천 리뷰 끝 -->
 		
-		<!-- 리뷰어 창 시작 -->
-			<div class="reviewer">
-				<div class = "imgContainer"><h2>어맛 리뷰어</h2>
-					<div class = "mainView" >
-						<ul>
-							<li><img src="image/sample1.jpg" width="100%" /></li>
-							<li><img src="image/sample2.jpg" width="100%" /></li>
-							<li><img src="image/sample3.jpg" width="100%" /></li>
-							<li><img src="image/sample4.jpg" width="100%" /></li>
-							<li><img src="image/sample5.jpg" width="100%" /></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>	
-		<!-- 리뷰어 창 끝 -->
-		
-		
-		
+	</div>
 	</div>
 <!-- 메인페이지 영역 끝 -->		
 <!-- <hr> -->

@@ -11,7 +11,34 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 <link href="css/mate/mateList.css" rel="stylesheet">
+<style type="text/css">
+
+ #detail{
+ border: 0px;
+ text-align: center;
+ 
+ }
+ #selectBox {
+  width: 100px;
+  padding: .2em .1em;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: 'Poor Story', cursive;
+  font-size: 20px;
+  border: 1px solid #999;
+  border-radius: 0px;
+}
+
+#selectBox::-ms-expand {
+  /* for IE 11 */
+  display: none;
+}
+</style>
  <script src="./js/jquery-3.6.0.js"></script>
+ 
  <script type="text/javascript">
 
 	
@@ -23,35 +50,37 @@ $(function(){
 	
 	$("input[name^=detail]").on("click",function(){
 		var title = "";
+		var url="";
 		if($("#selectBox").val()=='Notice'){
-			title="NoticeDetail.ad";
-			alert(title);
+			title="Notice";
+			url="NoticeDetail.ad";
 		}
 		if($("#selectBox").val()=='FAQ'){
-			title="FAQDetail.ad";
-			alert(title);
+			title="FAQ";
+			url="FAQDetail.ad";
 		}
 		if($("#selectBox").val()=='Mate'){
-			title="MateDetail.ad";
-			alert(title);
+			title="Mate";
+			url="MateDetail.ad";
 		}
 		if($("#selectBox").val()=='Tmi'){
-			title="TmiDetail.ad";
-			alert(title);
+			title="Tmi";
+			url="TmiDetail.ad";
 		}
 		if($("#selectBox").val()=='Recipe'){
-			title="RecipeDetail.ad";
-			alert(title);
+			title="Recipe";
+			url="RecipeDetail.ad";
 		}
 		
 		
 			 
 		$.ajax({
-			url : "http://localhost:8080/uhmat_project/"+title,  // ./ 현재경로표시
+			url : "http://localhost:8080/uhmat_project/"+url,  // ./ 현재경로표시
 			type : "get",
 			data :  {
-				idx: 
-					$(this).val()
+				idx: $(this).val(),
+				title: title,
+				pageNum : ${pageInfo.pageNum},
 					},
 					
 			dataType: "text",
@@ -78,7 +107,8 @@ $(function(){
 <body>
 
 	
-			<form action="AllBoardList.ad"  id="fr" method="get"  >
+	<form action="AllBoardList.ad"  id="fr" method="get"  >
+	<div align="center">
 				<select id="selectBox" name="title" onchange="this.form.submit()" >
 					<option value="Notice" selected="selected">Notice</option>
 					<option value="FAQ" >FAQ</option>
@@ -86,13 +116,16 @@ $(function(){
 					<option value="Tmi">Tmi</option>
 					<option value="Recipe">Recipe</option>
 				</select>
-		
-			
 				<!-- 검색하기 기능 -->
 			
-				<input type="text" placeholder="검색어를 입력하세요" id="keyword" name="keyword" value=${param.keyword }>
-				<input type="submit" id="submit1" value="검색">
+				<input class="search"  type="text" placeholder="검색어를 입력하세요" id="keyword" name="keyword" value=${param.keyword }>
+				<input class="search" type="submit" id="submit1" value="검색">
+	</div>
+			
+		
+			
 			</form>
+			<br>
 	<table class="mateList">
 		<tr id="font_front">
 				<td >카테고리</td>
@@ -131,10 +164,10 @@ $(function(){
 	<div align="center">
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
+					<input class="before_next" type="button" value="이전" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전" disabled="disabled">
+					<input class="before_next" type="button" value="이전" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
 				
@@ -155,10 +188,10 @@ $(function(){
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
+					<input class="before_next" type="button" value="다음" onclick="location.href='AllBoardList.ad?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음" disabled="disabled">
+					<input class="before_next" type="button" value="다음" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
 		

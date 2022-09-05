@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.main.ReviewBestAction;
+import action.main.ReviewRecentAction;
 import action.main.UhmatSearchAction;
+import action.review.ReviewListAction;
 import vo.ActionForward;
 
 /**
@@ -39,13 +41,25 @@ public class MainFrontController extends HttpServlet {
 			
 		} else if(command.equals("/ReviewBest.ma")) {
 			try {
+				System.out.println("------------------------------");
+				System.out.println("좋아요 순 리뷰 요청!");
 				action = new ReviewBestAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} 
+		}else if(command.equals("/ReviewRecent.ma")) {
+			try {
+				System.out.println("------------------------------");
+				System.out.println("리뷰 최신순으로 조회!");
+				action = new ReviewRecentAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {

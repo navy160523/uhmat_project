@@ -24,9 +24,9 @@
 	</div>
 
 	<div align="center" id="menuBar">
-		<button onclick="location.href='MateList.co'">mate_list</button>
-		<button onclick="location.href='TmiList.co'">tmi_list</button>
-		<button onclick="location.href='RecipeList.co'">recipte_list</button>
+		<button onclick="location.href='MateList.co'">mate</button>
+		<button onclick="location.href='TmiList.co'">tmi</button>
+		<button onclick="location.href='RecipeList.co'">recipe</button>
 		<br>
 	</div>
 	<!-- 배너, 메뉴바 끝 -->
@@ -35,10 +35,10 @@
 	<!-- 게시판리스트 -->
 	<table class="tmiList">
 			<tr id="font_front">
-				<th scope="col">제목</th>
-				<th scope="col">작성자</th>
-				<th scope="col">조회수</th>
-				<th scope="col">등록일</th>
+				<td scope="col">제목</td>
+				<td scope="col">작성자</td>
+				<td scope="col">조회수</td>
+				<td scope="col">등록일</td>
 			</tr>
 
 			<c:choose>
@@ -46,8 +46,9 @@
 					test="${not empty tmiBoardList and tmiPageInfo.listCount gt 0 }">
 					<c:forEach var="tmi" items="${tmiBoardList }">
 						<tr class="tmiListTable">
-							<td class="link" width="350" height="50"><a
-								href="TmiDetail.co?idx=${tmi.idx }&pageNum=${tmiPageInfo.pageNum}">${tmi.subject }</a>
+							<td class="link" width="350" height="50"
+							onclick="location.href='TmiDetail.co?idx=${tmi.idx }&pageNum=${tmiPageInfo.pageNum}'">
+							${tmi.subject }
 							</td>
 							<td>${tmi.nickname }</td>
 							<td>${tmi.readcount }</td>
@@ -61,9 +62,8 @@
 					<c:forEach var="tmiBoardList" items="${tmiBoardList }">
 						<tr>
 							<td>${tmiBoardList.idx }</td>
-							<td class="link" width="350" height="50"><a
-								href="TmiDetail.co?idx=${tmiBoardList.idx }&pageNum=${tmiPageInfo.pageNum}&keyword=${param.keyword }">
-									${tmiBoardList.subject } </a></td>
+							<td class="link" width="350" height="50" onclick="location.href='TmiDetail.co?idx=${tmiBoardList.idx }&pageNum=${tmiPageInfo.pageNum}&keyword=${param.keyword }'">
+							${tmiBoardList.subject }</td>
 							<td>${tmiBoardList.nickname }</td>
 							<td>${tmiBoardList.date }</td>
 						</tr>
@@ -80,17 +80,17 @@
 			<td id="plus"><i class='fas fa-plus-circle' style='position:static; font-size:48px; color: #AAAAAA;' onclick="location.href='TmiWriteForm.co'"/></i></td>
 		</tr>
 	</table>
-	
-	<br>
+
 	
 	<!-- 검색 창 -->
 	<div align="center">
-		<form class="search" class="search" >
-			<input type="text" placeholder="Search" name="keyword" value="${param.keyword }"> 
-			<input class="searchIcon" type="submit" value="검색">	
+		<form>
+			<input class="search" type="text" placeholder="Search" name="keyword" value="${param.keyword }"> 
+			<input class="search" id="searchIcon" type="submit" value="검색">	
 		</form>
 	</div>
 
+	&nbsp;
 
 	<!-- 
 	현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
@@ -139,6 +139,8 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+	
+	&nbsp;
 
 	<!-- 푸터 들어가는 곳 -->
 	<jsp:include page="../../inc/footer.jsp" />

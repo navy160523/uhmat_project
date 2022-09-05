@@ -15,12 +15,16 @@
  	<!-- Google fonts-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-
+	<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="css/styles.css" rel="stylesheet" />
 	
 <style type="text/css">
 
+.btn {
+	position: static;
+	font-family: 'Poor Story', cursive;
+}
 	
 </style>
 
@@ -72,9 +76,9 @@
 					</div>
 					
 					<div align="right" >
-						<input type="submit" value="수정">
-						<input type="reset" value="다시쓰기">
-						<input type="button" value="취소" onclick="history.back()">
+						<input type="submit" class="btn btn-secondary" value="수정">
+						<input type="reset" class="btn btn-secondary" value="다시쓰기">
+						<input type="button" class="btn btn-secondary" value="취소" onclick="history.back()">
 					</div>
 				</form>
 	    	 </div>

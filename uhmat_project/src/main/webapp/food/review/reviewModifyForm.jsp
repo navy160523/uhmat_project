@@ -53,7 +53,7 @@
 				<input type="text" name="tag" value="${dto.tag_name }" onfocus="this.select()">
 				</div> 
 				<div class="dv"><span class="lv">음식점 찾기</span>
-				<input type="text" name="res_name" id="searchRes" readonly="readonly" required="required">&nbsp;
+				<input type="text" name="res_name" id="searchRes" value=${dto.res_name } readonly="readonly" required="required">&nbsp;
 				<button class="btn" id="find">찾기</button>
 			</div>
 				

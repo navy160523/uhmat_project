@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,18 +23,39 @@
 				<td class="subject">${recipe.subject }</td> 
 			</tr>
 			<tr>
-				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${recipe.nickname } | <i class="fa fa-clock-o"></i> ${recipe.datetime } | <i class='far fa-eye'></i> ${recipe.readcount }</td> 
+				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${recipe.nickname } | <i class="fa fa-clock-o"></i> ${recipe.date } | <i class='far fa-eye'></i> ${recipe.readcount }</td> 
 			</tr>
 			</table>
-				<div>
-<!-- 				onerror="this.style.display='none';" img alt 아이콘 없애는 기능 -->
-					<img src="recipe_upload/${recipe.real_File1 }" width="150" onerror="this.style.display='none';">
-					<img src="recipe_upload/${recipe.real_File2 }" width="150" onerror="this.style.display='none';">
-					<img src="recipe_upload/${recipe.real_File3 }" width="150" onerror="this.style.display='none';">
-					<img src="recipe_upload/${recipe.real_File4 }" width="150" onerror="this.style.display='none';">
-					<img src="recipe_upload/${recipe.real_File5 }" width="150" onerror="this.style.display='none';">
-				</div>
-			<table>
+			
+			<c:if test="${not empty recipe.real_File1 or not empty recipe.real_File2 or not empty recipe.real_File3 or not empty recipe.real_File4 or not empty recipe.real_File5 }">
+			<div class="slider">
+			<c:set var="plist">${recipe.real_File1 },${recipe.real_File2 },${recipe.real_File3 },${recipe.real_File4 },${recipe.real_File5 }</c:set>
+			
+			<c:forEach var="listCount" items="${plist }" varStatus="i">
+				<c:if test="${fn:length(plist) > 1 }">
+					<input type="radio" name="slide" id="slide${i.index + 1 }" checked>
+				</c:if>
+			</c:forEach>
+    		
+    			<ul id="imgholder" class="imgs">
+    			<c:forEach var="photoList" items="${plist }">
+    			<li><img src="recipe_upload/${photoList }" width="300px" height="300px" onerror="this.style.display='none';"></li>
+
+			</c:forEach>
+<!-- 			onerror="this.style.display='none';" img alt 아이콘 없애는 기능 -->
+					
+				</ul>
+				<div class="bullets">
+				<c:forEach var="listCount" items="${plist }" varStatus="i">
+					 <label for="slide${i.index + 1 }">&nbsp;</label>
+				</c:forEach>
+    			   
+      				
+    			</div>
+			</div>
+			</c:if>
+			
+		<table>
 			<tr>
 				<td>${recipe.content }</td> 
 			</tr>
@@ -42,7 +64,8 @@
 	&nbsp;
 	
 	<div class="btn">
-		<input type="button" value="댓글" onclick="location.href='RecipeReplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}'">
+		
+				<input type="button" value="댓글" onclick="location.href='RecipeReplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}'">
 		<c:if test="${sessionScope.sNickName == recipe.nickname }">
 			<input type="button" value="수정" onclick="location.href='RecipeModifyForm.co?idx=${recipe.idx}&pageNum=${param.pageNum}'">
 			<input type="button" value="삭제" onclick="location.href='RecipeDeleteForm.co?idx=${recipe.idx}&pageNum=${param.pageNum}&nickname=${recipe.nickname}&file1=${recipe.real_File1 }&file2=${recipe.real_File2 }&file3=${recipe.real_File3 }&file4=${recipe.real_File4 }&file5=${recipe.real_File5 }'">

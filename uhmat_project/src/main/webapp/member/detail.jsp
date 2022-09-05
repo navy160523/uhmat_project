@@ -160,7 +160,11 @@
 						});
 		
 		$('form').submit(function(){
-
+			if($("#newNickName").val() == $("#nickName").val() ){
+				$('#checkNickNameResult').text('사용할 수 있는 닉네임입니다.');
+				$("#checkNickNameResult").css("color","GREEN");
+				nicknameFlag=true
+			}
 	
 			if(!nicknameFlag){
 				 $('#newNickName').focus();

@@ -18,16 +18,20 @@
 /* 	border-bottom: 20px solid rgb(247,0,30); */
 }
 
+
+
 .mainLogo > a > img {
 	float: left;
 	max-width: 600px;
 	max-height:90px;
 	width: auto;
 	height: auto;
-/* 	background-size: cover; */
+	background-size: cover;
 	background-color: transparent;
 	margin-left: 0.75em;
 	z-index: 999999999999999;
+/* 	background-image: url("image/uhmatMainLogo.png"); */
+/* 	background-repeat: repeat-x; */
 /* 	margin-top: 3px; */
 }
 

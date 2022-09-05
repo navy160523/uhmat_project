@@ -19,7 +19,7 @@
 	<!-- 		헤더 들어가는 곳 -->
 	
 	<div align="center" class="mateBanner">
-		<img alt="메이트 배너" src="image/mate/mate_banner.png">
+		<img alt="메이트 배너" src="./image/mate/mate_banner.png">
 		
 	</div>
 	
@@ -45,7 +45,7 @@
 			<c:when test="${not empty mateList and pageInfo.listCount gt 0 }">
 				<c:forEach var="mate" items="${mateList }">
 					<tr class="mateListTable">
-						<td class="link" width="350" height="50"><a href="MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}">${mate.subject }</a></td> 
+						<td class="link" width="350" height="50" onclick="location.href='MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}'">${mate.subject }</a></td> 
 						<td>${mate.nickname }</td> 
 						<td>${mate.readcount }</td> 
 						<td>${mate.date }</td>

@@ -147,7 +147,7 @@ public class RestaurantDAO {
 			pstmt.setInt(2, listLimit);
 			rs = pstmt.executeQuery();
 			
-
+			
 			list = new ArrayList<RestaurantInfoDTO>();
 
 			while(rs.next()) {
@@ -164,7 +164,7 @@ public class RestaurantDAO {
 				dto.setRating(rs.getFloat("rating"));
 				dto.setCategory(rs.getString("category"));
 				System.out.println(dto);
-
+				
 				list.add(dto);				
 			}
 		} catch (SQLException e) {
@@ -724,8 +724,9 @@ public class RestaurantDAO {
 			return isRes;
 		}
 
+		//메인에 출력할 레스토랑 구문 (별점과 댓글이 많은 순서대로 출력)
 		public ArrayList<RestaurantInfoDTO> selectResBoardList(int pageNum, int listLimit) {
-			System.out.println("selectReviewBestLikeBoardList()");
+			System.out.println("selectResBoardList()");
 			ArrayList<RestaurantInfoDTO> resInfo = null;
 			
 			String sql = "";
@@ -736,7 +737,8 @@ public class RestaurantDAO {
 			int startRow = (pageNum  - 1) * listLimit;
 
 				try {
-					sql = "SELECT * FROM restaurant_info ORDER BY rating DESC,reviewcount DESC";
+					sql = "SELECT * FROM restaurant_info ORDER BY rating DESC,reviewcount DESC"
+							+ " LIMIT ?,?";
 					
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, startRow);

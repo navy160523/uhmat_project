@@ -28,6 +28,8 @@ import action.review.ReviewLikeAction;
 import action.review.ReviewListAction;
 import action.review.ReviewModifyFormAction;
 import action.review.ReviewModifyProAction;
+import action.review.ReviewReplyListAction;
+import action.review.ReviewReplyWriteAction;
 import action.review.ReviewWriteProAction;
 import vo.ActionForward;
 import vo.RestaurantInfoDTO;
@@ -216,7 +218,7 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		} else if(command.equals("/ReviewLikeAction.re")) {
+		}  else if(command.equals("/ReviewLikeAction.re")) {
 			 try {
 				action = new ReviewLikeAction();
 				 forward = action.execute(request, response);
@@ -228,6 +230,23 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 		} else if(command.equals("/CheckHash.re")) {
 			 try {
 				action = new CheckHashAction();
+				 forward = action.execute(request, response);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+		} else if(command.equals("/ReviewReplyList.re")) {
+			 try {
+				 action = new ReviewReplyListAction();
+				 forward = action.execute(request, response);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+
+		}  else if(command.equals("/ReviewReplyWriteAction.re")) {
+			 try {
+				 action = new ReviewReplyWriteAction();
 				 forward = action.execute(request, response);
 			} catch (Exception e) {
 				
@@ -246,7 +265,8 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			System.out.println("keyword : " + keyword);
 			
 			ArrayList<RestaurantInfoDTO> list = mapGet.execute(keyword);
-
+			
+			request.setAttribute("list", list);
 			String gson = new Gson().toJson(list);
 			System.out.println(list);
 			response.setContentType("application/json; charset=utf-8");
@@ -259,7 +279,7 @@ public class RestaurantCategoryFrontController extends HttpServlet {
 			forward.setPath("/food/map/map.jsp");
 			forward.setRedirect(false);
 
-		}
+		} 
 
 		if (forward != null)
 

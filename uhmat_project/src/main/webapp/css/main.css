@@ -43,6 +43,9 @@
 	margin-top: 80px;
 }
 
+.clear{
+	clear: both;
+}
 
 .rankReview {
 	border: solid 1px;
@@ -106,6 +109,10 @@
 	padding: 100px 0 0 100px;
 }
 
+#list{
+	display: inline;
+}
+ 
 #listView, #append{
 	margin: 80px 0px 50px 40px;
 	padding-left: 30px;

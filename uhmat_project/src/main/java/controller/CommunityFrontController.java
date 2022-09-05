@@ -320,29 +320,38 @@ public class CommunityFrontController extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println("TmiDeleteProAction 오류 - " + e.getMessage());
 				e.printStackTrace();
-			}
-		
+			} 
+		// 댓글 폼 요청
+		} else if(command.equals("/TmiReplyForm.co")) {
+			forward = new ActionForward();
+			forward.setPath("community/tmi/tmiReplyForm.jsp");
+			forward.setRedirect(false);
+		// 댓글 쓰기
 		} else if(command.equals("/TmiReplyWrite.co")) {
 			System.out.println("댓글 작성 작업");
 			try {
 				action = new TmiReplyWriteAction();
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				System.out.println("TmiReplyProAction 오류 - " + e.getMessage());
 				e.printStackTrace();
 			}
-		} else if(command.equals("/TmiReplyList.co")) {
-			System.out.println("댓글 리스트 조회");
-			
-			// Tmi 상세 내용 페이지에서 댓글 리스트 작업 처리
-			try {
-				action = new TmiDetailAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				System.out.println("TmiDetailAction(댓글리스트) 오류 - " + e.getMessage());
-				e.printStackTrace();
-			}
-		} else if(command.equals("/TmiReplyModifyForm.co")) {
+		} 
+		
+//		else if(command.equals("/TmiReplyList.co")) {
+//			System.out.println("댓글 리스트 조회");
+//			
+//			// Tmi 상세 내용 페이지에서 댓글 리스트 작업 처리
+//			try {
+//				action = new TmiDetailAction();
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				System.out.println("TmiDetailAction(댓글리스트) 오류 - " + e.getMessage());
+//				e.printStackTrace();
+//			}
+//		} 
+		
+		else if(command.equals("/TmiReplyModifyForm.co")) {
 			System.out.println("댓글 수정 작업");
 			try {
 				action = new TmiReplyModifyFormAction();
@@ -393,17 +402,19 @@ public class CommunityFrontController extends HttpServlet {
 				e.printStackTrace();
 				System.out.println("TmiRereplyWriteProAction 오류 - " + e.getMessage());
 			}
-		} else if(command.equals("/TmiRereplyList.co")) {
-			System.out.println("답글 리스트 조회");
-			
-			// Tmi 상세 내용 페이지에서 답글 리스트 작업 처리
-			try {
-				action = new TmiDetailAction();
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				System.out.println("TmiDetailAction(답글리스트) 오류 - " + e.getMessage());
-				e.printStackTrace();
-			}
+//		} 
+		
+//		else if(command.equals("/TmiRereplyList.co")) {
+//			System.out.println("답글 리스트 조회");
+//			
+//			// Tmi 상세 내용 페이지에서 답글 리스트 작업 처리
+//			try {
+//				action = new TmiDetailAction();
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				System.out.println("TmiDetailAction(답글리스트) 오류 - " + e.getMessage());
+//				e.printStackTrace();
+//			}
 		// ==============================================================================================
 			
 		// 레시피 시작

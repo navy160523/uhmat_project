@@ -56,6 +56,9 @@
 			success:function(response){
 // 				alert("식당 정보 추가됨!");
 				$("#restaurantInfo").html(response);
+				$("#restaurantInfo header").remove();
+				$("#restaurantInfo footer").remove();
+				$("#buttons").remove();
 			}
 		});
 	})

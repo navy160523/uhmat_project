@@ -34,6 +34,10 @@ public class RestaurantWriteProAction implements Action {
 		int fileSize = 1024 * 1024 * 20; // byte -> MB -> 10MB
 		MultipartRequest multi = new MultipartRequest(request, realPath, fileSize, "UTF-8",new DefaultFileRenamePolicy());
 
+		System.out.println("=========================================");
+		System.out.println("address: "+multi.getParameter("address"));
+		System.out.println("r_postCode: "+multi.getParameter("r_postcode"));
+		System.out.println("=========================================");
 		RestaurantInfoDTO dto = new RestaurantInfoDTO();
 		dto.setCategory(multi.getParameter("category"));
 		dto.setResName(multi.getParameter("res_name"));
@@ -66,12 +70,12 @@ public class RestaurantWriteProAction implements Action {
 		RestaurantWriteProService service = new RestaurantWriteProService();
 		boolean isInsertSuccess = service.insertResInfo(dto);
 		
-		//SERVICE 클래스를 호출하여 식당 위치 정보 입력!
-		MapWriteProService service2 = new MapWriteProService();
-		service2.insertMapInfo(map);
-		
 		System.out.println(dto.getResName());
 		if(isInsertSuccess) {
+			//SERVICE 클래스를 호출하여 식당 위치 정보 입력!
+			MapWriteProService service2 = new MapWriteProService();
+			service2.insertMapInfo(map);
+			
 			forward = new ActionForward();
 			//작업 후 상세보기 페이지로 이동!
 			forward.setPath("restaurantDetail.re?resName="+URLEncoder.encode(dto.getResName(), "UTF-8"));

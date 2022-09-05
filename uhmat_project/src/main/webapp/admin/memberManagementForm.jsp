@@ -77,10 +77,10 @@
 	
 	<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
+					<input class="before_next" type="button" value="이전" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum - 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전" disabled="disabled">
+					<input class="before_next" type="button" value="이전" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
 				
@@ -101,10 +101,10 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
+					<input class="before_next" type="button" value="다음" onclick="location.href='FAQList.sc?pageNum=${pageInfo.pageNum + 1}&ment=${param.ment }'">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음" disabled="disabled">
+					<input class="before_next" type="button" value="다음" disabled="disabled">
 				</c:otherwise>
 			</c:choose>
 		</section>
@@ -139,7 +139,7 @@
 	</table>
 	</div>
 	
-	<input type="button" value="회원삭제" onclick="location.href='회원삭제페이지'">
+	<input class="before_next" type="button" value="회원삭제" onclick="location.href='회원삭제페이지'">
 
 
 </body>

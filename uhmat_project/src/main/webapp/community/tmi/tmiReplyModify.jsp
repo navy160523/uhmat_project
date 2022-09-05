@@ -70,9 +70,9 @@
 					
 				</div>
 			<div align="right" >
-				<input type="submit" class="btn btn-primary" value="수정">&nbsp;&nbsp;
-				<input type="reset" class="btn btn-primary" value="다시쓰기">&nbsp;&nbsp;
-				<input type="button" class="btn btn-primary" value="취소" onclick="history.back()">
+				<input type="submit" class="btn btn-secondary" value="수정">
+				<input type="reset" class="btn btn-secondary" value="다시쓰기">
+				<input type="button" class="btn btn-secondary" value="취소" onclick="history.back()">
 			</div>
 		</form>
 		 </div>

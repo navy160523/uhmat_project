@@ -117,5 +117,18 @@ public class RestaurantListService {
 		return isRes;
 	}
 
+	public List<RestaurantInfoDTO> selectBestRes(int pageNum, int listLimit) {
+		System.out.println("RestaurantListService - selectBestRes()");
+		Connection con = getConnection();
+		List<RestaurantInfoDTO> list = null;
+		RestaurantDAO dao = RestaurantDAO.getInstance();
+		dao.setConnection(con);
+		
+		list = dao.selectResBoardList(pageNum, listLimit);
+		close(con);		
+		
+		return list;
+	}
+
 	
 }

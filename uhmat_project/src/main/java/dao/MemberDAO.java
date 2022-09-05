@@ -726,5 +726,48 @@ public class MemberDAO {
 		return isPasswdCheck;
 	}
 
+	public int deleteBoard(int idx, String title) {
+		if (title.equals("FAQ")) {
+			title="FAQBoard";
+			System.out.println("FAQ - selectAnythingList() 호출!");
+		}
+		if (title.equals("Notice")) {
+			title="noticeboard";
+			System.out.println("FAQ - selectAnythingList() 호출!");
+		}
+		if (title.equals("Mate")) { 
+			title="community_Mate";
+			System.out.println("Mate - selectAnythingList() 호출!");
+		}
+		if (title.equals("Tmi")) { 
+			title="community_Tmi";
+			System.out.println("Tmi - selectAnythingList() 호출!");
+		}
+		if (title.equals("Recipe")) {
+			title="community_Recipe";
+			System.out.println("Recipe - selectAnythingList() 호출!");
+
+		}
+		int deleteCount = 0;
+
+		PreparedStatement pstmt = null;
+
+		try {
+			String sql = "DELETE FROM "+title+" WHERE idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 구문 오류 - deleteMate() : " + e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+
+		return deleteCount;
+	
+	}
+
 
 }

@@ -71,10 +71,10 @@
                             </div>
                             
                             <div align="right" >
-								<input type="submit" class="btn btn-outline-success" value="등록">
-								<input type="reset" class="btn btn-outline-success" value="다시쓰기" >
-								<input type="button" class="btn btn-outline-danger" value="메인" onclick="location.href='./'">
-								<input type="button" class="btn btn-outline-danger" value="취소" onclick="history.back()">
+								<input type="submit" class="btn btn-secondary" value="등록">
+								<input type="reset" class="btn btn-secondary" value="다시쓰기" >
+<!-- 								<input type="button" class="btn btn-outline-danger" value="메인" onclick="location.href='./'"> -->
+								<input type="button" class="btn btn-secondary" value="취소" onclick="history.back()">
 							</div>
                         </form>
                     </div>

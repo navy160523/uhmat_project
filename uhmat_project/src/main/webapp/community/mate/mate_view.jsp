@@ -25,7 +25,7 @@
 				<td class="subject">${mate.subject }</td> 
 			</tr>
 			<tr>
-				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${mate.nickname } | <i class="fa fa-clock-o"></i> ${mate.date} | <i class='far fa-eye'></i> ${mate.readcount }</td> 
+				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${mate.nickname } | <i class="fa fa-clock-o"></i> ${mate.date } | <i class='far fa-eye'></i> ${mate.readcount }</td> 
 			</tr>
 			<tr>
 				<td>${mate.content }</td>
