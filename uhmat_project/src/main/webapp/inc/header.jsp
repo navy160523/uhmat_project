@@ -108,7 +108,7 @@
   	  	<!-- 고객센터 주소 추가하시면 됩니다 -->
   	  	<li>
   	  	<div class="dropdown">
-    		<a href="NoticeList.sc">고객센터</a>
+    		<a href="ServiceCenterMain.sc">고객센터</a>
     			<div class="dropdownContent">
 				<ul>
 					<li><a href="NoticeList.sc">공지사항</a></li>
