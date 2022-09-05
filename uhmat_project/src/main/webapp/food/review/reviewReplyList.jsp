@@ -12,14 +12,14 @@
 	
 	function replyWrite(target) {
 		
-		
-		alert("click");
-		
 			$.ajax({
 				type: "post",
-				url: "ReviewReplyWriteAction.re?idx=${param.idx}&nickname=${param.nickname}&pageNum=${param.pageNum}",
+				url: "ReviewReplyWriteAction.re",
 				data: {
-					content: $("#content").val()
+					idx : ${param.idx},
+					content: $("#content").val(),
+					nickname : "${sessionScope.sNickName}",
+					pageNum : ${param.pageNum}
 				},
 				dataType: "text",
 				success:

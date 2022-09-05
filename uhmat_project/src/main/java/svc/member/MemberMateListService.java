@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.CommunityDAO;
-import svc.MateListProService;
+import svc.community.MateListProService;
 import vo.MateDTO;
 
 public class MemberMateListService extends MateListProService {

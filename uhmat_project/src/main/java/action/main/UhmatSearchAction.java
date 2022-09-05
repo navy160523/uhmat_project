@@ -25,20 +25,12 @@ public class UhmatSearchAction implements Action {
 		
 		UhmatSearchService service = new  UhmatSearchService();
 		
-		ArrayList<CommunityTmiDTO> tmiBoard = service.getSearchTmiBoard(search); 
-		ArrayList<MateDTO> mateBoard = service.getSearchMateBoard(search); 
 		ArrayList<ReviewBoardDTO> reviewBoard= service.getSearhReviewBoard(search); 
 		ArrayList<RestaurantInfoDTO> restaurantBoard = service.getSearchRestaurantInfo(search);
-		ArrayList<FAQDTO> FAQ = service.getSearchFAQboard(search);
-		ArrayList<NoticeDTO> notice = service.getSearchNoticeboard(search);
-		System.out.println("tmiBoard: " + tmiBoard + ", mateBoard : " + mateBoard + ", reviewBoard : " + reviewBoard + ", restaurantBoard : " + restaurantBoard + ", FAQBoard : " + FAQ +", noitce : " + notice);
+		System.out.println("reviewBoard : " + reviewBoard + ", restaurantBoard : " + restaurantBoard);
 		
-		request.setAttribute("tmiBoard", tmiBoard);
-		request.setAttribute("mateBoard", mateBoard);
 		request.setAttribute("reviewBoard", reviewBoard);
 		request.setAttribute("restaurantBoard", restaurantBoard);
-		request.setAttribute("FAQ", FAQ);
-		request.setAttribute("notice", notice);
 		
 		forward = new ActionForward();
 		forward.setPath("searchResult.jsp");

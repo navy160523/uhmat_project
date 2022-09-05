@@ -57,16 +57,19 @@
                                 <input class="form-control" type="text" name="nickname" id="nickname" value="${sessionScope.sNickName }" readonly="readonly" placeholder="닉네임을 입력해달라!" >
                                 <label for="nickname">어맛인</label> 
                             </div>
+                            
                             <!-- 제목 -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" type="text" name="subject" id="subject" placeholder="제목을 입력해주세요!">
                                 <label for="subject">제목</label>
                             </div>
+                            
                             <!-- 내용-->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" name="content" id="content" style="height: 10rem"></textarea>
+                                <textarea class="form-control" name="content" id="content"  placeholder="내용을 입력해주세요 !" style="height: 10rem"></textarea>
                                 <label for="content">내용</label>
                             </div>
+                            
                             <div align="right" >
 								<input type="submit" class="btn btn-outline-success" value="등록">
 								<input type="reset" class="btn btn-outline-success" value="다시쓰기" >

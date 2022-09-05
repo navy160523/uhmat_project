@@ -1265,7 +1265,7 @@ public class CommunityDAO {
 				RecipeDTO recipe = new RecipeDTO();
 				// 게시물 정보 저장
 				recipe.setContent(rs.getString("content"));
-				recipe.setDatetime(rs.getTimestamp("datetime"));
+				recipe.setDate(rs.getTimestamp("datetime"));
 				recipe.setIdx(rs.getInt("idx"));
 				recipe.setNickname(rs.getString("nickname"));
 				recipe.setOriginal_File1(rs.getString("original_File1"));
@@ -1337,7 +1337,7 @@ public class CommunityDAO {
 			if(rs.next()) {
 				recipe = new RecipeDTO();
 				recipe.setContent(rs.getString("content"));
-				recipe.setDatetime(rs.getTimestamp("datetime"));
+				recipe.setDate(rs.getTimestamp("datetime"));
 				recipe.setIdx(rs.getInt("idx"));
 				recipe.setNickname(rs.getString("nickname"));
 				recipe.setOriginal_File1(rs.getString("original_File1"));
@@ -1722,7 +1722,7 @@ public class CommunityDAO {
 			while(rs.next()) {
 				RecipeDTO recipe = new RecipeDTO();
 				recipe.setContent(rs.getString("content"));
-				recipe.setDatetime(rs.getTimestamp("datetime"));
+				recipe.setDate(rs.getTimestamp("datetime"));
 				recipe.setIdx(rs.getInt("idx"));
 				recipe.setNickname(rs.getString("nickname"));
 				recipe.setOriginal_File1(rs.getString("original_File1"));

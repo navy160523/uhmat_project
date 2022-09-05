@@ -7,95 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Notice 게시판</title>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
+<link href="css/notice/noticelist.css" rel="stylesheet">
 <style type="text/css">
-	#listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
 	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		background: black;
-		color: white;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-	}
-	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#buttonArea {
-		margin: auto;
-		width: 1024px;
-		text-align: right;
-	}
-	
-	table tr td {height: 35px;}
-	
-	.topButton{
-	position: relative;
-	float: left;
-/*     displays: flex; */
-    align-items: center;
-    justify-content: center;
-    margin: -1px 0 0 -1px;
-    padding: 0 10px;
-    height: 30px;
-    font-size: 20px;
-    color: #fff;
-    text-align: center;
-    line-height: 1.1;
-    text-decoration: none;
-    border: 1px solid #FFF;
-	background-color: black;
-	color:white;
-	}
-	
-	#keyword{
-		text-align: right;
-		
-	}
-	#bt {
-		background-color: black;
-		color:white;
-	}
-}
 </style>
 </head>
 <body>
-		<header>
-			<jsp:include page="../../inc/header.jsp"></jsp:include>
-		</header>
-		
+		<jsp:include page="../../inc/header.jsp"></jsp:include>
+			
 		<section id="listForm">
+		
 		<h2>Notice</h2>
-		<input type="button" value="홈" onclick="location.href='index.jsp'">
 		
 		<div id="topButton">
 			<br>
@@ -120,11 +46,12 @@
 				<td>제목</td>
 				<td width="150px">작성자</td>
 				<td width="150px">날짜</td>
+				<td width="100px">첨부파일</td>
 			</tr>
 			<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -> JSTL과 EL 활용-->
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
-			<!--  제발 복습하자!!! -->
+				
 	 		<c:choose>
 	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
@@ -139,6 +66,9 @@
 							</td>
 							<td>${notice.nickname }</td>
 							<td>${notice.date }</td>
+							<c:if test="${not empty notice.real_File  }">
+							<td><i class='fas fa-link' style='font-size:20px;color:blue'></i></td>
+							</c:if>
 						</tr>
 					</c:forEach>
 	 			</c:when>
@@ -191,9 +121,13 @@
 				</c:otherwise>
 			</c:choose>
 		</section>
-		<section id="buttonArea">
-			<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.sc'" id="bt" />
-		</section>
+		<c:if test="${sessionScope.sNickName eq 'admin'}"> 
+			<section id="buttonArea">
+				<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.sc'" id="bt" />
+			</section>
+		</c:if>
+		
+		<jsp:include page="../../inc/footer.jsp"/>
 </body>
 </html>
 

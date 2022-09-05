@@ -53,6 +53,7 @@ public class MemberLoginProAction implements Action {
 					member = service.getMember(request.getParameter("email"));
 				HttpSession session = request.getSession();
 				session.setAttribute("sNickName", member.getNickname());
+				
 				System.out.println(member.getNickname());
 				forward = new ActionForward();
 				forward.setPath("main.jsp");

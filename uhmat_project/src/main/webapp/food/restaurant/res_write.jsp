@@ -32,6 +32,7 @@ table{
 }
 </style>
 <script src="js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35185e429e5d9c68170c91b88e2d3a84"></script>
 <script>
 	//ready event
 	$(function(){
@@ -65,6 +66,7 @@ table{
 </script>
 </head>
 <body>
+	<jsp:include page="../../inc/header.jsp"></jsp:include>
 	<c:if test="${sessionScope.sNickName ne 'admin'}">
 		<script>
 			alert("관리자가 아닙니다!");
@@ -201,6 +203,6 @@ table{
 			</section>
 		</form>
 	</section>
-	
+	<jsp:include page="../../inc/footer.jsp"></jsp:include>
 </body>
 </html>

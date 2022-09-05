@@ -12,45 +12,7 @@ import vo.*;
 
 public class UhmatSearchService {
 
-	public ArrayList<CommunityTmiDTO> getSearchTmiBoard(String search) {
-		ArrayList<CommunityTmiDTO> tmiBoardList = null;
-		
-		// 1. Connection 객체 가져오기 - 공통
-		Connection con = getConnection();
-				
-		// 2. CommunityDAO 객체 가져오기 - 공통
-		CommunityDAO dao = CommunityDAO.getInstance();
-		
-		// 3. BoardDAO 객체에 Connetion 객체 전달하기 - 공통
-		dao.setConnection(con);
-		
-		// 4. BoardDAO 객체의 selectTmiBoardList() 메서드를 호출하여 게시물 목록 조회
-		// => 파라미터 : 현재페이지번호(pageNum), 페이지 당 게시물 수(listLimit)
-		// 	  리턴타입 : ArrayList<CommunityDTO> getTmiboardList
 
-		tmiBoardList = dao.selectMainTmiBoardList(search);
-
-		System.out.println(tmiBoardList);
-		
-		// 5. Connection 객체 반환 - 공통
-		close(con);
-		
-		return tmiBoardList;
-	}
-
-	public ArrayList<MateDTO> getSearchMateBoard(String search) {
-		ArrayList<MateDTO> mateBoardList =null;
-		
-		Connection con = JdbcUtil.getConnection();
-		
-		CommunityDAO dao = CommunityDAO.getInstance();
-		
-		dao.setConnection(con);
-		
-		mateBoardList = dao.selectMainMateBoardList(search);
-		
-		return mateBoardList;
-	}
 
 	public ArrayList<ReviewBoardDTO> getSearhReviewBoard(String search) {
 		ArrayList<ReviewBoardDTO> reviewList = null;
@@ -89,36 +51,31 @@ public class UhmatSearchService {
 		return list;
 	}
 
-	public ArrayList<FAQDTO> getSearchFAQboard(String search) {
-		ArrayList<FAQDTO> list = null;
+	public int getListCount(String search) {
+		System.out.println("ReviewListService - getListCount()");
+		// 전체 게시물 갯수를 조회하는 작업을 요청하는 getListCount() 메서드
+		int listCount = 0;
 		
-		Connection con = JdbcUtil.getConnection();
+		//  Connection 객체 가져오기
+		Connection con = getConnection();
 		
-		FAQDAO dao = FAQDAO.getInstance();
+		// ReviewCategoryDAO 객체 가져오지
+		ReviewCategoryDAO dao = ReviewCategoryDAO.getInstance();
 		
+		// dao 객체에 Connection 객체 전달
 		dao.setConnection(con);
 		
-		list = dao.selectMainAnythingList(search);
+		//5. dao 객체의 selectListCount() 메서드를 호출하여 전체 게시물 수 조회
+		listCount = dao.selectResearchReviewListCount(search);
 		
-		JdbcUtil.close(con);
 		
-		return list;
+		//6. Connection 객체 반환
+		close(con);
+		
+		// 7. 조회 결과 리턴
+		return listCount;
 	}
 
-	public ArrayList<NoticeDTO> getSearchNoticeboard(String search) {
-		ArrayList<NoticeDTO> list = null;
-		
-		Connection con = JdbcUtil.getConnection();
-		
-		NoticeDAO dao = NoticeDAO.getInstance();
-		
-		dao.setConnection(con);
-		
-		list = dao.selectMainAnythingList(search);
-		
-		JdbcUtil.close(con);
-		
-		return list;
-	}
+
 
 }

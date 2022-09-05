@@ -7,98 +7,20 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ 게시판</title>
-<style type="text/css">
-	#listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		background: black;
-		color: white;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-	}
-	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#buttonArea {
-		margin: auto;
-		width: 1024px;
-		text-align: right;
-	}
-	
-	table tr td {height: 35px;}
-	
-	.topButton{
-	position: relative;
-	float: left;
-/*     displays: flex; */
-    align-items: center;
-    justify-content: center;
-    margin: -1px 0 0 -1px;
-    padding: 0 10px;
-    height: 30px;
-    font-size: 20px;
-    color: #fff;
-    text-align: center;
-    line-height: 1.1;
-    text-decoration: none;
-    border: 1px solid #FFF;
-	background-color: black;
-	color:white;
-	}
-	
-	#keyword{
-		text-align: right;
-	}
-	
-	#bt {
-		background-color: black;
-		color:white;
-	}
-}
-	
-</style>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
+<link href="css/faq/faqlist.css" rel="stylesheet">
 
 
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
-		<header>
-			<jsp:include page="../../inc/header.jsp"></jsp:include>
-		</header>
+		<jsp:include page="../../inc/header.jsp"></jsp:include>
 		
 		<section id="listForm">
 		<h2>FAQ</h2>
-		<input type="button" value="홈" onclick="location.href='index.jsp'">
 
 		<div id="topButton">
 			<br>
@@ -122,6 +44,7 @@
 				<td width="150px">작성자</td>
 				<td width="150px">날짜</td>
 				<td width="100px">조회수</td>
+				<td width="100px">첨부파일</td>
 
 
 			</tr>
@@ -136,13 +59,23 @@
 							<td>${FAQ.category }</td>
 							<td>${FAQ.idx }</td>
 							<td id="subject">
-								<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&keyword=${param.keyword}">
+								<c:choose>
+									<c:when test="${not empty sessionScope.sNickName }">
+									<a href="FAQDetail.sc?idx=${FAQ.idx}&pageNum=${pageInfo.pageNum}&keyword=${param.keyword}">
+										${FAQ.subject }
+									</a>
+									</c:when>
+									<c:otherwise>
 									${FAQ.subject }
-								</a>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>${FAQ.nickname }</td>
 							<td>${FAQ.date }</td>
 							<td>${FAQ.readcount }</td>
+							<c:if test="${not empty FAQ.real_File  }">
+							<td><i class='fas fa-link' style='font-size:20px;color:blue'></i></td>
+							</c:if>
 						</tr>
 						</c:forEach>
 	 			</c:when>
@@ -187,14 +120,14 @@
 			</c:choose>
 		</section>
 		
-		<section id="buttonArea">
-			<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" id="bt"/>
-		</section>
+		<c:if test="${not empty sessionScope.sNickName }"> 
+			<section id="buttonArea">
+				<input type="button" value="글쓰기" onclick="location.href='FAQWriteForm.sc'" id="bt"/>
+			</section>
+		</c:if>
 		
 		<!-- Footer 부분 -->
-		<footer>
 			<jsp:include page="../../inc/footer.jsp"></jsp:include>
-		</footer>
 </body>
 </html>
 

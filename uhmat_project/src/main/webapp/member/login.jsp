@@ -93,41 +93,6 @@ border-left: 0;
 	height: 500px;
 	margin-top: 100px;
 }
-
-    #customBtn {
-      display: inline-block;
-      background: white;
-      color: #444;
-      width: 300px;
-      text-align: center;
-      border-radius: 5px;
-      border: thin solid #888;
-      box-shadow: 1px 1px 1px grey;
-      white-space: nowrap;
-    }
-    #customBtn:hover {
-      cursor: pointer;
-    }
-    span.label {
-      font-family: serif;
-      font-weight: normal;
-    }
-    span.icon {
-      background: url('/identity/sign-in/g-normal.png') transparent 5px 50% no-repeat;
-      display: inline-block;
-      vertical-align: middle;
-      width: 42px;
-      height: 42px;
-    }
-    span.buttonText {
-      display: inline-block;
-      vertical-align: middle;
-      padding-right: 42px;
-      font-size: 20px;
-      font-weight: bold;
-      /* Use the Roboto font that is loaded in the <head> */
-      font-family: 'Roboto', sans-serif;
-    }
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -164,14 +129,10 @@ border-left: 0;
 
 		});
 		// 토글 할 버튼 선택 (btn1)
-	
-		
-		
-	});
-	
-	
 
+	});
 </script>
+
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
   <script src="https://apis.google.com/js/api:client.js"></script>
   <script src="./js/jquery-3.6.0.js"></script>
@@ -229,7 +190,6 @@ border-left: 0;
     });
   };
  	
-
 function attachSignin(element) {
     console.log(element.id);
     auth2.attachClickHandler(element, {},
@@ -243,13 +203,9 @@ function attachSignin(element) {
         }, function(error) { 
           alert(JSON.stringify(error, undefined, 2));
         });
-
   }
-
   
   </script>
-
-
 </head>
 <body>
 	<!-- 헤더 들어가는곳 -->
@@ -270,35 +226,34 @@ function attachSignin(element) {
 <!-- 				frameborder="0" cellspacing="0"></iframe> -->
   			<jsp:include  page="kakao.jsp"></jsp:include>
 			<br>
-			  <!-- In the callback, you would hide the gSignInWrapper element on a
-  successful sign in -->
-  <div id="gSignInWrapper">
-    <div id="customBtn" class="customGPlusSignIn">
-      <span class="icon"></span>
-      <span class="buttonText">Google계정으로 로그인</span>
-    </div>
-  </div>
- <script>startApp();</script>
-  
-  
-  <form action="MemberGoogleJoinPro.me" name="gooleSubmit" method="post">
-  <input type="hidden" id="name1" name="name">
-  <input type="hidden" id="email1" name="email">
-  <input type="hidden" id="api_id1" name="api_id">
-  </form>
-  			
+<!-- 			<iframe name="iframe1" id="iframe03" src="MemberGoogleForm.me" -->
+<!-- 				frameborder="0" cellspacing="0"></iframe> -->
+  			  <div id="gSignInWrapper">
+		    <div id="customBtn" class="customGPlusSignIn">
+		      <span class="icon"></span>
+		      <span class="buttonText">Google계정으로 로그인</span>
+		    </div>
+		  </div>
+		 <script>startApp();</script>
+		  
+		  
+		  <form action="MemberGoogleJoinPro.me" name="gooleSubmit" method="post">
+		  <input type="hidden" id="name1" name="name1">
+		  <input type="hidden" id="email1" name="email1">
+		  <input type="hidden" id="api_id1" name="api_id1">
+		  </form>
 			<br>
 		</div>
 		<div class="buttonResult2" id="login">
 			<form action="MemberLoginPro.me" method="post"  >
 			
 				<div class="form-floating mb-3" style="margin-top: 50px;">
-					 <input class="form-control" type="text" name="email" placeholder="이메일"
+					 <input class="form-control" type="text" name="email" 
 						required="required">
 						<label>email</label>
 				</div >
 				<div class="form-floating mb-3">
-					 <input class="form-control"  type="password" name="passwd" placeholder="패스워드"
+					 <input class="form-control"  type="password" name="passwd"
 						required="required"><label>비밀번호</label>
 				</div>
 		

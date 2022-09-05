@@ -1,3 +1,4 @@
+<%@page import="vo.MapDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -32,6 +33,7 @@ table{
 }
 </style>
 <script src="js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35185e429e5d9c68170c91b88e2d3a84"></script>
 <script>
 	//ready event
 	$(function(){
@@ -78,6 +80,7 @@ table{
 	private int reviewCount; //식당 리뷰 개수
 	dto 객체 이름 : resInfo
 	 -->
+	 <jsp:include page="../../inc/header.jsp"></jsp:include>
 	<c:if test="${sessionScope.sNickName ne 'admin'}">
 		<script>
 			alert("관리자가 아닙니다!");
@@ -176,9 +179,19 @@ table{
 			<br>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35185e429e5d9c68170c91b88e2d3a84"></script>
 			<script>
+			var latitude=35.1584642;
+			var longitude=129.0620414;
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			<%
+			MapDTO map = (MapDTO)request.getAttribute("map");
+			if(map==null||(map.getLatitude())==0||map.getLongitude()==0){%>
+				//위치정보가 존재하지 않을시 기본값을 출력
+			<%}else{%>
+				longitude = ${map.longitude}
+				latitude = ${map.latitude}				
+			<%}%>
 		    mapOption = { 
-		        center: new kakao.maps.LatLng(${map.latitude},${map.longitude}), // 지도의 중심좌표
+		        center: new kakao.maps.LatLng(latitude,longitude), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    };
 			var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -221,6 +234,6 @@ table{
 			</section>
 		</form>
 	</section>
-	
+	<jsp:include page="../../inc/footer.jsp"></jsp:include>
 </body>
 </html>

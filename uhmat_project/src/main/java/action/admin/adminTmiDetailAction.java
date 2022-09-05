@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.TmiDetailService;
+import svc.community.TmiDetailService;
 import vo.ActionForward;
 import vo.CommunityTmiDTO;
 import vo.TmiReplyDTO;

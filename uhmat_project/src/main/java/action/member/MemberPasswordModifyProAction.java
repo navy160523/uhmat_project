@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import mail.GenerateUserAuthenticationCode;
 import svc.member.MemberPasswordModifyProService;
 import util.SHA256;
 import vo.ActionForward;
