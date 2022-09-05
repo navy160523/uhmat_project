@@ -56,7 +56,7 @@
 									</td>
 									</c:when>
 									<c:otherwise>
-									<td>${FAQ.subject }</td>
+										<td>${FAQ.subject }</td>
 									</c:otherwise>
 								</c:choose>
 							<td>${FAQ.nickname }</td>

@@ -50,15 +50,9 @@
 	&nbsp;
 	
 	<div class="btn">
-		<c:if test="${sessionScope.sNickName == faq.nickname }">	
+		<c:if test="${sessionScope.sNickName eq faq.nickname or sessionScope.sNickName eq faq.nickname or sessionScope.sNickName eq 'admin'}">	
 			<input type="button" value="수정" onclick="location.href='FAQModifyForm.sc?idx=${faq.idx}&pageNum=${param.pageNum}'">
-			
-			<form action="FAQDelete.sc" enctype="multipart/form-data">
-			<input type="hidden" name="idx" value="${faq.idx}">
-			<input type="hidden" name="pageNum" value="${param.pageNum}">
-			<input type="hidden" name="real_File" value="${faq.real_File }">
-			<input type="button" value="삭제">
-			</form>
+			<input type="button" value="삭제" onclick="location.href='FAQDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}&real_File=${faq.real_File }'">
 		</c:if>
 			<input type="button" value="목록" onclick="location.href='FAQList.sc?pageNum=${param.pageNum}&keyword=${param.keyword }'">
 	</div>
@@ -66,10 +60,10 @@
 	&nbsp;
 	
 	<!-- 댓글 작성 -->
-	<c:if test="${sessionScope.sNickName eq 'admin'}"> 
 	<section class="section">
 		<!-- insertForm 섹션(댓글 작성 영역)은 세션 아이디가 존재할 경우에만 출력 -->
 		<section>
+	<c:if test="${sessionScope.sNickName eq 'admin' and empty reply}">
 			<form action="FAQDetailReply.sc" style="position: relative; left:20%; top:50%;">
 				<!-- 댓글 전송 시 현재 게시물 글번호(idx)도 함께 전송 -->
 				<input type="hidden" name="idx" value="${param.idx }">
@@ -81,25 +75,25 @@
 				<textarea rows="3" cols="50" name="answer"></textarea>
 				<br>
 				<input type="submit" class="section" value="등록" style="position: relative; left:20%;">
-				
+			</form>
+	</c:if>
 				<section id="replyViewArea" style="position: relative; left: 40%; top:50%;">
 				<!-- ArrayList(replyList) 객체 크기만큼 for문 반복 -->
 				<br>
 			     <table>
 			     	<tr>
+			     <c:if test="${ not empty reply }">
 				     	<td>답변 : </td><td> ${reply.answer }</td>
+		     	 </c:if>
+			     <c:if test="${ not empty reply }">
 				     	<td><input type="button" value="삭제" onclick="location.href='FAQDetailReplyDelete.sc?idx=${faq.idx}&pageNum=${param.pageNum}'"></td>
+		     	</c:if>
 			     	</tr>
 			     </table>
 				<br>
 			</section>
-			</form>
 		</section>
 	</section>
-	</c:if>
-	
-	
-		
 	</div>
 	
 
