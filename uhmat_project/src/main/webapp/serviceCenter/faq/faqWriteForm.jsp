@@ -71,10 +71,10 @@
 				
 			<div class="form-floating sm-3">
 				<select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
-					<option value="알림"></option>
+					<option value="알림">알림</option>
 					<option value="오류신고">오류신고</option>
 					<option value="음식점등록">음식점등록</option>
-					<option value="자도 오류">지도 오류</option>
+					<option value="지도 오류">지도 오류</option>
 				</select>			
 				<label for="category">카테고리</label>
 			</div>

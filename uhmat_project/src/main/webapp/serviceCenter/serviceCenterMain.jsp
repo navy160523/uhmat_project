@@ -18,31 +18,44 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+<!-- 검색창 관련 CSS -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 </head>
 <body style="width:100%;">
 		<!-- 헤더 들어가는곳 -->
 		<jsp:include page="../inc/header.jsp"></jsp:include>
 		<!-- 헤더 들어가는곳 -->
 		
-		<h1 style="text-align: center; font-size: 50px">고객센터</h1>
+		<h1>고객센터</h1>
 		
+		<br>
 		
+<!-- 		<div style="width:60%; margin:0 auto; position:relative;"> -->
+<!-- 			<form name="qna_board_search_frm" method="post" action="FAQList.sc"> -->
+<!-- 				<input type="text" name="keyword" value="" class="faqsearch font_18 noto400" placeholder="검색어를 입력하세요"> -->
+<!-- 				<div style="position:absolute; top:15px; right:20px;"> -->
+<!-- 				<input type="submit" name="search_type" value="검색"> -->
+<!-- 		</div> -->
+<!-- 		</form> -->
+<!-- 		</div>	 -->
 
 	<div class="clear"></div>
 
 	<article id="front" style="margin-left: 23%;">
 		<section>
-			<section id="search">
-				<div>
-					<span>FAQ</span> 검색하기
-				</div>
-
-				<form name="qna_board_search_frm" method="post" action="FAQList.sc">
-					<input type="text" name="keyword" value="" placeholder="검색어를 입력하세요">
-					<input type="submit" name="search_type" value="검색">
-				</form>
+			<section id="search" style="margin-left: 30%;">
+				<form method="post" action="FAQList.sc" >
+		 		<div class="search-box">
+                  <input type="text" class="search-txt" name="keyword" placeholder="검색어를 입력하세요">
+                 	 <a class="search-btn" onclick="location.href='FAQList.sc'">
+                     <i class="fas fa-search"></i>
+                    </a>
+			    </div>
+			   </form>
 			</section>
 			
+			<br>
 			
 		<!-- 왼쪽 사이드바 -->
 		<div class="wrapper">
