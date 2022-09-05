@@ -15,15 +15,15 @@
 
 </head>
 <body>
-
 	
-	<div class="view" style="	border: 1px solid #ccc;">
+	
+	<div class="view">
 		<table width="800">
 			<tr>
-				<td class="subject">${mate.subject }</td> 
+				<td class="subject">${mate.subject } </td> 
 			</tr>
 			<tr>
-				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${mate.nickname } | <i class="fa fa-clock-o"></i> ${mate.date} | <i class='far fa-eye'></i> ${mate.readcount }</td> 
+				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${mate.nickname } | <i class="fa fa-clock-o"></i> ${mate.date } | <i class='far fa-eye'></i> ${mate.readcount }</td> 
 			</tr>
 			<tr>
 				<td>${mate.content }</td>
@@ -36,10 +36,9 @@
 	<div class="btn">
 			<input type="button" value="댓글" onclick="location.href='MateReplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}'">
 		<c:if test="${sessionScope.sNickName == mate.nickname }">
-			<input type="button" value="수정" onclick="location.href='MateModifyForm.co?idx=${mate.idx}&pageNum=${param.pageNum}'">
-			<input type="button" value="삭제" onclick="location.href='MateDeleteForm.co?idx=${mate.idx}&pageNum=${param.pageNum}'">
+			<input type="button" value="삭제" onclick="location.href='AllBoardDelete.ad?idx=${param.idx}&pageNum=${param.pageNum}&title=${param.title}'">
 		</c:if>	
-			<input type="button" value="목록" onclick="location.href='MateList.co?pageNum=${param.pageNum}'">
+			<input type="button" value="목록" onclick="location.href='AllBoardList.ad?pageNum=${param.pageNum}'">
 	
 	</div>
 	
@@ -61,12 +60,11 @@
 				<td class="btn"><input type="button" value="대댓글" onclick="location.href='MateRereplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx} '"></td>
 				<c:if test="${sessionScope.sNickName == mateReplyList.nickname }">
 					<td class="btn"><input type="button" value="댓글삭제" onclick="location.href='MateReplyDeleteForm.co?idx=${mate.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx}&nickname=${mateReplyList.nickname}'"> </td>
-					<td class="btn"><input type="button" value="댓글수정" onclick="location.href='MateReplyModifyForm.co?idx=${mate.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx}&nickname=${mateReplyList.nickname}'"></td>
 				</c:if>
 			</tr>
 		</c:forEach>
 		</table>
 	</div>
-
+	
 </body>
 </html>

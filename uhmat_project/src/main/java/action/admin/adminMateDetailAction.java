@@ -24,6 +24,7 @@ public class adminMateDetailAction implements Action {
 			
 			// request 객체를 통해 전달받은 파라미터(idx) 가져오기
 			int idx = Integer.parseInt(request.getParameter("idx"));
+			String title=request.getParameter("title");
 			System.out.println("idx: " +idx);
 			
 			// MateDetailService 인스턴스 생성 후 increaseReadcount() 메서드 호출하여 조회수 증가 요청
@@ -45,7 +46,7 @@ public class adminMateDetailAction implements Action {
 			
 			// ActionForward 객체를 활용하여 mate 디렉토리의 mate_view.jsp 페이지 포워딩 설정
 			forward = new ActionForward();
-			forward.setPath("admin/mateDetail.jsp");
+			forward.setPath("admin/mateDetail.jsp?title="+title);
 			forward.setRedirect(false);
 			
 			return forward;

@@ -20,6 +20,7 @@ import action.admin.adminMateDetailAction;
 import action.admin.adminNoticeDetailAction;
 import action.admin.adminRecipeDetailAction;
 import action.admin.adminTmiDetailAction;
+import action.admin.allBoardDeleteAction;
 import vo.ActionForward;
 
 @WebServlet("*.ad")
@@ -135,7 +136,7 @@ public class AdminFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(command.equals("/FAQDetail.ad")) {
+		}else if(command.equals("/FAQDetail.ad")) { 
 			try {
 				action = new adminFAQDetailAction();
 				forward = action.execute(request, response);
@@ -143,7 +144,21 @@ public class AdminFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(command.equals("/AllBoardDelete.ad")) { 
+			try {
+				action = new allBoardDeleteAction();
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
+		
+		
+		
 		if (forward != null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

@@ -11,12 +11,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 <link href="css/adminManageMent.css" rel="stylesheet">
+
 </head>
 <body>
-	
-   <form action="AdminManageMemberList.ad" method="get" >
-	    <table class="memberList">
-	        <tr>
+   <form action="AdminManageMemberList.ad" method="get" class="search">
+	    <table  class="memberList">
+	        <tr id="font_front">
 	        	<th>고객명</th>
 	            <td><input type="text" name="keyword" value="${param.keyword }" class="search"></td>
 	            <th><input type="submit" value="검색" class="before_next"></th>    
@@ -24,8 +24,8 @@
 	     </table>
     </form>
 	<!--멤버 테이블  -->
-	<table class="memberList">
-			<tr>
+	<table   class="memberList">
+			<tr id="font_front">
 <!--             <th><input type="checkbox" id="allCheck"></th> -->
 	            <th>번호</th>
 	            <th>이름</th>
@@ -39,25 +39,25 @@
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
 			<!--  조건 : boardList 객체가 비어있지 않고 pageInfo 객체의 listCount가 0보다 클 경우 -->
 			<c:forEach var="member" items="${list}" varStatus="status" >
-				<tr>
+				<tr id="font_front">
 		            <td>${status.count }</td>
 		            <td>${member.name}</td>
 		            <td>${member.nickname}</td>
 		            <td>${member.email }</td>
 					<td>${member.boardCount}</td>
-		            <td><a href="AdminManageMemberDetail.ad?nickname=${member.nickname }&keyword=${param.keyword}">보기</a></td>
-		            <td><input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${member.email }'" class="before_next"></td>
+		            <td><a href="AdminManageMemberDetail.ad?nickname=${member.nickname }&keyword=${param.keyword}" class="link">보기</a></td>
+		            <td><input class="before_next" type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${member.email }'"></td>
 		        </tr>
 			</c:forEach>
 		</table>
 	<!-- 리스트 페이징 처리 -->
-	<div align="center">
-	<c:choose>
+	<div align="center"> 
+	<c:choose >
 				<c:when test="${pageInfo.pageNum > 1}">
-					<input type="button" value="이전" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'" class="before_next">
+					<input class="before_next" type="button" value="이전" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'" >
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전" disabled="disabled" class="before_next">
+					<input class="before_next" type="button" value="이전" disabled="disabled" >
 				</c:otherwise>
 			</c:choose>
 				
@@ -78,45 +78,44 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage}">
-					<input type="button" value="다음" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" class="before_next">
+					<input class="before_next" type="button" value="다음" onclick="location.href='AdminManageMemberList.ad?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" class="before_next">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음" disabled="disabled" class="before_next">
+					<input class="before_next" type="button" value="다음" disabled="disabled" class="before_next">
 				</c:otherwise>
 			</c:choose>
 	</div>
 	
 	
 	<!-- 회원정보 나중에 ajax - append로 처리해야함 -->
-	<div align="center" >
-	<table class="memberList">
+	<div align="center">
+	<table  class="memberList search" >
 	<tr>
-		<td>닉네임</td><td><input type="text" name="nickname" value="${memberDetail.nickname }"></td>
+		<td >닉네임</td><td><input type="text" name="nickname" value="${memberDetail.nickname }" readonly="readonly"></td>
 	</tr>
 	<tr>
-		<td>이름</td><td><input type="text" name="name" value="${memberDetail.name }"></td>
+		<td>이름</td><td><input type="text" name="name" value="${memberDetail.name }" readonly="readonly"></td>
 	</tr>
 	<tr>
-		<td>이메일</td><td  colspan="3"><input type="text" name="email1" value="${memberDetail.email }"></td>
+		<td>이메일</td><td  colspan="3"><input type="text" name="email1" value="${memberDetail.email }" readonly="readonly"></td>
 	</tr>
 <!-- 	<tr> -->
 <!-- 		<td>이메일 수신</td><td  colspan="3"><input type="radio" name="emailaccept">예 <input type="radio" name="emaildeny">아니오</td> -->
 <!-- 	</tr> -->
 	<tr>
-		<td rowspan="3">주소</td><td><input type="text" placeholder="우편번호" name="postcode" value="${memberDetail.postCode }"></td>
+		<td rowspan="3">주소</td><td><input type="text" placeholder="우편번호" name="postcode" value="${memberDetail.postCode }" readonly="readonly"></td>
 	</tr>
 	<tr>
-		<td  colspan="3"><input type="text" placeholder="상세주소1" name="address1" value="${memberDetail.address1 }"></td>
+		<td  colspan="3"><input type="text" placeholder="상세주소1" name="address1" value="${memberDetail.address1 }" readonly="readonly"></td>
 	</tr>
 	<tr>
-		<td  colspan="3"><input type="text" placeholder="상세주소2" name="address2" value="${memberDetail.address2 }"></td>
+		<td  colspan="3"><input type="text" placeholder="상세주소2" name="address2" value="${memberDetail.address2 }" readonly="readonly"></td>
 	</tr>
 	
 	</table>
-
-	<input type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${memberDetail.email }'" class="font_front before_next" style="width: 400px;" >
-	</div>
 	
+	<input class="before_next" type="button" value="회원삭제" onclick="location.href='AdminDeleteMember.ad?email=${memberDetail.email }'" class="before_next memberList" style="width:300px;">
+	</div>
 
 
 </body>

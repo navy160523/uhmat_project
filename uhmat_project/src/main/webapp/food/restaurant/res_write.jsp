@@ -204,8 +204,8 @@ table{
 					<b>수</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
 					<b>목</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
 					<b>금</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
-					<b>토</b> <input type="time" name="opentime" value="09:00>">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
-					<b>일</b> <input type="time" name="opentime" value="09:00>">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
+					<b>토</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
+					<b>일</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
 					</section>
 					<br>
 			<h3>지도 위치 입력!</h3>

@@ -21,6 +21,7 @@ public class adminTmiDetailAction implements Action {
 		
 		// request 객체를 통해 전달받은 파라미터(idx)를 가져옵니다.
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		String title=request.getParameter("title");
 		System.out.println(idx);
 		
 		// getTmiBoard() 메서드 호출하여 글 상세정보 조회 요청
@@ -51,7 +52,7 @@ public class adminTmiDetailAction implements Action {
 		// ActionForward 객체를 활용하여 community 디렉토리의 tmiDetail.jsp 페이지 포워딩 설정
 		// => Dispatcher 방식
 		forward = new ActionForward();
-		forward.setPath("admin/tmiDetail.jsp");
+		forward.setPath("admin/tmiDetail.jsp?title"+title);
 		forward.setRedirect(false);
 		
 		return forward;
