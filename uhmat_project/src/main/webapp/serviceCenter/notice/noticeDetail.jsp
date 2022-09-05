@@ -48,7 +48,7 @@
 		</table>
 	
 	<div class="btn">
-		<c:if test="${sessionScope.sNickName == notice.nickname }">	
+		<c:if test="${not empty sessionScope.sNickName and (sessionScope.sNickName eq notice.nickname or sessionScope.sNickName eq 'admin') }">
 			<input type="button" value="수정" onclick="location.href='NoticeModifyForm.sc?idx=${notice.idx}&pageNum=${param.pageNum}'">
 			<input type="button" value="삭제" onclick="location.href='NoticeDelete.sc?idx=${notice.idx}&pageNum=${param.pageNum}&real_File=${notice.real_File }'">
 		</c:if>
