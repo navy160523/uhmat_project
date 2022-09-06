@@ -20,7 +20,11 @@ public class ReviewDetailAction implements Action {
 		ActionForward forward = null;
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		int pageNum=1;
+		if(request.getParameter("pageNum")=="") {
+		}else {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));			
+		}
 		
 		ReviewDetailService service = new ReviewDetailService();
 		ReviewBoardDTO dto = service.getReviewBoard(idx);
@@ -32,9 +36,10 @@ public class ReviewDetailAction implements Action {
 		HttpSession session = request.getSession();
 		session.setAttribute("reviewer", dto.getNickname());
 		
+		request.setAttribute("pageNum", pageNum);
 		System.out.println(dto);
 		forward = new ActionForward();
-
+		
 		forward.setPath("food/review/reviewDetailView.jsp");
 
 		forward.setRedirect(false);

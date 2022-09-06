@@ -22,19 +22,19 @@
 
 	&nbsp;
 	<div class="view">
-		<table width="800">
+		<table>
 			<tr>
-				<td class="subject">${tmiBoard.subject }</td> 
+<!-- 				아이콘 넣는 곳 -->
+				<td rowspan="2"><img alt="아이콘" src="image/character/${tmiBoard.icon }" width="70px"></td>
+				<td>${tmiBoard.nickname }</td>
 			</tr>
 			<tr>
-				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${tmiBoard.nickname } | <i class="fa fa-clock-o"></i> ${tmiBoard.date } | <i class='far fa-eye'></i> ${tmiBoard.readcount }
+				<td class="time_readcount"> <i class="fa fa-clock-o"></i> ${tmiBoard.date } | <i class='far fa-eye'></i> ${tmiBoard.readcount }
 				</td> 
 			</tr>
-			<tr>
-				<td>${tmiBoard.content }</td>
-			</tr>
-	
 		</table>
+		<div id="subject">${tmiBoard.subject }</div>
+		<div id="content">${tmiBoard.content }</div>
 	&nbsp;
 	
 	<div class="btn">
@@ -55,7 +55,7 @@
 					<c:forEach begin="1" end="${tmiReply.re_lev }">
 						<i class="material-icons" style="font-size:20px;color:#6C757D;">subdirectory_arrow_right</i>
 					</c:forEach>
-					${tmiReply.nickname } | ${tmiReply.date }
+					<img alt="아이콘" src="image/character/${tmiReply.icon }" width="40px"> ${tmiReply.nickname } | ${tmiReply.date }
 				</td>
 				
 			</tr>

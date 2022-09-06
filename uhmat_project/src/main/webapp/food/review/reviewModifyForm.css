@@ -60,12 +60,42 @@ input:checked ~ label:hover ~ label {
 }
 
 /*--------------------------------------*/
+.mainLogo > a > img {
+	float: left;
+	max-width: 600px;
+	max-height:90px;
+	width: auto;
+	height: auto;
+/* 	background-size: cover; */
+	background-color: transparent;
+	margin-left: 0.75em;
+	z-index: 999999999999999;
+/* 	margin-top: 3px; */
+}
+.loginPart {
+	position: relative;
+	float: right;
+/* 	margin-right: 15em; */
+	margin-top: 2em;
+	margin-right: 1em;
+}
 
+.loginPart > a {
+	text-decoration: none;
+	font-size: 14px;
+	position: relative;
+}
+
+#hdLine {
+	clear: both;
+	border: 0.75em solid #FF1818;
+	
+}
 #mother {
 	margin: auto;
 	margin-top: 30px;
 	margin-bottom: 30px;
-	width: 900px;
+	width: 1000px;
 	height: auto;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);	
 }

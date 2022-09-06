@@ -21,6 +21,14 @@ public class TmiReplyDTO {
 	private int re_ref;
 	private int re_lev;
 	private int re_seq;
+	private String icon;
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 	private Timestamp date;
 	
 	public int getIdx() {

@@ -124,10 +124,10 @@
 					<c:forEach var="board" items="${reviewList}" varStatus="state">
 						<!--  -->
 						<section id="listView">
-							<p id="subject" class="tdName">${board.subject }</p>
-								<p>${board.nickname}</p>
+							<p id="subject" class="tdName" onclick="location.href='ReviewDetail.re?idx=' + ${board.idx}+'&pageNum=' +${pageInfo.pageNum}">${board.subject }</p>
+								<p id="nickname">${board.nickname}</p>
 								<section id="photo">
-								<p><img src="upload/${board.photo }"alt="파일" ></p>
+								<p><img src="upload/${board.photo }"alt="파일" onclick="location.href='ReviewDetail.re?idx=' + ${board.idx}+'&pageNum=' +${pageInfo.pageNum}"></p>
 								</section>
 							<section id="tdName">
 								<p class="tdName">

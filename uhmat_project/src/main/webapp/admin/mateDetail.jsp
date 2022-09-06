@@ -35,7 +35,7 @@
 	
 	<div class="btn">
 			<input type="button" value="댓글" onclick="location.href='MateReplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}'">
-		<c:if test="${sessionScope.sNickName == mate.nickname }">
+		<c:if test="${sessionScope.sNickName == 'admin' }">
 			<input type="button" value="삭제" onclick="location.href='AllBoardDelete.ad?idx=${param.idx}&pageNum=${param.pageNum}&title=${param.title}'">
 		</c:if>	
 			<input type="button" value="목록" onclick="location.href='AllBoardList.ad?pageNum=${param.pageNum}'">
@@ -58,7 +58,7 @@
 			<tr>
 				<td width="500" class="reply"> ${mateReplyList.content } </td>
 				<td class="btn"><input type="button" value="대댓글" onclick="location.href='MateRereplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx} '"></td>
-				<c:if test="${sessionScope.sNickName == mateReplyList.nickname }">
+				<c:if test="${sessionScope.sNickName == 'admin' }">
 					<td class="btn"><input type="button" value="댓글삭제" onclick="location.href='MateReplyDeleteForm.co?idx=${mate.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx}&nickname=${mateReplyList.nickname}'"> </td>
 				</c:if>
 			</tr>

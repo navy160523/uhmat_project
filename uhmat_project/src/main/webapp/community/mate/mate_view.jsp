@@ -11,6 +11,7 @@
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 <link href="css/mate/mateView.css" rel="stylesheet">
 
 </head>
@@ -20,18 +21,19 @@
 	<!-- 		헤더 들어가는 곳 -->
 	
 	<div class="view">
-		<table width="800">
+		<table>
 			<tr>
-				<td class="subject">${mate.subject }</td> 
+<!-- 				아이콘 넣는 곳 -->
+				<td rowspan="2"><img alt="아이콘" src="image/character/${mate.icon }" width="70px"></td>
+				<td>${mate.nickname }</td>
 			</tr>
 			<tr>
-				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${mate.nickname } | <i class="fa fa-clock-o"></i> ${mate.date } | <i class='far fa-eye'></i> ${mate.readcount }</td> 
+				<td class="time_readcount"> <i class="fa fa-clock-o"></i> ${mate.date} | <i class='far fa-eye'></i> ${mate.readcount }</td> 
 			</tr>
-			<tr>
-				<td>${mate.content }</td>
-			</tr>
-	
 		</table>
+			<div id="subject">${mate.subject }</div>
+			<div id="content">${mate.content }</div>
+	
 	
 	&nbsp;
 	
@@ -52,18 +54,18 @@
 			<tr>
 				<td>
 					<c:forEach begin="1" end="${mateReplyList.re_lev }">
-						&nbsp;&nbsp;<i class="material-icons" style="font-size:20px;color:#FF1818">subdirectory_arrow_right</i>
+						&nbsp;&nbsp;<i class="material-icons" style="font-size:20px;color:#6C757D;">subdirectory_arrow_right</i>
 					</c:forEach>
-					${mateReplyList.nickname } | ${mateReplyList.date }
+					<img alt="아이콘" src="image/character/${mateReplyList.icon }" width="40px"> ${mateReplyList.nickname } | ${mateReplyList.date }
 				</td>
 				
 			</tr>
 			<tr>
 				<td width="500" class="reply"> ${mateReplyList.content } </td>
-				<td class="btn"><input type="button" value="대댓글" onclick="location.href='MateRereplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx} '"></td>
+				<td class="btn"><input type="button" value="답글" onclick="location.href='MateRereplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx} '"></td>
 				<c:if test="${sessionScope.sNickName == mateReplyList.nickname }">
-					<td class="btn"><input type="button" value="댓글삭제" onclick="location.href='MateReplyDeleteForm.co?idx=${mate.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx}&nickname=${mateReplyList.nickname}'"> </td>
 					<td class="btn"><input type="button" value="댓글수정" onclick="location.href='MateReplyModifyForm.co?idx=${mate.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx}&nickname=${mateReplyList.nickname}'"></td>
+					<td class="btn"><input type="button" value="댓글삭제" onclick="location.href='MateReplyDeleteForm.co?idx=${mate.idx}&pageNum=${param.pageNum}&reply_idx=${mateReplyList.idx}&nickname=${mateReplyList.nickname}'"> </td>
 				</c:if>
 			</tr>
 		</c:forEach>

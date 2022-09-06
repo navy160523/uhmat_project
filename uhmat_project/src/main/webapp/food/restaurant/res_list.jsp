@@ -66,7 +66,7 @@
 		$(".append").on("click",function(){
 // 			alert($(this).closest("tr").html());
 			var currentTr = $(this).closest("tr");
-			var insertValue = currentTr.find("td:eq(0)").html();
+			var insertValue = currentTr.find("td:eq(1)").html();
 // 			alert($(".append").eq(index));
 // 			alert( $(".append").eq(index).find("td:eq(0)").html());
 			var index = $(".append").index(this);
@@ -88,6 +88,7 @@
 			<div class="dv"><span class="lv">음식점 찾기</span>
 			<input type="text" placeholder="음식점을 검색하세요" id="keyword" name="keyword" size="15"> 
 			<input class="btn" type="button" value="검색" id="keywordSelect">
+			<input type="button" value="카테고리별로 보기" onclick="location.href='resCategory.re'" class="btn">
 			</div>
 		</section>
 		
@@ -98,6 +99,7 @@
 		<section>
 			<table>
 				<tr>
+					<th> 카테고리 </th>
 					<th> 식당이름 </th>
 					<th> 별점 </th>
 					<th> 리뷰 개수</th>
@@ -120,6 +122,7 @@
 					<c:otherwise>
 						<c:forEach items="${restaurantInfo }" var="resInfo">
 							<tr onclick="location.href='restaurantDetail.re?resName=${resInfo.resName}'" class="append">
+								<td>${resInfo.category }</td>
 								<td>${resInfo.resName }</td>
 								<td>${resInfo.rating }</td>
 								<td>${resInfo.reviewCount }</td>

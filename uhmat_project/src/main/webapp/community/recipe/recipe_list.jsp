@@ -37,14 +37,7 @@
 				<c:forEach var="recipe" items="${recipeList }">
 					<div class= "recipeList">
 						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
-						<c:choose>
-							<c:when test="${not empty recipe.real_File1 }">
-								<img class="recipeImg"  width="100" src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
-							</c:when>
-							<c:otherwise>
-								<img class="recipeImg" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
-							</c:otherwise>
-						</c:choose>
+								<img class="recipeImg"  width="100" src="upload/recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
 						</a>
 						
 						<div>
@@ -65,15 +58,8 @@
 	 			<c:forEach var="recipe" items="${recipeSearchList}">
 	 			<div class= "recipeList"> 
 						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}">
-						<c:choose>
-							<c:when test="${not empty recipe.real_File1 }">
-								<img class="recipeImg" src="recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
-							</c:when>
-						<c:otherwise>
-							<img class="recipeImg" onerror="this.onerror=null; this.src='image/recipe/recipe_default_img.png'" >
-						</c:otherwise>
-					</c:choose>
-					</a>
+							<img class="recipeImg" src="upload/recipe_upload/${recipe.real_File1 }" onerror="this.onerror=null; this.src='image/recipe/recipe_banner.png'" >
+						</a>
 					
 					<div>
 						<a href="RecipeDetail.co?idx=${recipe.idx }&pageNum=${pageInfo.pageNum}'">
@@ -105,7 +91,10 @@
 	-->
 	<div align="center" style="clear: both;">
 	
-	<i class='fas fa-plus-circle' style='position: relative; font-size:48px;color:#6C757D;' onclick="location.href='RecipeWriteForm.co'"/></i>
+	
+	<i id="plus" class='fas fa-plus-circle' style='position: relative; font-size:48px;color:#6C757D;' onclick="location.href='RecipeWriteForm.co'"/></i>
+	
+	<br>
 	
 	<!-- 	레시피 검색 -->
 	<div align="center">

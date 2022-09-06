@@ -20,7 +20,7 @@ public class MaimFormService {
 		ArrayList<ReviewBoardDTO> reviewList = null;
 		
 		// Connectino 객체 가져오기
-		Connection con = getConnection();
+		Connection con = getConnection(); 
 		
 		// ReviewCategoryDAO 객체 가져오기
 		ReviewCategoryDAO dao = ReviewCategoryDAO.getInstance();

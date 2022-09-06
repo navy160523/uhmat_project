@@ -22,8 +22,8 @@ public class RecipeListAction implements Action {
 		
 		// 페이징 처리를 위한 변수 선언
 		int pageNum = 1; // 현재 페이지 번호(기본값 1 페이지로 설정)
-		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
-		int pageLimit = 10; // 한 페이지 당 표시할 페이지 목록 수
+		int listLimit = 9; // 한 페이지 당 표시할 게시물 수
+		int pageLimit = 9; // 한 페이지 당 표시할 페이지 목록 수
 
 		// 단, URL 파라미터로 현재 페이지번호(pageNum) 가 전달됐을 경우 가져와서 변수에 저장
 		if(request.getParameter("pageNum") != null) {

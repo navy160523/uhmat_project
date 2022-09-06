@@ -427,8 +427,6 @@ public class MemberDAO {
 		ArrayList<MemberDTO> list = null;
 		int listCount =0;
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt2 = null;
-		PreparedStatement pstmt3 = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
 		ResultSet rs3 = null;
@@ -446,23 +444,22 @@ public class MemberDAO {
 			
 			while(rs.next()) {
 				System.out.println("rs.next()");
-				sql = "SELECT ((select Count(subject) from community_mate as m where m.nickname=ma.nickname)+(select Count(subject) from community_tmi  as t where t.nickname=ma.nickname)+(select Count(subject) from community_recipe as r where r.nickname=ma.nickname)+(select Count(subject) from reviewboard as v where v.nickname=ma.nickname)+(select Count(subject) from faqboard as f where f.nickname=ma.nickname)+(select Count(subject) from noticeboard as n where n.nickname=ma.nickname)) as NUM FROM member as ma  WHERE ma.nickname =?";
-				pstmt2 = con.prepareStatement(sql);
-				pstmt2.setString(1, rs.getString("nickname"));
-				rs2 = pstmt2.executeQuery();
+				sql = "SELECT ((select Count(subject) from community_mate as m where m.nickname=ma.nickname)+(select Count(subject) from community_tmi as t where t.nickname=ma.nickname)+(select Count(subject) from community_recipe as r where r.nickname=ma.nickname)+(select Count(subject) from reviewboard as v where v.nickname=ma.nickname)+(select Count(subject) from faqboard as f where f.nickname=ma.nickname)+(select Count(subject) from noticeboard as n where n.nickname=ma.nickname)) as NUM FROM member as ma WHERE ma.nickname =?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, rs.getString("nickname"));
+				rs2 = pstmt.executeQuery();
 				
 				if(rs2.next()) {
 					System.out.println("rs2.next()");
 					listCount = rs2.getInt(1);
-					System.out.println(listCount);
-				
-				}
-				sql = "SELECT * FROM member WHERE name LIKE ? LIMIT ?,? ";
-				pstmt3 = con.prepareStatement(sql);
-				pstmt3.setString(1, "%" + keyword + "%"); 
-				pstmt3.setInt(2, startRow);
-				pstmt3.setInt(3, listLimit);
-				rs3 = pstmt3.executeQuery();
+					sql = "SELECT * FROM member WHERE name LIKE ? LIMIT ?,? ";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + keyword + "%"); 
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, listLimit);
+					rs3 = pstmt.executeQuery();
+					
+					
 					if(rs3.next()) {
 						System.out.println("rs3.next()");
 						MemberDTO member = new MemberDTO();
@@ -479,18 +476,14 @@ public class MemberDAO {
 						
 						list.add(member);
 					}
-					
+				}	
 			}
 //			System.out.println("AdminSelectMemberList의 list :"  + list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL 오류 AdminSelectMemberList() :" + e.getMessage());
 		} finally {
-			close(rs3);
-			close(rs2);
 			close(rs);
-			close(pstmt3);
-			close(pstmt2);
 			close(pstmt);
 		}
 		

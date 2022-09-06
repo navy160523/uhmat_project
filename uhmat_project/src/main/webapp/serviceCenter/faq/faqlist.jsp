@@ -56,7 +56,7 @@
 									</td>
 									</c:when>
 									<c:otherwise>
-									<td>${FAQ.subject }</td>
+										<td>${FAQ.subject }</td>
 									</c:otherwise>
 								</c:choose>
 							<td>${FAQ.nickname }</td>
@@ -74,7 +74,9 @@
 						</c:forEach>
 	 			</c:when>
 	 			<c:otherwise>
-					<tr><td colspan="5"> 게시물이 존재하지 않습니다</td></tr> 			
+					<tr>
+					<td colspan="7"> 게시물이 존재하지 않습니다</td>
+					</tr> 			
 	 			</c:otherwise>
 	 		</c:choose>
 			

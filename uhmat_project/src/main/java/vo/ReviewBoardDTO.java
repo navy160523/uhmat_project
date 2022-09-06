@@ -33,7 +33,14 @@ public class ReviewBoardDTO {
 	private float rating;
 	private String tag_name;
 	private Date date; 	//날짜가 추가됨 오늘 날짜가 default
+	private String icon;
 	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public int getIdx() {
 		return idx;
 	}

@@ -36,7 +36,7 @@
 	
 	<div class="btn">
 		<input type="button" value="댓글" onclick="location.href='TmiReplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}'">
-		<c:if test="${sessionScope.sNickName == tmiBoard.nickname }">	
+		<c:if test="${sessionScope.sNickName == 'admin' }">	
 			<input type="button" value="삭제" onclick="location.href='AllBoardDelete.ad?idx=${param.idx}&pageNum=${param.pageNum}&title=${param.title}'">
 		</c:if>
 			<input type="button" value="목록" onclick="location.href='AllBoardList.ad?pageNum=${param.pageNum}'">
@@ -59,7 +59,7 @@
 			<td width="500" class="reply"> ${tmiReply.content } </td>
 				<td class="btn"><input type="button" value="답글" onclick="location.href='TmiRereplyWriteForm.co?idx=${tmiReply.idx }&board_idx=${tmiReply.board_idx }&pageNum=${param.pageNum}'">
 				</td>
-				<c:if test="${sessionScope.sNickName == tmiReply.nickname }">
+				<c:if test="${sessionScope.sNickName == 'admin' }">
 				<td class="btn"><input type="button" value="댓글삭제" onclick="location.href='TmiReplyDeleteForm.co?idx=${tmiReply.idx }&board_idx=${tmiReply.board_idx }&nickname=${tmiReply.nickname }&pageNum=${param.pageNum }'">
 				</td>
 				</c:if>

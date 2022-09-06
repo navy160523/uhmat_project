@@ -39,7 +39,7 @@
       font-weight: 500;
       line-height: 1.3em;
       text-align: center;
-      background: #ffffff;
+      background: #ffdaff;
       border-radius: 5px;
       margin: 5px 0;
       box-sizing: border-box;

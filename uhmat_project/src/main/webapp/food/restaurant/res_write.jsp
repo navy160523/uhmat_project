@@ -199,13 +199,13 @@ table{
 			<h3 style="text-align: center"> 영업 시간 등록</h3> 
 					(휴무시 선택X)<br>
 					<section id="openTime">
-					<b>월</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
-					<b>화</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
-					<b>수</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
-					<b>목</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
-					<b>금</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
-					<b>토</b> <input type="time" name="opentime" value="09:00>">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
-					<b>일</b> <input type="time" name="opentime" value="09:00>">~<input type="time" name="closetime" value="22:00"> <button class="rest>">휴무</button><br>
+					<b>월</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>화</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>수</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>목</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>금</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>토</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>일</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
 					</section>
 					<br>
 			<h3>지도 위치 입력!</h3>

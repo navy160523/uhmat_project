@@ -53,7 +53,7 @@
   .K2-grid li a {
       display: block;
       text-decoration: none;
-      color: white;
+      color: #ff1818;
   }
   
   .K2-grid li svg {

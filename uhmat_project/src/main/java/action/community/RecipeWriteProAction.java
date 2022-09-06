@@ -25,7 +25,7 @@ public class RecipeWriteProAction implements Action {
 		
 		// 파일 업로드 처리를 위해 MultipartRequest 객체 활용(cos.jar 라이브러리 필요)
 		// 1. 업로드 파일 위치(이클립스 프로젝트 상의 경로) 저장
-		String uploadPath = "recipe_upload"; // 가상의 폴더명
+		String uploadPath = "upload/recipe_upload"; // 가상의 폴더명
 		
 		// 2. 업로드 파일 크기를 제한하기 위한 정수 형태의 값 지정(10MB 제한)
 		int fileSize = 1024 * 1024 * 10*7; // byte(1) -> KB(1024Byte) -> MB(1024KB) -> 10MB 단위 변환

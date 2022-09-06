@@ -760,7 +760,7 @@ public class RestaurantDAO {
 						dto.setPhoto(rs.getString("photo"));
 						dto.setReviewCount(rs.getInt("reviewCount"));
 						dto.setRating(rs.getFloat("rating"));
-											
+						dto.setCategory(rs.getString("category"));
 						resInfo.add(dto);
 					}
 				} catch (SQLException e) {

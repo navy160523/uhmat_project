@@ -16,6 +16,11 @@ public class FAQDetailAction implements Action {
 //		System.out.println("FAQDetailAction - execute");
 		ActionForward forward = null;
 		
+		String keyword = "";
+		if(request.getParameter("keyword") != null) {
+			keyword = request.getParameter("keyword");
+		}
+		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 //		System.out.println("idx : " + idx);
 		
@@ -32,7 +37,7 @@ public class FAQDetailAction implements Action {
 		request.setAttribute("reply", reply);
 		
 		forward = new ActionForward();
-		forward.setPath("serviceCenter/faq/faqDetail.jsp?keyword="+ request.getParameter("keyword"));
+		forward.setPath("serviceCenter/faq/faqDetail.jsp?keyword="+ keyword);
 		forward.setRedirect(false);
 		
 		return forward;

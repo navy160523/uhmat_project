@@ -39,7 +39,7 @@
 					님 </a>&nbsp; <a href="MemberLogout.me">로그아웃</a>
 				<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
 				<c:if test="${sessionScope.sNickName eq 'admin'}"> | <a
-						href="AdminMain.me">관리자페이지</a>
+						href="AdminMain.ad">관리자페이지</a>
 				</c:if>
 			</c:otherwise>
 		</c:choose>

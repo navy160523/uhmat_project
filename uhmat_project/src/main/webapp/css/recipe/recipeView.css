@@ -7,24 +7,39 @@
 		margin: auto;
 		width: 800px;
 		text-align: left;
+		font-family: 'Poor Story', cursive;
 	}
 	
 	
-	.subject {
-		font-size: x-large;
+	#subject {
+		font-size: xx-large;
+		
 	}
 	
-	.nickname_time_readcount {
+	#content {
+		font-size: large;
+		padding: 10px 0px 10px 0px;
+		border-bottom: 2px solid #6C757D;
+	}
+	
+	.time_readcount {
 		font-size: small;
 		position: static;
+		border-spacing: 1px;
 	}
 	
+/* 	table td img { */
+/* 		border-radius: 50px; */
+/* 		border: 1px solid #6C757D; */
+/* 	} */
+	
 	.btn input {
-		border: 2px solid #6C757D;;
+		border: 2px solid #6C757D;
 		background-color: #6C757D;
-		color: white;;
+		color: white;
 		padding: 5px;
-		border-radius: 5px
+		border-radius: 5px;
+		font-family: 'Poor Story', cursive;
 		
 	}
 	
@@ -35,7 +50,7 @@
 	}
 	
 	.reply {
-		border-bottom: 2px solid #ccc;
+		border-bottom: 2px solid #6C757D;;
 	}
 	
 	.slider{
@@ -78,8 +93,8 @@
 	.bullets{
     	position: absolute;
     	left: 50%;
-    	transform: translateX(-300px);
-    	bottom: 450px;
+    	transform: translateX(-280px);
+    	bottom: 400px;
     	z-index: 2;
 	}
 	

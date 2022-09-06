@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.main.ReviewBestAction;
+import action.main.ReviewRecentAction;
 import action.main.UhmatSearchAction;
 import vo.ActionForward;
 
@@ -36,7 +37,15 @@ public class MainFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} 
+		} else if(command.equals("/ReviewRecent.ma")) {
+			action = new ReviewRecentAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		if (forward != null) {
 			if (forward.isRedirect()) {

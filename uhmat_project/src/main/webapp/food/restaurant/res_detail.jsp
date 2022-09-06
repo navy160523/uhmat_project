@@ -7,68 +7,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="food/restaurant/res_detail.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body id="resDetailBody">
 <jsp:include page="../../inc/header.jsp"></jsp:include>
     <h2>${resInfo.resName } <small style="font-size: 0.5em">별점 ${resInfo.rating } &nbsp; | &nbsp; <a href="ReviewList.re?resName=${resInfo.resName }">${resInfo.reviewCount }개의 리뷰</a></small></h2>
 	<img src="upload/${resInfo.photo }" width="200">
 	<!-- 식당 정보 출력 -->
-        <table>
-            <tr>
-       			<th><i class="fa fa-phone-square" style="font-size:48px;color:red"></i> </th>
-       			<td>${resInfo.phoneNumber }</td>
-            </tr>
-            <tr>
-       			<th>월요일 </th>
-       			<td>${mon } </td>
-            </tr>
-            <tr>
-       			<th>화요일 </th>
-       			<td>${tue } </td>
-            </tr>
-            <tr>
-       			<th>수요일 </th>
-       			<td>${wed } </td>
-            </tr>
-            <tr>
-       			<th>목요일 </th>
-       			<td>${thu } </td>
-            </tr>
-            <tr>
-       			<th>금요일 </th>
-       			<td>${fri } </td>
-            </tr>
-            <tr>
-       			<th>토요일 </th>
-       			<td>${sat } </td>
-            </tr>
-            <tr>
-       			<th>일요일 </th>
-       			<td>${sun } </td>
-            </tr>
-            <tr>
-       			<th>식당 상세정보: </th>
-       			<td>${resInfo.resInfo } </td>
-            </tr>
-            <tr>
-            	<th>우편번호 </th>
-            	<td>${resInfo.rPostcode} </td>
-            </tr>
-            <tr>
-            	<th>도로명</th>
-            	<td>${resInfo.address }</td>
-            </tr>
+        <section>
+       			<p><i class="fa fa-phone-square" style="font-size:48px;color:red"></i> ${resInfo.phoneNumber }</p>
+       			<p class="timeTable">월요일 | ${mon } </p>
+       			<p class="timeTable">화요일 | ${tue } </p>
+       			<p class="timeTable">수요일 | ${wed } </p>
+       			<p class="timeTable">목요일 | ${thu } </p>
+       			<p class="timeTable">금요일 | ${fri } </p>
+       			<p class="timeTable">토요일 | ${sat } </p>
+       			<p class="timeTable">일요일 | ${sun } </p>
+       			<p class="timeTable"><strong>식당 상세정보 :</strong> <br>${resInfo.resInfo }</p>
+            	<p class="timeTable"><strong>우편번호 : </strong><br>${resInfo.rPostcode}</p>
+            	<p class="timeTable"><strong>도로명 : </strong><br>${resInfo.address }</p>
             <c:if test="${not empty resInfo.resLink }">
-	            <tr>
-	       			<th><a href="${resInfo.resLink }">식당링크 </a></th>
-	       			<td> </td>
-	            </tr>
+	       			<p class="timeTable"><strong>식당링크 : </strong><a href="${resInfo.resLink }">${resInfo.resLink }</a></p>
             </c:if>
-            <tr>
-                <td colspan="4"></td>
-            </tr>
-        </table>
+        </section>
         
         <!-- 지도 정보 출력 -->
         <div id="map" style="width:100%;height:350px;"></div>

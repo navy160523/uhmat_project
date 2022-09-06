@@ -21,8 +21,14 @@ public class CommunityTmiDTO {
 	private Timestamp date;
 	private String report;
 	private String category;
+	private String icon;
 	
-	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public int getIdx() {
 		return idx;
 	}

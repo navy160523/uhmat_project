@@ -11,7 +11,14 @@ public class MateReplyDTO {
 	private int re_seq;
 	private Timestamp date;
 	private int board_idx;
+	private String icon;
 	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public int getIdx() {
 		return idx;
 	}

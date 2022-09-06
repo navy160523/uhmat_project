@@ -40,7 +40,7 @@ public class RestaurantListAction implements Action {
 			listCount = service.getListCount();
 		}
 		int pageNum = 1; // 현재 페이지 번호(기본값 1 페이지로 설정)
-		int listLimit = 3; // 한 페이지 당 표시할 게시물 수
+		int listLimit = 10; // 한 페이지 당 표시할 게시물 수
 		int pageLimit = 10; // 한 페이지 당 표시할 페이지 목록 수
 		System.out.println("===================================");
 		if(request.getParameter("pageNum") != null) {

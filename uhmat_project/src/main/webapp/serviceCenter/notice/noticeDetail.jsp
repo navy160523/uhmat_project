@@ -21,7 +21,7 @@
 	<!-- 헤더 들어가는 곳 -->
 
 	<div class="view">
-		<table width="800">
+		<table >
 			<tr>
 				<td class="subject">${notice.subject }</td> 
 			</tr>
@@ -37,7 +37,7 @@
 				실제 다운로드 되는 파일명은 원본 파일명으로 변경하여 다운로드
 				-->
 					<a href="upload/${notice.real_File }" download="${notice.original_File }">
-					${notice.real_File }
+					${notice.original_File }
 					</a>
 				</td>
 			</tr>
@@ -48,11 +48,11 @@
 		</table>
 	
 	<div class="btn">
-		<c:if test="${sessionScope.sNickName == notice.nickname }">	
-			<input type="button" value="수정" onclick="location.href='NoticeModifyForm.sc?idx=${notice.idx}&pageNum=${param.pageNum}'">
+		<c:if test="${not empty sessionScope.sNickName and (sessionScope.sNickName eq notice.nickname or sessionScope.sNickName eq 'admin') }">
+			<input type="button" value="수정" onclick="location.href='NoticeModifyForm.sc?idx=${notice.idx}&pageNum=${param.pageNum}&keyword=${param.keyword }'">
 			<input type="button" value="삭제" onclick="location.href='NoticeDelete.sc?idx=${notice.idx}&pageNum=${param.pageNum}&real_File=${notice.real_File }'">
 		</c:if>
-			<input type="button" value="목록" onclick="location.href='NoticeList.sc?pageNum=${param.pageNum}'">
+			<input type="button" value="목록" onclick="location.href='NoticeList.sc?pageNum=${param.pageNum}&keyword=${param.keyword }'">
 	</div>
 		
 	</div>

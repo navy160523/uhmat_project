@@ -51,20 +51,31 @@
 
 	.search input {
  		padding: 5px; 
-		border: 2px solid #c6c6c6;
+		border: 2px solid #6C757D;
 		background-color:white;
-		color: #717171;
+		color: #6C757D;
 		border-radius: 5px;
-/* 		font-family: 'Poor Story', cursive; */
-/* 		font-weight: bold; */
+		font-family: 'Poor Story', cursive;
+		font-weight: bold;
 	}
 	
-	.before_next {
-		border: 2px solid #c6c6c6;
- 		padding: 5px;
- 		border-radius: 5px;
+	.searchBtn input {
+		padding: 5px; 
+		border: 2px solid #6C757D;
+		background-color:#6C757D;
+		color: white;
+		border-radius: 5px;
 	}
 	
+	.searchBtn:hover {
+		padding: 5px; 
+		border: 2px solid #6C757D;
+		background-color:white;
+		color: #6C757D;
+		border-radius: 5px;
+	}
+	
+
 	.mateBanner img {
 	border-radius: 10px;
 	}
@@ -74,5 +85,25 @@
 		margin: 0px;
 		position: relative;
 		left: 590px;
+	}
+	
+	td.link:hover{
+    	background-color: #808080;
+   		cursor: pointer;
+	}
+	
+	.before_next {
+		border: 3px solid #6C757D;
+ 		border-radius: 5px;
+/* 		border: 5px solid #6C757D; */
+		background-color: #6C757D;
+		color: white;
+		font-family: 'Poor Story', cursive;
+}
+
+	.before_next:hover {
+		background-color: white;
+		color : #717171;
+		cursor: pointer;
 	}
 	

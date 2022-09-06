@@ -54,27 +54,26 @@
 				
 				<!-- 제목 -->
 				<div class="form-floating mb-3">
-				    <input class="form-control" type="text" name="subject" id="subject" placeholder="제목을 입력해주세요!">
+				    <input class="form-control" type="text" name="subject" id="subject" placeholder="제목을 입력해주세요!" maxlength="20">
 				    <label for="subject">제목</label>
 				</div>
 				
 				<!-- 내용-->
 				<div class="form-floating mb-3">
-				   <textarea class="form-control" name="content" id="content"  placeholder="내용을 입력해주세요 !" style="height: 10rem"></textarea>
+				   <textarea class="form-control" name="content" id="content"  placeholder="내용을 입력해주세요 !" style="height: 10rem" maxlength="2000"></textarea>
 				   <label for="content">내용</label>
  				 </div>
  				 
  				 <div class="form-floating mb-3">
-				    <input class="form-control" type="file" name="file" id="file" placeholder="제목을 입력해주세요!" required="required" >
+				    <input class="form-control" type="file" name="file" id="file" placeholder="제목을 입력해주세요!" >
 				    <label for="file">파일첨부</label>
 				</div>
 				
 			<div class="form-floating sm-3">
 				<select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
-					<option value="알림"></option>
 					<option value="오류신고">오류신고</option>
 					<option value="음식점등록">음식점등록</option>
-					<option value="자도 오류">지도 오류</option>
+					<option value="지도 오류">지도 오류</option>
 				</select>			
 				<label for="category">카테고리</label>
 			</div>

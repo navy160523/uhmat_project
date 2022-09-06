@@ -34,7 +34,27 @@
 			history.back();
 		</script>
 	</c:if>
-	<jsp:include page="../../inc/header.jsp"></jsp:include>
+	<div class="mainLogo">
+    		<a href="/uhmat_project/"><img src="image/uhmatMainLogo.png"></a>
+    	</div>
+		<!-- 로고 들어가는 곳 끝 -->
+		
+		<!-- 로그인 및 회원가입 부분 시작 -->
+		<div class="loginPart">
+		<c:choose>
+			<c:when test="${empty sessionScope.sNickName}">
+				<a href="MemberLogin.me">로그인</a>&nbsp; <a href="MemberJoinForm.me">회원가입</a>
+			</c:when>
+			<c:otherwise>
+				<a href="MemberDetailForm.me?nickName=${sessionScope.sNickName }">${sessionScope.sNickName }
+					님 </a>&nbsp; <a href="MemberLogout.me">로그아웃</a>
+				<c:if test="${sessionScope.sNickName eq 'admin'}"> &nbsp; <a
+						href="AdminMain.me">관리자페이지</a>
+				</c:if>
+			</c:otherwise>
+		</c:choose>
+		</div>
+	<hr id="hdLine">
 	
 	<section id="mother">
 		<form  action="ReviewModifyProAction.re" method="post" enctype="multipart/form-data">
@@ -54,7 +74,7 @@
 				</div> 
 				<div class="dv"><span class="lv">음식점 찾기</span>
 				<input type="text" name="res_name" id="searchRes" value=${dto.res_name } readonly="readonly" required="required">&nbsp;
-				<button class="btn" id="find">찾기</button>
+				<button type="button" class="btn" id="find">찾기</button>
 			</div>
 				
 				<div class="row"><span class="lv">별점 재선택</span>

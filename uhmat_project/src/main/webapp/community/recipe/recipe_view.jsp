@@ -10,6 +10,7 @@
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <link href="css/recipe/recipeView.css" rel="stylesheet">
 </head>
@@ -20,12 +21,17 @@
 	<div class="view">
 		<table>
 			<tr>
-				<td class="subject">${recipe.subject }</td> 
+<!-- 				아이콘 넣는 곳 -->
+				<td rowspan="2"><img alt="아이콘" src="image/character/${recipe.icon }" width="70px"></td>
+				<td>${recipe.nickname }</td>
 			</tr>
 			<tr>
-				<td class="nickname_time_readcount"><i class='fas fa-user-alt'></i> ${recipe.nickname } | <i class="fa fa-clock-o"></i> ${recipe.date } | <i class='far fa-eye'></i> ${recipe.readcount }</td> 
+				<td class="time_readcount"><i class="fa fa-clock-o"></i> ${recipe.date } | <i class='far fa-eye'></i> ${recipe.readcount }</td> 
 			</tr>
 			</table>
+			<div id="subject">
+				${recipe.subject }
+			</div>
 			
 			<c:if test="${not empty recipe.real_File1 or not empty recipe.real_File2 or not empty recipe.real_File3 or not empty recipe.real_File4 or not empty recipe.real_File5 }">
 			<div class="slider">
@@ -39,7 +45,7 @@
     		
     			<ul id="imgholder" class="imgs">
     			<c:forEach var="photoList" items="${plist }">
-    			<li><img src="recipe_upload/${photoList }" width="300px" height="300px" onerror="this.style.display='none';"></li>
+    			<li><img src="./upload/recipe_upload/${photoList }" width="300px" height="300px" onerror="this.style.display='none';"></li>
 
 			</c:forEach>
 <!-- 			onerror="this.style.display='none';" img alt 아이콘 없애는 기능 -->
@@ -57,7 +63,7 @@
 			
 		<table>
 			<tr>
-				<td>${recipe.content }</td> 
+				<td id="content">${recipe.content }</td> 
 			</tr>
 		</table>
 	
@@ -78,17 +84,18 @@
 			<tr>
 				<td>
 					<c:forEach begin="1" end="${recipeReplyList.re_lev }">
-						&nbsp;&nbsp;<i class="material-icons" style="font-size:20px;color:#FF1818">subdirectory_arrow_right</i>
+						&nbsp;&nbsp;<i class="material-icons" style="font-size:20px;color:#6C757D;">subdirectory_arrow_right</i>
 					</c:forEach>
-					${recipeReplyList.nickname } | ${recipeReplyList.date }
+<!-- 					댓글 아이콘 넣는 곳 -->
+					<img alt="아이콘" src="image/character/${recipeReplyList.icon }" width="40px"> ${recipeReplyList.nickname } | ${recipeReplyList.date }
 				</td>
 			</tr>
 			<tr>
 				<td width="500" class="reply"> ${recipeReplyList.content } </td>
-				<td class="btn"><input type="button" value="대댓글" onclick="location.href='RecipeRereplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}&reply_idx=${recipeReplyList.idx} '"></td>
+				<td class="btn"><input type="button" value="답글" onclick="location.href='RecipeRereplyForm.co?idx=${param.idx}&pageNum=${param.pageNum}&reply_idx=${recipeReplyList.idx} '"></td>
 				<c:if test="${sessionScope.sNickName == recipeReplyList.nickname }">
-					<td class="btn"><input type="button" value="댓글삭제" onclick="location.href='RecipeReplyDeleteForm.co?idx=${recipe.idx}&pageNum=${param.pageNum}&reply_idx=${recipeReplyList.idx}&nickname=${recipeReplyList.nickname}'"> </td>
 					<td class="btn"><input type="button" value="댓글수정" onclick="location.href='RecipeReplyModifyForm.co?idx=${recipe.idx}&pageNum=${param.pageNum}&reply_idx=${recipeReplyList.idx}&nickname=${recipeReplyList.nickname}'"></td>
+					<td class="btn"><input type="button" value="댓글삭제" onclick="location.href='RecipeReplyDeleteForm.co?idx=${recipe.idx}&pageNum=${param.pageNum}&reply_idx=${recipeReplyList.idx}&nickname=${recipeReplyList.nickname}'"> </td>
 				</c:if>
 			</tr>
 		</c:forEach>

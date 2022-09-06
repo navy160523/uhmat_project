@@ -20,7 +20,7 @@
 
 
 
-header .mainLogo > a > img {
+.mainLogo > a > img {
 	float: left;
 	max-width: 600px;
 	max-height:90px;
@@ -70,7 +70,7 @@ header .mainLogo > a > img {
 
 .searchControl {
 	position: relative;
-	width: 500px;
+	width: 420px;
 	height: 30px;
 	padding-left: 32px;
 	left: 590px;
@@ -100,7 +100,7 @@ header i {
 	margin-top: 15px;
 }
 
-header #searchBtn {
+#searchBtn {
 	position: relative;
 	border-radius: 5px;
 	background-color: #FF1818;; 
@@ -173,20 +173,26 @@ header #searchBtn {
 	padding: 7px;
 	font-weight: bold;
 /* 	text-shadow: 1px 1px 1px gray; */
-	
-	
+	border-bottom-width: 5px solid black;
 }
+
+/* .dropdown a { */
+/* 	border-bottom: 5px solid orange; */
+/* } */
 
 .dropdownContent {
 	display: none;
 	position: absolute;
 	left: 0px;
 	background-color: #FF1818;		
+/* 	border-bottom-width: 10px solid black; */
+	margin-top: 5px;
 }
 
 .dropdownContent ul {
 	border: 1px solid #FF1818;
 	padding: 0;
+/* 	border-bottom-width: 10px solid black; */
 }
 
 .dropdownContent li {
@@ -194,19 +200,30 @@ header #searchBtn {
 	width: 160px;
 	margin: 0;
 	margin-left: 0;
-	padding: 0;
+	padding: 8px;
 	left: 0px;
 }
 
-.dropdownContent li > a {
-	text-decoration: none;
-}
+/* .dropdownContent li > a { */
+/* 	text-decoration: none; */
+/* } */
 
-.dropdownContent ul li > a {
+/* .dropdownContent ul li > a { */
+/* 	color: white; */
+/* 	font-size: 18px; */
+/* 	vertical-align: middle; */
+/* 	margin-left: 0.15em; */
+/* } */
+
+.dropdownContent ul li > div {
 	color: white;
 	font-size: 18px;
 	vertical-align: middle;
 	margin-left: 0.15em;
+}
+
+.dropdownContent ul li > div {
+	text-decoration: none;
 }
 
 

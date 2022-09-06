@@ -58,7 +58,7 @@
 			</c:otherwise>
 		</c:choose>
 		<tr>
-			<td id="plus"><i class='fas fa-plus-circle' style='position:static; font-size:48px;color:#AAAAAA' onclick="location.href='MateWriteForm.co'"/></i></td>
+			<td id="plus"><i class='fas fa-plus-circle' style='position:static; font-size:48px;color:#6C757D;' onclick="location.href='MateWriteForm.co'"/></i></td>
 		</tr>
 	</table>
 	
@@ -66,7 +66,7 @@
 	<div align="center">
 		<form action="MateList.co" method="get" class="search">
 			<input type="text" name="keyword" value="${param.keyword }" placeholder="search">
-			<input type="submit" value="검색">
+			<input type="submit" value="검색" class="searchBtn">
 			
 		</form>
 	</div>

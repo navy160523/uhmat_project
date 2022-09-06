@@ -22,6 +22,11 @@ public class FAQModifyProAction implements Action {
 //		System.out.println("NoticeModifyProAction-execute");
 		ActionForward forward = null;
 		
+		String keyword = "";
+		if(request.getParameter("keyword") != null) {
+			keyword = request.getParameter("keyword");
+		}
+		
 		FAQDTO faq = new FAQDTO();
 		// ========================파일 수정 기능 추가로 인한 MultipartRequest 객체 사용===============================================
 		// 파일 업로드 처리를 위해 MultipartRequest 객체 활용(cos.jar 라이브러리 필요)
@@ -81,7 +86,7 @@ public class FAQModifyProAction implements Action {
 			}
 			
 			forward = new ActionForward();
-			forward.setPath("FAQDetail.sc?idx="+Integer.parseInt(multi.getParameter("idx"))+"&pageNum="+multi.getParameter("pageNum")+"&keyword=");
+			forward.setPath("FAQDetail.sc?idx="+Integer.parseInt(multi.getParameter("idx"))+"&pageNum="+multi.getParameter("pageNum")+"&keyword="+keyword);
 			forward.setRedirect(true);
 		}
 		

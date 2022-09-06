@@ -21,7 +21,11 @@ public class ReviewReplyListAction implements Action {
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		String nickname = request.getParameter("nickname");
-		
+		int pageNum=1;
+		if(request.getParameter("pageNum")=="") {
+		}else {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));			
+		}
 		System.out.println(idx + " " + nickname);
 		
 		ArrayList<ReviewReplyDTO> replyList = ReviewReplyListService.getReplyList(idx);

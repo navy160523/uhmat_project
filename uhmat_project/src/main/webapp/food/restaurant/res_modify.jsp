@@ -37,7 +37,7 @@ table{
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35185e429e5d9c68170c91b88e2d3a84"></script>
 <script>
 	//ready event
-	$(function(){
+	$(function(){	//사진 변경 시 사진 미리보기 출력
 		$('#photo').change(function(){
 		    setImageFromFile(this, '#image');
 		});
@@ -100,7 +100,7 @@ table{
 				}).open();
 	}
 	
-	$(function(){
+	$(function(){	//휴무 버튼 선택시 시간 재조정
 		$("#openTime button").on("click",function(){
 // 			alert($("#openTime button").index(this));
 			var index = $("#openTime button").index(this);
@@ -109,6 +109,12 @@ table{
 			$("input[name=closetime]").eq(index).attr("value","");
 		});
 	});
+	
+	//카테고리를 미리 선택해두기!
+	window.onload = function(){
+// 		alert($("select option").eq(0).text());
+		$('select option[value="${resInfo.category}"]').attr('selected',true);
+	}
 	
 </script>
 </head>
@@ -134,7 +140,7 @@ table{
 		</script>
 	</c:if>
 	<section id="writeForm">
-		<h2>식당 글 수정</h2>
+		<h2>식당 글 수정 ${resInfo.rPostcode }${resInfo.address }</h2>
 		<div id="showCategory">
 		</div>
 		<form action="restaurantModifyPro.re" method="post" enctype="multipart/form-data">
@@ -178,13 +184,13 @@ table{
 				<tr>
            		   	<th><label for="r_postcode">우편번호</label></th>
 					<td>
-	           		 	<input class="form-control" type="text" name="r_postcode" id="sample4_postcode" value="${resInfo.rPostcode }" readonly="readonly" required="required" onclick="execDaumPostcode()" >
+	           		 	<input class="form-control" type="text" name="r_postcode" id="sample4_postcode" readonly="readonly" value="${resInfo.rPostcode }"  required="required" onclick="execDaumPostcode()" >
 						<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 					</td>
 				</tr>
 				<tr>
             		<th><label for="address">도로명주소</label></th> 
-           			<td><input class="form-control" type="text" name="address" id="sample4_roadAddress" value="${resInfo.address }  readonly="readonly" required="required" onclick="execDaumPostcode()" ></td>
+           			<td><input class="form-control" type="text" name="address" id="sample4_roadAddress" value="${resInfo.address }"  readonly="readonly" required="required" onclick="execDaumPostcode()" ></td>
 				</tr>
 				<tr>
 					<th><label for="phone_number">식당 전화번호</label></th>
@@ -213,13 +219,13 @@ table{
 			<img src="upload/${resInfo.photo }" alt="등록된 이미지 없음" id="image" width="300">
 			<h3 style="text-align: center"> 영업 시간 등록</h3> 
 					(휴무시 선택X)<br>
-					<b>월</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
-					<b>화</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
-					<b>수</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
-					<b>목</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
-					<b>금</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
-					<b>토</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
-					<b>일</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button class="rest">휴무</button> <br>
+					<b>월</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>화</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>수</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>목</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>금</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>토</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>일</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
 					<br>
 					
 			<!-- 

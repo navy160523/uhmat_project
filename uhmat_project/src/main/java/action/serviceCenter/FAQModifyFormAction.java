@@ -15,6 +15,11 @@ public class FAQModifyFormAction implements Action {
 //		System.out.println("NoticeModifyFormAction - execute");
 		ActionForward forward = null;
 		
+		String keyword = "";
+		if(request.getParameter("keyword") != null) {
+			keyword = request.getParameter("keyword");
+		}
+		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		
 		FAQDetailService service = new FAQDetailService();
@@ -24,7 +29,7 @@ public class FAQModifyFormAction implements Action {
 		request.setAttribute("faq", faq);
 		
 		forward = new ActionForward();
-		forward.setPath("serviceCenter/faq/faqModify.jsp");
+		forward.setPath("serviceCenter/faq/faqModify.jsp?keyword="+keyword);
 		forward.setRedirect(false);
 		
 		return forward;

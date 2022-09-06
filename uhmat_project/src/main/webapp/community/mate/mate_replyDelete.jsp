@@ -5,14 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-	<!-- Font Awesome icons (free version)-->
-	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
- 	<!-- Google fonts-->
+	<!-- Google fonts-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 
@@ -26,7 +19,7 @@
 
 	<!-- 삭제 시 닉네임 요청 -->
 	<section class="page-section" id="contact">
-            <div class="container">
+            <div class="container" align="center">
                 <!-- Contact Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">MATE 댓글 삭제</h2>
                 <!-- Icon Divider-->
@@ -58,8 +51,8 @@
 			<label for="nickname">닉네임</label>
 		</div>
 		<div class="form-floating mb-3">
-			<input type="submit" class="btn btn-primary" value="삭제">&nbsp;&nbsp;
-			<input type="button" class="btn btn-primary" value="돌아가기" onclick="javascript:history.back()">
+			<input type="submit" class="btn btn-secondary" value="삭제">&nbsp;&nbsp;
+			<input type="button" class="btn btn-secondary" value="돌아가기" onclick="javascript:history.back()">
 		</div>
 	</form>
 	</div>
@@ -69,18 +62,5 @@
 	<!-- 푸터 들어가는 곳 -->
 	<jsp:include page="../../inc/footer.jsp"/>
 	<!-- 푸터 들어가는 곳 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-	<!-- Bootstrap core JS-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<!-- Core theme JS-->
-	<script src="js/scripts.js"></script>
-	
-	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-	<!-- * *                               SB Forms JS                               * *-->
-	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>

@@ -26,7 +26,6 @@
 
 #mainSec01 {
 	background-image: url("/uhmat_project/image/mainSample3.jpg");
-/* 	border: 1px solid; */
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
@@ -37,16 +36,29 @@
 }
 
 .mainViewContainer {
-	width: 1100px;
+	width: 1300px;
 	margin: 0 auto;
-	margin-bottom: 80px;
+/* 	margin-bottom: 10px; */
 }
 
-.rankContainer {
+/* .rankContainer { */
 /* 	height: 300px; */
-	width: 1100px;
-	border: solid 1px;
+/* 	width: 1300px; */
+/* 	height: 400px; */
+/* 	border: solid 1px; */
+/* 	margin-top: 80px; */
+/* } */
+
+.imgContainer {
+/* 	height: 300px; */
+	width: 1300px;
+	height: 400px;
+/* 	border: solid 1px; */
 	margin-top: 80px;
+}
+
+.imgContainer img{
+	border-radius: 10%;
 }
 
 .clear{
@@ -54,10 +66,11 @@
 }
 
 .rankReview {
-	border: solid 1px;
-	height: 300px;
+/* 	border: solid 1px; */
+	height: 400px;
 	width: 1100px;
 	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .mainView{
@@ -115,9 +128,7 @@
 }
 
 #subject {
-	padding-top: 15px;
 	font-weight: bold;
-	font-size: 2em;
 }
 
 p > img {
@@ -168,6 +179,36 @@ p > img {
     transform: scale(1.2);
     cursor: pointer;
 }
+
+.mainReviewTable {
+/* 	background-color: orange; */
+/* 	margin-left: 43px; */
+/* 	padding-top: 30px; */
+/* 	padding-left: 50px; */
+/* 	padding-right: 50px; */
+	padding-bottom: 30px;	
+	border-spacing: 20px;
+}
+
+
+.moreInformation01 {
+	margin-top: -45px;
+	margin-left: 1210px;
+	font-size: 17px;
+}
+
+.moreInformation02 {
+	margin-top: -45px;
+	margin-left: 1210px;
+	font-size: 17px;
+}
+
+.moreInformation03 {
+	margin-top: -45px;
+	margin-left: 1210px;
+	font-size: 17px;
+}
+
 
 .restaurantCategory {
 	margin-bottom: 50px;

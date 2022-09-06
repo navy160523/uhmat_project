@@ -58,6 +58,8 @@ td.link:hover{
 	background-color:white;
 	color: #6C757D;
 	border-radius: 5px;
+	font-family: 'Poor Story', cursive;
+	font-weight: bold;
 /* 	font-family: 'Poor Story', cursive; */
 }
 
@@ -68,18 +70,19 @@ td.link:hover{
 }
 
 .before_next {
-	border: 2px solid #6C757D;;
-	background-color: #6C757D;
-	border-radius: 2px;
-	color: white;
-	font-family: 'Poor Story', cursive;
+		border: 3px solid #6C757D;
+ 		border-radius: 5px;
+/* 		border: 5px solid #6C757D; */
+		background-color: #6C757D;
+		color: white;
+		font-family: 'Poor Story', cursive;
 }
 
-.before_next:hover {
-	background-color: white;
-	color : #6C757D;
-	cursor: pointer;
-}
+	.before_next:hover {
+		background-color: white;
+		color : #717171;
+		cursor: pointer;
+	}
 
 #plus {
 	border-bottom: none;

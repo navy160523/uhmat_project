@@ -20,6 +20,12 @@ public class ReviewLikeAction implements Action {
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
 		
+		String name = (String)session.getAttribute("sNickName");
+		System.out.println("session name: "+name);
+		PrintWriter out = response.getWriter(); 
+		response.setContentType("text/html; charset=UTF-8");
+		
+		
 		int idx = Integer.parseInt(request.getParameter("idx"));
 		String nickname = (String)session.getAttribute("sNickName"); //session id 받는 곳
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
@@ -28,8 +34,7 @@ public class ReviewLikeAction implements Action {
 		ReviewLikeService service = new ReviewLikeService();
 		boolean isModifySuccess = service.modifyLike(idx, nickname);
 		
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
+		out = response.getWriter();
 		
 		if(!isModifySuccess) {
 			out.println("<script>");

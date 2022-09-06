@@ -49,32 +49,34 @@
                      <!-- To make this form functional, sign up at-->
                      <!-- https://startbootstrap.com/solution/contact-forms-->
                      <!-- to get an API token!-->
-		<form action="FAQModify.sc" name="faqModifyForm" method="post">
+		<form action="FAQModify.sc" name="faqModifyForm" method="post" enctype="multipart/form-data">
 		<!-- 게시물 수정에 필요한 글번호와 페이징 처리에 필요한 페이지번호도 함께 전달 -->
 		<input type="hidden" name="idx" value="${faq.idx }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
+		<input type="hidden" name="real_File" value="${faq.real_File }">
+		<input type="hidden" name="keyword" value="${param.keyword }">
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" name="nickname"  id="nickname" value="${sessionScope.sNickName }" readonly="readonly">
 				<label for="nickname">어맛인</label>					
 			</div>
 			
 			<div class="form-floating mb-3">	
-				<input type="text" class="form-control" name="subject" id="subject" value="${faq.subject }" required="required" >
+				<input type="text" class="form-control" name="subject" id="subject" value="${faq.subject }" required="required" maxlength="20" >
 				<label for ="subject">제목</label>
 			</div>
 			
 			<div class="form-floating mb-3">
-				<textarea class="form-control" id="content" name="content" style="height: 10rem" required="required" >${faq.content }</textarea>
+				<textarea class="form-control" id="content" name="content" style="height: 10rem" required="required" maxlength="2000">${faq.content }</textarea>
 				<label for ="content">내용</label>
 			</div>
 			
 			<div class="form-floating mb-3">
 					<!-- 파일 수정 기능은 제외(파일명만 표시) -->
-					<input type="text" class="form-control" name="file" id="file" value="${faq.original_File }" readonly="readonly" >
-					<label for="file">파일</label>
+					<input name="file" class="form-control" type="file" id="file" />${faq.original_File }
+					<label for="file">파일 첨부</label>
 			</div>
 			<div class="form-floating mb-3">
-			<select class="form-select form-select-sm" aria-label=".form-select-sm example">
+			<select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
 			  <option value="오류신고">오류신고</option>
 			  <option value="음식점등록">음식점등록</option>
 			  <option value="오류">지도 오류</option>

@@ -7,32 +7,43 @@
 		margin: auto;
 		width: 800px;
 		text-align: left;
+		font-family: 'Poor Story', cursive;
 	}
 	
-	
-	.subject {
-		font-size: x-large;
+	#subject {
+		font-size: xx-large;
+		padding: 10px 0px 10px 0px;
+		border-bottom: 1px solid #6C757D;
 	}
 	
-	.nickname_time_readcount {
+	#content {
+		font-size: large;
+		padding: 10px 0px 10px 0px;
+		border-bottom: 2px solid #6C757D;
+	}
+	
+	.time_readcount {
 		font-size: small;
 		position: static;
 	}
 	
 	.btn input {
-		border: 2px solid #FF1818;
-		background-color: white;
-		color: #FF1818;
+		border: 2px solid #6C757D;
+		background-color: #6C757D;
+		color: white;;
 		padding: 5px;
-		border-radius: 5px
+		border-radius: 5px;
+		font-family: 'Poor Story', cursive;
+	
 	}
 	
 	.btn input:hover {
-		background-color: #FF1818;
-		color: white;
+		border: 2px solid #6C757D;
+		background-color: white;
+		color: #6C757D;
 	}
 	
 	.reply {
-		border-bottom: 2px solid #ccc;
+		border-bottom: 2px solid #6C757D;;
 	}
 	

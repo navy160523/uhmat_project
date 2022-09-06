@@ -45,7 +45,7 @@
 		</table>
 	
 	<div class="btn">
-		<c:if test="${sessionScope.sNickName == notice.nickname }">	
+		<c:if test="${sessionScope.sNickName == 'admin' }">	
 			<input type="button" value="삭제" onclick="location.href='AllBoardDelete.ad?idx=${param.idx}&pageNum=${param.pageNum}&title=${param.title}'">
 		</c:if>
 			<input type="button" value="목록" onclick="location.href='AllBoardList.ad?pageNum=${param.pageNum}'">

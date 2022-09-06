@@ -33,6 +33,7 @@
 				<td>제목</td>
 				<td>작성자</td>
 				<td>날짜</td>
+				<td>첨부파일</td>
 			</tr>
 			<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -> JSTL과 EL 활용-->
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
@@ -50,6 +51,12 @@
 							</td>
 							<td>${notice.nickname }</td>
 							<td>${notice.date }</td>
+							<td>
+	 						
+		 						<c:if test="${not empty notice.real_File }">
+		 							<i class='fas fa-link' style='font-size:20px; color:blue'></i>
+		 						 </c:if>
+	 						 </td>
 						</tr>
 					</c:forEach>
 	 			</c:when>

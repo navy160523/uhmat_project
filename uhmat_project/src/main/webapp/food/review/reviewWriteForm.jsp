@@ -100,7 +100,7 @@
 					-->
 			<div class="dv"><span class="lv">음식점 찾기</span>
 				<input type="text" name="res_name" id="searchRes" readonly="readonly" required="required">&nbsp;
-				<button class="btn" id="find">찾기</button>
+				<button type="button" class="btn" id="find">찾기</button>
 			</div>
 					
 					<!-- 지도 api와 연동 -->
