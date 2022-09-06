@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 <link href="css/faq/faqDetail.css" rel="stylesheet">
 <style type="text/css">
+
 </style>
 <title>TMI 글 상세내용</title>
 </head>

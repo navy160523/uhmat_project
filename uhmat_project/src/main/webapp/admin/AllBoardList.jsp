@@ -6,28 +6,106 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
-<link href="css/mate/mateList.css" rel="stylesheet">
 <style type="text/css">
 
+#menuBar button {
+ 		border: 2px solid #FF1818;
+ 		background-color: white;
+		color: #FF1818;
+		padding: 5px;
+		border-radius: 5px;
+		font-family: 'Luckiest Guy', cursive;
+		font-size: 25px;
+		position: relative; 
+		right: 0px; 
+		top:-45px;
+		
+	}
+	
+	#menuBar button:hover {
+		background-color: #FF1818;
+		color: white;
+	}
+	
+	h2 {
+		text-align: center;
+	}
+
+	.mateList {
+		margin: auto;
+		width: 50%;
+		text-align: center;
+		
+	}
+	
+	.mateList td {
+		border-bottom: 2px solid #ccc;
+		font-family: 'Poor Story', cursive;
+		
+	}
+	
+	#font_front {
+		font-weight: bold;
+	}
+	
+	.mateListTable:hover {
+		background-color: #e9e9e9;
+	}
+	
+	.link a {
+/* 		text-decoration: none; */
+		text-decoration: none; color: black; 
+	}
+
+	.search {
+ 	font-size: 25px;
+		border: 2px solid #c6c6c6;
+		background-color:white;
+		color: #717171;
+		border-radius: 5px;
+		white:100px;
+		height: 70px;
+/* 		font-family: 'Poor Story', cursive; */
+/* 		font-weight: bold; */
+	}
+	
+	.before_next {
+		border: 2px solid #c6c6c6;
+ 		padding: 5px;
+ 		border-radius: 5px;
+	}
+	
+	.mateBanner img {
+	border-radius: 10px;
+	}
+	
+	#plus {
+		border-bottom: none;
+		margin: 0px;
+		position: relative;
+		left: 590px;
+	}
+	
+body{
+
+font-size: 30px;
+}
  #detail{
  border: 0px;
  text-align: center;
+ font-size: 30px;
  
  }
  #selectBox {
-  width: 100px;
-  padding: .2em .1em;
+  width: 250px;
+  padding: .18em .1em;
   font-family: inherit;
   background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   font-family: 'Poor Story', cursive;
-  font-size: 20px;
+	font-size: 25px;
   border: 1px solid #999;
   border-radius: 0px;
 }
@@ -36,7 +114,9 @@
   /* for IE 11 */
   display: none;
 }
+
 </style>
+<link href="css/recipe/recipeView.css" rel="stylesheet">
  <script src="./js/jquery-3.6.0.js"></script>
  
  <script type="text/javascript">

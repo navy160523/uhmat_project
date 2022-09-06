@@ -164,7 +164,7 @@ text-align: center;
 						"keyup",
 						function() {
 
-							var regex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#$%()]{4,10}$/;
+							var regex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#$%()]{3,15}$/;
 
 
 							if (!regex.exec($("#nickName").val())

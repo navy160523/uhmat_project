@@ -173,7 +173,7 @@
 			<input type="hidden" id="nickname" name="nickname"
 				value="${sessionScope.sNickName== null?param.email:sessionScope.sNickName }">
 			<c:if test="${sessionScope.sNickName == null}">
-				<div>
+				<div align="left">
 					<h2>※이메일로 발송해드린 비밀번호가 임시 비밀번호 입니다.</h2>
 					<h2>※회원님의 비밀번호를 변경해 주시길 바랍니다.</h2>
 				</div>
@@ -185,6 +185,7 @@
 				</div>
 			</c:if>
 			<c:if test="${sessionScope.sNickName != null}">
+		
 				<div class="form-floating mb-3">
 
 					<input class="form-control" type="password" name="alterPassword"

@@ -11,7 +11,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 <link href="css/adminManageMent.css" rel="stylesheet">
+<style type="text/css">
 
+
+</style>
 </head>
 <body>
    <form action="AdminManageMemberList.ad" method="get" class="search">

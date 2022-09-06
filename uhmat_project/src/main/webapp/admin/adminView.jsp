@@ -11,6 +11,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
 <link href="css/adminManageMent.css" rel="stylesheet">
+<style type="text/css">
+#home >input,button{
+font-size: 25px;
+}
+</style>
 <script src="./js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -35,7 +40,7 @@ $(function(){
 </script>
 </head>
 <body>
-<div align="center">
+<div id="home" align="center">
 	<input type="button" value="홈" onclick="location.href='main.jsp'" class="before_next">
 	<button id="allBoard" class="before_next">모든게시물</button>
 	<button id="allMember"  class="before_next">회원관리</button>
