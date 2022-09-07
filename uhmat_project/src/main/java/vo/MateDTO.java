@@ -12,7 +12,15 @@ public class MateDTO {
 	private Timestamp date;
 	private String category;
 	private String report;
+	private String icon;
 	
+	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -65,7 +73,8 @@ public class MateDTO {
 	@Override
 	public String toString() {
 		return "MateDTO [idx=" + idx + ", nickname=" + nickname + ", subject=" + subject + ", content=" + content
-				+ ", readcount=" + readcount + ", datetime=" + date + "]";
+				+ ", readcount=" + readcount + ", date=" + date + ", category=" + category + ", report=" + report
+				+ ", icon=" + icon + "]";
 	}
 	
 	

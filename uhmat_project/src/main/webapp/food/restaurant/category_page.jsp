@@ -6,7 +6,12 @@
 <head>
 <title>Category Page</title>
 <style>
-    .K2-grid {
+  .categoryTitle {
+  	color: white;
+  	
+  }
+  
+  .K2-grid {
       padding: 5px;
       text-align: center;
   }
@@ -30,7 +35,8 @@
       font-weight: 500;
       line-height: 1.3em;
       text-align: center;
-      background: #ffffff;
+/*       background: #FF1818; */
+	  background-color: transparent;
       border-radius: 5px;
       margin: 5px 0;
       box-sizing: border-box;
@@ -39,19 +45,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
+	  border-bottom: 1px solid #8B4513;
+	  border-right: 1px solid #8B4513;
+/* 	  border-left: 1px solid #F5F5F5; */
   }
   
   .K2-grid li a {
       display: block;
       text-decoration: none;
-      color: #333;
+      color: #ff1818;
   }
   
   .K2-grid li svg {
       margin: 3px 0;
       width: 35px;
       height: 35px;
-      fill: #26ae61;
+      fill: #9ACD32;
       display: inline-block;
   }
   
@@ -64,7 +73,7 @@
 
 <body>
 	<div class='K2-grid coll-3 icon-p-2'>
-<h2> 음식 종류별 식당 </h2>
+<h2 class="categoryTitle"> 카테고리별로 식당보기 </h2>
         
 	<ul>
 		<li>

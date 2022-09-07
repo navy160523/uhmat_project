@@ -11,14 +11,14 @@ import dao.MemberDAO;
 
 public class MemberPasswordModifyProService {
 
-	public boolean modifyPassword(String email, String passwd) {
+	public boolean modifyPassword(String email, String passwd,String nickname) {
 		boolean isModifyPasswordSuccess = false;
 
 		Connection con = getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 
-		int updateCount = dao.newPassword(email, passwd);
+		int updateCount = dao.newPassword(email, passwd,nickname);
 
 		if (updateCount > 0) {
 			commit(con);
@@ -30,6 +30,22 @@ public class MemberPasswordModifyProService {
 		close(con);
 
 		return isModifyPasswordSuccess;
+	}
+
+	public boolean alterPasswdCheck(String email, String alterPasswd, String nickname) {
+		boolean isalterCheckSuccess = false;
+
+		Connection con = getConnection();
+		MemberDAO dao = MemberDAO.getInstance();
+		dao.setConnection(con);
+
+		isalterCheckSuccess = dao.alterPasswdCheck(email, alterPasswd,nickname);
+
+	
+
+		close(con);
+
+		return isalterCheckSuccess;
 	}
 
 }

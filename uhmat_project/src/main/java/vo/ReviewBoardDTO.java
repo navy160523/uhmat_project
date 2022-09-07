@@ -1,15 +1,24 @@
 package vo;
 
+import java.util.Date;
+
 /*
-CREATE TABLE reviewboard(
-idx INT PRIMARY KEY,
-res_name VARCHAR(50) REFERENCES restaurantInfo(res_name),
-nickname VARCHAR(10) REFERENCES member(id),
-subject VARCHAR(50) NOT NULL,
-photo VARCHAR(50),
-content VARCHAR(5000) NOT NULL,
-likes INT DEFAULT 0,
-rating FLOAT DEFAULT 0
+create table reviewboard(
+	idx INT PRIMARY KEY,
+	res_name VARCHAR(50),
+	nickname VARCHAR(10),
+	subject VARCHAR(50) NOT NULL,
+	photo VARCHAR(50),
+	content VARCHAR(5000) NOT NULL,
+	likes INT DEFAULT 0,
+	rating FLOAT DEFAULT 0,
+	date DATE DEFAULT (CURRENT_DATE),
+	foreign key(res_name ) REFERENCES restaurant_info(res_name)
+	on delete cascade
+	on update cascade,
+	foreign key(nickname ) REFERENCES member(nickname)
+	on delete cascade
+	on update cascade
 );
  */
 
@@ -23,7 +32,15 @@ public class ReviewBoardDTO {
 	private int likes;
 	private float rating;
 	private String tag_name;
+	private Date date; 	//날짜가 추가됨 오늘 날짜가 default
+	private String icon;
 	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -79,6 +96,12 @@ public class ReviewBoardDTO {
 	}
 	public void setTag_name(String tag_name) {
 		this.tag_name = tag_name;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	@Override
 	public String toString() {

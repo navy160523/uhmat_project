@@ -10,7 +10,7 @@ import java.sql.Connection;
 import dao.MemberDAO;
 
 public class MemberSendPasswordMailService {
-	public boolean newPassword(String email, String passwd) {
+	public boolean newPassword(String email, String passwd,String nickname) {
 		boolean isNewPasswordSuccess = false;
 		
 		Connection con = getConnection();
@@ -18,7 +18,7 @@ public class MemberSendPasswordMailService {
 		dao.setConnection(con);
 		
 	
-		int registCount = dao.newPassword(email, passwd);
+		int registCount = dao.newPassword(email, passwd,nickname);
 		
 		if(registCount > 0) {
 			commit(con);

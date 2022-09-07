@@ -7,67 +7,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-<style type="text/css">
-
-	
-	#menuBar button {
-		border: 2px solid #7FB77E;
-		background-color: white;
-		color: #7FB77E;
-		padding: 5px;
-		border-radius: 5px;
-	
-	}
-	
-	#menuBar button:hover {
-		background-color: #7FB77E;
-		color: white;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-
-	.mateList {
-		margin: auto;
-		width: 800px;
-		text-align: center;
-		
-	}
-	
-	.mateList td {
-		border-bottom: 2px solid #ccc;
-	}
-	
-	.link a {
-/* 		text-decoration: none; */
-		text-decoration: none; color: black; 
-	}
-
-	.search {
- 		padding: 3px; 
-		border: 2px solid #7FB77E;
-		background-color:white;
-		border-radius: 5px;
-	}
-	
-	.searchIcon {
-		padding: 2px; 
-		border: 2px solid #7FB77E;
-		background-color: white;
-		border-radius: 5px;
-		color: #717171;
-	}
-	
-	.before_next {
-		border: 2px solid #7FB77E;
-		background-color: white;
-		border-radius: 5px;
-		color: #717171;
-	}
-	
-	
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poor+Story&display=swap" rel="stylesheet">
+<link href="css/mate/mateList.css" rel="stylesheet">
 
 </head>
 <body>
@@ -75,21 +18,21 @@
 		<jsp:include page="../../inc/header.jsp"/>
 	<!-- 		헤더 들어가는 곳 -->
 	
-	<div align="center">
-		<img alt="메이트 배너" src="./image/mate/mate_banner.PNG">
+	<div align="center" class="mateBanner">
+		<img alt="메이트 배너" src="./image/mate/mate_banner.png">
 		
 	</div>
 	
-	<div align="center" id="menuBar" style="position: relative; right: 0px; top:-45px;">
-		<button onclick="location.href='MateList.co'">mate_list</button>
-		<button onclick="location.href='TmiList.co'">tmi_list</button>
-		<button onclick="location.href='RecipeList.co'">recipte_list</button>
+	<div align="center" id="menuBar" >
+		<button onclick="location.href='MateList.co'">mate</button>
+		<button onclick="location.href='TmiList.co'">tmi</button>
+		<button onclick="location.href='RecipeList.co'">recipe</button>
 		<br>
 	</div>
 	
 	
 	<table class="mateList">
-		<tr>
+		<tr id="font_front">
 			<td>제목</td>
 			<td>닉네임</td>
 			<td>조회수</td>
@@ -101,8 +44,8 @@
 		<c:choose>
 			<c:when test="${not empty mateList and pageInfo.listCount gt 0 }">
 				<c:forEach var="mate" items="${mateList }">
-					<tr>
-						<td class="link" width="350" height="50"><a href="MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}">${mate.subject }</a></td> 
+					<tr class="mateListTable">
+						<td class="link" width="350" height="50" onclick="location.href='MateDetail.co?idx=${mate.idx }&pageNum=${pageInfo.pageNum}'">${mate.subject }</a></td> 
 						<td>${mate.nickname }</td> 
 						<td>${mate.readcount }</td> 
 						<td>${mate.date }</td>
@@ -114,22 +57,25 @@
 				<tr><td colspan="5">게시물이 존재하지 않습니다.</td></tr>
 			</c:otherwise>
 		</c:choose>
+		<tr>
+			<td id="plus"><i class='fas fa-plus-circle' style='position:static; font-size:48px;color:#6C757D;' onclick="location.href='MateWriteForm.co'"/></i></td>
+		</tr>
 	</table>
 	
 	<!-- 검색창 -->
 	<div align="center">
-		<form action="MateList.co" method="get">
-			<input type="text" name="keyword" value="${param.keyword }" placeholder="search" class="search">
-			<input type="submit" value="검색" class="searchIcon">
+		<form action="MateList.co" method="get" class="search">
+			<input type="text" name="keyword" value="${param.keyword }" placeholder="search">
+			<input type="submit" value="검색" class="searchBtn">
 			
 		</form>
 	</div>
-	
+	&nbsp;
 	<!-- 글쓰기 버튼 클릭 시 글쓰기 페이지로 이동 -->
-	<div style="position: relative; right: -1400px; top:35px;">
-<!-- 		<input type="button" value="글쓰기" onclick="location.href='MateWriteForm.co'"/> -->
-		<i class='fas fa-plus-circle' style='font-size:48px;color:#7FB77E' onclick="location.href='MateWriteForm.co'"/></i>
-	</div>
+<!-- 	<div style="position: relative; right: -1210px; top:35px;"> -->
+<!-- <!-- 		<input type="button" value="글쓰기" onclick="location.href='MateWriteForm.co'"/> --> 
+<!-- 		<i class='fas fa-plus-circle' style='position:static; font-size:48px;color:#7FB77E' onclick="location.href='MateWriteForm.co'"/></i> -->
+<!-- 	</div> -->
 	
 	
 	<!-- 
@@ -171,9 +117,9 @@
 		</c:choose>
 	</div>
 	
-	<!-- 푸터 들어가는 곳 -->
-	<jsp:include page="../../inc/footer.jsp"/>
-	<!-- 푸터 들어가는 곳 -->
-
+	<!-- 		푸터 들어가는 곳 -->
+		<jsp:include page="../../inc/footer.jsp"/>
+	<!-- 		푸터 들어가는 곳 -->
+	
 </body>
 </html>

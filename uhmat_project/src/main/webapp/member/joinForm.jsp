@@ -6,16 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	
-	<!-- Favicon-->
-	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-	<!-- Font Awesome icons (free version)-->
-	<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
- 	<!-- Google fonts-->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="css/styles.css" rel="stylesheet" />
@@ -49,14 +40,17 @@ text-align: center;
 
 	$(function() {
 		var emailFlag=false;
+		var emailCheckFlag=false;
 		var nicknameFlag=false;
 		var passwdFlag=false;
+		var passwdCheckFlag=false;
 		$("input[type=reset]").on("click", function() {
 			$("#checkPasswdResult").html("");
 			$("#confirmPasswdResult").html("");
 			$("#confirmEmailResult").html("");
 			$("#checkNickNameResult").html("");
 			$("#confirmEmailResult").html("");
+			$("#EmailResult").html("");
 		});
 
 		$("#passwd").on(
@@ -135,12 +129,12 @@ text-align: center;
 			if (passwd == passwd2) {
 				$("#confirmPasswdResult").html("일치 합니다");
 				$("#confirmPasswdResult").css("color", "GREEN");
-				passwdFlag=true;
+				passwdCheckFlag=true;
 
 			} else {
 				$("#confirmPasswdResult").html("일치 하지 않습니다");
 				$("#confirmPasswdResult").css("color", "RED");
-				passwdFlag=false;
+				passwdCheckFlag=false;
 
 			}
 
@@ -153,13 +147,13 @@ text-align: center;
 			if (email == email2) {
 				$("#confirmEmailResult").html("일치 합니다");
 				$("#confirmEmailResult").css("color", "GREEN");
-				emailFlag=true;
+				emailCheckFlag=true;
 
 			} else {
 				$("#confirmEmailResult").html("일치 하지 않습니다");
 
 				$("#confirmEmailResult").css("color", "RED");
-				emailFlag=false;
+				emailCheckFlag=false;
 
 			}
 
@@ -170,7 +164,7 @@ text-align: center;
 						"keyup",
 						function() {
 
-							var regex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#$%()]{4,10}$/;
+							var regex = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9!@#$%()]{3,15}$/;
 
 
 							if (!regex.exec($("#nickName").val())
@@ -272,11 +266,18 @@ text-align: center;
 				 $('#email').focus();
 				return false
 			}
-			if(!passwdFlag){
-				 $('#passwd').focus();
+			else if(!emailCheckFlag){
+				 $('#emailCheck').focus();
 				return false
 			}
-			if(!nicknameFlag){
+			else if(!passwdFlag){
+				 $('#passwd').focus();
+				return false
+			}else if(!passwdCheckFlag){
+				 $('#passwd2').focus();
+					return false
+				}
+			else if(!nicknameFlag){
 				 $('#nickName').focus();
 				return false
 			}else{
@@ -337,12 +338,12 @@ text-align: center;
 
 	
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="name" id="name"  required="required"  >
+             <input class="form-control" type="text" name="name" id="name"  required="required"  placeholder="이름">
               <label for="name">이름</label> 
         </div>
         <br>
  		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="nickName" id="nickName"  maxlength="10" required="required" >
+             <input class="form-control" type="text" name="nickName" id="nickName"  maxlength="10" required="required"  placeholder="닉네임">
               <label for="nickname">닉네임</label> 
               <div id="checkNickNameResult"></div>
         </div>
@@ -353,27 +354,27 @@ text-align: center;
 	
 			<!-- 패스워드 변화할 때마다 checkPasswd() 함수 호출 => 파라미터로 입력 패스워드 전달 -->
 		<div class="form-floating mb-3">
-             <input class="form-control" type="password" name="passwd" id="passwd"  maxlength="16" required="required"  >
+             <input class="form-control" type="password" name="passwd" id="passwd"  maxlength="16" required="required"  placeholder="패스워드" >
               <label for="passwd">비밀번호</label> 
              	<span id="checkPasswdResult"></span>
         </div>
         <br>
         <div class="form-floating mb-3">
-             <input class="form-control" type="password" name="passwd2" id="passwd2"  maxlength="16" required="required"  >
+             <input class="form-control" type="password" name="passwd2" id="passwd2"  maxlength="16" required="required"   placeholder="패스워드">
               <label for="passwd2">비밀번호 확인</label> 
               <span id="confirmPasswdResult"></span>
         </div>
 	
 		<br>
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="email" id="email"  required="required"  >
+             <input class="form-control" type="text" name="email" id="email"  required="required"   placeholder="이메일">
               <label for="email">E-Mail</label> 
               <span id="EmailResult"></span>
         </div>
 	
 		<br>
 			<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="emailCheck" id="emailCheck"  required="required"  >
+             <input class="form-control" type="text" name="emailCheck" id="emailCheck"  required="required"  placeholder="이메일" >
               <label for="emailCheck">E-Mail 확인</label> 
              <span id="confirmEmailResult"></span>
         </div>
@@ -381,29 +382,29 @@ text-align: center;
 	
 		<br>
 			<div class="form-floating mb-3">
-             <input class="form-control" type="date" name="birth" id="birth"  required="required"  >
+             <input class="form-control" type="date" name="birth" id="birth"  required="required"   placeholder="생일">
               <label for="birth">생년월일</label> 
              <span id="confirmEmailResult"></span>
         </div>
 	
 		<br>
 	<div>
-		<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+		<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기" placeholder="우편">
 		</div>
 		<br>
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
+             <input class="form-control" type="text" name="postCode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()"  placeholder="우편">
               <label for="postCode">우편번호</label> 
         </div>
 	
 			
 			
 		<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
+             <input class="form-control" type="text" name="address1" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" placeholder="우편" >
               <label for="address1">도로명주소</label> 
         </div>
         	<div class="form-floating mb-3">
-             <input class="form-control" type="text" name="address2" id="sample4_roadAddress"  >
+             <input class="form-control" type="text" name="address2" id="sample4_roadAddress"   placeholder="우편">
               <label for="address2">상세주소</label> 
         </div>
 			
@@ -419,18 +420,9 @@ text-align: center;
 
 	</form>
 	</div>
+		<!-- 푸터 들어가는곳 -->
 	<jsp:include page="../inc/footer.jsp" flush="false" />
-	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-	<!-- Bootstrap core JS-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	
-	<!-- Core theme JS-->
-	<script src="js/scripts.js"></script>
-	
-	
-	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+	<!-- 푸터 들어가는곳 -->
 </body>
 </html>
 

@@ -8,8 +8,8 @@
 <script src="js/jquery-3.6.0.js"></script>
 <script>
 	$(function(){
-		$("a").on("click",function(){
-			 var idx = $('a').index(this);
+		$("#category_show a").on("click",function(){
+			 var idx = $('#category_show a').index(this);
 			 $("select>option").eq(idx+1).attr("selected","selected");
 		})
 	});
@@ -39,7 +39,7 @@
       font-weight: 500;
       line-height: 1.3em;
       text-align: center;
-      background: #ffffff;
+      background: #ffdaff;
       border-radius: 5px;
       margin: 5px 0;
       box-sizing: border-box;
@@ -72,6 +72,7 @@
 </head>
 
 <body>
+<section id="category_show">
 	<div class='K2-grid coll-3 icon-p-2'>
        
 	<ul>
@@ -138,5 +139,6 @@
 		
 	</ul>
 </div>
+</section> 
 </body>
 </html>

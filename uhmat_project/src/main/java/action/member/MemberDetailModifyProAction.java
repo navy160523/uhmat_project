@@ -20,20 +20,24 @@ public class MemberDetailModifyProAction implements Action {
 		 String email= request.getParameter("email");
 		 String name=request.getParameter("name");
 		 String nickName= request.getParameter("nickName");
+		 String newNickName=request.getParameter("newNickName");
 		 Date birthdate= Date.valueOf(request.getParameter("birth"));
 		 String postCode= request.getParameter("postCode");
 		 String address1=request.getParameter("address1");
 		 String address2=request.getParameter("address2");
+		 String icon=request.getParameter("icon");
 		 HttpSession session =request.getSession();
-		 if(session.getAttribute("sNickName").equals(nickName) ) {
 		 MemberDTO member = new MemberDTO();
+		 if(session.getAttribute("sNickName").equals(nickName) ) {
+		
 		 member.setEmail(email);
 		 member.setName(name);
-		 member.setNickname(nickName);
+		 member.setNickname(newNickName);
 		 member.setBirthdate(birthdate);
 		 member.setPostCode(postCode);
 		 member.setAddress1(address1); 
 		 member.setAddress2(address2);
+		 member.setIcon(icon);
 		 MemberDetailModifyProService service = new MemberDetailModifyProService();
 		 boolean isMotifyMemberSuccess = service.motifyMember(member);
 		 if(!isMotifyMemberSuccess) {
@@ -45,6 +49,7 @@ public class MemberDetailModifyProAction implements Action {
 				out.println("</script>");
 			} else {
 				// 가입 성공 시 인증 메일 발송을 위한 서블릿 주소 요청(파라미터 : 아이디, 이메일)
+				session.setAttribute("sNickName",  member.getNickname());
 				forward = new ActionForward();
 				forward.setPath("main.jsp");
 				forward.setRedirect(false);

@@ -20,8 +20,15 @@ public class CommunityTmiDTO {
 	private int readcount;
 	private Timestamp date;
 	private String report;
+	private String category;
+	private String icon;
 	
-	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -63,6 +70,12 @@ public class CommunityTmiDTO {
 	}
 	public void setReport(String report) {
 		this.report = report;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	@Override
 	public String toString() {

@@ -14,9 +14,7 @@
     font-style: normal;
 }
 
-button {
-    margin: 20px;
-}
+
 
 .w-btn {
     position: relative;
@@ -29,19 +27,18 @@ button {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
-    transition: 0.25s;
+    transition: 0.5s;
 }
 
 .w-btn-outline {
     position: relative;
     padding: 15px 30px;
     border-radius: 15px;
-    font-family: "PyeongChangPeace-Bold";
+    font-family: 'Luckiest Guy', cursive;
     font-size: 25px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
-    transition: 0.25s;
+    transition: 0.5s;
 }
 
 .w-btn-indigo {
@@ -201,7 +198,7 @@ button {
 }
 
 .w-btn-outline:hover {
-    letter-spacing: 2px;
+
     transform: scale(1.2);
     cursor: pointer;
 }

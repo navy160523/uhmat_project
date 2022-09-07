@@ -18,16 +18,20 @@
 /* 	border-bottom: 20px solid rgb(247,0,30); */
 }
 
+
+
 .mainLogo > a > img {
 	float: left;
 	max-width: 600px;
 	max-height:90px;
 	width: auto;
 	height: auto;
-/* 	background-size: cover; */
+	background-size: cover;
 	background-color: transparent;
 	margin-left: 0.75em;
 	z-index: 999999999999999;
+/* 	background-image: url("image/uhmatMainLogo.png"); */
+/* 	background-repeat: repeat-x; */
 /* 	margin-top: 3px; */
 }
 
@@ -66,10 +70,10 @@
 
 .searchControl {
 	position: relative;
-	width: 400px;
+	width: 420px;
 	height: 30px;
-	padding-left: 35px;
-	left: 600px;
+	padding-left: 32px;
+	left: 590px;
 	top: 27px;
 	border-radius: 10px;
 /* 	border-color: #FF4A4A; */
@@ -85,12 +89,12 @@
 header i {
 	position: relative;
 	top: 30px;
-	left: 635px;
+	left: 623px;
 	z-index: 999;
 }
 
 .searchContainer .icon {
-	position: albsolute;
+	position: relative;
 	top: 50%;
 	margin-left: 15px;
 	margin-top: 15px;
@@ -106,7 +110,7 @@ header i {
 	width: 60px;
 	height: 27.5px;
 	top: 27.5px;
-	left: 535px;
+	left: 525px;
 }
 
 
@@ -132,7 +136,7 @@ header i {
 /* 	border: 1px solid; */
 /* 	height: 35px; */
 	width: 500px;
-	left: 285px;
+	left: 230px;
 }
 
 .topMenu > ul {
@@ -169,20 +173,26 @@ header i {
 	padding: 7px;
 	font-weight: bold;
 /* 	text-shadow: 1px 1px 1px gray; */
-	
-	
+	border-bottom-width: 5px solid black;
 }
+
+/* .dropdown a { */
+/* 	border-bottom: 5px solid orange; */
+/* } */
 
 .dropdownContent {
 	display: none;
 	position: absolute;
 	left: 0px;
 	background-color: #FF1818;		
+/* 	border-bottom-width: 10px solid black; */
+	margin-top: 5px;
 }
 
 .dropdownContent ul {
 	border: 1px solid #FF1818;
 	padding: 0;
+/* 	border-bottom-width: 10px solid black; */
 }
 
 .dropdownContent li {
@@ -190,19 +200,30 @@ header i {
 	width: 160px;
 	margin: 0;
 	margin-left: 0;
-	padding: 0;
+	padding: 8px;
 	left: 0px;
 }
 
-.dropdownContent li > a {
-	text-decoration: none;
-}
+/* .dropdownContent li > a { */
+/* 	text-decoration: none; */
+/* } */
 
-.dropdownContent ul li > a {
+/* .dropdownContent ul li > a { */
+/* 	color: white; */
+/* 	font-size: 18px; */
+/* 	vertical-align: middle; */
+/* 	margin-left: 0.15em; */
+/* } */
+
+.dropdownContent ul li > div {
 	color: white;
 	font-size: 18px;
 	vertical-align: middle;
 	margin-left: 0.15em;
+}
+
+.dropdownContent ul li > div {
+	text-decoration: none;
 }
 
 

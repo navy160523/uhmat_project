@@ -47,7 +47,7 @@ public class MemberFrontController extends HttpServlet {
 		System.out.println(command);
 		ActionForward forward = null;
 		Action action = null;
-		HttpSession session = request.getSession();
+	
 		// 회원가입 폼
 		if (command.equals("/MemberJoinForm.me")) {
 			forward = new ActionForward();
@@ -148,7 +148,7 @@ public class MemberFrontController extends HttpServlet {
 		// 간편로그인 중 구글 폼
 		else if (command.equals("/MemberGoogleForm.me")) {
 			forward = new ActionForward();
-			forward.setPath("/member/google.jsp");
+			forward.setPath("/member/login.jsp");
 			forward.setRedirect(false);
 		}
 		// 간편로그인 중 구글 처리
@@ -227,6 +227,7 @@ public class MemberFrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+		HttpSession session = request.getSession();
 		if (session.getAttribute("sNickName") != null) {
 			// 사용자 정보 폼
 			 if (command.equals("/MemberDetailForm.me")) {

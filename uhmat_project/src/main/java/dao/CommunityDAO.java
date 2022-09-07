@@ -100,7 +100,7 @@ public class CommunityDAO {
 
 		try {
 			// 답글에 대한 처리 과정 추가
-			String sql = "SELECT * FROM community_mate WHERE subject LIKE ? ORDER BY idx desc LIMIT ?,?";
+			String sql = "SELECT * FROM community_mate JOIN member ON community_mate.nickname=member.nickname WHERE subject LIKE ? ORDER BY idx desc LIMIT ?,?";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
@@ -123,6 +123,7 @@ public class CommunityDAO {
 				mate.setContent(rs.getString("content"));
 				mate.setReadcount(rs.getInt("readcount"));
 				mate.setDate(rs.getTimestamp("datetime"));
+				mate.setIcon(rs.getString("icon"));
 				System.out.println(mate);
 
 				// 전체 게시물 정보를 저장하는 ArrayList 객체에 1개 게시물 정보 MateDTO 객체 추가
@@ -173,7 +174,7 @@ public class CommunityDAO {
 			pstmt.setString(2, mate.getNickname());
 			pstmt.setString(3, mate.getSubject());
 			pstmt.setString(4, mate.getContent());
-			pstmt.setString(5, "N");
+			pstmt.setString(5, mate.getReport());
 
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -210,15 +211,13 @@ public class CommunityDAO {
 
 	// 1개 게시물의 상세 정보 조회 작업 수행하는 getMate() 메서드
 	public MateDTO getMate(int idx) {
-
-
 		MateDTO mate = null;
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM community_mate WHERE idx=?";
+			String sql = "SELECT * FROM community_mate JOIN member ON community_mate.nickname=member.nickname WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 
@@ -233,6 +232,7 @@ public class CommunityDAO {
 				mate.setReadcount(rs.getInt("readcount"));
 				mate.setDate(rs.getTimestamp("datetime"));
 				mate.setReport(rs.getString("report"));
+				mate.setIcon(rs.getString("icon"));
 				System.out.println(mate);
 
 			}
@@ -388,7 +388,7 @@ public class CommunityDAO {
         
         try {
 //           String sql = "SELECT * FROM mate_reply WHERE board_idx=?";
-       	 String sql = "SELECT * FROM mate_reply WHERE board_idx=? ORDER BY re_ref DESC, re_seq ASC";
+       	 String sql = "SELECT * FROM mate_reply JOIN member ON mate_reply.nickname=member.nickname WHERE board_idx=? ORDER BY re_ref DESC, re_seq ASC";
            pstmt = con.prepareStatement(sql);
            pstmt.setInt(1, idx);
            
@@ -407,6 +407,7 @@ public class CommunityDAO {
               mateReply.setRe_lev(rs.getInt("re_lev"));
               mateReply.setRe_ref(rs.getInt("re_ref"));
               mateReply.setRe_seq(rs.getInt("re_seq"));
+              mateReply.setIcon(rs.getString("icon"));
 //              mateReply.setBoard_idx(rs.getInt("board_idx"));
 //              mateReply.setContent(rs.getString("content"));
 //              mateReply.setIdx(rs.getInt(idx));
@@ -547,7 +548,7 @@ public class CommunityDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM mate_reply WHERE idx=?";
+			String sql = "SELECT * FROM mate_reply JOIN member ON mate_reply.nickname = member.nickname WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, reply_idx);
 			
@@ -563,6 +564,7 @@ public class CommunityDAO {
 			    mateReply.setRe_lev(rs.getInt("re_lev"));
 			    mateReply.setRe_ref(rs.getInt("re_ref"));
 			    mateReply.setRe_seq(rs.getInt("re_seq"));
+			    mateReply.setIcon(rs.getString("icon"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -630,7 +632,7 @@ public class CommunityDAO {
 
 		// tmi게시판 전체리스트와 검색 기능을 함께 사용하는 SQL 구문!
 		try {
-			String sql = "SELECT * FROM community_tmi WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,?";
+			String sql = "SELECT * FROM community_tmi JOIN member ON community_tmi.nickname=member.nickname WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
 			pstmt.setInt(2, startRow);
@@ -650,6 +652,7 @@ public class CommunityDAO {
 				tmiBoard.setContent(rs.getString("content"));
 				tmiBoard.setDate(rs.getTimestamp("datetime"));
 				tmiBoard.setReadcount(rs.getInt("readcount"));
+				tmiBoard.setIcon(rs.getString("icon"));
 
 				tmiBoardList.add(tmiBoard);
 			}
@@ -724,7 +727,7 @@ public class CommunityDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "SELECT * FROM community_tmi WHERE idx=?";
+			String sql = "SELECT * FROM community_tmi JOIN member ON community_tmi.nickname=member.nickname WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			rs = pstmt.executeQuery();
@@ -738,6 +741,7 @@ public class CommunityDAO {
 				tmiBoard.setDate(rs.getTimestamp("datetime"));
 				tmiBoard.setReadcount(rs.getInt("readcount"));
 				tmiBoard.setReport(rs.getString("report"));
+				tmiBoard.setIcon(rs.getString("icon"));
 				System.out.println(tmiBoard);
 			}
 		} catch (SQLException e) {
@@ -944,7 +948,7 @@ public class CommunityDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM tmi_reply WHERE board_idx=? ORDER BY re_ref DESC, re_seq ASC;";
+			String sql = "SELECT * FROM tmi_reply JOIN member ON tmi_reply.nickname=member.nickname WHERE board_idx=? ORDER BY re_ref DESC, re_seq ASC;";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			
@@ -961,6 +965,7 @@ public class CommunityDAO {
 				tmiReply.setRe_seq(rs.getInt("re_seq"));
 				tmiReply.setRe_lev(rs.getInt("re_lev"));
 				tmiReply.setDate(rs.getTimestamp("date"));
+				tmiReply.setIcon(rs.getString("icon"));
 				
 				tmiReplyList.add(tmiReply);
 			}
@@ -985,7 +990,7 @@ public class CommunityDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM tmi_reply WHERE idx=?";
+			String sql = "SELECT * FROM tmi_reply JOIN member ON tmi_reply.nickname=member.nickname WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			
@@ -1001,6 +1006,7 @@ public class CommunityDAO {
 				tmiReply.setRe_lev(rs.getInt("re_lev"));
 				tmiReply.setRe_seq(rs.getInt("re_seq"));
 				tmiReply.setDate(rs.getTimestamp("date"));
+				tmiReply.setIcon(rs.getString("icon"));
 				
 				System.out.println("selectTmiReply - "+ tmiReply);
 			}
@@ -1248,7 +1254,7 @@ public class CommunityDAO {
 		
 		try {
 			// 답글에 대한 처리 과정 추가
-			String sql = "SELECT * FROM community_recipe ORDER BY idx DESC LIMIT ?,?";
+			String sql = "SELECT * FROM community_recipe JOIN member ON community_recipe.nickname=member.nickname ORDER BY idx DESC LIMIT ?,?";
 					
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -1265,7 +1271,7 @@ public class CommunityDAO {
 				RecipeDTO recipe = new RecipeDTO();
 				// 게시물 정보 저장
 				recipe.setContent(rs.getString("content"));
-				recipe.setDatetime(rs.getTimestamp("datetime"));
+				recipe.setDate(rs.getTimestamp("datetime"));
 				recipe.setIdx(rs.getInt("idx"));
 				recipe.setNickname(rs.getString("nickname"));
 				recipe.setOriginal_File1(rs.getString("original_File1"));
@@ -1281,6 +1287,7 @@ public class CommunityDAO {
 				recipe.setReal_File5(rs.getString("real_File5"));
 				recipe.setSubject(rs.getString("subject"));
 				recipe.setReport(rs.getString("report"));
+				recipe.setIcon(rs.getString("icon"));
 				System.out.println(recipe);
 				
 				// 전체 게시물 정보를 저장하는 ArrayList 객체에 1개 게시물 정보 MateDTO 객체 추가
@@ -1328,7 +1335,7 @@ public class CommunityDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM community_recipe WHERE idx=?";
+			String sql = "SELECT * FROM community_recipe JOIN member ON community_recipe.nickname=member.nickname WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, idx);
 			
@@ -1337,7 +1344,7 @@ public class CommunityDAO {
 			if(rs.next()) {
 				recipe = new RecipeDTO();
 				recipe.setContent(rs.getString("content"));
-				recipe.setDatetime(rs.getTimestamp("datetime"));
+				recipe.setDate(rs.getTimestamp("datetime"));
 				recipe.setIdx(rs.getInt("idx"));
 				recipe.setNickname(rs.getString("nickname"));
 				recipe.setOriginal_File1(rs.getString("original_File1"));
@@ -1353,6 +1360,7 @@ public class CommunityDAO {
 				recipe.setReal_File5(rs.getString("real_File5"));
 				recipe.setSubject(rs.getString("subject"));
 				recipe.setReport(rs.getString("report"));
+				recipe.setIcon(rs.getString("icon"));
 				System.out.println(recipe);
 				
 			}
@@ -1454,15 +1462,15 @@ public class CommunityDAO {
 			}
 			
 			// 답글을 mate_reply 테이블에 INSERT 작업
-			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,now(),?)";
+			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,?,now())";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, num);
 			pstmt2.setString(2, recipeReply.getNickname());
-			pstmt2.setString(3, recipeReply.getContent());
-			pstmt2.setInt(4, num);
-			pstmt2.setInt(5, 0);
+			pstmt2.setInt(3, recipeReply.getBoard_idx());
+			pstmt2.setString(4, recipeReply.getContent());
+			pstmt2.setInt(5, recipeReply.getRe_ref());
 			pstmt2.setInt(6, 0);
-			pstmt2.setInt(7, recipeReply.getBoard_idx());
+			pstmt2.setInt(7, 0);
 			System.out.println(recipeReply);
 			
 			insertCount = pstmt2.executeUpdate();
@@ -1494,7 +1502,7 @@ public class CommunityDAO {
          ResultSet rs = null;
          
          try {
-        	 String sql = "SELECT * FROM recipe_reply WHERE board_idx=? ORDER BY re_ref DESC, re_seq ASC";
+        	 String sql = "SELECT * FROM recipe_reply JOIN member ON recipe_reply.nickname=member.nickname WHERE board_idx=? ORDER BY re_ref DESC, re_seq ASC";
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, idx);
             
@@ -1512,6 +1520,7 @@ public class CommunityDAO {
                recipeReply.setRe_lev(rs.getInt("re_lev"));
                recipeReply.setRe_ref(rs.getInt("re_ref"));
                recipeReply.setRe_seq(rs.getInt("re_seq"));
+               recipeReply.setIcon(rs.getString("icon"));
                
                recipeReplyList.add(recipeReply);
             }
@@ -1586,7 +1595,7 @@ public class CommunityDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM recipe_reply WHERE idx=?";
+			String sql = "SELECT * FROM recipe_reply JOIN member ON recipe_reply.nickname=member.nickname WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, reply_idx);
 			
@@ -1602,6 +1611,7 @@ public class CommunityDAO {
 				recipeReply.setRe_lev(rs.getInt("re_lev"));
 				recipeReply.setRe_ref(rs.getInt("re_ref"));
 				recipeReply.setRe_seq(rs.getInt("re_seq"));
+				recipeReply.setIcon(rs.getString("icon"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1646,15 +1656,15 @@ public class CommunityDAO {
 			RecipeRereplyInsertCount = pstmt2.executeUpdate();
 			
 			// 답글을 mate_reply 테이블에 INSERT 작업
-			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,now(),?)";
+			sql = "INSERT INTO recipe_reply VALUES(?,?,?,?,?,?,?,now())";
 			pstmt3 = con.prepareStatement(sql);
 			pstmt3.setInt(1, num);
 			pstmt3.setString(2, recipeRereply.getNickname());
-			pstmt3.setString(3, recipeRereply.getContent());
-			pstmt3.setInt(4, recipeRereply.getRe_ref());
-			pstmt3.setInt(5, recipeRereply.getRe_lev() + 1);
-			pstmt3.setInt(6, recipeRereply.getRe_seq() + 1);
-			pstmt3.setInt(7, recipeRereply.getBoard_idx());
+			pstmt3.setInt(3, recipeRereply.getBoard_idx());
+			pstmt3.setString(4, recipeRereply.getContent());
+			pstmt3.setInt(5, recipeRereply.getRe_ref());
+			pstmt3.setInt(6, recipeRereply.getRe_lev() + 1);
+			pstmt3.setInt(7, recipeRereply.getRe_seq() + 1);
 //			System.out.println(mateReply);
 			RecipeRereplyInsertCount = pstmt3.executeUpdate();
 			
@@ -1710,7 +1720,7 @@ public class CommunityDAO {
 		int startRow = (pageNum- 1) * listLimit;
 		
 		try {
-			String sql = "SELECT * FROM community_recipe WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,? ";
+			String sql = "SELECT * FROM community_recipe JOIN member ON community_recipe.nickname=member.nickname WHERE subject LIKE ? ORDER BY idx DESC LIMIT ?,? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
 			pstmt.setInt(2, startRow);
@@ -1722,7 +1732,7 @@ public class CommunityDAO {
 			while(rs.next()) {
 				RecipeDTO recipe = new RecipeDTO();
 				recipe.setContent(rs.getString("content"));
-				recipe.setDatetime(rs.getTimestamp("datetime"));
+				recipe.setDate(rs.getTimestamp("datetime"));
 				recipe.setIdx(rs.getInt("idx"));
 				recipe.setNickname(rs.getString("nickname"));
 				recipe.setOriginal_File1(rs.getString("original_File1"));
@@ -1737,6 +1747,7 @@ public class CommunityDAO {
 				recipe.setReal_File4(rs.getString("real_File4"));
 				recipe.setReal_File5(rs.getString("real_File5"));
 				recipe.setSubject(rs.getString("subject"));
+				recipe.setIcon(rs.getString("icon"));
 				
 				recipeSearchList.add(recipe);
 				
@@ -1754,6 +1765,15 @@ public class CommunityDAO {
 		return recipeSearchList;
 	}
 
-	
+	public ArrayList<CommunityTmiDTO> selectMainTmiBoardList(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<MateDTO> selectMainMateBoardList(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

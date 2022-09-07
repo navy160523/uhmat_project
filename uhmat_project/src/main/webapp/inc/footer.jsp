@@ -30,7 +30,7 @@
 					</tr>
 					<tr>
 						<td id="footerNotice"><a href="NoticeList.sc">공지사항</a></td>
-						<td id="footerServiceCenter"><a href="ServiceCenterMain.sc">고객센터</a></td>
+						<td id="footerServiceCenter"><a href="NoticeList.sc">고객센터</a></td>
 						<td id="footerEvent"><a href="#">이벤트</a></td>
 					</tr>
 				</table>
@@ -57,7 +57,7 @@
 		</div>
 		
 		<div class="languageTranslate">
-			한국어 | 日本語 | English
+<!-- 			한국어 | 日本語 | English -->
 		</div>
 		
 	</footer>

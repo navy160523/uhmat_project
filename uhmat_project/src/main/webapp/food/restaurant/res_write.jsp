@@ -32,6 +32,8 @@ table{
 }
 </style>
 <script src="js/jquery-3.6.0.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=35185e429e5d9c68170c91b88e2d3a84"></script>
 <script>
 	//ready event
 	$(function(){
@@ -61,10 +63,57 @@ table{
 		
 	});
 	
+	//다음 API
+	// 다음 우편번호 API
+	function execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var roadAddr = data.roadAddress; // 도로명 주소 변수
+						var extraRoadAddr = ''; // 참고 항목 변수
+
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraRoadAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraRoadAddr += (extraRoadAddr !== '' ? ', '
+									+ data.buildingName : data.buildingName);
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if (extraRoadAddr !== '') {
+							extraRoadAddr = ' (' + extraRoadAddr + ')';
+						}
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('sample4_postcode').value = data.zonecode;
+						document.getElementById('sample4_roadAddress').value = roadAddr;
+						//                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+					}
+
+				}).open();
+	}
+	
+	$(function(){
+		$("#openTime button").on("click",function(){
+// 			alert($("#openTime button").index(this));
+			var index = $("#openTime button").index(this);
+// 			alert($("input[name=opentime]").eq(0).prop("value"));
+			$("input[name=opentime]").eq(index).attr("value","");
+			$("input[name=closetime]").eq(index).attr("value","");
+		});
+	});
 	
 </script>
 </head>
 <body>
+	<jsp:include page="../../inc/header.jsp"></jsp:include>
 	<c:if test="${sessionScope.sNickName ne 'admin'}">
 		<script>
 			alert("관리자가 아닙니다!");
@@ -103,13 +152,24 @@ table{
 					<td><input type="text" name="res_name" id="res_name" required="required"></td>
 				</tr>
 				<!-- 다음 주소로 교체할 수도? -->
+<!-- 				<tr> -->
+<!-- 					<th><label for="r_postcode">우편번호</label></th> -->
+<!-- 					<td><input type="text" name="r_postcode" id="r_postcode" required="required"></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<th><label for="address">상세주소</label></th> -->
+<!-- 					<td><input type="text" name="address" id="address" required="required"></td> -->
+<!-- 				</tr> -->
 				<tr>
-					<th><label for="r_postcode">우편번호</label></th>
-					<td><input type="text" name="r_postcode" id="r_postcode" required="required"></td>
+           		   	<th><label for="r_postcode">우편번호</label></th>
+					<td>
+	           		 	<input class="form-control" type="text" name="r_postcode" id="sample4_postcode"  readonly="readonly" required="required" onclick="execDaumPostcode()" >
+						<input class="w-btn-outline w-btn-green-outline"  type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+					</td>
 				</tr>
 				<tr>
-					<th><label for="address">상세주소</label></th>
-					<td><input type="text" name="address" id="address" required="required"></td>
+            		<th><label for="address">도로명주소</label></th> 
+           			<td><input class="form-control" type="text" name="address" id="sample4_roadAddress"  readonly="readonly" required="required" onclick="execDaumPostcode()" ></td>
 				</tr>
 				<tr>
 					<th><label for="phone_number">식당 전화번호</label></th>
@@ -138,13 +198,15 @@ table{
 			<img src="" alt="등록된 이미지 없음" id="image" width="300">
 			<h3 style="text-align: center"> 영업 시간 등록</h3> 
 					(휴무시 선택X)<br>
-					<b>월</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <br>
-					<b>화</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <br>
-					<b>수</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <br>
-					<b>목</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <br>
-					<b>금</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <br>
-					<b>토</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <br>
-					<b>일</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <br>
+					<section id="openTime">
+					<b>월</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest">휴무</button> <br>
+					<b>화</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>수</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>목</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>금</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>토</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					<b>일</b> <input type="time" name="opentime" value="09:00">~<input type="time" name="closetime" value="22:00"> <button type="button" class="rest>">휴무</button><br>
+					</section>
 					<br>
 			<h3>지도 위치 입력!</h3>
 			<div id="map" style="width:100%;height:350px;"></div>
@@ -201,6 +263,6 @@ table{
 			</section>
 		</form>
 	</section>
-	
+	<jsp:include page="../../inc/footer.jsp"></jsp:include>
 </body>
 </html>

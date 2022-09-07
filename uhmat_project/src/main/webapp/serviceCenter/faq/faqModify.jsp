@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ 글 수정</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	
 	<!-- Favicon-->
@@ -24,53 +24,95 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../../inc/header.jsp"></jsp:include>
+	<!-- 헤더 들어가는 곳 -->
+	<jsp:include page="../../inc/header.jsp"/>
+	<!-- 헤더 들어가는 곳 -->
+
 	<!-- 게시판 글 수정 -->
-	<section id="modifyForm">
-		<h1>게시판 글 수정</h1>
-		<form action="FAQModify.sc" name="faqModifyForm" method="post">
+	     <section class="page-section" id="contact">
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">FAQ 글 수정</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Form-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-7">
+                     <!-- * * * * * * * * * * * * * * *-->
+                     <!-- * * SB Forms Contact Form * *-->
+                     <!-- * * * * * * * * * * * * * * *-->
+                     <!-- This form is pre-integrated with SB Forms.-->
+                     <!-- To make this form functional, sign up at-->
+                     <!-- https://startbootstrap.com/solution/contact-forms-->
+                     <!-- to get an API token!-->
+		<form action="FAQModify.sc" name="faqModifyForm" method="post" enctype="multipart/form-data">
 		<!-- 게시물 수정에 필요한 글번호와 페이징 처리에 필요한 페이지번호도 함께 전달 -->
 		<input type="hidden" name="idx" value="${faq.idx }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
-			<table>
-				<tr>
-					<td class="td_left"><label for="nickname">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="nickname" value="${sessionScope.sNickName}" required="required" readonly="readonly"></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="subject">제목</label></td>
-					<td class="td_right"><input type="text" name="subject" value="${faq.subject}" required="required"></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="content">내용</label></td>
-					<td class="td_right"><textarea id="content" name="content" cols="40" rows="15" required="required" >${faq.content }</textarea></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="file">파일</label></td>
+		<input type="hidden" name="real_File" value="${faq.real_File }">
+		<input type="hidden" name="keyword" value="${param.keyword }">
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" name="nickname"  id="nickname" value="${sessionScope.sNickName }" readonly="readonly">
+				<label for="nickname">어맛인</label>					
+			</div>
+			
+			<div class="form-floating mb-3">	
+				<input type="text" class="form-control" name="subject" id="subject" value="${faq.subject }" required="required" maxlength="20" >
+				<label for ="subject">제목</label>
+			</div>
+			
+			<div class="form-floating mb-3">
+				<textarea class="form-control" id="content" name="content" style="height: 10rem" required="required" maxlength="2000">${faq.content }</textarea>
+				<label for ="content">내용</label>
+			</div>
+			
+			<div class="form-floating mb-3">
 					<!-- 파일 수정 기능은 제외(파일명만 표시) -->
-					<td class="td_right">${faq.original_File }(수정불가)</td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="category">카테고리</label></td>
-					<td colspan="3">
-						<select id="selectBox" name="category">
-							<option value="오류신고">오류신고</option>
-							<option value="음식점등록">음식점등록</option>
+					<input name="file" class="form-control" type="file" id="file" />${faq.original_File }
+					<label for="file">파일 첨부</label>
+			</div>
+			<div class="form-floating mb-3">
+			<select name="category" class="form-select form-select-sm" aria-label=".form-select-sm example">
+			  <option value="오류신고">오류신고</option>
+			  <option value="음식점등록">음식점등록</option>
+			  <option value="오류">지도 오류</option>
+			</select>			
+				<label for="category">카테고리</label>
+			</div>
 
-							<option value="지도 오류">지도 오류</option>
-
-						</select>
-					</td>
-				</tr>
-			</table>
-			<section id="commandCell">
-				<input type="submit" value="수정">&nbsp;&nbsp;
-				<input type="reset" value="다시쓰기">&nbsp;&nbsp;
-				<input type="button" value="취소" onclick="history.back()">
-			</section>
+			<div align="right" >
+				<input type="submit" class="btn btn-secondary" value="수정">
+				<input type="reset" class="btn btn-secondary" value="다시쓰기">
+				<input type="button" class="btn btn-secondary" value="취소" onclick="history.back()">
+			</div>
 		</form>
+		</div>
+		</div>
+	</div>
 	</section>
-	<jsp:include page="../../inc/footer.jsp"></jsp:include>
+	
+	<!-- 푸터 들어가는 곳 -->
+	<jsp:include page="../../inc/footer.jsp"/>
+	<!-- 푸터 들어가는 곳 -->
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+	
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<!-- * *                               SB Forms JS                               * *-->
+	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+	
 </body>
 </html>
 

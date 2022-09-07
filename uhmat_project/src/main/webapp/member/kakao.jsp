@@ -23,10 +23,11 @@
 				.request({
 					url : '/v2/user/me',
 					success : function(response) {
+						
 						$("#api_id").val(response.id);
 						$("#nickname").val(response.kakao_account.profile.nickname);
 						$("#email").val(response.kakao_account.email);
-				
+						document.kakaoLogin.submit();
 					},
 					fail : function(error) {
 						console.log(error);
@@ -59,7 +60,7 @@
 		src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
 		width="300" height="50"/>
 	</a>
-	 <form action="MemberKakaoJoinPro.me">
+	 <form action="MemberKakaoJoinPro.me" name="kakaoLogin"method="post">
                 <input type="hidden" id="api_id" name="api_id">
                 <input type="hidden"  id="nickname" name="nickname">
                 <input type="hidden"  id="email" name="email">

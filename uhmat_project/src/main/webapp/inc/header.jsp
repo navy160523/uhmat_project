@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet" type="text/css">
 <script src="https://kit.fontawesome.com/5382a0d7e0.js" crossorigin="anonymous"></script>
-
+<script src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 	function confirmLogout() {
 		if(confirm("로그아웃 하시겠습니까?")) { // 확인 : true, 취소 : false 리턴됨
@@ -39,7 +39,7 @@
 					님 </a>&nbsp; <a href="MemberLogout.me">로그아웃</a>
 				<%-- 세션 아이디가 "admin" 일 때만 관리자페이지 링크("AdminMain.me") 표시 --%>
 				<c:if test="${sessionScope.sNickName eq 'admin'}"> &nbsp; <a
-						href="AdminMain.me">관리자페이지</a>
+						href="AdminMain.ad">관리자페이지</a>
 				</c:if>
 			</c:otherwise>
 		</c:choose>
@@ -54,10 +54,10 @@
     		<a href="CompanyDetail.cp">회사소개</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="CompanyDetail.cp">회사 소개</a></li>
-					<li><a href="UhmatDetail.cp">어맛 소개</a></li>
-					<li><a href="DeveloperDetail.cp">개발자 소개</a></li>
-					<li><a href="Policy.cp">이용약관</a></li>
+					<li><div onclick="location.href='CompanyDetail.cp'" style="cursor:pointer;">회사 소개</div></li>
+					<li><div onclick="location.href='UhmatDetail.cp'" style="cursor:pointer;">어맛 소개</div></li>
+					<li><div onclick="location.href='DeveloperDetail.cp'" style="cursor:pointer;">개발자 소개</div></li>
+					<li><div onclick="location.href='Policy.cp'" style="cursor:pointer;">이용약관</div></li>
 				</ul>	
 				</div>
   	  	</div>
@@ -71,9 +71,9 @@
     		<a href="ReviewList.re">어맛리뷰</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="ReviewList.re">어맛리뷰</a></li>
-					<li><a href="resCategory.re">카테고리별 리뷰</a></li>
-					<li><a href="mapForm.re">지도로 찾기</a></li>
+					<li><div onclick="location.href='ReviewList.re'" style="cursor:pointer;">어맛리뷰</div></li>
+					<li><div onclick="location.href='restaurantList.re'" style="cursor:pointer;">식당 리스트</div></li>
+					<li><div onclick="location.href='mapForm.re'" style="cursor:pointer;">지도로 찾기</div></li>
 				</ul>	
 				</div>
   	  	</div>
@@ -85,9 +85,9 @@
     		<a href="MateList.co">커뮤니티</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="MateList.co">어맛 메이트</a></li>
-					<li><a href="TmiList.co">어맛인들의 tmi</a></li>
-					<li><a href="RecipeList.co">어맛 레시피</a></li>
+					<li><div onclick="location.href='MateList.co'" style="cursor:pointer;">어맛 메이트</div></li>
+					<li><div onclick="location.href='TmiList.co'" style="cursor:pointer;">어맛인들의 tmi</div></li>
+					<li><div onclick="location.href='RecipeList.co'" style="cursor:pointer;">어맛 레시피</div></li>
 				</ul>	
 				</div>
   	  	</div>
@@ -96,10 +96,10 @@
   	  	<!-- 이벤트 게시판 주소 추가하시면 됩니다 -->
   	  	<li>
   	  	<div class="dropdown">
-    		<a href="./event/NewFile.jsp">이벤트</a>
+    		<a href="Roulette.ev">이벤트</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="#">어맛룰렛</a></li>
+					<li><div onclick="location.href='Roulette.ev'" style="cursor:pointer;">어맛 룰렛</div></li>
 				</ul>	
 				</div>
   	  	</div>
@@ -111,8 +111,8 @@
     		<a href="ServiceCenterMain.sc">고객센터</a>
     			<div class="dropdownContent">
 				<ul>
-					<li><a href="NoticeList.sc">공지사항</a></li>
-					<li><a href="FAQList.sc">FAQ</a></li>
+					<li><div onclick="location.href='NoticeList.sc'" style="cursor:pointer;">공지사항</div></li>
+					<li><div onclick="location.href='FAQList.sc'" style="cursor:pointer;">FAQ</div></li>
 				</ul>	
 				</div>
   	  	</div>

@@ -87,7 +87,7 @@ public class MemberDAO {
 		String sql = "";
 		
 		try {
-			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,null,?,?)";
+			sql = "INSERT INTO member VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getNickname());
 			pstmt.setString(2, dto.getName());
@@ -97,8 +97,9 @@ public class MemberDAO {
 			pstmt.setString(6, dto.getPostCode());
 			pstmt.setString(7, dto.getAddress1());
 			pstmt.setString(8, dto.getAddress2());
-			pstmt.setString(9, dto.getAuth_status());
-			pstmt.setString(10, dto.getApi_id());
+			pstmt.setString(9, "1-1.jpg");
+			pstmt.setString(10, dto.getAuth_status());
+			pstmt.setString(11, dto.getApi_id());
 			
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -301,16 +302,17 @@ public class MemberDAO {
 		return isApiUserSuccess;
 	}
 
-	public int newPassword(String email, String passwd) {
+	public int newPassword(String email, String passwd,String nickname) {
 		int updateCount = 0;
 
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "UPDATE member SET passwd=? WHERE email=?";
+			String sql = "UPDATE member SET passwd=? WHERE email=? or nickname=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, passwd);
 			pstmt.setString(2, email);
+			pstmt.setString(3, nickname);
 			updateCount = pstmt.executeUpdate();
 			System.out.println("패스워드 갱신 성공!");
 		} catch (SQLException e) {
@@ -325,7 +327,7 @@ public class MemberDAO {
 	}
 
 	public MemberDTO selectMember(String nickName) {
-//		System.out.println("selectMember");
+		System.out.println("selectMember");
 		MemberDTO member = null;
 
 		PreparedStatement pstmt = null;
@@ -346,7 +348,8 @@ public class MemberDAO {
 				member.setPostCode(rs.getString("postcode"));
 				member.setAddress1(rs.getString("address1"));
 				member.setAddress2(rs.getString("address2"));
-
+				member.setIcon(rs.getString("icon"));
+				System.out.println("내정보:"+member);
 //				System.out.println(member);
 			}
 		} catch (SQLException e) {
@@ -370,11 +373,13 @@ public class MemberDAO {
 			String sql = "SELECT * FROM member WHERE email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, email);
+			
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				member = new MemberDTO();
 				member.setNickname(rs.getString("nickname"));
+				member.setIcon(rs.getString("icon"));
 
 			}
 		} catch (SQLException e) {
@@ -395,7 +400,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "UPDATE member SET nickname=?,name=?,birthdate=?, postcode=?,address1=?,address2=? WHERE email=?";
+			String sql = "UPDATE member SET nickname=?,name=?,birthdate=?, postcode=?,address1=?,address2=?,icon=? WHERE email=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getNickname());
 			pstmt.setString(2, member.getName());
@@ -403,7 +408,8 @@ public class MemberDAO {
 			pstmt.setString(4, member.getPostCode());
 			pstmt.setString(5, member.getAddress1());
 			pstmt.setString(6, member.getAddress2());
-			pstmt.setString(7, member.getEmail());
+			pstmt.setString(7, member.getIcon());
+			pstmt.setString(8, member.getEmail());
 
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -438,7 +444,7 @@ public class MemberDAO {
 			
 			while(rs.next()) {
 				System.out.println("rs.next()");
-				sql = "SELECT (COUNT(m.subject) + COUNT(t.subject) + COUNT(r.subject)) AS NUM FROM member me INNER JOIN community_mate m ON me.nickname = m.nickname  INNER JOIN community_tmi t ON m.nickname = t.nickname  INNER JOIN reviewboard r ON t.nickname = r.nickname WHERE r.nickname = ?";
+				sql = "SELECT ((select Count(subject) from community_mate as m where m.nickname=ma.nickname)+(select Count(subject) from community_tmi as t where t.nickname=ma.nickname)+(select Count(subject) from community_recipe as r where r.nickname=ma.nickname)+(select Count(subject) from reviewboard as v where v.nickname=ma.nickname)+(select Count(subject) from faqboard as f where f.nickname=ma.nickname)+(select Count(subject) from noticeboard as n where n.nickname=ma.nickname)) as NUM FROM member as ma WHERE ma.nickname =?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, rs.getString("nickname"));
 				rs2 = pstmt.executeQuery();
@@ -670,7 +676,7 @@ public class MemberDAO {
 					Board.setNickname(rs.getString("nickname"));
 					Board.setSubject(rs.getString("subject"));
 					Board.setContent(rs.getString("content"));
-					Board.setDatetime(rs.getTimestamp("datetime"));
+					Board.setDate(rs.getTimestamp("datetime"));
 					BoardList.add(Board);
 					System.out.println("Recipe - selectAnythingList() 호출!");
 
@@ -689,6 +695,78 @@ public class MemberDAO {
 		}
 		System.out.println("selectAnythingList - " + BoardList);
 		return BoardList;
+	}
+
+	public boolean alterPasswdCheck(String email, String alterPasswd, String nickname) {
+		boolean isPasswdCheck = false;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+
+		try {
+			String sql = "SELECT * from member where passwd=? and (email=? or nickname=?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, alterPasswd);
+			pstmt.setString(2, email);
+			pstmt.setString(3, nickname);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isPasswdCheck=true;
+				
+			}
+			System.out.println("체크 성공!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+
+		}
+
+		return isPasswdCheck;
+	}
+
+	public int deleteBoard(int idx, String title) {
+		if (title.equals("FAQ")) {
+			title="FAQBoard";
+			System.out.println("FAQ - selectAnythingList() 호출!");
+		}
+		if (title.equals("Notice")) {
+			title="noticeboard";
+			System.out.println("FAQ - selectAnythingList() 호출!");
+		}
+		if (title.equals("Mate")) { 
+			title="community_Mate";
+			System.out.println("Mate - selectAnythingList() 호출!");
+		}
+		if (title.equals("Tmi")) { 
+			title="community_Tmi";
+			System.out.println("Tmi - selectAnythingList() 호출!");
+		}
+		if (title.equals("Recipe")) {
+			title="community_Recipe";
+			System.out.println("Recipe - selectAnythingList() 호출!");
+
+		}
+		int deleteCount = 0;
+
+		PreparedStatement pstmt = null;
+
+		try {
+			String sql = "DELETE FROM "+title+" WHERE idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL 구문 오류 - deleteMate() : " + e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+
+		return deleteCount;
+	
 	}
 
 

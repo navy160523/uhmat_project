@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.FAQDetailService;
+import svc.serviceCenter.FAQDetailService;
 import vo.ActionForward;
 import vo.FAQDTO;
 import vo.FAQReplyDTO;
@@ -17,6 +17,7 @@ public class adminFAQDetailAction implements Action {
 		ActionForward forward = null;
 		
 		int idx = Integer.parseInt(request.getParameter("idx"));
+		String title=request.getParameter("title");
 //		System.out.println("idx : " + idx);
 		
 		FAQDetailService service = new FAQDetailService();
@@ -32,7 +33,7 @@ public class adminFAQDetailAction implements Action {
 		request.setAttribute("reply", reply);
 		
 		forward = new ActionForward();
-		forward.setPath("admin/faqDetail.jsp");
+		forward.setPath("admin/faqDetail.jsp?title="+title);
 		forward.setRedirect(false);
 		
 		return forward;

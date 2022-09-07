@@ -19,13 +19,16 @@ public class MemberLogoutAction implements Action {
 		HttpSession session = request.getSession();
 		if(session!=null) {
 		session.invalidate();
-		}
+		forward = new ActionForward();
+		forward.setPath("main.jsp"); 
+		forward.setRedirect(true);
+		}else {
 		
 		// 메인페이지 포워딩
 		forward = new ActionForward();
 		forward.setPath("main.jsp"); 
 		forward.setRedirect(true);
-		
+		}
 		return forward;
 	}
 

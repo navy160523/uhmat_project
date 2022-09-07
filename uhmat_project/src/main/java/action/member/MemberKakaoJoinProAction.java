@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import mail.GenerateUserAuthenticationCode;
 import svc.member.MemberGoogleJoinProService;
 import svc.member.MemberKakaoJoinProService;
+import util.SHA256;
 import vo.ActionForward;
 import vo.MemberDTO;
 
@@ -20,10 +22,14 @@ public class MemberKakaoJoinProAction implements Action {
 		 String email= request.getParameter("email");
 		 String nickname=request.getParameter("nickname");
 		 String api_id=request.getParameter("api_id");
+		 
+		 GenerateUserAuthenticationCode genAuthCode = new GenerateUserAuthenticationCode(10);
+		 String rawPasswd = genAuthCode.getAuthCode();
+		 String passwd= SHA256.encodeSha256(rawPasswd);
 		 MemberDTO member = new MemberDTO();
 		 member.setEmail(email);
 		 member.setName(null);
-		 member.setPasswd(null);
+		 member.setPasswd(passwd);
 		 member.setNickname("카카오"+nickname);
 		 member.setAuth_status("Y");
 		 member.setApi_id(api_id);
@@ -56,7 +62,7 @@ public class MemberKakaoJoinProAction implements Action {
 						session.setAttribute("sNickName", member.getNickname());
 						
 						forward = new ActionForward();
-						forward.setPath("index.jsp");
+						forward.setPath("main.jsp");
 						forward.setRedirect(true);
 					}
 				}

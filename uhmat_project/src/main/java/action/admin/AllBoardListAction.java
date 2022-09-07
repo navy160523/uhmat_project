@@ -11,11 +11,11 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 
 import action.Action;
-import svc.FAQListService;
-import svc.MateListProService;
-import svc.NoticeListService;
-import svc.RecipeListProService;
-import svc.TmiListService;
+import svc.community.MateListProService;
+import svc.community.RecipeListProService;
+import svc.community.TmiListService;
+import svc.serviceCenter.FAQListService;
+import svc.serviceCenter.NoticeListService;
 import vo.ActionForward;
 import vo.CommunityTmiDTO;
 import vo.FAQDTO;

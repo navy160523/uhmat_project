@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,35 +16,24 @@
 </style>
 </head>
 <body>
-		<jsp:include page="../../inc/header.jsp"></jsp:include>
-			
-		<section id="listForm">
+			<jsp:include page="../../inc/header.jsp"></jsp:include>
 		
 		<h2>Notice</h2>
 		
-		<div id="topButton">
-			<br>
-				<input type="button" class="topButton c1" value="전체" name="" onclick="location.href='NoticelistCategory.sc?name='+name">
-				<input type="button" class="topButton c2" value="알림" name="알림" onclick="location.href='NoticelistCategory.sc?name='+name">
-				<input type="button" class="topButton c3" value="보도기사" name="보도기사" onclick="location.href='NoticelistCategory.sc?name='+name">
-<!-- 				<section style="clear: both;"></section> -->
-			<br>
-		
-		<!-- 검색하기 기능 -->
-		<form action="NoticeList.sc" method="get" id="keyword">
-			<input type="text" placeholder="검색어를 입력하세요" name="keyword" value=${param.keyword }>
-			<input type="submit" value="검색" id="bt">
-		</form>
-		
+		<div id="menuBar" align="center">
+				<input type="button"  class="topButton" value="전체" name="" onclick="location.href='NoticelistCategory.sc?name='+name">
+				<input type="button" class="topButton" value="알림" name="알림" onclick="location.href='NoticelistCategory.sc?name='+name">
+				<input type="button" class="topButton" value="보도기사" name="보도기사" onclick="location.href='NoticelistCategory.sc?name='+name">	<section style="clear: both;"></section>
 		</div>
 		
-		<table border="1">
-			<tr id="tr_top">
-				<td width="150px">카테고리</td>
-				<td width="100px">번호</td>
+		<table class="noticeList">
+			<tr>
+				<td>카테고리</td>
+				<td>번호</td>
 				<td>제목</td>
-				<td width="150px">작성자</td>
-				<td width="150px">날짜</td>
+				<td>작성자</td>
+				<td>날짜</td>
+				<td>첨부파일</td>
 			</tr>
 			<!-- 게시물 목록 출력(단, 게시물이 하나라도 존재할 경우에만 출력) -> JSTL과 EL 활용-->
 			<!-- JSTL의 c:choose 태그를 사용하여 게시물 존재 여부 판별 -->
@@ -54,17 +42,21 @@
 	 		<c:choose>
 	 			<c:when test="${not empty list and pageInfo.listCount gt 0 }">
 					<!-- c:foreach 태그를 사용하여 boardList 객체의 BoardDTO 객체를 꺼내서 출력 --> 				
-					<c:forEach var="notice" items="${list}"> 
-						<tr>
+					<c:forEach var="notice" items="${list }"> 
+						<tr class="noticeListTable">
 						 	<td>${notice.category }</td>
 							<td>${notice.idx }</td>
-							<td id="subject">
-								<a href="NoticeDetail.sc?idx=${notice.idx}&pageNum=${pageInfo.pageNum}">
+							<td class="link" width="350" height="50" onclick="location.href='NoticeDetail.sc?idx=${notice.idx}&pageNum=${pageInfo.pageNum}'">
 									${notice.subject }
-								</a>
 							</td>
 							<td>${notice.nickname }</td>
 							<td>${notice.date }</td>
+							<td>
+	 						
+		 						<c:if test="${not empty notice.real_File }">
+		 							<i class='fas fa-link' style='font-size:20px; color:blue'></i>
+		 						 </c:if>
+	 						 </td>
 						</tr>
 					</c:forEach>
 	 			</c:when>
@@ -74,11 +66,26 @@
 	 		</c:choose>
 			
 		</table>
-		</section>
 		
+		<!-- 검색하기 기능 -->
+		<div align="center">
+		<form action="NoticeList.sc" class="search" method="get" id="keyword">
+			<input type="text" placeholder="search" name="keyword" value=${param.keyword }>
+			<input type="submit" class="searchBtn" value="검색">
+			
+		<c:if test="${sessionScope.sNickName eq 'admin'}"> 
+			<div style="position: static; left: 800px;">
+			<br>
+			<button type="button" class="noticeButton"  onclick="location.href='NoticeWriteForm.sc'">글쓰기</button>
+			</div>
+		</c:if>
+		</form>
 		
+		<br>
 		
-		<section id="pageList">
+		</div>
+		
+		<div align="center">
 		<!-- 
 		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작
 		=> 클릭 시 BoardList.bo 서블릿 주소 요청하면서 
@@ -87,10 +94,10 @@
 			<c:choose>
 				<c:when test="${pageInfo.pageNum > 1}">
 	
-					<input type="button" value="이전" onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'" id="bt">
+					<input type="button" value="이전" class="before_next"  onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum - 1}&keyword=${param.keyword }'" id="bt">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="이전" disabled="disabled" id="bt">
+					<input type="button" value="이전" class="before_next"  disabled="disabled" id="bt">
 				</c:otherwise>
 			</c:choose>
 				
@@ -110,20 +117,33 @@
 			<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 			<c:choose>
 				<c:when test="${pageInfo.pageNum lt pageInfo.maxPage }">
-					<input type="button" value="다음" onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" id="bt">
+					<input type="button" value="다음" class="before_next"  onclick="location.href='NoticeList.sc?pageNum=${pageInfo.pageNum + 1}&keyword=${param.keyword }'" id="bt">
 				</c:when>
 				<c:otherwise>
-					<input type="button" value="다음" disabled="disabled" id="bt">
+					<input type="button" value="다음" class="before_next"  disabled="disabled" id="bt">
 				</c:otherwise>
 			</c:choose>
-		</section>
-		<c:if test="${sessionScope.sNickName eq 'admin'}"> 
-			<section id="buttonArea">
-				<input type="button" value="글쓰기" onclick="location.href='NoticeWriteForm.sc'" id="bt" />
-			</section>
-		</c:if>
+		</div>
 		
 		<jsp:include page="../../inc/footer.jsp"/>
+		
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
+
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<!-- * *                               SB Forms JS                               * *-->
+	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>
 

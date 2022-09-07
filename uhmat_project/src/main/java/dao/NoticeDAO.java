@@ -101,12 +101,15 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "UPDATE NoticeBoard SET nickname=?, subject=?, content=? WHERE idx=?";
+			String sql = "UPDATE NoticeBoard SET nickname=?, subject=?, content=?, category=?, original_File=?, real_File=? WHERE idx=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, notice.getNickname());
 			pstmt.setString(2, notice.getSubject());
 			pstmt.setString(3, notice.getContent());
-			pstmt.setInt(4, notice.getIdx());
+			pstmt.setString(4, notice.getCategory());
+			pstmt.setString(5, notice.getOriginal_File());
+			pstmt.setString(6, notice.getReal_File());
+			pstmt.setInt(7, notice.getIdx());
 			
 			updateCount = pstmt.executeUpdate();
 //			System.out.println(updateCount);

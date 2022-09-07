@@ -4,7 +4,7 @@ import java.util.*;
 
 import javax.servlet.http.*;
 
-import svc.*;
+import svc.serviceCenter.*;
 import vo.*;
 
 public class ServiceCenterMainAction implements Action {

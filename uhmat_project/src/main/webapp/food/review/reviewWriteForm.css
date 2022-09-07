@@ -3,7 +3,7 @@
 
 /* 별점 CSS */
 
-.row {
+.line {
   text-align: left;
 }
 
@@ -61,29 +61,51 @@ input:checked ~ label:hover ~ label {
 
 /*------------------------------------------------------------------------------ */
 
+.mainLogo > a > img {
+	float: left;
+	max-width: 600px;
+	max-height:90px;
+	width: auto;
+	height: auto;
+/* 	background-size: cover; */
+	background-color: transparent;
+	margin-left: 0.75em;
+	z-index: 999999999999999;
+/* 	margin-top: 3px; */
+}
+.loginPart {
+	position: relative;
+	float: right;
+/* 	margin-right: 15em; */
+	margin-top: 2em;
+	margin-right: 1em;
+}
 
-form {
-	font-size: 2em;
-	margin-left: 700px;
+.loginPart > a {
+	text-decoration: none;
+	font-size: 14px;
+	position: relative;
+}
+
+hr {
+	clear: both;
+	border: 0.75em solid #FF1818;
+	
+}
+body {
+	width: 100%;
+}
+
+#mother {
+	margin: 50px auto;
+	width: 900px;
 	height: 800px;
-	width: 1000px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	border-radius:10px;
-	padding: 40px 100px;
+	padding: 50px 40px 50px 80px;
 }
 
-tr,td{
-	padding-top: 10px;
-}
-input {
-  width: 500px;
-  height: 32px;
-  font-size: 15px;
-  border: 0;
-  border-radius: 15px;
-  outline: none;
-  padding-left: 10px;
-  background-color: rgb(233, 233, 233);
+section div {
+	margin: 20px 0;
 }
 .btn {
 	height: 40px;
@@ -92,10 +114,49 @@ input {
 	border-radius: 10px;
 }
 
-input:hover, .btn:hover {
+.btn:hover {
 	background-color: #a3a1a1;
     color: #e3dede;
     transform: scale(1.1);
     cursor: pointer;
 }
+
+.dv {
+	width:600px;
+}
+
+.dv input {
+	font-size: 1.5em;
+	border-color: none;
+	border:none;
+	border-bottom: 1px solid #ccc;
+	width: 500px;
+}
+
+.dv input:focus {
+	outline-style: none; 
+	border-bottom: 2px solid red;
+}
+
+.lv {
+font-size: 16px;
+opacity: 90%;
+display: block;
+width: 100px;
+color: #ccc;
+}
+
+form textarea {
+	outline-style: none;
+	font-size: 1.4em;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+
+
+
+
+
+
 
