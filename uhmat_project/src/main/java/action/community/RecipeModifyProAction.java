@@ -1,23 +1,18 @@
 package action.community;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
+import java.nio.file.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.oreilly.servlet.*;
+import com.oreilly.servlet.multipart.*;
 
-import action.Action;
-import svc.community.RecipeDetailService;
-import svc.community.RecipeModifyProService;
-import vo.ActionForward;
-import vo.RecipeDTO;
+import action.*;
+import svc.community.*;
+import vo.*;
 
 public class RecipeModifyProAction implements Action {
 
